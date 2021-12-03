@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon-Battle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="mainContainer">
+
+            <div class="pokeBattleCard">
+                <p id="wildPokeName"></p>
+                <div class="progress"></div>
+            </div>
+            <img src="" alt="Pokemon" id="imgPoke">
+            
+            <img src="" alt="Pokemon" id="imgMyPoke">
+            <div class="myPokeBattleCard">
+                <div class="progress"></div>
+                <p id="myPokeName"></p>
+            </div>
+            
+
+        <div class="buttonContainer">
+            <button class="actionButton" style="background-color: red;">Kampf</button>
+            <button class="actionButton" style="background-color: green;">Pokeball</button>
+            <button class="actionButton" style="background-color: blue;">Fliehen</button>
+        </div>
+    </div>
+
+
+
+
+    <script>
+let currentWildPokemon;
+let myCurrentPokemon;
+let wildPokeImage = document.getElementById("imgPoke");
+let wildPokeName = document.getElementById("wildPokeName");
+let myPokeImage = document.getElementById("imgMyPoke");
+let myPokeName = document.getElementById("myPokeName");
+let myCatchedPokemons = [];
+let myTeam = [];
+
+
+class Pokemon {
+    constructor(id, name, type, level, moves, spriteFront, spriteBack, statAttack, statDefense, xp, kp) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.level = level;
+        this.moves = moves;
+        this.spriteFront = spriteFront;
+        this.spriteBack = spriteBack;
+        this.statAttack = statAttack;
+        this.statDefense = statDefense;
+        this.xp = xp;
+        this.kp = kp;
+    }
+}
+
+class PokeMove {
+    constructor(name, descr, accuracy, damage, minHits, maxHits, pp) {
+        this.name = name,
+        this.descr = descr,
+        this.accuracy = accuracy,
+        this.damage = damage,
+        this.minHits = minHits,
+        this.maxHits = maxHits,
+        this.pp = pp
+    }
+}
+
+
+
+// Statisches Pokemon -- Glurak
+const myStaticPokemon = new Pokemon(6,"Charizard","fire", 25, "mega-punch",
+ "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+ "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/6.png",
+ 84,78,0, 100);
+
+ window.onload = initGame();
+
+function initGame() {
+    createWildPokemon();
+    createMyPokemon();
+}
+
+function createWildPokemon() {
+    const rndPokeID = parseInt(Math.random() * 200 + 1);
+    fetchPokemon(rndPokeID);
+}
+
+function createMyPokemon() {
+    myPokeImage.src = myStaticPokemon.spriteBack
+    myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Level: ${myStaticPokemon.level}`
+}
+
+function fetchPokemon(id) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+    .then((res) => res.json())
+    .then(data => {
+        console.log(data)
+        currentWildPokemon = new Pokemon(data.id,
+                                     data.name,
+                                     data.types[0].type.name,
+                                     parseInt(Math.random() * 20) + 3,
+                                     data.moves[0].move.name,
+                                     data.sprites.front_default,
+                                     data.sprites.back_default,
+                                     data.stats[1].base_stat,
+                                     data.stats[2].base_stat,
+                                     data.base_experience,
+                                     100)
+        console.log(currentWildPokemon)
+        wildPokeImage.src = currentWildPokemon.spriteFront
+        wildPokeName.innerHTML = `${makeFirstLetterBig(currentWildPokemon.name)} | Level: ${currentWildPokemon.level}`
+        fetchAttack(currentWildPokemon.moves)
+    });
+}
+
+function makeFirstLetterBig(word) {
+    const firstLetter = word[0];
+    let expWord = firstLetter.toUpperCase();
+    for(let i = 1; i < word.length; i++) {
+        expWord += word[i];
+    }
+    return expWord;
+}
+
+// Attacke abspeichern
+function fetchAttack(nameId) {
+    fetch(`https://pokeapi.co/api/v2/move/${nameId}/`)
+    .then((res) => res.json())
+    .then(data => {
+        console.log(data)
+        console.log(`${data.names[4].name} | ${data.flavor_text_entries[22].flavor_text} | Genauigkeit: ${data.accuracy} | Schaden: ${data.power} | Min Hits: ${data.meta.min_hits} | Max Hits: ${data.meta.max_hits} | Anzahl: ${data.pp}`)
+    });
+}
+
+
+
+
+
+/*
+
+            "ghost": "Geist",
+        
+            "dark": "Unlicht",
+        
+            "electric": "Elektro",
+        
+            "normal": "Normal",
+        
+            "fire": "Feuer",
+        
+            "psychic": "Psycho",
+        
+            "flying": "Flug",
+        
+            "steel": "Stahl",
+        
+            "poison": "Gift",
+        
+            "dragon": "Drache",
+        
+            "water": "Wasser",
+        
+            "ice": "Eis",
+        
+            "rock": "Gestein",
+        
+            "fighting": "Kampf",
+        
+            "grass": "Pflanze",
+        
+            "bug": "Käfer",
+        
+            "ground": "Boden",
+        
+            "fairy": "Fee",
+        
+
+*/
+
+
+    </script>
+</body>
+</html>
