@@ -66,7 +66,7 @@ body{
     height: 50px;
     /* position: fixed; /* Stay fixed */
     top: 80%;
-    left: 30%; */
+    left: 30%; 
 }
 
 .pokeBattleCard{
@@ -107,11 +107,47 @@ body{
     
 }
 
-.progress{
-    width: 70%;
+.wildPokeprogr{
+    position: absolute;
+    width: 80%;
+    top: 90%;
+}
+
+.wildPokeProgressColor{
+    width: 100%;
     height: 10px;
     background-color: green;
     border: 1px solid black;
     /* margin-bottom: 10px; */
     border-radius: 5px;
+    transition: 1s ease;
+}
+
+
+
+
+.progress{
+    width: 100%;
+    height: 10px;
+    background-color: green;
+    border: 1px solid black;
+    /* margin-bottom: 10px; */
+    border-radius: 5px;
+    transition: 1s ease;
+}
+
+
+.infBox{
+    position: fixed;
+    top: 20%;
+    width: 90%;
+    height: 60px;
+    z-index: 11;
+    background-color: rgba(255, 255, 255, 0.514);
+    border: 3px solid black;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+    padding-top: 10%;
 }
