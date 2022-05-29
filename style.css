@@ -178,6 +178,7 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    font-size: 0;
 }
 
 .container {
@@ -200,10 +201,11 @@ h1 {
     border-bottom: 1px solid white;
 }
 
-.container p {
+
+.pokedexName {
     font-family: sans-serif;
     font-weight: bold;
-    font-size: 10pt;
+    font-size: 13pt;
     color: white;
 }
 
