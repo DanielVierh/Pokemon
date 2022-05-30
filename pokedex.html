@@ -13,47 +13,7 @@
     <a href="index.html">Zurück</a>
     <h1>Pokedex</h1>
     <br>
-    <div class="wrapper" id="cards">
-        <!-- <div class="container greenContainer">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="">
-            <p>Bisasam</p>
-        </div>
-
-        <div class="container orangeContainer">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="">
-            <p>Glurak Lv.7</p>
-        </div>
-
-        <div class="container blueContainer">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png" alt="">
-            <p>Schiggy</p>
-        </div>
-
-        <div class="container yellowContainer">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="">
-            <p>Pikachu</p>
-        </div>
-
-        <div class="container purpleContainer">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/30.png" alt="">
-            <p>Nodorina</p>
-        </div>
-
-        <div class="container brownContainer">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/50.png" alt="">
-            <p>Digda</p>
-        </div>
-
-        <div class="container greyContainer">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/53.png" alt="">
-            <p>Snobilikat</p>
-        </div>
-
-        <div class="container greyContainer">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/24.png" alt="">
-            <p>Snobilikat</p>
-        </div> -->
-    </div>
+    <div class="wrapper" id="cards"></div>
 
     <script>
 
@@ -97,7 +57,7 @@
             const cont = document.createElement('div');
             const txtlbl = document.createElement('p');
             const imgP = document.createElement('img');
-            txtlbl.innerText = `${name} Lv.${level}`;
+            txtlbl.innerText = `${name} Nr.${id}`;
             txtlbl.classList.add('pokedexName');
             imgP.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
             cont.appendChild(imgP);
@@ -137,6 +97,9 @@
                     break;
                 case 'rock':
                     return 'brownContainer';
+                    break;
+                case 'electric':
+                    return 'yellowContainer';
                     break;
 
                 default:
