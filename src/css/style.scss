@@ -24,8 +24,8 @@ body{
     bottom: 5%;
     left: 10px;
   }
-  
-  
+
+
   .wildPokemonImage {
     width: 260px;
     height: auto;
@@ -104,6 +104,21 @@ body{
     text-align: center;
     padding-top: 10%;
 
+}
+
+.pokeball {
+    display: none;
+
+    &.active {
+        display: block;
+        position: fixed;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+    }
 }
 
 

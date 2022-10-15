@@ -25,9 +25,27 @@ const battleSound2 = new Audio('assets/sound/battle2.mp3');
 const victorySound = new Audio('assets/sound/victory.mp3');
 let musikIsPlaying = true; // Wenn auf false, wird sie nach erster Aktion abgespielt
 let myPokeballAmount = 35;
-let todayPokemons = []; // 20 Pokemon werden random mäßig erstellt 
+let todayPokemons = []; // 20 Pokemon werden random mäßig erstellt
 const maxPokemon = 898;
+const pokemonGenerationen = {
+    gen1_start: 1,
+    gen1_end: 150
+}
+const pokeball = document.getElementById("pokeball");
 
+let pokemon_Save_Obj = {
+    today_Date: '',
+    myPokemonTeam: [],
+    myCatchedPokemons: [],
+    allFacedPokemons: [],
+    today_Pokemons: [],
+    items: {
+        pokeballs: 20,
+        money: 100,
+    }
+}
+
+console.log('Saveobj ', pokemon_Save_Obj);
 
 
 //######################################################
@@ -90,15 +108,19 @@ function init() {
 // Funktion erstellt zufällig 30 Pokemon. Diese sollen für einen Tag abgespeichert
 // werden und die möglichen Pokemon bildem, denen man begegnen kann
 function generate_today_Pokemons() {
+    const min = pokemonGenerationen.gen1_start;
+    const max = pokemonGenerationen.gen1_end;
+
     for(let i = 1; i <= 20; i++) {
-        const randomPokemon = parseInt(Math.random() * maxPokemon + 1)
-        todayPokemons.push(randomPokemon);
-        console.log(todayPokemons);
+         const randomPokemon = Math.floor(Math.random() * (max - min) ) + min;
+         todayPokemons.push(randomPokemon);
     }
+
+    console.log('Today Pokemons', todayPokemons);
 }
 
 // Random Pokemon aus heutiger Liste
-//!TOdo Liste noch abspeichern und Tag checken
+//!Todo Liste noch abspeichern und Tag checken
 function currentRandomPokemon() {
     const randomPokemon = parseInt(Math.random() * todayPokemons.length);
     fetchPokemon(todayPokemons[randomPokemon]);
@@ -113,7 +135,6 @@ function uniqueID_Generator() {
     for(let i = 1; i <= 36; i++) {
         key += rndStuff[parseInt(Math.random() * rndStuff.length)];
     }
-    console.log(key);
     return key;
 }
 
@@ -140,19 +161,24 @@ function fetchPokemon(id) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
     .then((res) => res.json())
     .then(data => {
-        console.log(data)
+        console.log('data', data)
+        let four_moves = [];
+        for(let i = 0; i <= 4; i++) {
+           const randomMove =  Math.floor(Math.random() * (data.moves.length - 1) ) + 1;
+           four_moves.push(data.moves[randomMove].move.name);
+        }
         currentWildPokemon = new Pokemon(data.id,
                                      data.name,
                                      data.types[0].type.name,
                                      parseInt(Math.random() * 20) + 3,
-                                     data.moves[0].move.name,
+                                     four_moves,
                                      data.sprites.front_default,
                                      data.sprites.back_default,
                                      data.stats[1].base_stat,
                                      data.stats[2].base_stat,
                                      data.base_experience,
                                      data.stats[0].base_stat)
-        console.log(currentWildPokemon)
+        console.log('currentWildPokemon', currentWildPokemon)
         // Wildes Pokemon rendern
         wildPokeImage.src = currentWildPokemon.spriteFront
         wildPokeImage.style.opacity = "1";
@@ -177,36 +203,24 @@ function catchPokemon() {
     // Abfragen, ob man noch Pokebälle hat
 if( myPokeballAmount > 0) {
     myPokeballAmount--;
-    const fullHP = currentWildPokemon.hp;
-    const hpInPercent = parseInt(currentWildPokeHP * 100 / fullHP);
-    const catchquote = 25 + (parseInt(Math.random() * hpInPercent  / 2)) - (parseInt(Math.random() * (hpInPercent + 5)));
-    console.log(`Catchquote: ${catchquote} // Pokebälle: ${myPokeballAmount}`);
-    if(catchquote >= 25) {
-        // Checken, ob Pokemon bereits im Array
-        let foundInCatchedPokemonArray = false;
-        for(let i = 0; i < myCatchedPokemons.length; i++) {
-            if(myCatchedPokemons[i].name === currentWildPokemon.name) {
-                foundInCatchedPokemonArray = true;
-            }
+    pokeball.classList.add("active");
+    setTimeout(() => {
+        pokeball.classList.remove("active");
+        const fullHP = currentWildPokemon.hp;
+        const hpInPercent = parseInt(currentWildPokeHP * 100 / fullHP);
+        const catchquote = 25 + (parseInt(Math.random() * hpInPercent  / 2)) - (parseInt(Math.random() * (hpInPercent + 5)));
+        console.log(`Catchquote: ${catchquote} // Pokebälle: ${myPokeballAmount}`);
+        if(catchquote >= 25) {
+            // Unsichtbar machen
+            wildPokeImage.style.opacity = "0";
+            wildPokeName.innerHTML = "";
+            showInfoBox(`${makeFirstLetterBig(currentWildPokemon.name)} wurde gefangen`);
+            myCatchedPokemons.push(currentWildPokemon);
+            console.log("--- !!!  !!! ---> CATCHED", myCatchedPokemons);
+        }else {
+            showInfoBox(`${makeFirstLetterBig(currentWildPokemon.name)} lässt sich nicht fangen`);
         }
-        if(foundInCatchedPokemonArray === true) {
-            showInfoBox("Pokemon bereits vorhanden");
-        }else{
-
-        }
-
-
-        // Unsichtbar machen
-        wildPokeImage.style.opacity = "0";
-        wildPokeName.innerHTML = "";
-        // Musik
-        battleSound2.pause();
-        victorySound.play();
-
-        showInfoBox(`${currentWildPokemon.name} wurde gefangen`);
-        myCatchedPokemons.push(currentWildPokemon);
-        console.log("--- !!!  !!! ---> CATCHED", myCatchedPokemons);
-    }
+    }, 1500);
 }else{
     showInfoBox(`Nicht genug Pokebälle`);
 }
@@ -259,5 +273,3 @@ function enableMainButtons() {
     document.getElementById("mainButton2").disabled = false;
     document.getElementById("mainButton3").disabled = false;
 }
-
-

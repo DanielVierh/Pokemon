@@ -114,6 +114,21 @@ body {
   padding-top: 10%;
 }
 
+.pokeball {
+  display: none;
+}
+
+.pokeball.active {
+  display: block;
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+}
+
 a {
   position: fixed;
   top: 0;
