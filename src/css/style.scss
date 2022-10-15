@@ -13,8 +13,26 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    position: relative;
 }
 
+
+.myPokemonImage {
+    width: 230px;
+    height: auto;
+    position: absolute;
+    bottom: 5%;
+    left: 10px;
+  }
+  
+  
+  .wildPokemonImage {
+    width: 260px;
+    height: auto;
+    position: absolute;
+    top: 30%;
+    right: 30px;
+  }
 
 .myPokeBattleCard{
     color: white;
