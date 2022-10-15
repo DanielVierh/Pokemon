@@ -169,10 +169,9 @@ function fetchPokemon(id) {
 
 
 //######################################################
-
 // Wildes Pokemon fangen
-
 //######################################################
+
 function catchPokemon() {
 
     // Abfragen, ob man noch Pokebälle hat
