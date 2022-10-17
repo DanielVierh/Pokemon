@@ -33,19 +33,18 @@ const pokemonGenerationen = {
 }
 const pokeball = document.getElementById("pokeball");
 
-let pokemon_Save_Obj = {
+let save_Object = {
     today_Date: '',
     myPokemonTeam: [],
     myCatchedPokemons: [],
     allFacedPokemons: [],
+    allPokemonMoves: [],
     today_Pokemons: [],
     items: {
         pokeballs: 20,
         money: 100,
     }
 }
-
-console.log('Saveobj ', pokemon_Save_Obj);
 
 
 //######################################################
@@ -97,30 +96,81 @@ let myStaticPokemon = new Pokemon(6,"Charizard","fire", 25, "mega-punch",
 window.onload = init();
 
 function init() {
+    load_SaveObj();
     generate_today_Pokemons();
-    currentRandomPokemon();
     myPokemonProgress.value = 100;
     wildPokemonProgress.value = 100;
     createMyPokemon();
 }
 
-
-// Funktion erstellt zufällig 30 Pokemon. Diese sollen für einen Tag abgespeichert
-// werden und die möglichen Pokemon bildem, denen man begegnen kann
-function generate_today_Pokemons() {
-    const min = pokemonGenerationen.gen1_start;
-    const max = pokemonGenerationen.gen1_end;
-
-    for(let i = 1; i <= 20; i++) {
-         const randomPokemon = Math.floor(Math.random() * (max - min) ) + min;
-         todayPokemons.push(randomPokemon);
+function load_SaveObj() {
+    if(localStorage.getItem('stored_save_Object') != null) {
+        save_Object = JSON.parse(localStorage.getItem('stored_save_Object'));
+        facedPokemons = save_Object.allFacedPokemons;
+        allMoves = save_Object.allPokemonMoves;
     }
-
-    console.log('Today Pokemons', todayPokemons);
 }
 
-// Random Pokemon aus heutiger Liste
-//!Todo Liste noch abspeichern und Tag checken
+function save_SaveObj() {
+    localStorage.setItem('stored_save_Object', JSON.stringify(save_Object));
+    console.log('SaveObj', save_Object);
+}
+
+
+// Funktion erstellt zufällig 20 Pokemon. Diese sollen für einen Tag abgespeichert
+// werden und die möglichen Pokemon bildem, denen man begegnen kann
+
+function generate_today_Pokemons() {
+    if(today_equal_savedDay() === true) {
+      todayPokemons = save_Object.today_Pokemons;
+      createWildPokemon();
+    }else {
+        const min = pokemonGenerationen.gen1_start;
+        const max = pokemonGenerationen.gen1_end;
+
+        for(let i = 1; i <= 20; i++) {
+             const randomPokemon = Math.floor(Math.random() * (max - min) ) + min;
+             todayPokemons.push(randomPokemon);
+        }
+        save_Object.today_Pokemons = todayPokemons;
+        save_Object.today_Date = createDateFromToday();
+        save_SaveObj();
+        createWildPokemon();
+        console.log('Today Pokemons', todayPokemons);
+    }
+}
+
+function today_equal_savedDay() {
+    const checkDay = save_Object.today_Date;
+    const today = createDateFromToday();
+
+    if(checkDay === today) {
+        return true
+    }else {
+        return false
+    }
+}
+
+
+
+function createDateFromToday() {
+    const date  = new Date();
+    const day = addZero(date.getDate());
+    const month = addZero(date.getMonth() + 1);
+    const year = date.getFullYear();
+    const today = `${day}.${month}.${year}`
+    return today;
+}
+
+
+function addZero(val) {
+    if(val < 10) {
+        val = `0${val}`;
+    }
+    return val;
+}
+
+
 function currentRandomPokemon() {
     const randomPokemon = parseInt(Math.random() * todayPokemons.length);
     fetchPokemon(todayPokemons[randomPokemon]);
@@ -140,9 +190,6 @@ function uniqueID_Generator() {
 
 
 
-
-
-
 //######################################################
 // Mein Pokemon rendern
 //######################################################
@@ -151,6 +198,52 @@ function createMyPokemon() {
     myCurrentPokemonHP = myStaticPokemon.hp;
     myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${myStaticPokemon.level} -- KP.${myStaticPokemon.hp}`;
 }
+
+
+
+
+//######################################################
+// Erstellt Zufallszahl und checkt, ob ID bereits im Array FacedPokemons gespeichert ist,
+// wenn nein, Fetch Request an Poke API
+//######################################################
+function createWildPokemon() {
+    const randomPokemon = parseInt(Math.random() * todayPokemons.length + 1);
+    let foundIdInFacedPokemonArray = false;
+    // ? Checke FacedPokemon Array
+    console.log('facedPokemons',facedPokemons);
+    for(let i = 0; i < facedPokemons.length; i++) {
+        if(randomPokemon === facedPokemons[i].id) {
+            currentWildPokemon = new Pokemon(facedPokemons[i].id,
+                                            facedPokemons[i].name,
+                                            facedPokemons[i].type,
+                                            parseInt(Math.random() * 20) + 3,
+                                            facedPokemons[i].moves,
+                                            facedPokemons[i].spriteFront,
+                                            facedPokemons[i].spriteBack,
+                                            facedPokemons[i].statAttack,
+                                            facedPokemons[i].statDefense,
+                                            facedPokemons[i].xp,
+                                            facedPokemons[i].hp);
+
+            wildPokeImage.src = currentWildPokemon.spriteFront;
+            // wildPokeImage.style.opacity = "1";
+            wildPokeName.innerHTML = `${makeFirstLetterBig(currentWildPokemon.name)} | Lv. ${currentWildPokemon.level} -- KP.${currentWildPokemon.hp}`;
+            currentWildPokeHP = currentWildPokemon.hp;
+            console.log("Found Pokemon in FacedPokemons");
+            foundIdInFacedPokemonArray = true;
+            break;
+        }
+
+    }
+
+        // Pokemon nicht im Array facedPokemons enthalten, also Fetch Req
+        if(foundIdInFacedPokemonArray === false) {
+            console.log('Nicht gefunden also fetchPokemon mit ID ', randomPokemon);
+            fetchPokemon(randomPokemon);
+        }
+}
+
+
 
 
  //######################################################
@@ -186,11 +279,72 @@ function fetchPokemon(id) {
         currentWildPokeHP = currentWildPokemon.hp
         showInfoBox(`Ein wildes ${makeFirstLetterBig(currentWildPokemon.name)} erscheint`)
         // Pokemon auf dem Gerät abspeichern, um beim nächsten mal keinen erneuten Fetch Request auszulösen
-        facedPokemons.push(currentWildPokemon)
-        localStorage.setItem('storedFacedPokemons', JSON.stringify(facedPokemons))
+        save_Object.allFacedPokemons.push(currentWildPokemon);
+        save_SaveObj();
     });
 }
 
+//######################################################
+// Wichtige Informationen einer Attacke fetchen und ganze Attacke abspeichern
+//######################################################
+function fetchAttack(nameId) {
+    fetch(`https://pokeapi.co/api/v2/move/${nameId}/`)
+    .then((res) => res.json())
+    .then(data => {
+        console.log('Move', data)
+        pokeMove = new PokeMove(data.name,
+                                data.names[4].name,
+                                data.flavor_text_entries[22].flavor_text,
+                                data.accuracy, data.power,
+                                data.meta.minHits,
+                                data.meta.maxHits,
+                                data.pp,
+                                data.type.name)
+        console.log('Gesp.Move:', allMoves);
+        // In alle Attacken abspeichern
+        save_Object.allPokemonMoves.push(pokeMove);
+        allMoves.push(pokeMove);
+        save_SaveObj();
+    });
+}
+
+
+//######################################################
+
+//######################################################
+function init_Move(moveName) {
+    // const moveName = 'fire-punch';
+    // const germanMoveName = 'Feuerschlag';
+    let foundMoveInAllMoves = false;
+    // Checke Attacke im Attacken Array
+    for(let i = 0; i < allMoves.length; i++) {
+        // console.log(`${allMoves[i].name}`)
+        if(moveName === allMoves[i].name) {
+            currentAttack = new PokeMove(
+                allMoves[i].name,
+                allMoves[i].germanName,
+                allMoves[i].descr,
+                allMoves[i].accuracy,
+                allMoves[i].baseDamage,
+                allMoves[i].minHits,
+                allMoves[i].maxHits,
+                allMoves[i].pp,
+                allMoves[i].type)
+                console.log('GeladenMove:', allMoves);
+                foundMoveInAllMoves = true;
+                pokeMove = currentAttack;
+        }
+    }
+
+    if(foundMoveInAllMoves === false) {
+        // console.log("Move nicht gefunden");
+        fetchAttack(moveName);
+    }
+
+    setTimeout(() => {
+        myPokemonAttack('myPokemon')
+    }, 1000);
+}
 
 
 

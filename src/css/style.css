@@ -36,6 +36,26 @@ body {
   position: absolute;
   top: 30%;
   right: 30px;
+  -webkit-animation: flightInPokemon 1s ease;
+          animation: flightInPokemon 1s ease;
+}
+
+@-webkit-keyframes flightInPokemon {
+  0% {
+    right: -30px;
+  }
+  100% {
+    right: 30px;
+  }
+}
+
+@keyframes flightInPokemon {
+  0% {
+    right: -30px;
+  }
+  100% {
+    right: 30px;
+  }
 }
 
 .myPokeBattleCard {

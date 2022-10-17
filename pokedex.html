@@ -19,6 +19,19 @@
 
         facedPokemons = [];
 
+        let save_Object = {
+            today_Date: '',
+            myPokemonTeam: [],
+            myCatchedPokemons: [],
+            allFacedPokemons: [],
+            allPokemonMoves: [],
+            today_Pokemons: [],
+            items: {
+                pokeballs: 20,
+                money: 100,
+            }
+        }
+
         window.onload = init();
 
 
@@ -29,10 +42,12 @@
 
         function loadFacedPokemons() {
             if (localStorage.getItem('storedFacedPokemons') != null) {
-                facedPokemons = JSON.parse(localStorage.getItem('storedFacedPokemons'));
+                save_Object = JSON.parse(localStorage.getItem('stored_save_Object'));
+                facedPokemons = save_Object.allFacedPokemons;
                 renderPokeCards();
             }
         }
+
 
         function renderPokeCards() {
             let pokeId = 0;

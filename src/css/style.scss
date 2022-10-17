@@ -32,7 +32,17 @@ body{
     position: absolute;
     top: 30%;
     right: 30px;
+    animation: flightInPokemon 1s ease;
   }
+
+  @keyframes flightInPokemon {
+    0% {
+        right: -30px;
+    }
+    100% {
+        right: 30px;
+    }
+}
 
 .myPokeBattleCard{
     color: white;
