@@ -8,7 +8,7 @@
     <title>Battle</title>
 </head>
 <body>
-    <div class="mainContainer">
+    <div class="mainContainer" id="battleTag">
 
         <!-- Wildes Pokemon -->
             <div class="pokeBattleCard">
@@ -32,7 +32,7 @@
             <!-- Main Buttons -->
         <div id="mainButtonCont">
             <div class="buttonContainer" >
-                <button class="actionButton" style="background-color: red;" onclick="pokeFight()" id="mainButton1">Kampf</button>
+                <button class="actionButton" style="background-color: red;" id="mainButton1">Kampf</button>
                 <button class="actionButton" style="background-color: green;" id="mainButton2" onclick="catchPokemon()">Pokeball</button>
                 <button class="actionButton" style="background-color: blue;" id="mainButton3">Fliehen</button>
             </div>
@@ -40,7 +40,7 @@
             <!-- Pokemon Attacken -->
         <div id="moveButtonCont" hidden>
             <div class="buttonContainer">
-                <button class="actionButton" style="background-color: gray; font-size: 0.7rem;" onclick="attack1()" id="btnAttack1">fire-punch</button>
+                <button class="actionButton" style="background-color: gray; font-size: 0.7rem;" id="btnAttack1">fire-punch</button>
                 <button class="actionButton" style="background-color: gray; font-size: 0.7rem;">Tackle</button>
                 <button class="actionButton" style="background-color: gray; font-size: 0.7rem;">Glut</button>
             </div>
