@@ -20,7 +20,7 @@ let pokeMove;
 let currentAttack;
 let currentWildPokeHP;
 let myCurrentPokemonHP;
-let iamExecuting = true;
+let iamExecuting = false;
 const battleSound2 = new Audio('assets/sound/battle2.mp3');
 const victorySound = new Audio('assets/sound/victory.mp3');
 let musikIsPlaying = true; // Wenn auf false, wird sie nach erster Aktion abgespielt
@@ -141,7 +141,6 @@ window.onload = init();
 function init() {
     // Check first if battle window is open
     if (document.getElementById('battleTag')) {
-        console.log('Lade Battle');
         load_SaveObj();
         generate_today_Pokemons();
         myPokemonProgress.value = 100;
@@ -169,6 +168,7 @@ function save_SaveObj() {
 function generate_today_Pokemons() {
     if (today_equal_savedDay() === true) {
         todayPokemons = save_Object.today_Pokemons;
+        console.log('todayPokemons aus saved: ', todayPokemons);
         createWildPokemon();
     } else {
         // const min = pokemonGenerationen.gen1_start;
@@ -285,7 +285,9 @@ function createMyPokemon() {
 // wenn nein, Fetch Request an Poke API
 //######################################################
 function createWildPokemon() {
-    const randomPokemon = parseInt(Math.random() * todayPokemons.length + 1);
+    let randomPokemon = parseInt(Math.random() * todayPokemons.length);
+    randomPokemon = todayPokemons[randomPokemon]
+    console.log('randomPokemon', randomPokemon);
     let foundIdInFacedPokemonArray = false;
     // ? Checke FacedPokemon Array
     console.log('facedPokemons', facedPokemons);
@@ -560,7 +562,7 @@ function animateProgressBar(damage, whoIsAffected) {
             setTimeout(() => {
                 effectedImage.style.opacity = '0';
                 effectedPokeName.innerHTML = '';
-            }, 500);
+            }, 400);
             if (whoIsAffected !== 'myPokemon') {
                 battleSound2.pause();
                 victorySound.play();
@@ -616,9 +618,8 @@ function ki_Move() {
     } else {
         // Battle Szene hier beenden
         setTimeout(() => {
-            console.log('Szene beendet');
             showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
-            window.Location = 'pokedex.html';
+            window.location = 'pokedex.html';
         }, 5000);
     }
 }
