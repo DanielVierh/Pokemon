@@ -20,7 +20,7 @@ let pokeMove;
 let currentAttack;
 let currentWildPokeHP;
 let myCurrentPokemonHP;
-let iamExecuting = true;
+let iamExecuting = false;
 const battleSound2 = new Audio('assets/sound/battle2.mp3');
 const victorySound = new Audio('assets/sound/victory.mp3');
 let musikIsPlaying = true; // Wenn auf false, wird sie nach erster Aktion abgespielt
@@ -125,8 +125,10 @@ function generate_today_Pokemons() {
       todayPokemons = save_Object.today_Pokemons;
       createWildPokemon();
     }else {
-        const min = pokemonGenerationen.gen1_start;
-        const max = pokemonGenerationen.gen1_end;
+        // const min = pokemonGenerationen.gen1_start;
+        // const max = pokemonGenerationen.gen1_end;
+        const min = 1;
+        const max = 850;
 
         for(let i = 1; i <= 20; i++) {
              const randomPokemon = Math.floor(Math.random() * (max - min) ) + min;
@@ -313,8 +315,6 @@ function fetchAttack(nameId) {
 
 //######################################################
 function init_Move(moveName) {
-    // const moveName = 'fire-punch';
-    // const germanMoveName = 'Feuerschlag';
     let foundMoveInAllMoves = false;
     // Checke Attacke im Attacken Array
     for(let i = 0; i < allMoves.length; i++) {
@@ -346,6 +346,184 @@ function init_Move(moveName) {
     }, 1000);
 }
 
+//######################################################
+// Quelle: https://www.pokewiki.de/Schaden
+// Formel für Schadensberechnung
+// Schaden=⌊((Level⋅25+2)⋅Basisschaden⋅(Sp.) Angr.50⋅(Sp.) Vert.⋅F1+2)⋅Volltreffer⋅F2⋅Z100⋅STAB⋅Typ1⋅Typ2⋅F3⌋
+//!!!!!
+// Schaden = ((angriffPokeLevel * 40% + 2) * baseDamage * (angriffstatAttack / 50 + VertPokestatDefense) * 1 + 2) * Volltreffer * F2 * (Z / 100) * 1.5 * Typverrechnung
+// [((lv 25 * 40% + 2) * tackle=40 (Glurak Angr 84 / 50 + Magneton Vert 95) * 3) * 1,1 * (95 / 100) * 1,5] *  WertAusTypvergl=FeuerVsElektro=1
+// ((12) * 40 * (0,58) * 3)) * 1,1 * (0,95) * 1,5 * 1 = 1.309
+//!!!!!
+// Level gibt das aktuelle Level des Angreifers an und kann dementsprechend zwischen 1 und 100 variieren.
+// (Sp.-)Angr. gibt allgemein den Angriffs- bzw. Spezial-Angriffs-Wert des Angreifers an
+// Volltreffer ist für gewöhnlich 1 (Berechnung aus Accuracy)
+// Z ist ein Wert, der berechnet wird, indem von 100 eine zufällige Zahl zwischen 0 und 15 abgezogen wird
+// F2 zwischen 1 und 1,3
+
+// Die Bezeichnungen Typ1 und Typ2 stellen die Effektivität der genutzten Attacke auf das Ziel dar. Ist die Attacke nicht sehr effektiv gegenüber dem Typen des Ziels,
+// ist der Faktor 0,5, ist er sehr effektiv, wird 2 eingesetzt und hat sie keinen Einfluss auf den Gegner, so wird 0 eingesetzt. In allen anderen Fällen wird 1 eingesetzt
+//######################################################
+function myPokemonAttack(whoIsExecuting) {
+    // Initwerte sind so eingestellt, dass ein Angriff von meinem Pokemon aus geht
+    let lv = myStaticPokemon.level;
+    let defPokeLv = currentWildPokemon.level;
+    const attbaseDamage = pokeMove.baseDamage;
+    let attackVal = myStaticPokemon.statAttack;
+    let defenceVal = currentWildPokemon.statDefense;
+    const f2 = Math.random() * (1.3 - 1) + 1;
+    const z = 100 - parseInt(Math.random() * 15 + 1);
+    const attackType = pokeMove.type;
+    let defPokeType =  currentWildPokemon.type;
+    const typeCalc = 0.5; // Typ Attacke wird mit Typ verteidigendesPokemon verglichen 0x / 0.5x / 1x / 2x --TODO: Funktion für den Vergleich bauen
+    let whoIsAffected = 'wildPokemon';
+
+    // Wenn wildes Pokemon angreift
+    if(whoIsExecuting === 'wildPokemon') {
+        lv = currentWildPokemon.level;
+        defPokeLv = myStaticPokemon.level;
+        attackVal = currentWildPokemon.statAttack;
+        defenceVal = myStaticPokemon.statDefense;
+        defPokeType = myStaticPokemon.type;
+        whoIsAffected = 'myPokemon';
+    }else{
+
+    }
+
+
+
+    // Grundsätzliche Berechnung des Schadens
+    const rawDamage = ((lv * 0.4) + 2) * attbaseDamage * (attackVal / (defenceVal + 50 + defPokeLv)) * 3 * f2 * (z / 100);
+    const damage = parseInt((rawDamage * typeCalc) / 20);
+
+    // Wenn wildes Pokemon am Zug ist
+    if(whoIsExecuting === 'wildPokemon') {
+        // console.log(`MyPokemon got attacked: ${myCurrentPokemonHP} - Damage: ${damage} = ${myCurrentPokemonHP - damage}`);
+            myCurrentPokemonHP -= damage;
+        // console.log(`WldPokeAttacke: ((Lv.${lv} * 0.4) + 2) * AttackName: ${pokeMove.name} attbaseDamage: ${attbaseDamage} * (attackVal: ${attackVal} / (defenceVal: ${defenceVal}
+                    // + 50 + defPokeLv:${defPokeLv}=${defenceVal+50+defPokeLv})) * 3 * f2: ${f2} * (z: ${z} / 100)`);
+        // console.log(`rawDamage= ${rawDamage}`);
+        // console.log(`TypAtt: ${attackType} | TypDefPoke: ${defPokeType} =  typeCalc: ${typeCalc}`);
+    }else{
+        // console.log(`currentWildPokeHP: ${currentWildPokeHP} - Damage: ${damage} = ${currentWildPokeHP - damage}`);
+            currentWildPokeHP -= damage;
+        // console.log(`MyStaticPokemon: ${myStaticPokemon}`);
+        // console.log(`((Lv.${lv} * 0.4) + 2) * AttackName: ${pokeMove.name} attbaseDamage: ${attbaseDamage} * (attackVal: ${attackVal} / (defenceVal: ${defenceVal}
+                    // + 50 + defPokeLv:${defPokeLv}=${defenceVal+50+defPokeLv})) * 3 * f2: ${f2} * (z: ${z} / 100)`);
+        // console.log(`rawDamage= ${rawDamage}`);
+        // console.log(`TypAtt: ${attackType} | TypDefPoke: ${defPokeType} =  typeCalc: ${typeCalc}`);
+    }
+
+    console.log('MyPokemon', myStaticPokemon);
+    animateProgressBar(damage, whoIsAffected);
+
+}
+
+
+//######################################################
+
+//######################################################
+function animateProgressBar(damage, whoIsAffected) {
+
+    let fullHP = currentWildPokemon.hp;
+    let currentHP = currentWildPokeHP;
+    let hpInPercent = parseInt(currentHP * 100 / fullHP);
+    let effectedImage = wildPokeImage;
+    let effectedPokeName = wildPokeName;
+    let effectedProgressbar = wildPokemonProgress;
+    let atackerPokemon = myStaticPokemon;
+    let defenderPokemon = currentWildPokemon;
+
+    if(whoIsAffected === 'myPokemon') {
+        fullHP = myStaticPokemon.hp;
+        currentHP = myCurrentPokemonHP;
+        hpInPercent = parseInt(currentHP * 100 / fullHP);
+        effectedImage = myPokeImage;
+        effectedPokeName = myPokeName;
+        effectedProgressbar = myPokemonProgress;
+        atackerPokemon = currentWildPokemon;
+        defenderPokemon = myStaticPokemon;
+    }
+    console.log(`whoIsAffected: ${whoIsAffected} // fullHP ${fullHP} // currentHP ${currentHP}  hpInPercent: ${hpInPercent}`);
+
+            // Balken anzeigen
+    if(hpInPercent <= 0) {
+        effectedProgressbar.style.width = '0%';
+    }else{
+        effectedProgressbar.style.width = `${hpInPercent}%`;
+    }
+
+    // Auswirkungsanzeige
+    setTimeout(() => {
+        // Textbox
+        if(hpInPercent <= 0) {
+            // Textbox
+            showInfoBox(`${makeFirstLetterBig(defenderPokemon.name)} wurde besiegt`);
+            // Besiegtes Pokemon verschwindet
+            effectedImage.style.opacity = "0";
+            effectedPokeName.innerHTML = "";
+            // Neues Pokemon wird erstellt, dient nur zum testen
+            // setTimeout(() => {
+            //     createWildPokemon();
+            // }, 5000);
+            if(whoIsAffected !== 'myPokemon') {
+                battleSound2.pause();
+                victorySound.play();
+            }
+        }else{
+            showInfoBox(`${makeFirstLetterBig(atackerPokemon.name)} führt "${pokeMove.name}" aus und richtet ${damage} Schaden an.`);
+            effectedPokeName.innerHTML = `${makeFirstLetterBig(defenderPokemon.name)} | Lv. ${defenderPokemon.level} | KP.${currentHP}`
+        }
+
+    }, 1000);
+
+    setTimeout(() => {
+        checkWhoExecuteNext();
+    }, 2000);
+
+}
+
+// Angreifer ist Objektname Verteidiger Inhalte
+pokeType_Normal = [1,1,1,1,1,1,1,1,1,1,1,1,0.5,0,1,1,0.5,1]
+console.log(pokeType_Normal.length);
+function checkPokeTypes() {
+
+}
+
+// Gameloop
+
+function checkWhoExecuteNext() {
+    if(iamExecuting === true) {
+        enableMainButtons();
+        iamExecuting = false;
+    }else{
+        disableMainButtons();
+        ki_Move();
+        iamExecuting = true;
+    }
+}
+
+//######################################################
+
+//######################################################
+
+function ki_Move() {
+    if(currentWildPokeHP > 0) {
+        const randomMove = parseInt(Math.random() * currentWildPokemon.moves.length);
+        const move = currentWildPokemon.moves[randomMove];
+        fetchAttack(move);
+        setTimeout(() => {
+            myPokemonAttack('wildPokemon')
+        }, 3000);
+    }else{
+        // Battle Szene hier beenden
+        setTimeout(() => {
+            console.log("Szene beendet");
+            showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
+            window.Location = "pokedex.html";
+        }, 5000);
+    }
+}
 
 
 //######################################################
@@ -426,4 +604,34 @@ function enableMainButtons() {
     document.getElementById("mainButton1").disabled = false;
     document.getElementById("mainButton2").disabled = false;
     document.getElementById("mainButton3").disabled = false;
+}
+
+
+//######################################################
+// Move Steuerung
+//######################################################
+function pokeFight() {
+    showMoveButtons();
+}
+
+function attack1() {
+    // debugger
+    showMainButtons();
+    const btnMoveName = document.getElementById("btnAttack1").innerText;
+    init_Move(btnMoveName);
+    wildPokeImage.classList.add("getAttacked");
+    setTimeout(() => {
+        wildPokeImage.classList.remove("getAttacked");
+    }, 600);
+}
+
+
+
+function attack2() {
+    playBattleSound();
+}
+
+function attack3() {
+    playBattleSound();
+
 }

@@ -33,6 +33,10 @@ body{
     top: 30%;
     right: 30px;
     animation: flightInPokemon 1s ease;
+
+    &.getAttacked {
+        animation: pokemon_Animation_WildPokemonGetAttacked .5s ease;
+    }
   }
 
   @keyframes flightInPokemon {
@@ -41,6 +45,25 @@ body{
     }
     100% {
         right: 30px;
+    }
+}
+
+
+@keyframes pokemon_Animation_WildPokemonGetAttacked {
+    0% {
+        right: -20px;
+    }
+    25% {
+        right: 20px;
+    }
+    50% {
+        right: -20px;
+    }
+    75% {
+        right: 20px;
+    }
+    100% {
+        right: -20px;
     }
 }
 

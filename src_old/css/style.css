@@ -40,6 +40,11 @@ body {
           animation: flightInPokemon 1s ease;
 }
 
+.wildPokemonImage.getAttacked {
+  -webkit-animation: pokemon_Animation_WildPokemonGetAttacked .5s ease;
+          animation: pokemon_Animation_WildPokemonGetAttacked .5s ease;
+}
+
 @-webkit-keyframes flightInPokemon {
   0% {
     right: -30px;
@@ -55,6 +60,42 @@ body {
   }
   100% {
     right: 30px;
+  }
+}
+
+@-webkit-keyframes pokemon_Animation_WildPokemonGetAttacked {
+  0% {
+    right: -20px;
+  }
+  25% {
+    right: 20px;
+  }
+  50% {
+    right: -20px;
+  }
+  75% {
+    right: 20px;
+  }
+  100% {
+    right: -20px;
+  }
+}
+
+@keyframes pokemon_Animation_WildPokemonGetAttacked {
+  0% {
+    right: -20px;
+  }
+  25% {
+    right: 20px;
+  }
+  50% {
+    right: -20px;
+  }
+  75% {
+    right: 20px;
+  }
+  100% {
+    right: -20px;
   }
 }
 
