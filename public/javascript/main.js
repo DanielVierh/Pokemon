@@ -27,7 +27,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _js_script_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/script.js */ \"./src/js/script.js\");\n/* harmony import */ var _js_script_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_js_script_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _js_battle_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/battle.js */ \"./src/js/battle.js\");\n/* harmony import */ var _js_battle_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_js_battle_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scss/style.scss */ \"./src/scss/style.scss\");\n\n\n\n\n\n//# sourceURL=webpack://project-template/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _js_store_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/store.js */ \"./src/js/store.js\");\n/* harmony import */ var _js_store_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_js_store_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _js_script_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/script.js */ \"./src/js/script.js\");\n/* harmony import */ var _js_script_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_js_script_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _js_battle_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/battle.js */ \"./src/js/battle.js\");\n/* harmony import */ var _js_battle_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_js_battle_js__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scss/style.scss */ \"./src/scss/style.scss\");\n\n\n\n\n\n\n//# sourceURL=webpack://project-template/./src/index.js?");
 
 /***/ }),
 
@@ -48,6 +48,16 @@ eval("//######################################################\r\n// Variablen\r
 /***/ (() => {
 
 eval("\n\n//# sourceURL=webpack://project-template/./src/js/script.js?");
+
+/***/ }),
+
+/***/ "./src/js/store.js":
+/*!*************************!*\
+  !*** ./src/js/store.js ***!
+  \*************************/
+/***/ (() => {
+
+eval("console.log('Loaded store');\r\n\n\n//# sourceURL=webpack://project-template/./src/js/store.js?");
 
 /***/ })
 
