@@ -20,7 +20,7 @@ let pokeMove;
 let currentAttack;
 let currentWildPokeHP;
 let myCurrentPokemonHP;
-let iamExecuting = false;
+let iamExecuting = true;
 const battleSound2 = new Audio('assets/sound/battle2.mp3');
 const victorySound = new Audio('assets/sound/victory.mp3');
 let musikIsPlaying = true; // Wenn auf false, wird sie nach erster Aktion abgespielt
@@ -141,6 +141,7 @@ window.onload = init();
 function init() {
     // Check first if battle window is open
     if (document.getElementById('battleTag')) {
+        console.log('Lade Battle');
         load_SaveObj();
         generate_today_Pokemons();
         myPokemonProgress.value = 100;
@@ -555,12 +556,11 @@ function animateProgressBar(damage, whoIsAffected) {
                 `${makeFirstLetterBig(defenderPokemon.name)} wurde besiegt`,
             );
             // Besiegtes Pokemon verschwindet
-            effectedImage.style.opacity = '0';
-            effectedPokeName.innerHTML = '';
-            // Neues Pokemon wird erstellt, dient nur zum testen
-            // setTimeout(() => {
-            //     createWildPokemon();
-            // }, 5000);
+            effectedImage.classList.add("getDestroyed");
+            setTimeout(() => {
+                effectedImage.style.opacity = '0';
+                effectedPokeName.innerHTML = '';
+            }, 500);
             if (whoIsAffected !== 'myPokemon') {
                 battleSound2.pause();
                 victorySound.play();
@@ -584,7 +584,6 @@ function animateProgressBar(damage, whoIsAffected) {
 
 // Angreifer ist Objektname Verteidiger Inhalte
 pokeType_Normal = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 1];
-console.log(pokeType_Normal.length);
 function checkPokeTypes() {}
 
 // Gameloop
@@ -724,9 +723,8 @@ function pokeFight() {
 }
 
 function attack1() {
-    // debugger
     showMainButtons();
-    const btnMoveName = document.getElementById('btnAttack1').innerText;
+    const btnMoveName = btnAttack1.innerText;
     init_Move(btnMoveName);
     wildPokeImage.classList.add('getAttacked');
     setTimeout(() => {

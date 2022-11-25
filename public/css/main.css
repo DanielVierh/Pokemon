@@ -37,13 +37,25 @@ body {
 .wildPokemonImage.getAttacked {
   animation: pokemon_Animation_WildPokemonGetAttacked 0.5s ease;
 }
+.wildPokemonImage.getDestroyed {
+  animation: fadeOutPokemon 0.5s ease;
+}
 
 @keyframes flightInPokemon {
   0% {
-    right: 200px;
+    right: -30px;
   }
   100% {
-    right: -3px;
+    right: 0px;
+  }
+}
+@keyframes fadeOutPokemon {
+  0% {
+    right: 0px;
+  }
+  100% {
+    right: -30px;
+    width: 0px;
   }
 }
 @keyframes pokemon_Animation_WildPokemonGetAttacked {
