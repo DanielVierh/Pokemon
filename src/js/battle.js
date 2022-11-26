@@ -497,6 +497,14 @@ function myPokemonAttack(whoIsExecuting) {
     if (whoIsExecuting === 'wildPokemon') {
         // console.log(`MyPokemon got attacked: ${myCurrentPokemonHP} - Damage: ${damage} = ${myCurrentPokemonHP - damage}`);
         myCurrentPokemonHP -= damage;
+        //!##################################################
+        //! Animation mein Pokemon bekommt schaden hier...
+        //!##################################################
+        console.log('Animation müsste jetzt erfolgen');
+        myPokeImage.classList.add('getAttacked');
+        setTimeout(() => {
+            myPokeImage.classList.remove('getAttacked');
+        }, 600);
         // console.log(`WldPokeAttacke: ((Lv.${lv} * 0.4) + 2) * AttackName: ${pokeMove.name} attbaseDamage: ${attbaseDamage} * (attackVal: ${attackVal} / (defenceVal: ${defenceVal}
         // + 50 + defPokeLv:${defPokeLv}=${defenceVal+50+defPokeLv})) * 3 * f2: ${f2} * (z: ${z} / 100)`);
         // console.log(`rawDamage= ${rawDamage}`);
@@ -620,7 +628,7 @@ function ki_Move() {
         setTimeout(() => {
             showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
             window.location = 'pokedex.html';
-        }, 5000);
+        }, 3000);
     }
 }
 

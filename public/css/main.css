@@ -25,6 +25,9 @@ body {
   bottom: 5%;
   left: 10px;
 }
+.myPokemonImage.getAttacked {
+  animation: pokemon_Animation_my_PokemonGetAttacked 0.5s ease;
+}
 
 .wildPokemonImage {
   width: 200px;
@@ -73,6 +76,23 @@ body {
   }
   100% {
     right: -20px;
+  }
+}
+@keyframes pokemon_Animation_my_PokemonGetAttacked {
+  0% {
+    left: -20px;
+  }
+  25% {
+    left: 20px;
+  }
+  50% {
+    left: -20px;
+  }
+  75% {
+    left: 20px;
+  }
+  100% {
+    left: -20px;
   }
 }
 .myPokeBattleCard {
