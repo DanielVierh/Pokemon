@@ -163,12 +163,27 @@ function load_SaveObj() {
         save_Object = JSON.parse(localStorage.getItem('stored_save_Object'));
         facedPokemons = save_Object.allFacedPokemons;
         allMoves = save_Object.allPokemonMoves;
+
+        try {
+            loadMyTeam()
+        } catch (error) {
+
+        }
     }
 }
 
 function save_SaveObj() {
     localStorage.setItem('stored_save_Object', JSON.stringify(save_Object));
     console.log('SaveObj', save_Object);
+}
+
+//myPokemonTeam
+function loadMyTeam() {
+    const team = save_Object.myCatchedPokemons;
+    for(let i = 0; i < team.length; i++) {
+        // document.getElementById(`teamPoke_${i+1}`).src =
+    }
+    console.log('team: ', team);
 }
 
 // Funktion erstellt zufällig 20 Pokemon. Diese sollen für einen Tag abgespeichert
@@ -662,6 +677,7 @@ function catchPokemon() {
                     )} wurde gefangen`,
                 );
                 myCatchedPokemons.push(currentWildPokemon);
+                save_SaveObj();
                 console.log('--- !!!  !!! ---> CATCHED', myCatchedPokemons);
             } else {
                 showInfoBox(
