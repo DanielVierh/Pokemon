@@ -46,10 +46,10 @@ body {
 
 @keyframes flightInPokemon {
   0% {
-    right: -30px;
+    right: 0px;
   }
   100% {
-    right: 0px;
+    right: 10px;
   }
 }
 @keyframes fadeOutPokemon {
@@ -63,19 +63,19 @@ body {
 }
 @keyframes pokemon_Animation_WildPokemonGetAttacked {
   0% {
-    right: -20px;
+    right: 0px;
   }
   25% {
     right: 20px;
   }
   50% {
-    right: -20px;
+    right: 0px;
   }
   75% {
     right: 20px;
   }
   100% {
-    right: -20px;
+    right: 0px;
   }
 }
 @keyframes pokemon_Animation_my_PokemonGetAttacked {
@@ -97,7 +97,7 @@ body {
 }
 .myPokeBattleCard {
   color: white;
-  background-color: rgba(10, 10, 10, 0.582);
+  background-color: rgba(10, 10, 10, 0.4);
   width: 70%;
   border-radius: 15px;
   padding-left: 10px;
@@ -108,8 +108,9 @@ body {
   display: grid;
   place-items: center;
   height: 50px;
-  top: 80%;
+  top: 40%;
   left: 30%;
+  backdrop-filter: blur(10px);
 }
 
 .pokeBattleCard {
@@ -130,12 +131,33 @@ body {
   left: 10%;
 }
 
+.myPokeBattleCard {
+  position: absolute;
+  left: -30px;
+  top: 80px;
+}
+
+#myPokemonProgress {
+  position: absolute;
+  left: 20px;
+  top: 130px;
+  background-color: red;
+}
+
+#wildPokemonProgress {
+  background-color: red;
+}
+
 .buttonContainer {
   display: flex;
   justify-content: space-evenly;
   background-color: rgba(0, 0, 10, 0.384);
   padding: 10px;
   border-radius: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .actionButton {
@@ -151,17 +173,18 @@ body {
 
 .infBox {
   position: fixed;
-  top: 20%;
+  top: 45%;
   width: 90%;
   height: 60px;
   z-index: 11;
-  background-color: rgba(255, 255, 255, 0.514);
+  background-color: rgba(255, 255, 255, 0.3);
   border: 3px solid black;
   border-radius: 15px;
   font-weight: bold;
   font-size: 1.1rem;
   text-align: center;
   padding-top: 10%;
+  backdrop-filter: blur(5px);
 }
 
 .pokeball {

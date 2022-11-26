@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,49 +8,59 @@
     <link rel="stylesheet" href="public/css/main.css">
     <title>Battle</title>
 </head>
+
 <body>
     <div class="mainContainer" id="battleTag">
 
         <!-- Wildes Pokemon -->
-            <div class="pokeBattleCard">
-                <p id="wildPokeName"></p>
-                <progress id="wildPokemonProgress"></progress>
+        <div class="pokeBattleCard">
+            <p id="wildPokeName"></p>
+            <progress id="wildPokemonProgress" max="100"></progress>
 
-            </div>
-            <img src="" alt="Pokemon" id="imgPoke" class="wildPokemonImage">
+        </div>
+        <img src="" alt="Pokemon" id="imgPoke" class="wildPokemonImage">
 
-            <!-- Pokeball Area -->
-            <div class="pokeball" id="pokeball"></div>
+        <!-- Pokeball Area -->
+        <div class="pokeball" id="pokeball"></div>
 
         <!-- Eigenes Pokemon -->
-            <img src="" alt="Pokemon" id="imgMyPoke" class="myPokemonImage">
-            <progress id="myPokemonProgress"></progress>
-            <p id="myPokeName" ></p>
-            <!-- Infobox -->
-            <div class="infBox" id="infoBox" hidden></div>
+
+        <div class="myPokeBattleCard ">
+            <p id="myPokeName"></p>
+        </div>
+        <progress id="myPokemonProgress" max="100"></progress>
+        <img src="" alt="Pokemon" id="imgMyPoke" class="myPokemonImage">
+
+
+
+        <!-- Infobox -->
+        <div class="infBox" id="infoBox" hidden></div>
         <div>
 
             <!-- Main Buttons -->
-        <div id="mainButtonCont">
-            <div class="buttonContainer" >
-                <button class="actionButton" style="background-color: red;" id="mainButton1">Kampf</button>
-                <button class="actionButton" style="background-color: green;" id="mainButton2" onclick="catchPokemon()">Pokeball</button>
-                <button class="actionButton" style="background-color: blue;" id="mainButton3">Fliehen</button>
+            <div id="mainButtonCont">
+                <div class="buttonContainer">
+                    <button class="actionButton" style="background-color: red;" id="mainButton1">Kampf</button>
+                    <button class="actionButton" style="background-color: green;" id="mainButton2"
+                        onclick="catchPokemon()">Pokeball</button>
+                    <button class="actionButton" style="background-color: blue;" id="mainButton3">Fliehen</button>
+                </div>
             </div>
-        </div>
             <!-- Pokemon Attacken -->
-        <div id="moveButtonCont" hidden>
-            <div class="buttonContainer">
-                <button class="actionButton" style="background-color: gray; font-size: 0.7rem;" id="btnAttack1">fire-punch</button>
-                <button class="actionButton" style="background-color: gray; font-size: 0.7rem;">Tackle</button>
-                <button class="actionButton" style="background-color: gray; font-size: 0.7rem;">Glut</button>
+            <div id="moveButtonCont" hidden>
+                <div class="buttonContainer">
+                    <button class="actionButton" style="background-color: gray; font-size: 0.7rem;"
+                        id="btnAttack1">fire-punch</button>
+                    <button class="actionButton" style="background-color: gray; font-size: 0.7rem;">Tackle</button>
+                    <button class="actionButton" style="background-color: gray; font-size: 0.7rem;">Glut</button>
+                </div>
+
             </div>
-
+            <a href="pokedex.html">Pokedex</a>
         </div>
-        <a href="pokedex.html">Pokedex</a>
-    </div>
 
 
-    <script src="public/javascript/main.js"></script>
+        <script src="public/javascript/main.js"></script>
 </body>
+
 </html>

@@ -126,7 +126,7 @@ let myStaticPokemon = new Pokemon(
     6,
     'Charizard',
     'fire',
-    25,
+    8,
     'mega-punch',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/6.png',
@@ -396,7 +396,6 @@ function fetchAttack(nameId) {
                 data.pp,
                 data.type.name,
             );
-            console.log('Gesp.Move:', allMoves);
             // In alle Attacken abspeichern
             save_Object.allPokemonMoves.push(pokeMove);
             allMoves.push(pokeMove);
@@ -411,7 +410,6 @@ function init_Move(moveName) {
     let foundMoveInAllMoves = false;
     // Checke Attacke im Attacken Array
     for (let i = 0; i < allMoves.length; i++) {
-        // console.log(`${allMoves[i].name}`)
         if (moveName === allMoves[i].name) {
             currentAttack = new PokeMove(
                 allMoves[i].name,
@@ -431,7 +429,6 @@ function init_Move(moveName) {
     }
 
     if (foundMoveInAllMoves === false) {
-        // console.log("Move nicht gefunden");
         fetchAttack(moveName);
     }
 
@@ -495,31 +492,16 @@ function myPokemonAttack(whoIsExecuting) {
 
     // Wenn wildes Pokemon am Zug ist
     if (whoIsExecuting === 'wildPokemon') {
-        // console.log(`MyPokemon got attacked: ${myCurrentPokemonHP} - Damage: ${damage} = ${myCurrentPokemonHP - damage}`);
         myCurrentPokemonHP -= damage;
-        //!##################################################
-        //! Animation mein Pokemon bekommt schaden hier...
-        //!##################################################
-        console.log('Animation müsste jetzt erfolgen');
-        myPokeImage.classList.add('getAttacked');
-        setTimeout(() => {
-            myPokeImage.classList.remove('getAttacked');
-        }, 600);
-        // console.log(`WldPokeAttacke: ((Lv.${lv} * 0.4) + 2) * AttackName: ${pokeMove.name} attbaseDamage: ${attbaseDamage} * (attackVal: ${attackVal} / (defenceVal: ${defenceVal}
-        // + 50 + defPokeLv:${defPokeLv}=${defenceVal+50+defPokeLv})) * 3 * f2: ${f2} * (z: ${z} / 100)`);
-        // console.log(`rawDamage= ${rawDamage}`);
-        // console.log(`TypAtt: ${attackType} | TypDefPoke: ${defPokeType} =  typeCalc: ${typeCalc}`);
+        if(damage > 0) {
+            myPokeImage.classList.add('getAttacked');
+            setTimeout(() => {
+                myPokeImage.classList.remove('getAttacked');
+            }, 600);
+        }
     } else {
-        // console.log(`currentWildPokeHP: ${currentWildPokeHP} - Damage: ${damage} = ${currentWildPokeHP - damage}`);
         currentWildPokeHP -= damage;
-        // console.log(`MyStaticPokemon: ${myStaticPokemon}`);
-        // console.log(`((Lv.${lv} * 0.4) + 2) * AttackName: ${pokeMove.name} attbaseDamage: ${attbaseDamage} * (attackVal: ${attackVal} / (defenceVal: ${defenceVal}
-        // + 50 + defPokeLv:${defPokeLv}=${defenceVal+50+defPokeLv})) * 3 * f2: ${f2} * (z: ${z} / 100)`);
-        // console.log(`rawDamage= ${rawDamage}`);
-        // console.log(`TypAtt: ${attackType} | TypDefPoke: ${defPokeType} =  typeCalc: ${typeCalc}`);
     }
-
-    console.log('MyPokemon', myStaticPokemon);
     animateProgressBar(damage, whoIsAffected);
 }
 
@@ -552,9 +534,14 @@ function animateProgressBar(damage, whoIsAffected) {
 
     // Balken anzeigen
     if (hpInPercent <= 0) {
-        effectedProgressbar.style.width = '0%';
+        effectedProgressbar.style.width = 0;
+        console.log('effectedProgressbar.value', effectedProgressbar.value);
     } else {
-        effectedProgressbar.style.width = `${hpInPercent}%`;
+        if(damage > 0) {
+            // effectedProgressbar.style.width = `${hpInPercent}%`;
+            effectedProgressbar.value = hpInPercent
+            console.log('effectedProgressbar', effectedProgressbar);
+        }
     }
 
     // Auswirkungsanzeige
