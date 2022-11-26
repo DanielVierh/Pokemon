@@ -383,7 +383,11 @@ function fetchPokemon(id) {
             // Pokemon auf dem Gerät abspeichern, um beim nächsten mal keinen erneuten Fetch Request auszulösen
             save_Object.allFacedPokemons.push(currentWildPokemon);
             save_SaveObj();
-        });
+        }).catch (error => {
+            console.warn(error)
+            createWildPokemon()
+        })
+
 }
 
 //######################################################
