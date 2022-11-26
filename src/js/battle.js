@@ -34,6 +34,8 @@ const pokemonGenerationen = {
 const pokeball = document.getElementById('pokeball');
 const mainButton1 = document.getElementById('mainButton1');
 const btnAttack1 = document.getElementById('btnAttack1');
+const throwPokeball = document.getElementById("mainButton2");
+
 
 let save_Object = {
     today_Date: '',
@@ -59,6 +61,13 @@ if (btnAttack1) {
         console.log('Action Button wird ausgelöst');
         attack1();
     });
+}
+
+// Werfe Pokeball
+if(throwPokeball) {
+    throwPokeball.addEventListener("click", ()=> {
+        catchPokemon()
+    })
 }
 
 //######################################################
