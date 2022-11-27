@@ -676,7 +676,7 @@ function catchPokemon() {
                         currentWildPokemon.name,
                     )} wurde gefangen`,
                 );
-                myCatchedPokemons.push(currentWildPokemon);
+                save_Object.myCatchedPokemons.push(currentWildPokemon);
                 save_SaveObj();
                 console.log('--- !!!  !!! ---> CATCHED', myCatchedPokemons);
             } else {
