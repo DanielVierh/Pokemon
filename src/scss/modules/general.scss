@@ -211,14 +211,14 @@ body{
     &.active {
         display: block;
         position: fixed;
-        width: 100px;
-        height: 100px;
+        width: 70px;
+        height: 70px;
         background-image: url('/assets/Pokeball2.png');
         background-size: cover;
         background-repeat: no-repeat;
         border-radius: 50%;
         top: 50%;
-        left: 60%;
+        left: 70%;
         animation: throwPokeball .3s ease;
     }
 }
@@ -238,11 +238,11 @@ body{
     }
     75%{
         top: 40%;
-        left: 50%;
+        left: 60%;
     }
     100% {
         top: 50%;
-        left: 60%;
+        left: 70%;
     }
 }
 

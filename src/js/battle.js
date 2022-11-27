@@ -678,6 +678,10 @@ function catchPokemon() {
                 );
                 save_Object.myCatchedPokemons.push(currentWildPokemon);
                 save_SaveObj();
+                setTimeout(() => {
+                    showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
+                    window.location = 'pokedex.html';
+                }, 3000);
                 console.log('--- !!!  !!! ---> CATCHED', myCatchedPokemons);
             } else {
                 showInfoBox(

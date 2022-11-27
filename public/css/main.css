@@ -197,14 +197,14 @@ body {
 .pokeball.active {
   display: block;
   position: fixed;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   background-image: url(../javascript/f711221fda0b0236aad5.png);
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 50%;
   top: 50%;
-  left: 60%;
+  left: 70%;
   animation: throwPokeball 0.3s ease;
 }
 
@@ -223,11 +223,11 @@ body {
   }
   75% {
     top: 40%;
-    left: 50%;
+    left: 60%;
   }
   100% {
     top: 50%;
-    left: 60%;
+    left: 70%;
   }
 }
 .buttonContainer2 {
