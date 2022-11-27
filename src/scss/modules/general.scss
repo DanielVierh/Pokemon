@@ -213,10 +213,36 @@ body{
         position: fixed;
         width: 100px;
         height: 100px;
-        background-color: red;
+        background-image: url('/assets/Pokeball2.png');
+        background-size: cover;
+        background-repeat: no-repeat;
         border-radius: 50%;
         top: 50%;
+        left: 60%;
+        animation: throwPokeball .3s ease;
+    }
+}
+
+@keyframes throwPokeball {
+    0% {
+        top: 100%;
+        left: 0px;
+    }
+    25%{
+        top: 80%;
+        left: 10%;
+    }
+    50% {
+        top: 60%;
+        left: 30%;
+    }
+    75%{
+        top: 40%;
         left: 50%;
+    }
+    100% {
+        top: 50%;
+        left: 60%;
     }
 }
 
