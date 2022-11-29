@@ -30,6 +30,7 @@
     &.right {
         background-color: lightblue;
         justify-content: start;
+        overflow-y: scroll;
     }
 
     h3{
@@ -39,7 +40,8 @@
     }
 
     .catchedPokemonContaier {
-        width: 100%;
+        width: 90%;
+        margin: 0 auto;
     
         .pokemonContaier {
             width: 90%;
@@ -85,20 +87,26 @@
             img {
                 width: 90px;
                 height: 90px;
+                margin-top: -10px;
+            }
+
+            p {
+                margin-top: -20px;
             }
         
             .infobox {
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
-
+                margin-top: -10px;
         
                 p {
                     background-color: black;
-                    padding: 8px;
+                    padding: 4px;
                     border-radius: 10px;
                     margin: 5px;
                     box-shadow: inset 0 0 10px white;
+                    font-size: .8em;
                 }
             }
         }
