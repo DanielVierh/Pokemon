@@ -123,15 +123,35 @@ if (addBtn) {
                     console.log(myTeam);
                     renderTeam()
                     save_SaveObj();
-                }else {
+                    location.reload();
+                } else {
                     alert("Kein Platz mehr frei")
                 }
             }
+        });
+    });
+}
 
 
+const delBtn = document.querySelectorAll('.deleteButton');
+if (delBtn) {
+    delBtn.forEach((button) => {
+        button.addEventListener('click', () => {
+            let pokemonIndex = -1;
+            let removedPokemon;
+            for (let i = 0; i < myTeam.length; i++) {
+                if (button.id === myTeam[i].unique_ID) {
+                    pokemonIndex = i;
+                    break;
+                }
+            }
 
-
-
+            if (pokemonIndex >= 0) {
+                myTeam.splice(pokemonIndex, 1);
+                renderTeam();
+                save_SaveObj();
+                location.reload();
+            }
         });
     });
 }
