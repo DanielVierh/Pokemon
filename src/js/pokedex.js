@@ -1,4 +1,5 @@
 facedPokemons = [];
+let myTeam = [];
 
         let save_Object = {
             today_Date: '',
@@ -28,9 +29,18 @@ facedPokemons = [];
             if (localStorage.getItem('storedFacedPokemons') != null) {
                 save_Object = JSON.parse(localStorage.getItem('stored_save_Object'));
                 facedPokemons = save_Object.allFacedPokemons;
+                myTeam = save_Object.myPokemonTeam;
+                loadMyTeam();
                 renderPokeCards();
             }
         }
+
+        //myPokemonTeam
+function loadMyTeam() {
+    for(let i = 0; i < myTeam.length; i++) {
+        document.getElementById(`teamPoke_${i}`).src = myTeam[i].spriteFront
+    }
+}
 
 
         function renderPokeCards() {

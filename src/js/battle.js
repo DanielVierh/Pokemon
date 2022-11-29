@@ -163,11 +163,12 @@ function load_SaveObj() {
         save_Object = JSON.parse(localStorage.getItem('stored_save_Object'));
         facedPokemons = save_Object.allFacedPokemons;
         allMoves = save_Object.allPokemonMoves;
+        myTeam = save_Object.myPokemonTeam;
 
         try {
             loadMyTeam()
         } catch (error) {
-
+            console.warn('Team konnte nicht angezeigt werden: ', error)
         }
     }
 }
@@ -179,17 +180,16 @@ function save_SaveObj() {
 
 //myPokemonTeam
 function loadMyTeam() {
-    const team = save_Object.myCatchedPokemons;
-    for(let i = 0; i < team.length; i++) {
-        // document.getElementById(`teamPoke_${i+1}`).src =
+    for(let i = 0; i < myTeam.length; i++) {
+        document.getElementById(`teamPoke_${i}`).src = myTeam[i].spriteFront
     }
-    console.log('team: ', team);
 }
 
 // Funktion erstellt zufällig 20 Pokemon. Diese sollen für einen Tag abgespeichert
 // werden und die möglichen Pokemon bildem, denen man begegnen kann
 
 function generate_today_Pokemons() {
+    console.log('In Team Func ');
     if (today_equal_savedDay() === true) {
         todayPokemons = save_Object.today_Pokemons;
         console.log('todayPokemons aus saved: ', todayPokemons);
