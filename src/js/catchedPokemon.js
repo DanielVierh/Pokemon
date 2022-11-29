@@ -19,10 +19,7 @@ let save_Object = {
 };
 
 
-
 window.onload = init();
-
-
 
 function init() {
     if (document.getElementById("catchPokeTag")) {
@@ -50,7 +47,6 @@ function save_SaveObj() {
     localStorage.setItem('stored_save_Object', JSON.stringify(save_Object));
     console.log('SaveObj', save_Object);
 }
-
 
 
 function renderCatchedPokemons() {
@@ -171,6 +167,7 @@ function renderTeam() {
 
         let pokeimage = document.createElement("img");
         pokeimage.src = myTeam[i].spriteFront;
+        document.getElementById(`teamPoke_${i}`).src = myTeam[i].spriteFront
 
         let pokename = document.createElement("p");
         pokename.innerHTML = myTeam[i].name;
