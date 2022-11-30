@@ -3,7 +3,7 @@ let myTeam = [];
 
 const catchedPokemonContaier = document.getElementById("catchedPokemonContaier");
 const teamPokemonContainer = document.getElementById("teamPokemonContainer");
-
+const btn_ResetGame = document.getElementById("btn_ResetGame");
 
 let save_Object = {
     today_Date: '',
@@ -195,4 +195,30 @@ function renderTeam() {
 
         teamPokemonContainer.appendChild(pokeCont)
     }
+}
+
+
+// ######################################################
+// Lösche alles
+if(btn_ResetGame) {
+    btn_ResetGame.addEventListener("click", ()=> {
+      const decision = window.confirm("Soll das Spiel wirklich zurückgesetzt werden? Der ganze Spielstand geht verloren!");
+      if(decision) {
+        save_Object = {
+            today_Date: '',
+            myPokemonTeam: [],
+            myCatchedPokemons: [],
+            allFacedPokemons: [],
+            allPokemonMoves: [],
+            today_Pokemons: [],
+            items: {
+                pokeballs: 20,
+                money: 100,
+            },
+        };
+
+        save_SaveObj();
+        location.reload();
+      }
+    })
 }

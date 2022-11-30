@@ -175,8 +175,8 @@ body {
 
 .infBox {
   position: fixed;
-  top: 25%;
-  left: 25%;
+  top: 22%;
+  left: 2%;
   width: 60%;
   height: auto;
   z-index: 11;
@@ -184,7 +184,7 @@ body {
   border: 3px solid black;
   border-radius: 15px;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1em;
   text-align: center;
   padding: 3%;
   -webkit-backdrop-filter: blur(5px);
@@ -271,6 +271,7 @@ body {
   border-radius: 50%;
   font-size: 0.7em;
   z-index: 15;
+  cursor: pointer;
 }
 
 .menueWindow {
@@ -290,6 +291,7 @@ body {
   height: 40px;
   border-radius: 50%;
   font-size: 1em;
+  cursor: pointer;
 }
 .menueWindow.active {
   display: block;
@@ -319,6 +321,7 @@ body {
   padding: 10px;
   border-radius: 50%;
   box-shadow: inset 0 0 10px gray, 0 0 10px white;
+  cursor: pointer;
 }
 .menueWindow .menuCont {
   display: flex;
@@ -420,6 +423,22 @@ h1 {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+}
+
+.resetGameButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 50px;
+  height: 20px;
+  background-color: red;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px white;
 }
 
 .halfContainer {
