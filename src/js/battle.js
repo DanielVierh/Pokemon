@@ -34,14 +34,17 @@ const pokemonGenerationen = {
 };
 const pokeball = document.getElementById('pokeball');
 const mainButton1 = document.getElementById('mainButton1');
-const btnAttack1 = document.getElementById('btnAttack1');
+const btnAttack0 = document.getElementById('btnAttack0');
+const btnattackAction = document.getElementById('btnattackAction');
+const btnAttack2 = document.getElementById('btnAttack2');
+const btnAttack3 = document.getElementById('btnAttack3');
 const throwPokeball = document.getElementById('mainButton2');
 
 const pokemon1 = document.getElementById('teamPoke_0');
 const pokemon2 = document.getElementById('teamPoke_1');
 const pokemon3 = document.getElementById('teamPoke_2');
 const pokemon4 = document.getElementById('teamPoke_3');
-const outpPokeball = document.getElementById("outpPokeball");
+const outpPokeball = document.getElementById('outpPokeball');
 
 let save_Object = {
     today_Date: '',
@@ -56,18 +59,38 @@ let save_Object = {
     },
 };
 
-
-
 if (mainButton1) {
     mainButton1.addEventListener('click', () => {
         pokeFight();
     });
 }
 
-if (btnAttack1) {
-    btnAttack1.addEventListener('click', () => {
-        console.log('Action Button wird ausgelöst');
-        attack1();
+if (btnAttack0) {
+    btnAttack0.addEventListener('click', () => {
+        const btnMoveName = btnAttack0.innerText;
+        console.log(btnMoveName);
+        attackAction(btnMoveName);
+    });
+}
+
+if (btnattackAction) {
+    btnattackAction.addEventListener('click', () => {
+        const btnMoveName = btnattackAction.innerText;
+        attackAction(btnMoveName);
+    });
+}
+
+if (btnAttack2) {
+    btnAttack2.addEventListener('click', () => {
+        const btnMoveName = btnAttack2.innerText;
+        attackAction(btnMoveName);
+    });
+}
+
+if (btnAttack3) {
+    btnAttack3.addEventListener('click', () => {
+        const btnMoveName = btnAttack3.innerText;
+        attackAction(btnMoveName);
     });
 }
 
@@ -162,7 +185,7 @@ function init() {
         generate_today_Pokemons();
         myPokemonProgress.value = 100;
         wildPokemonProgress.value = 100;
-        createMyPokemon();
+        createMyFirstPokemon()
     }
 }
 
@@ -177,9 +200,44 @@ function load_SaveObj() {
             loadMyTeam();
             myPokeballAmount = save_Object.items.pokeballs;
             outpPokeball.innerHTML = myPokeballAmount;
+
+
         } catch (error) {
             console.warn('Team konnte nicht angezeigt werden: ', error);
         }
+    }
+}
+
+function createMyFirstPokemon() {
+    try {
+        const choosenPokemon = myTeam[0];
+        myStaticPokemon.id = choosenPokemon.id;
+        myStaticPokemon.name = choosenPokemon.name;
+        myStaticPokemon.src = choosenPokemon.spriteBack;
+        myStaticPokemon.type = choosenPokemon.type;
+        myStaticPokemon.level = choosenPokemon.level;
+        myStaticPokemon.moves = choosenPokemon.moves;
+        myStaticPokemon.statAttack = choosenPokemon.statAttack;
+        myStaticPokemon.statDefense = choosenPokemon.statDefense;
+        myStaticPokemon.xp = choosenPokemon.xp;
+        myStaticPokemon.hp = choosenPokemon.hp;
+        myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
+        myPokeImage.style.opacity = '1';
+        myPokeImage.src = choosenPokemon.spriteBack;
+        myCurrentPokemonHP = choosenPokemon.hp;
+        myCurrentPokemonStaticHP = choosenPokemon.xp;
+        myPokeName.innerHTML = `${makeFirstLetterBig(
+            choosenPokemon.name,
+        )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
+        document.getElementById('windowMenu').classList.remove('active');
+        // Lade Moves
+        for (let i = 0; i <= 4; i++) {
+            document.getElementById(`btnAttack${i}`).innerText =
+                myStaticPokemon.moves[i];
+        }
+    } catch (error) {
+        console.log(error);
+        // createMyPokemon();
     }
 }
 
@@ -199,10 +257,8 @@ function loadMyTeam() {
 // werden und die möglichen Pokemon bildem, denen man begegnen kann
 
 function generate_today_Pokemons() {
-    console.log('In Team Func ');
     if (today_equal_savedDay() === true) {
         todayPokemons = save_Object.today_Pokemons;
-        console.log('todayPokemons aus saved: ', todayPokemons);
         createWildPokemon();
     } else {
         // const min = pokemonGenerationen.gen1_start;
@@ -218,7 +274,6 @@ function generate_today_Pokemons() {
         save_Object.today_Date = createDateFromToday();
         save_SaveObj();
         createWildPokemon();
-        console.log('Today Pokemons', todayPokemons);
     }
 }
 
@@ -313,6 +368,7 @@ function createMyPokemon() {
     myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${
         myStaticPokemon.level
     } -- KP.${myStaticPokemon.hp}`;
+    console.log('MyCreated', myStaticPokemon);
 }
 
 //######################################################
@@ -322,7 +378,6 @@ function createMyPokemon() {
 function createWildPokemon() {
     let randomPokemon = parseInt(Math.random() * todayPokemons.length);
     randomPokemon = todayPokemons[randomPokemon];
-    console.log('randomPokemon', randomPokemon);
     let foundIdInFacedPokemonArray = false;
     // ? Checke FacedPokemon Array
     console.log('facedPokemons', facedPokemons);
@@ -351,7 +406,6 @@ function createWildPokemon() {
             }`;
             currentWildPokeHP = currentWildPokemon.hp;
             console.log('Found Pokemon in FacedPokemons', currentWildPokemon);
-            console.log('SpriteBack', facedPokemons[i].spriteBack);
             foundIdInFacedPokemonArray = true;
             break;
         }
@@ -652,9 +706,10 @@ function ki_Move() {
         }, 3000);
     } else {
         // Battle Szene hier beenden
+        level_up();
+        showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
         setTimeout(() => {
             // Todo: XP & Leveln ##############################################
-            showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
             window.location = 'pokedex.html';
         }, 3000);
     }
@@ -678,9 +733,7 @@ function catchPokemon() {
                 25 +
                 parseInt((Math.random() * hpInPercent) / 2) -
                 parseInt(Math.random() * (hpInPercent + 5));
-            console.log(
-                `Catchquote: ${catchquote} // Pokebälle: ${myPokeballAmount}`,
-            );
+
             if (catchquote >= 25) {
                 // Unsichtbar machen
                 wildPokeImage.style.opacity = '0';
@@ -691,16 +744,11 @@ function catchPokemon() {
                     )} wurde gefangen`,
                 );
                 save_Object.myCatchedPokemons.push(currentWildPokemon);
-                console.log(
-                    'currentWildPokemon nach dem Fangen',
-                    currentWildPokemon,
-                );
                 save_SaveObj();
                 setTimeout(() => {
                     showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
                     window.location = 'pokedex.html';
-                }, 3000);
-                console.log('--- !!!  !!! ---> CATCHED', myCatchedPokemons);
+                }, 1000);
             } else {
                 showInfoBox(
                     `${makeFirstLetterBig(
@@ -769,9 +817,8 @@ function pokeFight() {
     showMoveButtons();
 }
 
-function attack1() {
-    showMainButtons();
-    const btnMoveName = btnAttack1.innerText;
+function attackAction(btnMoveName) {
+    showMainButtons(btnMoveName);
     init_Move(btnMoveName);
     wildPokeImage.classList.add('getAttacked');
     setTimeout(() => {
@@ -779,13 +826,13 @@ function attack1() {
     }, 600);
 }
 
-function attack2() {
-    playBattleSound();
-}
+// function attack2() {
+//     playBattleSound();
+// }
 
-function attack3() {
-    playBattleSound();
-}
+// function attack3() {
+//     playBattleSound();
+// }
 
 // ########################################################
 // Schicke ein anderes Pokemon in den Kampf
@@ -794,17 +841,17 @@ if (pokemon1) {
     pokemon1.addEventListener('click', () => {
         try {
             const choosenPokemon = myTeam[0];
-            myStaticPokemon.id = choosenPokemon.id
-            myStaticPokemon.name = choosenPokemon.name
-            myStaticPokemon.src = choosenPokemon.spriteBack
-            myStaticPokemon.type = choosenPokemon.type
-            myStaticPokemon.level = choosenPokemon.level
-            myStaticPokemon.moves = choosenPokemon.moves
-            myStaticPokemon.statAttack = choosenPokemon.statAttack
-            myStaticPokemon.statDefense = choosenPokemon.statDefense
-            myStaticPokemon.xp = choosenPokemon.xp
-            myStaticPokemon.hp = choosenPokemon.hp
-            myStaticPokemon.unique_ID = choosenPokemon.unique_ID
+            myStaticPokemon.id = choosenPokemon.id;
+            myStaticPokemon.name = choosenPokemon.name;
+            myStaticPokemon.src = choosenPokemon.spriteBack;
+            myStaticPokemon.type = choosenPokemon.type;
+            myStaticPokemon.level = choosenPokemon.level;
+            myStaticPokemon.moves = choosenPokemon.moves;
+            myStaticPokemon.statAttack = choosenPokemon.statAttack;
+            myStaticPokemon.statDefense = choosenPokemon.statDefense;
+            myStaticPokemon.xp = choosenPokemon.xp;
+            myStaticPokemon.hp = choosenPokemon.hp;
+            myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
             myPokeImage.style.opacity = '1';
             myPokeImage.src = choosenPokemon.spriteBack;
             myCurrentPokemonHP = choosenPokemon.hp;
@@ -812,28 +859,32 @@ if (pokemon1) {
             myPokeName.innerHTML = `${makeFirstLetterBig(
                 choosenPokemon.name,
             )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
-            document.getElementById("windowMenu").classList.remove("active");
+            document.getElementById('windowMenu').classList.remove('active');
+            // Lade Moves
+            for (let i = 0; i <= 4; i++) {
+                document.getElementById(`btnAttack${i}`).innerText =
+                    myStaticPokemon.moves[i];
+            }
         } catch (error) {}
     });
 }
-
 
 // Todo: Refactoring - weil Redundant
 if (pokemon2) {
     pokemon2.addEventListener('click', () => {
         try {
             const choosenPokemon = myTeam[1];
-            myStaticPokemon.id = choosenPokemon.id
-            myStaticPokemon.name = choosenPokemon.name
-            myStaticPokemon.src = choosenPokemon.spriteBack
-            myStaticPokemon.type = choosenPokemon.type
-            myStaticPokemon.level = choosenPokemon.level
-            myStaticPokemon.moves = choosenPokemon.moves
-            myStaticPokemon.statAttack = choosenPokemon.statAttack
-            myStaticPokemon.statDefense = choosenPokemon.statDefense
-            myStaticPokemon.xp = choosenPokemon.xp
-            myStaticPokemon.hp = choosenPokemon.hp
-            myStaticPokemon.unique_ID = choosenPokemon.unique_ID
+            myStaticPokemon.id = choosenPokemon.id;
+            myStaticPokemon.name = choosenPokemon.name;
+            myStaticPokemon.src = choosenPokemon.spriteBack;
+            myStaticPokemon.type = choosenPokemon.type;
+            myStaticPokemon.level = choosenPokemon.level;
+            myStaticPokemon.moves = choosenPokemon.moves;
+            myStaticPokemon.statAttack = choosenPokemon.statAttack;
+            myStaticPokemon.statDefense = choosenPokemon.statDefense;
+            myStaticPokemon.xp = choosenPokemon.xp;
+            myStaticPokemon.hp = choosenPokemon.hp;
+            myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
             myPokeImage.style.opacity = '1';
             myPokeImage.src = choosenPokemon.spriteBack;
             myCurrentPokemonHP = choosenPokemon.hp;
@@ -841,7 +892,12 @@ if (pokemon2) {
             myPokeName.innerHTML = `${makeFirstLetterBig(
                 choosenPokemon.name,
             )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
-            document.getElementById("windowMenu").classList.remove("active");
+            document.getElementById('windowMenu').classList.remove('active');
+            // Lade Moves
+            for (let i = 0; i <= 4; i++) {
+                document.getElementById(`btnAttack${i}`).innerText =
+                    myStaticPokemon.moves[i];
+            }
         } catch (error) {}
     });
 }
@@ -850,17 +906,17 @@ if (pokemon3) {
     pokemon3.addEventListener('click', () => {
         try {
             const choosenPokemon = myTeam[2];
-            myStaticPokemon.id = choosenPokemon.id
-            myStaticPokemon.name = choosenPokemon.name
-            myStaticPokemon.src = choosenPokemon.spriteBack
-            myStaticPokemon.type = choosenPokemon.type
-            myStaticPokemon.level = choosenPokemon.level
-            myStaticPokemon.moves = choosenPokemon.moves
-            myStaticPokemon.statAttack = choosenPokemon.statAttack
-            myStaticPokemon.statDefense = choosenPokemon.statDefense
-            myStaticPokemon.xp = choosenPokemon.xp
-            myStaticPokemon.hp = choosenPokemon.hp
-            myStaticPokemon.unique_ID = choosenPokemon.unique_ID
+            myStaticPokemon.id = choosenPokemon.id;
+            myStaticPokemon.name = choosenPokemon.name;
+            myStaticPokemon.src = choosenPokemon.spriteBack;
+            myStaticPokemon.type = choosenPokemon.type;
+            myStaticPokemon.level = choosenPokemon.level;
+            myStaticPokemon.moves = choosenPokemon.moves;
+            myStaticPokemon.statAttack = choosenPokemon.statAttack;
+            myStaticPokemon.statDefense = choosenPokemon.statDefense;
+            myStaticPokemon.xp = choosenPokemon.xp;
+            myStaticPokemon.hp = choosenPokemon.hp;
+            myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
             myPokeImage.style.opacity = '1';
             myPokeImage.src = choosenPokemon.spriteBack;
             myCurrentPokemonHP = choosenPokemon.hp;
@@ -868,7 +924,12 @@ if (pokemon3) {
             myPokeName.innerHTML = `${makeFirstLetterBig(
                 choosenPokemon.name,
             )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
-            document.getElementById("windowMenu").classList.remove("active");
+            document.getElementById('windowMenu').classList.remove('active');
+            // Lade Moves
+            for (let i = 0; i <= 4; i++) {
+                document.getElementById(`btnAttack${i}`).innerText =
+                    myStaticPokemon.moves[i];
+            }
         } catch (error) {}
     });
 }
@@ -877,17 +938,17 @@ if (pokemon4) {
     pokemon4.addEventListener('click', () => {
         try {
             const choosenPokemon = myTeam[3];
-            myStaticPokemon.id = choosenPokemon.id
-            myStaticPokemon.name = choosenPokemon.name
-            myStaticPokemon.src = choosenPokemon.spriteBack
-            myStaticPokemon.type = choosenPokemon.type
-            myStaticPokemon.level = choosenPokemon.level
-            myStaticPokemon.moves = choosenPokemon.moves
-            myStaticPokemon.statAttack = choosenPokemon.statAttack
-            myStaticPokemon.statDefense = choosenPokemon.statDefense
-            myStaticPokemon.xp = choosenPokemon.xp
-            myStaticPokemon.hp = choosenPokemon.hp
-            myStaticPokemon.unique_ID = choosenPokemon.unique_ID
+            myStaticPokemon.id = choosenPokemon.id;
+            myStaticPokemon.name = choosenPokemon.name;
+            myStaticPokemon.src = choosenPokemon.spriteBack;
+            myStaticPokemon.type = choosenPokemon.type;
+            myStaticPokemon.level = choosenPokemon.level;
+            myStaticPokemon.moves = choosenPokemon.moves;
+            myStaticPokemon.statAttack = choosenPokemon.statAttack;
+            myStaticPokemon.statDefense = choosenPokemon.statDefense;
+            myStaticPokemon.xp = choosenPokemon.xp;
+            myStaticPokemon.hp = choosenPokemon.hp;
+            myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
             myPokeImage.style.opacity = '1';
             myPokeImage.src = choosenPokemon.spriteBack;
             myCurrentPokemonHP = choosenPokemon.hp;
@@ -895,7 +956,82 @@ if (pokemon4) {
             myPokeName.innerHTML = `${makeFirstLetterBig(
                 choosenPokemon.name,
             )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
-            document.getElementById("windowMenu").classList.remove("active");
+            document.getElementById('windowMenu').classList.remove('active');
+            // Lade Moves
+            for (let i = 0; i <= 4; i++) {
+                document.getElementById(`btnAttack${i}`).innerText =
+                    myStaticPokemon.moves[i];
+            }
         } catch (error) {}
     });
 }
+
+function level_up() {
+    console.log('XP: ', myStaticPokemon.xp);
+}
+
+/**
+ * // Leveln
+    func leveln(){
+        allocateXPAndGk()
+        let enLv = enemyPokemonLevel
+        let oldXP = currentXP
+                                                        print(" \(currentEnemyPokemon) / enLv \(enLv)")
+        // Formel
+        //let calcXP = (currentGK * enLv * 2 + myLife + 100) / (level - 3)
+        let calcXP = (currentGK * enLv * 2 + myLife + 160) / (level - 3)
+
+                                                        print("calcXP \(calcXP)")
+        // Neue Zuweisung
+        let newXP = currentXP + calcXP
+                                                        print("newXP \(newXP)")
+        // prüfen ob level erhöht werden kann
+        if oldXP <= 100 {
+            if newXP > 100{
+                level += 1
+                let resetXP = 0
+                currentXP = resetXP
+                // level löschen und erneut speichern
+                pokemonLevel.removeValue(forKey: currentPokemon)
+                pokemonLevel[currentPokemon] = level
+                UserDefaults.standard.set(pokemonLevel, forKey: "gespPokemonLevel")
+                xP[currentPokemon] = resetXP
+                UserDefaults.standard.set(xP, forKey: "gespXp")
+                CreateAlert(title: "Level +1", message: "\(currentPokemon) hat level \(level) erreicht")
+                let sizeOfXpFrame = currentXP * 2
+                lblXP.frame = CGRect(x: 60, y: 314, width: sizeOfXpFrame, height: 12)
+                lblXP.text = "   XP:\(currentXP)  +\(calcXP)"
+                LifeInPercent.text = "\(nameOfMyFightingPokemon) L.\(level) - \(myLife)%"
+                // prüfen ob sich pokemon weiterentwickeln kann weil 10er Stufe erreicht
+                //checkingEvolve()
+            }else{
+                xP[currentPokemon] = newXP
+                currentXP = newXP
+                UserDefaults.standard.set(xP, forKey: "gespXp")
+                let sizeOfXpFrame = currentXP * 2
+                lblXP.frame = CGRect(x: 60, y: 314, width: sizeOfXpFrame, height: 12)
+                lblXP.text = "   XP:\(currentXP)  +\(calcXP)"
+                print("\(currentPokemon): xP: \(currentXP) / GK: \(currentGK)")
+            }
+        }else if oldXP > 100{
+                  level += 1
+                  let resetXP = 0
+                  currentXP = resetXP
+                  // level löschen und erneut speichern
+                  pokemonLevel.removeValue(forKey: currentPokemon)
+                  pokemonLevel[currentPokemon] = level
+                  UserDefaults.standard.set(pokemonLevel, forKey: "gespPokemonLevel")
+                  xP[currentPokemon] = resetXP
+                  UserDefaults.standard.set(xP, forKey: "gespXp")
+                  CreateAlert(title: "Level +1", message: "\(currentPokemon) hat level \(level) erreicht")
+                  let sizeOfXpFrame = currentXP * 2
+                  lblXP.frame = CGRect(x: 60, y: 314, width: sizeOfXpFrame, height: 12)
+                  lblXP.text = "   XP:\(currentXP)  +\(calcXP)"
+                  LifeInPercent.text = "\(nameOfMyFightingPokemon) L.\(level) - \(myLife)%"
+        }
+
+
+    }
+
+
+ */
