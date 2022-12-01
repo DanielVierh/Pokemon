@@ -41,6 +41,7 @@ const pokemon1 = document.getElementById('teamPoke_0');
 const pokemon2 = document.getElementById('teamPoke_1');
 const pokemon3 = document.getElementById('teamPoke_2');
 const pokemon4 = document.getElementById('teamPoke_3');
+const outpPokeball = document.getElementById("outpPokeball");
 
 let save_Object = {
     today_Date: '',
@@ -54,6 +55,8 @@ let save_Object = {
         money: 100,
     },
 };
+
+
 
 if (mainButton1) {
     mainButton1.addEventListener('click', () => {
@@ -172,6 +175,8 @@ function load_SaveObj() {
 
         try {
             loadMyTeam();
+            myPokeballAmount = save_Object.items.pokeballs;
+            outpPokeball.innerHTML = myPokeballAmount;
         } catch (error) {
             console.warn('Team konnte nicht angezeigt werden: ', error);
         }
@@ -648,6 +653,7 @@ function ki_Move() {
     } else {
         // Battle Szene hier beenden
         setTimeout(() => {
+            // Todo: XP & Leveln ##############################################
             showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
             window.location = 'pokedex.html';
         }, 3000);
@@ -662,6 +668,7 @@ function catchPokemon() {
     // Abfragen, ob man noch Pokebälle hat
     if (myPokeballAmount > 0) {
         myPokeballAmount--;
+        outpPokeball.innerHTML = myPokeballAmount;
         pokeball.classList.add('active');
         setTimeout(() => {
             pokeball.classList.remove('active');
@@ -745,14 +752,14 @@ function disableMainButtons() {
     mainButtons.style.backgroundColor = 'red';
     document.getElementById('mainButton1').disabled = true;
     document.getElementById('mainButton2').disabled = true;
-    document.getElementById('mainButton3').disabled = true;
+    // document.getElementById('mainButton3').disabled = true;
 }
 
 function enableMainButtons() {
     mainButtons.style.backgroundColor = 'rgba(0, 0, 10, 0.384)';
     document.getElementById('mainButton1').disabled = false;
     document.getElementById('mainButton2').disabled = false;
-    document.getElementById('mainButton3').disabled = false;
+    // document.getElementById('mainButton3').disabled = false;
 }
 
 //######################################################
@@ -798,7 +805,7 @@ if (pokemon1) {
             myStaticPokemon.xp = choosenPokemon.xp
             myStaticPokemon.hp = choosenPokemon.hp
             myStaticPokemon.unique_ID = choosenPokemon.unique_ID
-
+            myPokeImage.style.opacity = '1';
             myPokeImage.src = choosenPokemon.spriteBack;
             myCurrentPokemonHP = choosenPokemon.hp;
             myCurrentPokemonStaticHP = choosenPokemon.xp;
@@ -810,6 +817,8 @@ if (pokemon1) {
     });
 }
 
+
+// Todo: Refactoring - weil Redundant
 if (pokemon2) {
     pokemon2.addEventListener('click', () => {
         try {
@@ -825,7 +834,7 @@ if (pokemon2) {
             myStaticPokemon.xp = choosenPokemon.xp
             myStaticPokemon.hp = choosenPokemon.hp
             myStaticPokemon.unique_ID = choosenPokemon.unique_ID
-
+            myPokeImage.style.opacity = '1';
             myPokeImage.src = choosenPokemon.spriteBack;
             myCurrentPokemonHP = choosenPokemon.hp;
             myCurrentPokemonStaticHP = choosenPokemon.xp;
@@ -852,7 +861,7 @@ if (pokemon3) {
             myStaticPokemon.xp = choosenPokemon.xp
             myStaticPokemon.hp = choosenPokemon.hp
             myStaticPokemon.unique_ID = choosenPokemon.unique_ID
-
+            myPokeImage.style.opacity = '1';
             myPokeImage.src = choosenPokemon.spriteBack;
             myCurrentPokemonHP = choosenPokemon.hp;
             myCurrentPokemonStaticHP = choosenPokemon.xp;
@@ -879,7 +888,7 @@ if (pokemon4) {
             myStaticPokemon.xp = choosenPokemon.xp
             myStaticPokemon.hp = choosenPokemon.hp
             myStaticPokemon.unique_ID = choosenPokemon.unique_ID
-
+            myPokeImage.style.opacity = '1';
             myPokeImage.src = choosenPokemon.spriteBack;
             myCurrentPokemonHP = choosenPokemon.hp;
             myCurrentPokemonStaticHP = choosenPokemon.xp;
