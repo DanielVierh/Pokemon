@@ -211,34 +211,12 @@ function load_SaveObj() {
 function createMyFirstPokemon() {
     try {
         const choosenPokemon = myTeam[0];
-        myStaticPokemon.id = choosenPokemon.id;
-        myStaticPokemon.name = choosenPokemon.name;
-        myStaticPokemon.src = choosenPokemon.spriteBack;
-        myStaticPokemon.type = choosenPokemon.type;
-        myStaticPokemon.level = choosenPokemon.level;
-        myStaticPokemon.moves = choosenPokemon.moves;
-        myStaticPokemon.statAttack = choosenPokemon.statAttack;
-        myStaticPokemon.statDefense = choosenPokemon.statDefense;
-        myStaticPokemon.xp = choosenPokemon.xp;
-        myStaticPokemon.hp = choosenPokemon.hp;
-        myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
-        myPokeImage.style.opacity = '1';
-        myPokeImage.src = choosenPokemon.spriteBack;
-        myCurrentPokemonHP = choosenPokemon.hp;
-        myCurrentPokemonStaticHP = choosenPokemon.hp;
-        myPokeName.innerHTML = `${makeFirstLetterBig(
-            choosenPokemon.name,
-        )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
-        document.getElementById('windowMenu').classList.remove('active');
-        // Lade Moves
-        for (let i = 0; i <= 3; i++) {
-            document.getElementById(`btnAttack${i}`).innerText =
-                myStaticPokemon.moves[i];
-        }
-    } catch (error) {
-        // console.log(error);
-        // createMyPokemon();
-    }
+        if(choosenPokemon.hp > 0) {
+            chooseNewPokemon(choosenPokemon);
+            showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
+        }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
+    } catch (error) {}
+
 }
 
 function save_SaveObj() {
@@ -385,7 +363,7 @@ function createWildPokemon() {
         if (randomPokemon === facedPokemons[i].id) {
             currentWildPokemon = new Pokemon(
                 facedPokemons[i].id,
-                facedPokemons[i].name,
+                makeFirstLetterBig(facedPokemons[i].name),
                 facedPokemons[i].type,
                 parseInt(Math.random() * 20) + 3,
                 facedPokemons[i].moves,
@@ -836,68 +814,27 @@ function attackAction(btnMoveName) {
 
 // ########################################################
 // Schicke ein anderes Pokemon in den Kampf
-
+// Todo: Refactoring - weil Redundant
 if (pokemon1) {
     pokemon1.addEventListener('click', () => {
         try {
             const choosenPokemon = myTeam[0];
-            myStaticPokemon.id = choosenPokemon.id;
-            myStaticPokemon.name = choosenPokemon.name;
-            myStaticPokemon.src = choosenPokemon.spriteBack;
-            myStaticPokemon.type = choosenPokemon.type;
-            myStaticPokemon.level = choosenPokemon.level;
-            myStaticPokemon.moves = choosenPokemon.moves;
-            myStaticPokemon.statAttack = choosenPokemon.statAttack;
-            myStaticPokemon.statDefense = choosenPokemon.statDefense;
-            myStaticPokemon.xp = choosenPokemon.xp;
-            myStaticPokemon.hp = choosenPokemon.hp;
-            myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
-            myPokeImage.style.opacity = '1';
-            myPokeImage.src = choosenPokemon.spriteBack;
-            myCurrentPokemonHP = choosenPokemon.hp;
-            myCurrentPokemonStaticHP = choosenPokemon.hp;
-            myPokeName.innerHTML = `${makeFirstLetterBig(
-                choosenPokemon.name,
-            )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
-            document.getElementById('windowMenu').classList.remove('active');
-            // Lade Moves
-            for (let i = 0; i <= 3; i++) {
-                document.getElementById(`btnAttack${i}`).innerText =
-                    myStaticPokemon.moves[i];
-            }
+            if(choosenPokemon.hp > 0) {
+                chooseNewPokemon(choosenPokemon);
+                showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
+            }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
         } catch (error) {}
     });
 }
 
-// Todo: Refactoring - weil Redundant
 if (pokemon2) {
     pokemon2.addEventListener('click', () => {
         try {
             const choosenPokemon = myTeam[1];
-            myStaticPokemon.id = choosenPokemon.id;
-            myStaticPokemon.name = choosenPokemon.name;
-            myStaticPokemon.src = choosenPokemon.spriteBack;
-            myStaticPokemon.type = choosenPokemon.type;
-            myStaticPokemon.level = choosenPokemon.level;
-            myStaticPokemon.moves = choosenPokemon.moves;
-            myStaticPokemon.statAttack = choosenPokemon.statAttack;
-            myStaticPokemon.statDefense = choosenPokemon.statDefense;
-            myStaticPokemon.xp = choosenPokemon.xp;
-            myStaticPokemon.hp = choosenPokemon.hp;
-            myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
-            myPokeImage.style.opacity = '1';
-            myPokeImage.src = choosenPokemon.spriteBack;
-            myCurrentPokemonHP = choosenPokemon.hp;
-            myCurrentPokemonStaticHP = choosenPokemon.hp;
-            myPokeName.innerHTML = `${makeFirstLetterBig(
-                choosenPokemon.name,
-            )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
-            document.getElementById('windowMenu').classList.remove('active');
-            // Lade Moves
-            for (let i = 0; i <= 3; i++) {
-                document.getElementById(`btnAttack${i}`).innerText =
-                    myStaticPokemon.moves[i];
-            }
+            if(choosenPokemon.hp > 0) {
+                chooseNewPokemon(choosenPokemon);
+                showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
+            }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
         } catch (error) {}
     });
 }
@@ -906,30 +843,10 @@ if (pokemon3) {
     pokemon3.addEventListener('click', () => {
         try {
             const choosenPokemon = myTeam[2];
-            myStaticPokemon.id = choosenPokemon.id;
-            myStaticPokemon.name = choosenPokemon.name;
-            myStaticPokemon.src = choosenPokemon.spriteBack;
-            myStaticPokemon.type = choosenPokemon.type;
-            myStaticPokemon.level = choosenPokemon.level;
-            myStaticPokemon.moves = choosenPokemon.moves;
-            myStaticPokemon.statAttack = choosenPokemon.statAttack;
-            myStaticPokemon.statDefense = choosenPokemon.statDefense;
-            myStaticPokemon.xp = choosenPokemon.xp;
-            myStaticPokemon.hp = choosenPokemon.hp;
-            myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
-            myPokeImage.style.opacity = '1';
-            myPokeImage.src = choosenPokemon.spriteBack;
-            myCurrentPokemonHP = choosenPokemon.hp;
-            myCurrentPokemonStaticHP = choosenPokemon.hp;
-            myPokeName.innerHTML = `${makeFirstLetterBig(
-                choosenPokemon.name,
-            )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
-            document.getElementById('windowMenu').classList.remove('active');
-            // Lade Moves
-            for (let i = 0; i <= 3; i++) {
-                document.getElementById(`btnAttack${i}`).innerText =
-                    myStaticPokemon.moves[i];
-            }
+            if(choosenPokemon.hp > 0) {
+                chooseNewPokemon(choosenPokemon);
+                showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
+            }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
         } catch (error) {}
     });
 }
@@ -938,33 +855,41 @@ if (pokemon4) {
     pokemon4.addEventListener('click', () => {
         try {
             const choosenPokemon = myTeam[3];
-            myStaticPokemon.id = choosenPokemon.id;
-            myStaticPokemon.name = choosenPokemon.name;
-            myStaticPokemon.src = choosenPokemon.spriteBack;
-            myStaticPokemon.type = choosenPokemon.type;
-            myStaticPokemon.level = choosenPokemon.level;
-            myStaticPokemon.moves = choosenPokemon.moves;
-            myStaticPokemon.statAttack = choosenPokemon.statAttack;
-            myStaticPokemon.statDefense = choosenPokemon.statDefense;
-            myStaticPokemon.xp = choosenPokemon.xp;
-            myStaticPokemon.hp = choosenPokemon.hp;
-            myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
-            myPokeImage.style.opacity = '1';
-            myPokeImage.src = choosenPokemon.spriteBack;
-            myCurrentPokemonHP = choosenPokemon.hp;
-            myCurrentPokemonStaticHP = choosenPokemon.hp;
-            myPokeName.innerHTML = `${makeFirstLetterBig(
-                choosenPokemon.name,
-            )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
-            document.getElementById('windowMenu').classList.remove('active');
-            // Lade Moves
-            for (let i = 0; i <= 3; i++) {
-                document.getElementById(`btnAttack${i}`).innerText =
-                    myStaticPokemon.moves[i];
-            }
+            if(choosenPokemon.hp > 0) {
+                chooseNewPokemon(choosenPokemon);
+                showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
+            }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
         } catch (error) {}
     });
 }
+
+function chooseNewPokemon(choosenPokemon) {
+        myStaticPokemon.id = choosenPokemon.id;
+        myStaticPokemon.name = choosenPokemon.name;
+        myStaticPokemon.src = choosenPokemon.spriteBack;
+        myStaticPokemon.type = choosenPokemon.type;
+        myStaticPokemon.level = choosenPokemon.level;
+        myStaticPokemon.moves = choosenPokemon.moves;
+        myStaticPokemon.statAttack = choosenPokemon.statAttack;
+        myStaticPokemon.statDefense = choosenPokemon.statDefense;
+        myStaticPokemon.xp = choosenPokemon.xp;
+        myStaticPokemon.hp = choosenPokemon.hp;
+        myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
+        myPokeImage.style.opacity = '1';
+        myPokeImage.src = choosenPokemon.spriteBack;
+        myCurrentPokemonHP = choosenPokemon.hp;
+        myCurrentPokemonStaticHP = choosenPokemon.hp;
+        myPokeName.innerHTML = `${makeFirstLetterBig(
+            choosenPokemon.name,
+        )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
+        document.getElementById('windowMenu').classList.remove('active');
+        // Lade Moves
+        for (let i = 0; i <= 3; i++) {
+            document.getElementById(`btnAttack${i}`).innerText =
+                myStaticPokemon.moves[i];
+        }
+}
+
 
 function level_up() {
     console.log('XP: ', myStaticPokemon.xp);
