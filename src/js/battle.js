@@ -32,6 +32,10 @@ const pokemonGenerationen = {
     gen1_start: 1,
     gen1_end: 150,
 };
+
+
+
+
 const pokeball = document.getElementById('pokeball');
 const mainButton1 = document.getElementById('mainButton1');
 const btnAttack0 = document.getElementById('btnAttack0');
@@ -158,10 +162,6 @@ class PokeMove {
     }
 }
 
-//######################################################
-// Statisches Pokemon
-//######################################################
-// Statisches Pokemon -- Glurak
 let myStaticPokemon = new Pokemon(
     6,
     'Charizard',
@@ -174,9 +174,12 @@ let myStaticPokemon = new Pokemon(
     78,
     0,
     78,
-);
+    );
+
 
 window.onload = init();
+
+
 
 function init() {
     // Check first if battle window is open
@@ -197,6 +200,12 @@ function load_SaveObj() {
         myTeam = save_Object.myPokemonTeam;
 
         try {
+            if(save_Object.allFacedPokemons.length === 0) {
+                createMyStarterPokemon()
+                createMyFirstPokemon()
+
+            }
+
             loadMyTeam();
             myPokeballAmount = save_Object.items.pokeballs;
             outpPokeball.innerHTML = myPokeballAmount;
@@ -205,17 +214,50 @@ function load_SaveObj() {
         } catch (error) {
             console.warn('Team konnte nicht angezeigt werden: ', error);
         }
+    }else {
+        createMyStarterPokemon()
+        createMyFirstPokemon()
     }
 }
 
+
+
+//######################################################
+// Statisches Pokemon
+//######################################################
+function createMyStarterPokemon() {
+    // Statisches Pokemon -- Arcanine
+    myStaticPokemon = new Pokemon(
+        59,
+        'Arcanine',
+        'fire',
+        3,
+        ['will-o-wisp', 'hidden-power', 'thief', 'giga-impact', 'teleport'],
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/59.png',
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/59.png',
+        110,
+        80,
+        0,
+        90,
+        'rabdomVal123'
+    );
+        save_Object.myPokemonTeam.push(myStaticPokemon)
+        save_Object.myCatchedPokemons.push(myStaticPokemon)
+        save_SaveObj()
+        createMyPokemon()
+    }
+
 function createMyFirstPokemon() {
     try {
+        console.log('myTeam', myTeam);
         const choosenPokemon = myTeam[0];
         if(choosenPokemon.hp > 0) {
             chooseNewPokemon(choosenPokemon);
             showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
         }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
-    } catch (error) {}
+    } catch (error) {
+        console.log(error);
+    }
 
 }
 
@@ -637,7 +679,7 @@ function animateProgressBar(damage, whoIsAffected) {
         } else {
             showInfoBox(
                 `${makeFirstLetterBig(atackerPokemon.name)} führt "${
-                    pokeMove.name
+                    makeFirstLetterBig(pokeMove.name)
                 }" aus und richtet ${damage} Schaden an.`,
             );
             effectedPokeName.innerHTML = `${makeFirstLetterBig(
@@ -743,13 +785,13 @@ function catchPokemon() {
 //######################################################
 // Macht den Anfangsbuchstaben groß
 //######################################################
-function makeFirstLetterBig(pokeName) {
-    const firstLetter = pokeName[0];
-    let exportPokeName = firstLetter.toUpperCase();
-    for (let i = 1; i < pokeName.length; i++) {
-        exportPokeName += pokeName[i];
+function makeFirstLetterBig(word) {
+    const firstLetter = word[0];
+    let exportword = firstLetter.toUpperCase();
+    for (let i = 1; i < word.length; i++) {
+        exportword += word[i];
     }
-    return exportPokeName;
+    return exportword;
 }
 
 //######################################################
@@ -864,6 +906,7 @@ if (pokemon4) {
 }
 
 function chooseNewPokemon(choosenPokemon) {
+        console.log('myStaticPokemon.id',myStaticPokemon.id);
         myStaticPokemon.id = choosenPokemon.id;
         myStaticPokemon.name = choosenPokemon.name;
         myStaticPokemon.src = choosenPokemon.spriteBack;

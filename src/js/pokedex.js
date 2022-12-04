@@ -24,7 +24,7 @@ function init() {
 }
 
 function loadFacedPokemons() {
-    if (localStorage.getItem('storedFacedPokemons') != null) {
+    if (localStorage.getItem('stored_save_Object') != null) {
         save_Object = JSON.parse(localStorage.getItem('stored_save_Object'));
         facedPokemons = save_Object.allFacedPokemons;
         console.log('facedPokemons', facedPokemons);
@@ -36,6 +36,8 @@ function loadFacedPokemons() {
         myTeam = save_Object.myPokemonTeam;
         loadMyTeam();
         renderPokeCards();
+    }else {
+        console.log('Konnte nicht geladen werden');
     }
 }
 
@@ -67,7 +69,7 @@ function buildCard(id, name, level, type) {
     let cont = document.createElement('div');
     let txtlbl = document.createElement('p');
     let imgP = document.createElement('img');
-    txtlbl.innerText = `${name} Nr.${id} \n Typ: ${type}`;
+    txtlbl.innerText = `${makeFirstLetterBig(name)} Nr.${id} \n Typ: ${makeFirstLetterBig(type)}`;
     txtlbl.classList.add('pokedexName');
     imgP.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
     cont.appendChild(imgP);
@@ -113,4 +115,17 @@ function addColorClass(type) {
             return 'greyContainer';
             break;
     }
+}
+
+
+//######################################################
+// Macht den Anfangsbuchstaben groß
+//######################################################
+function makeFirstLetterBig(word) {
+    const firstLetter = word[0];
+    let exportword = firstLetter.toUpperCase();
+    for (let i = 1; i < word.length; i++) {
+        exportword += word[i];
+    }
+    return exportword;
 }

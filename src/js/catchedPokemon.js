@@ -64,7 +64,7 @@ function renderCatchedPokemons() {
         pokeimage.src = myCatchedPokemons[i].spriteFront;
 
         let pokename = document.createElement("p");
-        pokename.innerHTML = myCatchedPokemons[i].name;
+        pokename.innerHTML = makeFirstLetterBig(myCatchedPokemons[i].name);
 
         let infocont = document.createElement("div");
         infocont.classList.add("infobox");
@@ -73,7 +73,7 @@ function renderCatchedPokemons() {
         level.innerHTML = `Lv.${myCatchedPokemons[i].level}`;
 
         let type = document.createElement("p");
-        type.innerHTML = `Typ: ${myCatchedPokemons[i].type}`;
+        type.innerHTML = `Typ: ${makeFirstLetterBig(myCatchedPokemons[i].type)}`;
 
         let number = document.createElement("p");
         number.innerHTML = `Nr. ${myCatchedPokemons[i].id}`;
@@ -171,7 +171,7 @@ function renderTeam() {
         document.getElementById(`teamPoke_${i}`).src = myTeam[i].spriteFront
 
         let pokename = document.createElement("p");
-        pokename.innerHTML = myTeam[i].name;
+        pokename.innerHTML = makeFirstLetterBig(myTeam[i].name);
 
         let infocont = document.createElement("div");
         infocont.classList.add("infobox");
@@ -180,7 +180,7 @@ function renderTeam() {
         level.innerHTML = `Lv.${myTeam[i].level}`;
 
         let type = document.createElement("p");
-        type.innerHTML = `Typ: ${myTeam[i].type}`;
+        type.innerHTML = `Typ: ${makeFirstLetterBig(myTeam[i].type)}`;
 
         let number = document.createElement("p");
         number.innerHTML = `Nr. ${myTeam[i].id}`;
@@ -222,4 +222,18 @@ if(btn_ResetGame) {
         location.reload();
       }
     })
+}
+
+
+
+//######################################################
+// Macht den Anfangsbuchstaben groß
+//######################################################
+function makeFirstLetterBig(word) {
+    const firstLetter = word[0];
+    let exportword = firstLetter.toUpperCase();
+    for (let i = 1; i < word.length; i++) {
+        exportword += word[i];
+    }
+    return exportword;
 }
