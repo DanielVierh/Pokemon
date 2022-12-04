@@ -35,7 +35,7 @@ const pokemonGenerationen = {
 const pokeball = document.getElementById('pokeball');
 const mainButton1 = document.getElementById('mainButton1');
 const btnAttack0 = document.getElementById('btnAttack0');
-const btnattackAction = document.getElementById('btnattackAction');
+const btnAttack1 = document.getElementById('btnAttack1');
 const btnAttack2 = document.getElementById('btnAttack2');
 const btnAttack3 = document.getElementById('btnAttack3');
 const throwPokeball = document.getElementById('mainButton2');
@@ -73,9 +73,9 @@ if (btnAttack0) {
     });
 }
 
-if (btnattackAction) {
-    btnattackAction.addEventListener('click', () => {
-        const btnMoveName = btnattackAction.innerText;
+if (btnAttack1) {
+    btnAttack1.addEventListener('click', () => {
+        const btnMoveName = btnAttack1.innerText;
         attackAction(btnMoveName);
     });
 }
@@ -231,7 +231,7 @@ function createMyFirstPokemon() {
         )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
         document.getElementById('windowMenu').classList.remove('active');
         // Lade Moves
-        for (let i = 0; i <= 4; i++) {
+        for (let i = 0; i <= 3; i++) {
             document.getElementById(`btnAttack${i}`).innerText =
                 myStaticPokemon.moves[i];
         }
@@ -861,7 +861,7 @@ if (pokemon1) {
             )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
             document.getElementById('windowMenu').classList.remove('active');
             // Lade Moves
-            for (let i = 0; i <= 4; i++) {
+            for (let i = 0; i <= 3; i++) {
                 document.getElementById(`btnAttack${i}`).innerText =
                     myStaticPokemon.moves[i];
             }
@@ -894,7 +894,7 @@ if (pokemon2) {
             )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
             document.getElementById('windowMenu').classList.remove('active');
             // Lade Moves
-            for (let i = 0; i <= 4; i++) {
+            for (let i = 0; i <= 3; i++) {
                 document.getElementById(`btnAttack${i}`).innerText =
                     myStaticPokemon.moves[i];
             }
@@ -926,7 +926,7 @@ if (pokemon3) {
             )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
             document.getElementById('windowMenu').classList.remove('active');
             // Lade Moves
-            for (let i = 0; i <= 4; i++) {
+            for (let i = 0; i <= 3; i++) {
                 document.getElementById(`btnAttack${i}`).innerText =
                     myStaticPokemon.moves[i];
             }
@@ -958,7 +958,7 @@ if (pokemon4) {
             )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
             document.getElementById('windowMenu').classList.remove('active');
             // Lade Moves
-            for (let i = 0; i <= 4; i++) {
+            for (let i = 0; i <= 3; i++) {
                 document.getElementById(`btnAttack${i}`).innerText =
                     myStaticPokemon.moves[i];
             }
