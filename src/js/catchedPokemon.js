@@ -115,7 +115,7 @@ if (addBtn) {
                 const freeTeamNumbers = myTeam.length;
                 if (freeTeamNumbers < 4) {
                     //! check, ob dieses Pokemon schon im Team
-                    myTeam.push(addedPokemon);
+                    myTeam.unshift(addedPokemon);
                     console.log(myTeam);
                     renderTeam()
                     save_SaveObj();
