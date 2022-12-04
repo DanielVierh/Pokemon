@@ -33,6 +33,7 @@ function load_SaveObj() {
         save_Object = JSON.parse(localStorage.getItem('stored_save_Object'));
         myTeam = save_Object.myPokemonTeam;
         myCatchedPokemons = save_Object.myCatchedPokemons;
+        document.getElementById("outpCatchedAmount").innerHTML = `${myCatchedPokemons.length} gefangen`
 
         try {
             renderCatchedPokemons();
