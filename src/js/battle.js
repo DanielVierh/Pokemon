@@ -225,7 +225,7 @@ function createMyFirstPokemon() {
         myPokeImage.style.opacity = '1';
         myPokeImage.src = choosenPokemon.spriteBack;
         myCurrentPokemonHP = choosenPokemon.hp;
-        myCurrentPokemonStaticHP = choosenPokemon.xp;
+        myCurrentPokemonStaticHP = choosenPokemon.hp;
         myPokeName.innerHTML = `${makeFirstLetterBig(
             choosenPokemon.name,
         )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
@@ -236,7 +236,7 @@ function createMyFirstPokemon() {
                 myStaticPokemon.moves[i];
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         // createMyPokemon();
     }
 }
@@ -855,7 +855,7 @@ if (pokemon1) {
             myPokeImage.style.opacity = '1';
             myPokeImage.src = choosenPokemon.spriteBack;
             myCurrentPokemonHP = choosenPokemon.hp;
-            myCurrentPokemonStaticHP = choosenPokemon.xp;
+            myCurrentPokemonStaticHP = choosenPokemon.hp;
             myPokeName.innerHTML = `${makeFirstLetterBig(
                 choosenPokemon.name,
             )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
@@ -888,7 +888,7 @@ if (pokemon2) {
             myPokeImage.style.opacity = '1';
             myPokeImage.src = choosenPokemon.spriteBack;
             myCurrentPokemonHP = choosenPokemon.hp;
-            myCurrentPokemonStaticHP = choosenPokemon.xp;
+            myCurrentPokemonStaticHP = choosenPokemon.hp;
             myPokeName.innerHTML = `${makeFirstLetterBig(
                 choosenPokemon.name,
             )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
@@ -920,7 +920,7 @@ if (pokemon3) {
             myPokeImage.style.opacity = '1';
             myPokeImage.src = choosenPokemon.spriteBack;
             myCurrentPokemonHP = choosenPokemon.hp;
-            myCurrentPokemonStaticHP = choosenPokemon.xp;
+            myCurrentPokemonStaticHP = choosenPokemon.hp;
             myPokeName.innerHTML = `${makeFirstLetterBig(
                 choosenPokemon.name,
             )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
@@ -952,7 +952,7 @@ if (pokemon4) {
             myPokeImage.style.opacity = '1';
             myPokeImage.src = choosenPokemon.spriteBack;
             myCurrentPokemonHP = choosenPokemon.hp;
-            myCurrentPokemonStaticHP = choosenPokemon.xp;
+            myCurrentPokemonStaticHP = choosenPokemon.hp;
             myPokeName.innerHTML = `${makeFirstLetterBig(
                 choosenPokemon.name,
             )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
