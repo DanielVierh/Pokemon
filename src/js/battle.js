@@ -32,6 +32,7 @@ const pokemonGenerationen = {
     gen1_start: 1,
     gen1_end: 150,
 };
+let myCurrentPokemonIndex = 0;
 
 
 
@@ -198,19 +199,14 @@ function load_SaveObj() {
         facedPokemons = save_Object.allFacedPokemons;
         allMoves = save_Object.allPokemonMoves;
         myTeam = save_Object.myPokemonTeam;
-
         try {
             if(save_Object.allFacedPokemons.length === 0) {
                 createMyStarterPokemon()
                 createMyFirstPokemon()
-
             }
-
             loadMyTeam();
             myPokeballAmount = save_Object.items.pokeballs;
             outpPokeball.innerHTML = myPokeballAmount;
-
-
         } catch (error) {
             console.warn('Team konnte nicht angezeigt werden: ', error);
         }
@@ -252,6 +248,7 @@ function createMyFirstPokemon() {
         console.log('myTeam', myTeam);
         const choosenPokemon = myTeam[0];
         if(choosenPokemon.hp > 0) {
+            myCurrentPokemonIndex = 0;
             chooseNewPokemon(choosenPokemon);
             showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
         }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
@@ -582,7 +579,6 @@ function myPokemonAttack(whoIsExecuting) {
     let defPokeType = currentWildPokemon.type;
     const typeCalc = 0.5; // Typ Attacke wird mit Typ verteidigendesPokemon verglichen 0x / 0.5x / 1x / 2x --TODO: Funktion für den Vergleich bauen
     let whoIsAffected = 'wildPokemon';
-
     // Wenn wildes Pokemon angreift
     if (whoIsExecuting === 'wildPokemon') {
         lv = currentWildPokemon.level;
@@ -727,9 +723,9 @@ function ki_Move() {
     } else {
         // Battle Szene hier beenden
         level_up();
-        showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
         setTimeout(() => {
             // Todo: XP & Leveln ##############################################
+           
             window.location = 'pokedex.html';
         }, 3000);
     }
@@ -862,6 +858,7 @@ if (pokemon1) {
         try {
             const choosenPokemon = myTeam[0];
             if(choosenPokemon.hp > 0) {
+                myCurrentPokemonIndex = 0;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
             }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
@@ -874,6 +871,7 @@ if (pokemon2) {
         try {
             const choosenPokemon = myTeam[1];
             if(choosenPokemon.hp > 0) {
+                myCurrentPokemonIndex = 1;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
             }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
@@ -886,6 +884,7 @@ if (pokemon3) {
         try {
             const choosenPokemon = myTeam[2];
             if(choosenPokemon.hp > 0) {
+                myCurrentPokemonIndex = 2;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
             }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
@@ -898,6 +897,7 @@ if (pokemon4) {
         try {
             const choosenPokemon = myTeam[3];
             if(choosenPokemon.hp > 0) {
+                myCurrentPokemonIndex = 3;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
             }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
@@ -935,8 +935,49 @@ function chooseNewPokemon(choosenPokemon) {
 
 
 function level_up() {
-    console.log('XP: ', myStaticPokemon.xp);
+    
+    const enemyLevel = currentWildPokemon.level;
+    let currentLevel = myStaticPokemon.level;
+    const oldXP = myStaticPokemon.xp;
+    console.log('oldXP',oldXP );
+    const calcXP = Math.floor((enemyLevel * 4) + (myStaticPokemon.hp + 160) / (currentLevel + 1));
+    console.log('calcXP',calcXP );
+    const newXP = oldXP + calcXP;
+    if(oldXP <= 100) {
+        if(newXP > 100) {
+            const newLevel = currentLevel++;
+            console.log('OldLevel', currentLevel, 'NewLevel', newLevel);
+            save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
+            save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
+            save_SaveObj();
+            showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel}`);
+            setTimeout(() => {
+                myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${
+                    currentLevel
+                } -- KP.${myStaticPokemon.hp}`;
+            }, 1000);
+        }else {
+            save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = newXP;
+            save_SaveObj();
+            showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erhält ${calcXP} XP`);
+        }
+
+    }else if(oldXP > 100) {
+        const newLevel = currentLevel++;
+        console.log('OldLevel', currentLevel, 'NewLevel', newLevel);
+        save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
+        save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
+        save_SaveObj();
+        showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel}`);
+        setTimeout(() => {
+            myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${
+                currentLevel
+            } -- KP.${myStaticPokemon.hp}`;
+        }, 1000);
+    }
 }
+
+
 
 /**
  * // Leveln
