@@ -723,10 +723,8 @@ function ki_Move() {
     } else {
         // Battle Szene hier beenden
         level_up();
-        setTimeout(() => {
-            // Todo: XP & Leveln ##############################################
-           
-            window.location = 'pokedex.html';
+        setTimeout(() => {           
+            window.location.reload();
         }, 3000);
     }
 }
@@ -763,7 +761,7 @@ function catchPokemon() {
                 save_SaveObj();
                 setTimeout(() => {
                     showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
-                    window.location = 'pokedex.html';
+                    window.location.reload();
                 }, 1000);
             } else {
                 showInfoBox(
@@ -771,6 +769,7 @@ function catchPokemon() {
                         currentWildPokemon.name,
                     )} lässt sich nicht fangen`,
                 );
+                checkWhoExecuteNext()
             }
         }, 1500);
     } else {
@@ -852,7 +851,6 @@ function attackAction(btnMoveName) {
 
 // ########################################################
 // Schicke ein anderes Pokemon in den Kampf
-// Todo: Refactoring - weil Redundant
 if (pokemon1) {
     pokemon1.addEventListener('click', () => {
         try {
@@ -935,20 +933,27 @@ function chooseNewPokemon(choosenPokemon) {
 
 
 function level_up() {
-    
     const enemyLevel = currentWildPokemon.level;
     let currentLevel = myStaticPokemon.level;
     const oldXP = myStaticPokemon.xp;
-    console.log('oldXP',oldXP );
-    const calcXP = Math.floor((enemyLevel * 4) + (myStaticPokemon.hp + 160) / (currentLevel + 1));
-    console.log('calcXP',calcXP );
+    const calcXP = Math.floor((enemyLevel * 4) + (myStaticPokemon.hp + 160) / (currentLevel + 3));
     const newXP = oldXP + calcXP;
-    if(oldXP <= 100) {
-        if(newXP > 100) {
+    let pokemonIndex = -1;
+    for (let i = 0; i < save_Object.myCatchedPokemons.length; i++) {
+        if (myStaticPokemon.unique_ID === save_Object.myCatchedPokemons[i].unique_ID) {
+            pokemonIndex = i;
+            console.log('Gefunden', pokemonIndex);
+            break;
+        }
+    }
+    if(oldXP <= 300) {
+        if(newXP > 300) {
             const newLevel = currentLevel++;
-            console.log('OldLevel', currentLevel, 'NewLevel', newLevel);
             save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
             save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
+            save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
+            save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
+
             save_SaveObj();
             showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel}`);
             setTimeout(() => {
@@ -958,15 +963,17 @@ function level_up() {
             }, 1000);
         }else {
             save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = newXP;
+            save_Object.myCatchedPokemons[pokemonIndex].xp = newXP;
             save_SaveObj();
             showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erhält ${calcXP} XP`);
         }
 
-    }else if(oldXP > 100) {
+    }else if(oldXP > 300) {
         const newLevel = currentLevel++;
-        console.log('OldLevel', currentLevel, 'NewLevel', newLevel);
         save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
         save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
+        save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
+        save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
         save_SaveObj();
         showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel}`);
         setTimeout(() => {
