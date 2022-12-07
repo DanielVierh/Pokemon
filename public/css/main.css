@@ -146,6 +146,13 @@ body {
   z-index: 11;
 }
 
+#myPokemonXPProgress {
+  position: fixed;
+  left: 20px;
+  bottom: 0px;
+  z-index: 11;
+}
+
 #wildPokemonProgress {
   background-color: red;
 }

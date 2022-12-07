@@ -9,6 +9,7 @@ let myPokeImage = document.getElementById('imgMyPoke');
 let myPokeName = document.getElementById('myPokeName');
 let wildPokemonProgress = document.getElementById('wildPokemonProgress');
 let myPokemonProgress = document.getElementById('myPokemonProgress');
+let myPokemonXPProgress = document.getElementById('myPokemonXPProgress');
 let infoBox = document.getElementById('infoBox');
 let moveButtons = document.getElementById('moveButtonCont');
 let mainButtons = document.getElementById('mainButtonCont');
@@ -675,6 +676,9 @@ function animateProgressBar(damage, whoIsAffected) {
             setTimeout(() => {
                 effectedImage.style.opacity = '0';
                 effectedPokeName.innerHTML = '';
+                if(whoIsAffected === 'myPokemon') {
+                    myPokemonXPProgress.style.width = '0%'
+                }
             }, 400);
             if (whoIsAffected !== 'myPokemon') {
                 battleSound2.pause();
@@ -928,6 +932,10 @@ function chooseNewPokemon(choosenPokemon) {
         myPokeImage.src = choosenPokemon.spriteBack;
         myCurrentPokemonHP = choosenPokemon.hp;
         myCurrentPokemonStaticHP = choosenPokemon.hp;
+        myPokemonXPProgress.style.width = '30%'
+        myPokemonXPProgress.value = myStaticPokemon.xp;
+        myPokemonProgress.style.width = '30%'
+        myPokemonProgress.value = 100;
         myPokeName.innerHTML = `${makeFirstLetterBig(
             choosenPokemon.name,
         )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
@@ -961,7 +969,7 @@ function level_up() {
             save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
             save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
             save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
-
+            myPokemonXPProgress.value = myStaticPokemon.xp
             save_SaveObj();
             showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel}`);
             setTimeout(() => {
@@ -972,6 +980,7 @@ function level_up() {
         }else {
             save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = newXP;
             save_Object.myCatchedPokemons[pokemonIndex].xp = newXP;
+            myPokemonXPProgress.value = myStaticPokemon.xp
             save_SaveObj();
             showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erhält ${calcXP} XP`);
         }
@@ -982,6 +991,7 @@ function level_up() {
         save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
         save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
         save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
+        myPokemonXPProgress.value = myStaticPokemon.xp
         save_SaveObj();
         showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel}`);
         setTimeout(() => {
