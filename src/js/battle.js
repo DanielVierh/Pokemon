@@ -44,6 +44,7 @@ const btnAttack1 = document.getElementById('btnAttack1');
 const btnAttack2 = document.getElementById('btnAttack2');
 const btnAttack3 = document.getElementById('btnAttack3');
 const throwPokeball = document.getElementById('mainButton2');
+const btn_closeActionwindow = document.getElementById("btn_closeActionwindow");
 
 const pokemon1 = document.getElementById('teamPoke_0');
 const pokemon2 = document.getElementById('teamPoke_1');
@@ -104,6 +105,13 @@ if (throwPokeball) {
     throwPokeball.addEventListener('click', () => {
         catchPokemon();
     });
+}
+
+if(btn_closeActionwindow) {
+    btn_closeActionwindow.addEventListener("click", ()=> {
+        moveButtons.hidden = true;
+        mainButtons.hidden = false;
+    })
 }
 
 //######################################################
