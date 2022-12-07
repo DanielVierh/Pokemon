@@ -620,6 +620,12 @@ function myPokemonAttack(whoIsExecuting) {
         }
     } else {
         currentWildPokeHP -= damage;
+        if(damage > 0) {
+            wildPokeImage.classList.add('getAttacked');
+            setTimeout(() => {
+                wildPokeImage.classList.remove('getAttacked');
+            }, 600);
+        }
     }
     animateProgressBar(damage, whoIsAffected);
 }
@@ -827,14 +833,12 @@ function disableMainButtons() {
     mainButtons.style.backgroundColor = 'red';
     document.getElementById('mainButton1').disabled = true;
     document.getElementById('mainButton2').disabled = true;
-    // document.getElementById('mainButton3').disabled = true;
 }
 
 function enableMainButtons() {
     mainButtons.style.backgroundColor = 'rgba(0, 0, 10, 0.384)';
     document.getElementById('mainButton1').disabled = false;
     document.getElementById('mainButton2').disabled = false;
-    // document.getElementById('mainButton3').disabled = false;
 }
 
 //######################################################
@@ -847,10 +851,6 @@ function pokeFight() {
 function attackAction(btnMoveName) {
     showMainButtons(btnMoveName);
     init_Move(btnMoveName);
-    wildPokeImage.classList.add('getAttacked');
-    setTimeout(() => {
-        wildPokeImage.classList.remove('getAttacked');
-    }, 600);
 }
 
 // function attack2() {
@@ -932,7 +932,7 @@ function chooseNewPokemon(choosenPokemon) {
         myPokeImage.src = choosenPokemon.spriteBack;
         myCurrentPokemonHP = choosenPokemon.hp;
         myCurrentPokemonStaticHP = choosenPokemon.hp;
-        myPokemonXPProgress.style.width = '30%'
+        myPokemonXPProgress.style.width = '10%'
         myPokemonXPProgress.value = myStaticPokemon.xp;
         myPokemonProgress.style.width = '30%'
         myPokemonProgress.value = 100;
