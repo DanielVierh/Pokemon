@@ -153,6 +153,32 @@ if (delBtn) {
     });
 }
 
+// Move Pokemon 1 pos down
+const moveDownButton = document.querySelectorAll('.movedownButton');
+if (moveDownButton) {
+    moveDownButton.forEach((button) => {
+        button.addEventListener('click', () => {
+            let pokemonIndex = -1;
+            let movedPokemon;
+            for (let i = 0; i < myTeam.length; i++) {
+                if (button.id === myTeam[i].unique_ID) {
+                    pokemonIndex = i;
+                    break;
+                }
+            }
+
+            if (pokemonIndex >= 0) {
+                movedPokemon = myTeam[pokemonIndex];
+                myTeam.splice(pokemonIndex, 1);
+                myTeam.push(movedPokemon)
+                renderTeam();
+                save_SaveObj();
+                location.reload();
+            }
+        });
+    });
+}
+
 
 
 function renderTeam() {
@@ -165,6 +191,11 @@ function renderTeam() {
         addBtn.innerHTML = "-"
         addBtn.classList.add("deleteButton")
         addBtn.id = myTeam[i].unique_ID
+
+        let moveBtn = document.createElement('div');
+        moveBtn.innerHTML = 'v'
+        moveBtn.classList.add("movedownButton")
+        moveBtn.id = myTeam[i].unique_ID
 
         let pokeimage = document.createElement("img");
         pokeimage.src = myTeam[i].spriteFront;
@@ -190,6 +221,7 @@ function renderTeam() {
         infocont.appendChild(number)
 
         pokeCont.appendChild(addBtn)
+        pokeCont.appendChild(moveBtn)
         pokeCont.appendChild(pokeimage)
         pokeCont.appendChild(pokename)
         pokeCont.appendChild(infocont)

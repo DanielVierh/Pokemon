@@ -775,6 +775,7 @@ function catchPokemon() {
                         currentWildPokemon.name,
                     )} wurde gefangen`,
                 );
+                level_up();
                 save_Object.myCatchedPokemons.push(currentWildPokemon);
                 save_SaveObj();
                 setTimeout(() => {
@@ -852,14 +853,6 @@ function attackAction(btnMoveName) {
     showMainButtons(btnMoveName);
     init_Move(btnMoveName);
 }
-
-// function attack2() {
-//     playBattleSound();
-// }
-
-// function attack3() {
-//     playBattleSound();
-// }
 
 // ########################################################
 // Schicke ein anderes Pokemon in den Kampf
