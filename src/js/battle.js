@@ -146,6 +146,7 @@ class Pokemon {
         this.hp = hp;
         this.unique_ID = uniqueID_Generator();
     }
+    isDefeated = false;
 }
 
 class PokeMove {
@@ -256,7 +257,8 @@ function createMyFirstPokemon() {
     try {
         console.log('myTeam', myTeam);
         const choosenPokemon = myTeam[0];
-        if(choosenPokemon.hp > 0) {
+        console.log('Mein Pokemon', choosenPokemon);
+        if(choosenPokemon.isDefeated === false) {
             myCurrentPokemonIndex = 0;
             chooseNewPokemon(choosenPokemon);
             showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
@@ -663,7 +665,6 @@ function animateProgressBar(damage, whoIsAffected) {
         console.log('effectedProgressbar.value', effectedProgressbar.value);
     } else {
         if (damage > 0) {
-            // effectedProgressbar.style.width = `${hpInPercent}%`;
             effectedProgressbar.value = hpInPercent;
             console.log('effectedProgressbar', effectedProgressbar);
         }
@@ -683,7 +684,9 @@ function animateProgressBar(damage, whoIsAffected) {
                 effectedImage.style.opacity = '0';
                 effectedPokeName.innerHTML = '';
                 if(whoIsAffected === 'myPokemon') {
-                    myPokemonXPProgress.style.width = '0%'
+                    myPokemonXPProgress.style.width = '0%';
+                    save_Object.myPokemonTeam[myCurrentPokemonIndex].isDefeated = true;
+                    save_SaveObj();
                 }
             }, 400);
             if (whoIsAffected !== 'myPokemon') {
@@ -860,7 +863,7 @@ if (pokemon1) {
     pokemon1.addEventListener('click', () => {
         try {
             const choosenPokemon = myTeam[0];
-            if(choosenPokemon.hp > 0) {
+            if(choosenPokemon.isDefeated === false) {
                 myCurrentPokemonIndex = 0;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
@@ -873,7 +876,7 @@ if (pokemon2) {
     pokemon2.addEventListener('click', () => {
         try {
             const choosenPokemon = myTeam[1];
-            if(choosenPokemon.hp > 0) {
+            if(choosenPokemon.isDefeated === false) {
                 myCurrentPokemonIndex = 1;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
@@ -886,7 +889,7 @@ if (pokemon3) {
     pokemon3.addEventListener('click', () => {
         try {
             const choosenPokemon = myTeam[2];
-            if(choosenPokemon.hp > 0) {
+            if(choosenPokemon.isDefeated === false) {
                 myCurrentPokemonIndex = 2;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
@@ -899,7 +902,7 @@ if (pokemon4) {
     pokemon4.addEventListener('click', () => {
         try {
             const choosenPokemon = myTeam[3];
-            if(choosenPokemon.hp > 0) {
+            if(choosenPokemon.isDefeated === false) {
                 myCurrentPokemonIndex = 3;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);

@@ -4,6 +4,7 @@ let myTeam = [];
 const catchedPokemonContaier = document.getElementById("catchedPokemonContaier");
 const teamPokemonContainer = document.getElementById("teamPokemonContainer");
 const btn_ResetGame = document.getElementById("btn_ResetGame");
+const btnHeal = document.getElementById("btnHeal");
 
 let save_Object = {
     today_Date: '',
@@ -268,4 +269,28 @@ function makeFirstLetterBig(word) {
         exportword += word[i];
     }
     return exportword;
+}
+
+
+
+if(btnHeal){
+    btnHeal.addEventListener("click", ()=> {
+        for(let i = 0; i < myTeam.length; i++) {
+            myTeam[i].isDefeated = false;
+        }
+        for(let i = 0; i < myCatchedPokemons.length; i++) {
+            myCatchedPokemons[i].isDefeated = false;
+        }
+
+        for(let i = 0; i < save_Object.myCatchedPokemons.length; i++) {
+            save_Object.myCatchedPokemons[i].isDefeated = false;
+        }
+
+        for(let i = 0; i < save_Object.myPokemonTeam.length; i++) {
+            save_Object.myPokemonTeam[i].isDefeated = false;
+        }
+
+        save_SaveObj();
+        alert("Deine Pokemon wurden geheilt")
+    })
 }
