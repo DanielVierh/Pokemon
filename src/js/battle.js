@@ -960,11 +960,20 @@ function level_up() {
             const newLevel = currentLevel++;
             save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
             save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
+            save_Object.myPokemonTeam[myCurrentPokemonIndex].hp+=1;
+            save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack+=1;
+            save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense+=1;
             save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
             save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
+            save_Object.myCatchedPokemons[pokemonIndex].hp+=1;
+            save_Object.myCatchedPokemons[pokemonIndex].statAttack+=1;
+            save_Object.myCatchedPokemons[pokemonIndex].statDefense+=1;
             myPokemonXPProgress.value = myStaticPokemon.xp
             save_SaveObj();
-            showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel}`);
+            showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel} <br> 
+        Gesundheit: + 1 <br>
+        Angriff: + 1 <br>
+        Verteidigung: + 1`);
             setTimeout(() => {
                 myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${
                     currentLevel
@@ -982,11 +991,20 @@ function level_up() {
         const newLevel = currentLevel++;
         save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
         save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
+        save_Object.myPokemonTeam[myCurrentPokemonIndex].hp+=1;
+        save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack+=1;
+        save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense+=1;
         save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
         save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
+        save_Object.myCatchedPokemons[pokemonIndex].hp+=1;
+        save_Object.myCatchedPokemons[pokemonIndex].statAttack+=1;
+        save_Object.myCatchedPokemons[pokemonIndex].statDefense+=1;
         myPokemonXPProgress.value = myStaticPokemon.xp
         save_SaveObj();
-        showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel}`);
+        showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel} <br> 
+        Gesundheit: + 1 <br>
+        Angriff: + 1 <br>
+        Verteidigung: + 1`);
         setTimeout(() => {
             myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${
                 currentLevel
