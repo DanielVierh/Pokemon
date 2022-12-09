@@ -390,6 +390,13 @@ body {
   cursor: pointer;
 }
 
+.defeat {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  -webkit-filter: blur(30px);
+  filter: blur(3px);
+}
+
 h1 {
   color: yellow;
   text-align: center;

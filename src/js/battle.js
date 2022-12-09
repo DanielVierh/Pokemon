@@ -281,6 +281,9 @@ function save_SaveObj() {
 function loadMyTeam() {
     for (let i = 0; i < myTeam.length; i++) {
         document.getElementById(`teamPoke_${i}`).src = myTeam[i].spriteFront;
+        if(myTeam[i].isDefeated === true) {
+            document.getElementById(`teamPoke_${i}`).classList.add("defeat")
+        }
     }
 }
 
@@ -686,6 +689,7 @@ function animateProgressBar(damage, whoIsAffected) {
                 if(whoIsAffected === 'myPokemon') {
                     myPokemonXPProgress.style.width = '0%';
                     save_Object.myPokemonTeam[myCurrentPokemonIndex].isDefeated = true;
+                    document.getElementById(`teamPoke_${myCurrentPokemonIndex}`).classList.add("defeat")
                     save_SaveObj();
                 }
             }, 400);
