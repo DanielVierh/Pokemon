@@ -714,9 +714,7 @@ function animateProgressBar(damage, whoIsAffected) {
     }, 2000);
 }
 
-// Angreifer ist Objektname Verteidiger Inhalte
-pokeType_Normal = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 1];
-function checkPokeTypes() {}
+
 
 // Gameloop
 
@@ -1115,3 +1113,123 @@ function level_up() {
 
 
  */
+
+    function checkPokeTypes(type) {
+
+    const normal = {
+        200: [],
+        100: ["normal","fighting","flying","poison","ground","bug","fire","water","grass","electric","psychic","ice","dragon","dark","fairy"],
+        50: ["rock","steel"],
+        0: ["ghost"]
+    }
+
+    const fighting = {
+        200: ["normal","rock","steel","ice","dark"],
+        100: ["fighting","ground","fire","water","grass","electric","dragon"],
+        50: ["flying","poison","bug","psychic","fairy"],
+        0: ["ghost"]
+    }
+
+    const flying = {
+        200: ["fighting","bug","grass"],
+        100: ["normal","flying","poison","ground","ghost","fire","water","psychic","ice","dragon","dark","fairy"],
+        50: ["rock","steel","electric"],
+        0: []
+    }
+
+    const poison = {
+        200: ["grass", "fairy"],
+        100: ["normal","fighting","flying","bug","fire","water","electric","psychic","ice","dragon","dark"],
+        50: ["poison","ground","rock","ghost"],
+        0: ["steel"]
+    }
+
+    const ground = {
+        200: ["poison","rock","steel","fire","electric"],
+        100: ["normal","fighting","ground","ghost","water","psychic","ice","dragon","dark","fairy"],
+        50: ["bug", "grass"],
+        0: ["flying"]
+    }
+
+    const rock = {
+        200: ["flying","bug","fire","ice"],
+        100: ["normal","poison","rock","ghost","water","grass","electric","psychic","dragon","dark","fairy"],
+        50: ["fighting","ground","steel"],
+        0: []
+    }
+
+    const bug = {
+        200: ["grass","psychic","dark"],
+        100: ["normal","ground","rock","bug","water","electric","ice","dragon"],
+        50: ["fighting","flying","poison","ghost","steel","fire","fairy"],
+        0: []
+    }
+
+    const ghost = {
+        200: ["ghost", "psychic"],
+        100: ["fighting","flying","poison","ground","rock","bug","steel","fire","water","grass","electric","ice","dragon","fairy"],
+        50: ["dark"],
+        0: ["normal"]
+    }
+    const steel = {
+        200: ["rock","ice","fairy"],
+        100: ["normal","fighting","flying","poison","ground","bug","ghost","grass","psychic","dragon","dark"],
+        50: ["steel","fire","water","electric"],
+        0: []
+    }
+    const fire = {
+        200: ["bug","steel","grass","ice"],
+        100: ["normal","fighting","flying","poison","ground","ghost","electric","psychic","dark","fairy"],
+        50: ["rock","fire","water","dragon"],
+        0: []
+    }
+    const water = {
+        200: ["ground","rock","fire"],
+        100: ["normal","fighting","flying","poison","bug","ghost","steel","electric","psychic","ice","dark","fairy"],
+        50: ["water","grass","dragon"],
+        0: []
+    }
+    const grass = {
+        200: ["ground","rock","water"],
+        100: ["normal","fighting","ghost","electric","psychic","ice","dark","fairy"],
+        50: ["flying","poison","bug","steel","fire","grass","dragon"],
+        0: []
+    }
+    const electric = {
+        200: ["flying","water"],
+        100: ["normal","fighting","poison","rock","bug","ghost","steel","fire","psychic","ice","dark","fairy"],
+        50: ["grass","electric","dragon"],
+        0: ["ground"]
+    }
+    const psychic = {
+        200: ["fighting","poison"],
+        100: ["normal","flying","ground","rock","bug","ghost","fire","water","grass","electric","ice","dragon","fairy"],
+        50: ["steel","psychic"],
+        0: ["dark"]
+    }
+    const ice = {
+        200: ["flying","ground","grass","dragon"],
+        100: ["normal","fighting","poison","rock","bug","ghost","electric","psychic","dark","fairy"],
+        50: ["steel","fire","water","ice"],
+        0: []
+    }
+    const dragon = {
+        200: ["dragon"],
+        100: ["normal","fighting","flying","poison","ground","rock","bug","ghost","fire","water","grass","electric","psychic","ice","dark"],
+        50: ["steel"],
+        0: ["fairy"]
+    }
+    const dark = {
+        200: ["ghost","psychic"],
+        100: ["normal","flying","poison","ground","rock","bug","steel","fire","water","grass","electric","ice","dragon"],
+        50: ["fighting","dark","fairy"],
+        0: []
+    }
+    const fairy = {
+        200: ["fighting","dragon","dark"],
+        100: ["normal","flying","ground","rock","bug","ghost","water","grass","electric","psychic","ice","fairy"],
+        50: ["poison","steel","fire"],
+        0: []
+    }
+
+}
