@@ -257,12 +257,17 @@ function createMyStarterPokemon() {
     }
 
 function createMyFirstPokemon() {
+    let nextAvailablePokemon = 0;
+    for(let i = 0; i < myTeam.length; i++) {
+        if(myTeam[i].isDefeated === false) {
+            nextAvailablePokemon = i;
+            break;
+        }
+    }
     try {
-        console.log('myTeam', myTeam);
-        const choosenPokemon = myTeam[0];
-        console.log('Mein Pokemon', choosenPokemon);
+        const choosenPokemon = myTeam[nextAvailablePokemon];
         if(choosenPokemon.isDefeated === false) {
-            myCurrentPokemonIndex = 0;
+            myCurrentPokemonIndex = nextAvailablePokemon;
             chooseNewPokemon(choosenPokemon);
             showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
         }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
