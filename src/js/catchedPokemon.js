@@ -277,17 +277,19 @@ if(btnHeal){
     btnHeal.addEventListener("click", ()=> {
         for(let i = 0; i < myTeam.length; i++) {
             myTeam[i].isDefeated = false;
+            myTeam[i].hp = myTeam[i].maxHp;
         }
         for(let i = 0; i < myCatchedPokemons.length; i++) {
             myCatchedPokemons[i].isDefeated = false;
+            myCatchedPokemons[i].hp = myCatchedPokemons[i].maxHp;
         }
 
         for(let i = 0; i < save_Object.myCatchedPokemons.length; i++) {
-            save_Object.myCatchedPokemons[i].isDefeated = false;
+            save_Object.myCatchedPokemons[i].hp = save_Object.myCatchedPokemons[i].maxHp;
         }
 
         for(let i = 0; i < save_Object.myPokemonTeam.length; i++) {
-            save_Object.myPokemonTeam[i].isDefeated = false;
+            save_Object.myPokemonTeam[i].hp = save_Object.myPokemonTeam[i].maxHp;
         }
 
         save_SaveObj();

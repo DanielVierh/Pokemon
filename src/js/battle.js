@@ -131,6 +131,7 @@ class Pokemon {
         statDefense,
         xp,
         hp,
+        maxHp,
         unique_ID,
     ) {
         this.id = id;
@@ -144,6 +145,7 @@ class Pokemon {
         this.statDefense = statDefense;
         this.xp = xp;
         this.hp = hp;
+        this.maxHp = maxHp;
         this.unique_ID = uniqueID_Generator();
     }
     isDefeated = false;
@@ -244,6 +246,7 @@ function createMyStarterPokemon() {
         110,
         80,
         0,
+        90,
         90,
         'rabdomVal123'
     );
@@ -392,7 +395,7 @@ function uniqueID_Generator() {
 function createMyPokemon() {
     myPokeImage.src = myStaticPokemon.spriteBack;
     myCurrentPokemonHP = myStaticPokemon.hp;
-    myCurrentPokemonStaticHP = myStaticPokemon.hp;
+    myCurrentPokemonStaticHP = myStaticPokemon.maxHp;
     myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${
         myStaticPokemon.level
     } -- KP.${myStaticPokemon.hp}`;
@@ -423,6 +426,7 @@ function createWildPokemon() {
                 facedPokemons[i].statDefense,
                 facedPokemons[i].xp,
                 facedPokemons[i].hp,
+                facedPokemons[i].maxHp
             );
 
             wildPokeImage.src = currentWildPokemon.spriteFront;
@@ -472,6 +476,7 @@ function fetchPokemon(id) {
                 data.stats[1].base_stat,
                 data.stats[2].base_stat,
                 data.base_experience,
+                data.stats[0].base_stat,
                 data.stats[0].base_stat,
             );
             console.log('currentWildPokemon', currentWildPokemon);
@@ -636,7 +641,7 @@ function myPokemonAttack(whoIsExecuting) {
 
 //######################################################
 function animateProgressBar(damage, whoIsAffected) {
-    let fullHP = currentWildPokemon.hp;
+    let fullHP = currentWildPokemon.maxHp;
     let currentHP = currentWildPokeHP;
     let hpInPercent = parseInt((currentHP * 100) / fullHP);
     let effectedImage = wildPokeImage;
@@ -655,18 +660,13 @@ function animateProgressBar(damage, whoIsAffected) {
         atackerPokemon = currentWildPokemon;
         defenderPokemon = myStaticPokemon;
     }
-    console.log(
-        `whoIsAffected: ${whoIsAffected} // fullHP ${fullHP} // currentHP ${currentHP}  hpInPercent: ${hpInPercent}`,
-    );
 
     // Balken anzeigen
     if (hpInPercent <= 0) {
         effectedProgressbar.style.width = 0;
-        console.log('effectedProgressbar.value', effectedProgressbar.value);
     } else {
         if (damage > 0) {
             effectedProgressbar.value = hpInPercent;
-            console.log('effectedProgressbar', effectedProgressbar);
         }
     }
 
@@ -743,6 +743,8 @@ function ki_Move() {
         }, 3000);
     } else {
         // Battle Szene hier beenden
+        save_Object.myPokemonTeam[myCurrentPokemonIndex].hp = myCurrentPokemonHP;
+        // save_SaveObj()
         level_up();
         setTimeout(() => {           
             window.location.reload();
@@ -862,6 +864,13 @@ function attackAction(btnMoveName) {
 if (pokemon1) {
     pokemon1.addEventListener('click', () => {
         try {
+            try {
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].hp = myCurrentPokemonHP;
+                save_SaveObj()
+            } catch (error) {
+                console.log('Error Error', error);
+            }
+
             const choosenPokemon = myTeam[0];
             if(choosenPokemon.isDefeated === false) {
                 myCurrentPokemonIndex = 0;
@@ -875,6 +884,12 @@ if (pokemon1) {
 if (pokemon2) {
     pokemon2.addEventListener('click', () => {
         try {
+            try {
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].hp = myCurrentPokemonHP;
+                save_SaveObj()
+            } catch (error) {
+                console.log('Error Error', error);
+            }
             const choosenPokemon = myTeam[1];
             if(choosenPokemon.isDefeated === false) {
                 myCurrentPokemonIndex = 1;
@@ -888,6 +903,12 @@ if (pokemon2) {
 if (pokemon3) {
     pokemon3.addEventListener('click', () => {
         try {
+            try {
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].hp = myCurrentPokemonHP;
+                save_SaveObj()
+            } catch (error) {
+                console.log('Error Error', error);
+            }
             const choosenPokemon = myTeam[2];
             if(choosenPokemon.isDefeated === false) {
                 myCurrentPokemonIndex = 2;
@@ -901,6 +922,12 @@ if (pokemon3) {
 if (pokemon4) {
     pokemon4.addEventListener('click', () => {
         try {
+            try {
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].hp = myCurrentPokemonHP;
+                save_SaveObj()
+            } catch (error) {
+                console.log('Error Error', error);
+            }
             const choosenPokemon = myTeam[3];
             if(choosenPokemon.isDefeated === false) {
                 myCurrentPokemonIndex = 3;
@@ -927,11 +954,12 @@ function chooseNewPokemon(choosenPokemon) {
         myPokeImage.style.opacity = '1';
         myPokeImage.src = choosenPokemon.spriteBack;
         myCurrentPokemonHP = choosenPokemon.hp;
-        myCurrentPokemonStaticHP = choosenPokemon.hp;
+        myCurrentPokemonStaticHP = choosenPokemon.maxHp;
         myPokemonXPProgress.style.width = '10%'
         myPokemonXPProgress.value = myStaticPokemon.xp;
         myPokemonProgress.style.width = '30%'
-        myPokemonProgress.value = 100;
+        const hpInPercent = parseInt((myCurrentPokemonHP * 100) / myCurrentPokemonStaticHP);
+        myPokemonProgress.value = hpInPercent;
         myPokeName.innerHTML = `${makeFirstLetterBig(
             choosenPokemon.name,
         )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
