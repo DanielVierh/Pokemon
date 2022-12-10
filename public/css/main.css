@@ -7,6 +7,20 @@ body {
   font-family: sans-serif;
 }
 
+.startButton {
+  margin: 150px auto;
+  width: 200px;
+  height: 60px;
+  background-color: blue;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  font-size: 2em;
+  box-shadow: 0 0 15px white, inset 0 0 10px white;
+}
+
 .mainContainer {
   display: flex;
   flex-direction: column;

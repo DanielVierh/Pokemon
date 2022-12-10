@@ -1,14 +1,17 @@
 const menueButton = document.getElementById("btn_Menue");
 const menueWindow = document.getElementById("windowMenu");
 const menueCloseButton = document.getElementById("btnCloseMenue");
-const inx = document.getElementById("inx")
+// const inx = document.getElementById("inx")
+const startButton = document.getElementById("btnStartGame")
 
 window.onload = init();
 
 
 function init() {
-    if(inx) {
-        window.location = 'battle.html'
+    if(startButton) {
+        startButton.addEventListener("click", ()=> {
+            window.location = 'battle.html'
+        })
     }
 }
 
