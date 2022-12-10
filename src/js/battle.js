@@ -601,8 +601,9 @@ function myPokemonAttack(whoIsExecuting) {
     const z = 100 - parseInt(Math.random() * 15 + 1);
     const attackType = pokeMove.type;
     let defPokeType = currentWildPokemon.type;
-    const typeCalc = 0.5; // Typ Attacke wird mit Typ verteidigendesPokemon verglichen 0x / 0.5x / 1x / 2x --TODO: Funktion für den Vergleich bauen
+    const typeCalc = checkPokeTypes(attackType, defPokeType) // Typ Attacke wird mit Typ verteidigendesPokemon verglichen 0x / 0.5x / 1x / 2x --TODO: Funktion für den Vergleich bauen
     let whoIsAffected = 'wildPokemon';
+    console.log('SchadenTypWert: ',typeCalc);
     // Wenn wildes Pokemon angreift
     if (whoIsExecuting === 'wildPokemon') {
         lv = currentWildPokemon.level;
@@ -753,7 +754,7 @@ function ki_Move() {
         save_Object.myPokemonTeam[myCurrentPokemonIndex].hp = myCurrentPokemonHP;
         // save_SaveObj()
         level_up();
-        setTimeout(() => {           
+        setTimeout(() => {
             window.location.reload();
         }, 3000);
     }
@@ -1008,7 +1009,7 @@ function level_up() {
             save_Object.myCatchedPokemons[pokemonIndex].statDefense+=1;
             myPokemonXPProgress.value = myStaticPokemon.xp
             save_SaveObj();
-            showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel} <br> 
+            showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel} <br>
         Gesundheit: + 1 <br>
         Angriff: + 1 <br>
         Verteidigung: + 1`);
@@ -1039,7 +1040,7 @@ function level_up() {
         save_Object.myCatchedPokemons[pokemonIndex].statDefense+=1;
         myPokemonXPProgress.value = myStaticPokemon.xp
         save_SaveObj();
-        showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel} <br> 
+        showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel} <br>
         Gesundheit: + 1 <br>
         Angriff: + 1 <br>
         Verteidigung: + 1`);
@@ -1119,122 +1120,145 @@ function level_up() {
 
  */
 
-    function checkPokeTypes(type) {
+    function checkPokeTypes(attackType, defenderType) {
 
-    const normal = {
-        200: [],
-        100: ["normal","fighting","flying","poison","ground","bug","fire","water","grass","electric","psychic","ice","dragon","dark","fairy"],
-        50: ["rock","steel"],
-        0: ["ghost"]
+        const attackTypeValues = {
+            normal: {
+                200: [],
+                100: ["normal","fighting","flying","poison","ground","bug","fire","water","grass","electric","psychic","ice","dragon","dark","fairy"],
+                50: ["rock","steel"],
+                0: ["ghost"]
+            },
+            fighting: {
+                200: ["normal","rock","steel","ice","dark"],
+                100: ["fighting","ground","fire","water","grass","electric","dragon"],
+                50: ["flying","poison","bug","psychic","fairy"],
+                0: ["ghost"]
+            },
+            flying: {
+                200: ["fighting","bug","grass"],
+                100: ["normal","flying","poison","ground","ghost","fire","water","psychic","ice","dragon","dark","fairy"],
+                50: ["rock","steel","electric"],
+                0: []
+            },
+            poison: {
+                200: ["grass", "fairy"],
+                100: ["normal","fighting","flying","bug","fire","water","electric","psychic","ice","dragon","dark"],
+                50: ["poison","ground","rock","ghost"],
+                0: ["steel"]
+            },
+            ground: {
+                200: ["poison","rock","steel","fire","electric"],
+                100: ["normal","fighting","ground","ghost","water","psychic","ice","dragon","dark","fairy"],
+                50: ["bug", "grass"],
+                0: ["flying"]
+            },
+            rock: {
+                200: ["flying","bug","fire","ice"],
+                100: ["normal","poison","rock","ghost","water","grass","electric","psychic","dragon","dark","fairy"],
+                50: ["fighting","ground","steel"],
+                0: []
+            },
+            bug: {
+                200: ["grass","psychic","dark"],
+                100: ["normal","ground","rock","bug","water","electric","ice","dragon"],
+                50: ["fighting","flying","poison","ghost","steel","fire","fairy"],
+                0: []
+            },
+            ghost: {
+                200: ["ghost", "psychic"],
+                100: ["fighting","flying","poison","ground","rock","bug","steel","fire","water","grass","electric","ice","dragon","fairy"],
+                50: ["dark"],
+                0: ["normal"]
+            },
+            steel: {
+                200: ["rock","ice","fairy"],
+                100: ["normal","fighting","flying","poison","ground","bug","ghost","grass","psychic","dragon","dark"],
+                50: ["steel","fire","water","electric"],
+                0: []
+            },
+            fire: {
+                200: ["bug","steel","grass","ice"],
+                100: ["normal","fighting","flying","poison","ground","ghost","electric","psychic","dark","fairy"],
+                50: ["rock","fire","water","dragon"],
+                0: []
+            },
+            water: {
+                200: ["ground","rock","fire"],
+                100: ["normal","fighting","flying","poison","bug","ghost","steel","electric","psychic","ice","dark","fairy"],
+                50: ["water","grass","dragon"],
+                0: []
+            },
+            grass: {
+                200: ["ground","rock","water"],
+                100: ["normal","fighting","ghost","electric","psychic","ice","dark","fairy"],
+                50: ["flying","poison","bug","steel","fire","grass","dragon"],
+                0: []
+            },
+            electric: {
+                200: ["flying","water"],
+                100: ["normal","fighting","poison","rock","bug","ghost","steel","fire","psychic","ice","dark","fairy"],
+                50: ["grass","electric","dragon"],
+                0: ["ground"]
+            },
+            psychic: {
+                200: ["fighting","poison"],
+                100: ["normal","flying","ground","rock","bug","ghost","fire","water","grass","electric","ice","dragon","fairy"],
+                50: ["steel","psychic"],
+                0: ["dark"]
+            },
+            ice: {
+                200: ["flying","ground","grass","dragon"],
+                100: ["normal","fighting","poison","rock","bug","ghost","electric","psychic","dark","fairy"],
+                50: ["steel","fire","water","ice"],
+                0: []
+            },
+            dragon: {
+                200: ["dragon"],
+                100: ["normal","fighting","flying","poison","ground","rock","bug","ghost","fire","water","grass","electric","psychic","ice","dark"],
+                50: ["steel"],
+                0: ["fairy"]
+            },
+            dark: {
+                200: ["ghost","psychic"],
+                100: ["normal","flying","poison","ground","rock","bug","steel","fire","water","grass","electric","ice","dragon"],
+                50: ["fighting","dark","fairy"],
+                0: []
+            },
+            fairy: {
+                200: ["fighting","dragon","dark"],
+                100: ["normal","flying","ground","rock","bug","ghost","water","grass","electric","psychic","ice","fairy"],
+                50: ["poison","steel","fire"],
+                0: []
+            }
+        }
+
+    let attackTypeValue = 0;
+    let attackReturnValue = 0
+    const keyWord = `${attackType}`
+    const effectedPokemonArrays = attackTypeValues[keyWord]
+    for (const [key, value] of Object.entries(effectedPokemonArrays)) {
+        if(value.includes(defenderType)) {
+            attackTypeValue = parseInt(key);
+            parseInt(attackTypeValue)
+            break
+        }
     }
 
-    const fighting = {
-        200: ["normal","rock","steel","ice","dark"],
-        100: ["fighting","ground","fire","water","grass","electric","dragon"],
-        50: ["flying","poison","bug","psychic","fairy"],
-        0: ["ghost"]
+    if(attackTypeValue === 200) {
+        attackReturnValue = 2
+    }
+    if(attackTypeValue === 100) {
+        attackReturnValue = 1
+    }
+    if(attackTypeValue === 50) {
+        attackReturnValue = .5
+    }
+    if(attackTypeValue === 0) {
+        attackReturnValue = 0
     }
 
-    const flying = {
-        200: ["fighting","bug","grass"],
-        100: ["normal","flying","poison","ground","ghost","fire","water","psychic","ice","dragon","dark","fairy"],
-        50: ["rock","steel","electric"],
-        0: []
-    }
 
-    const poison = {
-        200: ["grass", "fairy"],
-        100: ["normal","fighting","flying","bug","fire","water","electric","psychic","ice","dragon","dark"],
-        50: ["poison","ground","rock","ghost"],
-        0: ["steel"]
-    }
-
-    const ground = {
-        200: ["poison","rock","steel","fire","electric"],
-        100: ["normal","fighting","ground","ghost","water","psychic","ice","dragon","dark","fairy"],
-        50: ["bug", "grass"],
-        0: ["flying"]
-    }
-
-    const rock = {
-        200: ["flying","bug","fire","ice"],
-        100: ["normal","poison","rock","ghost","water","grass","electric","psychic","dragon","dark","fairy"],
-        50: ["fighting","ground","steel"],
-        0: []
-    }
-
-    const bug = {
-        200: ["grass","psychic","dark"],
-        100: ["normal","ground","rock","bug","water","electric","ice","dragon"],
-        50: ["fighting","flying","poison","ghost","steel","fire","fairy"],
-        0: []
-    }
-
-    const ghost = {
-        200: ["ghost", "psychic"],
-        100: ["fighting","flying","poison","ground","rock","bug","steel","fire","water","grass","electric","ice","dragon","fairy"],
-        50: ["dark"],
-        0: ["normal"]
-    }
-    const steel = {
-        200: ["rock","ice","fairy"],
-        100: ["normal","fighting","flying","poison","ground","bug","ghost","grass","psychic","dragon","dark"],
-        50: ["steel","fire","water","electric"],
-        0: []
-    }
-    const fire = {
-        200: ["bug","steel","grass","ice"],
-        100: ["normal","fighting","flying","poison","ground","ghost","electric","psychic","dark","fairy"],
-        50: ["rock","fire","water","dragon"],
-        0: []
-    }
-    const water = {
-        200: ["ground","rock","fire"],
-        100: ["normal","fighting","flying","poison","bug","ghost","steel","electric","psychic","ice","dark","fairy"],
-        50: ["water","grass","dragon"],
-        0: []
-    }
-    const grass = {
-        200: ["ground","rock","water"],
-        100: ["normal","fighting","ghost","electric","psychic","ice","dark","fairy"],
-        50: ["flying","poison","bug","steel","fire","grass","dragon"],
-        0: []
-    }
-    const electric = {
-        200: ["flying","water"],
-        100: ["normal","fighting","poison","rock","bug","ghost","steel","fire","psychic","ice","dark","fairy"],
-        50: ["grass","electric","dragon"],
-        0: ["ground"]
-    }
-    const psychic = {
-        200: ["fighting","poison"],
-        100: ["normal","flying","ground","rock","bug","ghost","fire","water","grass","electric","ice","dragon","fairy"],
-        50: ["steel","psychic"],
-        0: ["dark"]
-    }
-    const ice = {
-        200: ["flying","ground","grass","dragon"],
-        100: ["normal","fighting","poison","rock","bug","ghost","electric","psychic","dark","fairy"],
-        50: ["steel","fire","water","ice"],
-        0: []
-    }
-    const dragon = {
-        200: ["dragon"],
-        100: ["normal","fighting","flying","poison","ground","rock","bug","ghost","fire","water","grass","electric","psychic","ice","dark"],
-        50: ["steel"],
-        0: ["fairy"]
-    }
-    const dark = {
-        200: ["ghost","psychic"],
-        100: ["normal","flying","poison","ground","rock","bug","steel","fire","water","grass","electric","ice","dragon"],
-        50: ["fighting","dark","fairy"],
-        0: []
-    }
-    const fairy = {
-        200: ["fighting","dragon","dark"],
-        100: ["normal","flying","ground","rock","bug","ghost","water","grass","electric","psychic","ice","fairy"],
-        50: ["poison","steel","fire"],
-        0: []
-    }
+    return attackReturnValue;
 
 }
