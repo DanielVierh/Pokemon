@@ -13,7 +13,7 @@ function init() {
 
 function checkServiceWorker() {
     if("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/pokemon/serviceWorker.js", { scope: "/pokemon/"})
+        navigator.serviceWorker.register("/Pokemon/serviceWorker.js", { scope: "/Pokemon/"})
         .then(()=>  console.log('ServiceWorker geladen'))
         .catch((error) => console.warn(error))
     }
