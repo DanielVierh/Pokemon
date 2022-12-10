@@ -34,6 +34,7 @@ const pokemonGenerationen = {
     gen1_end: 150,
 };
 let myCurrentPokemonIndex = 0;
+let variableMoveName = false;
 
 
 
@@ -594,18 +595,29 @@ function myPokemonAttack(whoIsExecuting) {
     // Initwerte sind so eingestellt, dass ein Angriff von meinem Pokemon aus geht
     let lv = myStaticPokemon.level;
     let defPokeLv = currentWildPokemon.level;
-    const attbaseDamage = pokeMove.baseDamage;
+    let attbaseDamage = pokeMove.baseDamage;
+    console.log('BaseDamage', attbaseDamage);
     let attackVal = myStaticPokemon.statAttack;
     let defenceVal = currentWildPokemon.statDefense;
     const f2 = Math.random() * (1.3 - 1) + 1;
     const z = 100 - parseInt(Math.random() * 15 + 1);
-    const attackType = pokeMove.type;
+    let attackType = pokeMove.type;
     let defPokeType = currentWildPokemon.type;
     const typeCalc = checkPokeTypes(attackType, defPokeType) // Typ Attacke wird mit Typ verteidigendesPokemon verglichen 0x / 0.5x / 1x / 2x --TODO: Funktion für den Vergleich bauen
     let whoIsAffected = 'wildPokemon';
+    variableMoveName = false;
     console.log('SchadenTypWert: ',typeCalc);
     // Wenn wildes Pokemon angreift
     if (whoIsExecuting === 'wildPokemon') {
+
+        // Wenn Basedamage = 0 soll per zufall tackle ausgeführt werden
+        if(attbaseDamage === null && randomize()) {
+            console.warn('Damage 0 und wahr');
+            attackType = 'normal'
+            attbaseDamage = 50;
+            variableMoveName = true;
+        }
+
         lv = currentWildPokemon.level;
         defPokeLv = myStaticPokemon.level;
         attackVal = currentWildPokemon.statAttack;
@@ -704,11 +716,18 @@ function animateProgressBar(damage, whoIsAffected) {
                 victorySound.play();
             }
         } else {
-            showInfoBox(
-                `${makeFirstLetterBig(atackerPokemon.name)} führt "${
-                    makeFirstLetterBig(pokeMove.name)
-                }" aus und richtet ${damage} Schaden an.`,
-            );
+            if(variableMoveName === false) {
+                showInfoBox(
+                    `${makeFirstLetterBig(atackerPokemon.name)} führt "${
+                        makeFirstLetterBig(pokeMove.name)
+                    }" aus und richtet ${damage} Schaden an.`,
+                );
+            }else {
+                showInfoBox(
+                    `${makeFirstLetterBig(atackerPokemon.name)} führt "Tackle" aus und richtet ${damage} Schaden an.`,
+                );
+            }
+
             effectedPokeName.innerHTML = `${makeFirstLetterBig(
                 defenderPokemon.name,
             )} | Lv. ${defenderPokemon.level} | KP.${currentHP}`;
@@ -1258,7 +1277,17 @@ function level_up() {
         attackReturnValue = 0
     }
 
-
     return attackReturnValue;
 
+}
+
+
+
+function randomize() {
+    const randomnumber = Math.random()
+    if(randomnumber <= 0.5) {
+        return true
+    }else {
+        return false
+    }
 }
