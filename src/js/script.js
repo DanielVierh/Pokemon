@@ -1,9 +1,16 @@
 const menueButton = document.getElementById("btn_Menue");
 const menueWindow = document.getElementById("windowMenu");
 const menueCloseButton = document.getElementById("btnCloseMenue");
+const inx = document.getElementById("inx")
+
+window.onload = init();
 
 
-
+function init() {
+    if(inx) {
+        window.location = 'battle.html'
+    }
+}
 
 
 

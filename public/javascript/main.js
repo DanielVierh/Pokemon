@@ -67,7 +67,7 @@ eval("facedPokemons = [];\r\nlet myTeam = [];\r\nlet pokemonByID = []\r\n\r\nlet
   \**************************/
 /***/ (() => {
 
-eval("const menueButton = document.getElementById(\"btn_Menue\");\r\nconst menueWindow = document.getElementById(\"windowMenu\");\r\nconst menueCloseButton = document.getElementById(\"btnCloseMenue\");\r\n\r\n\r\n\r\n\r\n\r\n\r\nif(menueButton) {\r\n    menueButton.addEventListener(\"click\", ()=> {\r\n            menueWindow.classList.add(\"active\")\r\n    })\r\n}\r\n\r\n\r\nif(menueCloseButton) {\r\n    menueCloseButton.addEventListener(\"click\", ()=> {\r\n            menueWindow.classList.remove(\"active\")\r\n    })\r\n}\r\n\n\n//# sourceURL=webpack://project-template/./src/js/script.js?");
+eval("const menueButton = document.getElementById(\"btn_Menue\");\r\nconst menueWindow = document.getElementById(\"windowMenu\");\r\nconst menueCloseButton = document.getElementById(\"btnCloseMenue\");\r\nconst inx = document.getElementById(\"inx\")\r\n\r\nwindow.onload = init();\r\n\r\n\r\nfunction init() {\r\n    if(inx) {\r\n        window.location = 'battle.html'\r\n    }\r\n}\r\n\r\n\r\n\r\nif(menueButton) {\r\n    menueButton.addEventListener(\"click\", ()=> {\r\n            menueWindow.classList.add(\"active\")\r\n    })\r\n}\r\n\r\n\r\nif(menueCloseButton) {\r\n    menueCloseButton.addEventListener(\"click\", ()=> {\r\n            menueWindow.classList.remove(\"active\")\r\n    })\r\n}\r\n\n\n//# sourceURL=webpack://project-template/./src/js/script.js?");
 
 /***/ }),
 
