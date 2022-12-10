@@ -1,727 +1,85 @@
-<!--
-Erstellungsdatum: 01.12.2021
-
-
-Abläufe:
--Kampf:
-
-    -Wenn wildes Poke angreift, Button für Aktionen sperren sperren, Attacke wird in Infobox angezeigt, danach werden KP/HP angezogen
-        Wenn mein Pokemon besiegt, Infobox wieder einblenden, Pokemon verschwindet
-        Anzeige öffnen, um ein neues Pokemon auszuwählen
-    -Angriff ausführen: Auf kampf geklickt, blendet Angriffe ein und bestehende Button (Kampf, Flucht etc.) aus.
-        Nach Auswahl der Attacke werden Button und Anzeigen ausgeblendet und Infobox angezeigt
-        Danach werden KP/HP abgezogen
-        Wenn wildes Pokemon besiegt, Infobox wieder einblenden, Pokemon verschwindet.
-    -Leveln
-        Wenn wildes Pokemon besiegt, wird anhand einer Formel ein neuer xp Wert berechnet.
-        Überschreitet dieser einen gewissen Wert, so erreicht das Pokemon das nächste Level.
-
-    -Angriffe werden dann der Reihe nach ausgeführt, bis ein Pokemon besiegt wurde
--Pokeball
-    Wildes Pokemon muss geschwächt sein. Unter 50% KP. Einfangquote steigt dann, um so niedriger die KP sind
-
-
-
-ToDos:
-    -Wildes Pokemon greift an
-    -Pokeball einsetzen
-    -Flucht
-    -Nach Sieg XP
-    -Leveln
-    -Typenvergleich bei Attacke
-    -Pokedex bauen
-    -Pokemon Team abbilden
-    -Pokemon aus Team auswählen können, wenn besiegt, kennzeichnen
-    -Musik
-    -Attacken laden und anzeigen
-    -Bei Attacken ggf. Wiederholungsraten berücksichtigen
-    -Deutschen Pokemon Namen ermitteln
-
-
-Erledigt:
-    -Fenster für Infotexte erstellen
-    - UI Zustände definieren (Button und Label anzeigen) (Infobox anzeigen) (Animationen)
--->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokemon-Battle</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="public/css/main.css">
+    <title>Battle</title>
 </head>
-<body>
 
-    <div class="mainContainer">
+<body>
+    <div class="mainContainer" id="battleTag">
+
+        <div class="menueButton" id="btn_Menue">Menü</div>
+        <div class="menueWindow" id="windowMenu">
+            <div class="closebutton" id="btnCloseMenue">X</div>
+
+            <div class="poketeamContainer">
+                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_0">
+                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_1">
+                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_2">
+                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_3">
+            </div>
+
+            <div class="menuCont">
+                <a href="catchedPokemons.html" class="munulink">Meine Pokemons</a>
+                <a href="pokedex.html" class="munulink">Pokedex</a>
+            </div>
+        </div>
+
 
         <!-- Wildes Pokemon -->
-            <div class="pokeBattleCard">
-                <p id="wildPokeName"></p>
+        <div class="pokeBattleCard">
+            <p id="wildPokeName"></p>
+            <progress id="wildPokemonProgress" max="100"></progress>
 
-                <div class="wildPokeprogr">
-                    <div class="wildPokeProgressColor" id="wildPokeProgress"></div>
-                </div>
+        </div>
+        <img src="" alt="Pokemon" id="imgPoke" class="wildPokemonImage">
 
-            </div>
-            <img src="" alt="Pokemon" id="imgPoke">
-
+        <!-- Pokeball Area -->
+        <div class="pokeball" id="pokeball"></div>
 
         <!-- Eigenes Pokemon -->
-            <img src="" alt="Pokemon" id="imgMyPoke">
-            <div class="myPokeBattleCard">
-                <div class="progress" id="myProgress"></div>
-                <p id="myPokeName"></p>
-            </div>
 
-            <!-- Infobox -->
-            <div class="infBox" id="infoBox" hidden></div>
+        <div class="myPokeBattleCard ">
+            <p id="myPokeName"></p>
+        </div>
+        <progress id="myPokemonProgress" max="100"></progress>
+        <progress id="myPokemonXPProgress" max="300"></progress>
+        <img src="" alt="Pokemon" id="imgMyPoke" class="myPokemonImage">
+
+
+
+        <!-- Infobox -->
+        <div class="infBox" id="infoBox" hidden></div>
         <div>
 
             <!-- Main Buttons -->
-        <div id="mainButtonCont">
-            <div class="buttonContainer" >
-                <button class="actionButton" style="background-color: red;" onclick="pokeFight()" id="mainButton1">Kampf</button>
-                <button class="actionButton" style="background-color: green;" id="mainButton2" onclick="catchPokemon()">Pokeball</button>
-                <button class="actionButton" style="background-color: blue;" id="mainButton3">Fliehen</button>
+            <div id="mainButtonCont">
+                <div class="buttonContainer">
+                    <button class="actionButton" style="background-color: red;" id="mainButton1">Kampf</button>
+                    <button class="actionButton" style="width: 80px;" id="mainButton2"><img src="assets/Pokeball2.png" alt=""> <span id="outpPokeball">33</span></button>
+                    <!-- <button class="actionButton" style="background-color: blue;" id="mainButton3">Fliehen</button> -->
+                </div>
             </div>
-        </div>
             <!-- Pokemon Attacken -->
-        <div id="moveButtonCont" hidden>
-            <div class="buttonContainer">
-                <button class="actionButton" style="background-color: gray; font-size: 0.7rem;" onclick="attack1()" id="btnAttack1">fire-punch</button>
-                <button class="actionButton" style="background-color: gray; font-size: 0.7rem;">Tackle</button>
-                <button class="actionButton" style="background-color: gray; font-size: 0.7rem;">Glut</button>
+            <div id="moveButtonCont" hidden>
+                <div class="buttonContainer2">
+                    <div class="closebutton2" id="btn_closeActionwindow">X</div>
+                    <button class="actionButton2" id="btnAttack0">-</button>
+                    <button class="actionButton2" id="btnAttack1">-</button>
+                    <button class="actionButton2" id="btnAttack2">-</button>
+                    <button class="actionButton2" id="btnAttack3">-</button>
+                </div>
+
             </div>
-
+            <!-- <a href="pokedex.html">Pokedex</a> -->
         </div>
-        <a href="pokedex.html">Pokedex</a>
-    </div>
 
 
-
-
-    <script>
-//######################################################
-// Variablen
-//######################################################
-let currentWildPokemon;
-let myCurrentPokemon;
-let wildPokeImage = document.getElementById("imgPoke");
-let wildPokeName = document.getElementById("wildPokeName");
-let myPokeImage = document.getElementById("imgMyPoke");
-let myPokeName = document.getElementById("myPokeName");
-let wildPokemonProgressBar = document.getElementById("wildPokeProgress");
-let myProgressBar = document.getElementById("myProgress");
-let infoBox = document.getElementById("infoBox");
-let moveButtons = document.getElementById("moveButtonCont");
-let mainButtons = document.getElementById("mainButtonCont");
-let myCatchedPokemons = [];
-let myTeam = [];
-let allMoves = [];
-let facedPokemons = [];
-let pokeMove;
-let currentAttack;
-let currentWildPokeHP;
-let myCurrentPokemonHP;
-let iamExecuting = true;
-const battleSound2 = new Audio('assets/sound/battle2.mp3');
-const victorySound = new Audio('assets/sound/victory.mp3');
-let musikIsPlaying = true; // Wenn auf false, wird sie nach erster Aktion abgespielt
-let myPokeballAmount = 35;
-
-//######################################################
-// Klassen
-//######################################################
-class Pokemon {
-    constructor(id, name, type, level, moves, spriteFront, spriteBack, statAttack, statDefense, xp, hp, unique_ID) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.level = level;
-        this.moves = moves;
-        this.spriteFront = spriteFront;
-        this.spriteBack = spriteBack;
-        this.statAttack = statAttack;
-        this.statDefense = statDefense;
-        this.xp = xp;
-        this.hp = hp;
-        this.unique_ID = uniqueID_Generator();
-    }
-}
-
-class PokeMove {
-    constructor(name, germanName, descr, accuracy, baseDamage, minHits, maxHits, pp, type) {
-        this.name = name,
-        this.germanName = germanName,
-        this.descr = descr,
-        this.accuracy = accuracy,
-        this.baseDamage = baseDamage,
-        this.minHits = minHits,
-        this.maxHits = maxHits,
-        this.pp = pp,
-        this.type = type
-    }
-}
-
-
-
-function uniqueID_Generator() {
-    const rndStuff = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','$','!','1','2','3','4','8','7','6','5','9','0','#'];
-    let key = '';
-    for(let i = 1; i <= 36; i++) {
-        key += rndStuff[parseInt(Math.random() * rndStuff.length)];
-    }
-    console.log(key);
-    return key;
-}
-
-
-
-//######################################################
-// Statisches Pokemon
-//######################################################
-// Statisches Pokemon -- Glurak
-let myStaticPokemon = new Pokemon(6,"Charizard","fire", 25, "mega-punch",
- "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
- "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/6.png",
- 84,78,0, 78);
-
-
- //######################################################
-// Init Game
- //######################################################
- window.onload = initGame();
-
-function initGame() {
-
-    load_FacedPokemons();
-    load_AllMoves();
-    console.log('Faced:',facedPokemons);
-    createWildPokemon();
-    createMyPokemon();
-    setTimeout(() => {
-        checkWhoExecuteNext();
-    }, 1000);
-}
-
-// Gameloop
-
-function checkWhoExecuteNext() {
-    if(iamExecuting === true) {
-        enableMainButtons();
-        iamExecuting = false;
-    }else{
-        disableMainButtons();
-        ki_Move();
-        iamExecuting = true;
-    }
-}
-
-//######################################################
-// Persistent Stände laden
-//######################################################
-
-// Alle bisher begegneten Pokemon
-function load_FacedPokemons() {
-    if (localStorage.getItem('storedFacedPokemons') != null) {
-        facedPokemons = JSON.parse(localStorage.getItem('storedFacedPokemons'));
-    }
-}
-
-// Alle Attacken, die bisher ausgeführt wurden
-function load_AllMoves() {
-    if(localStorage.getItem('storedMove') != null) {
-        allMoves = JSON.parse(localStorage.getItem('storedMove'));
-    }
-}
-
-
-//######################################################
-// Spielt Sound ab
-//######################################################
-
-function playBattleSound() {
-    if(musikIsPlaying === false) {
-        musikIsPlaying = true;
-        battleSound2.play();
-    }
-}
-
-
-//######################################################
-// Erstellt Zufallszahl und checkt, ob ID bereits im Array FacedPokemons gespeichert ist,
-// wenn nein, Fetch Request an Poke API
-//######################################################
-function createWildPokemon() {
-    const rndPokeID = parseInt(Math.random() * 800 + 1);
-    let foundIdInFacedPokemonArray = false;
-    wildPokemonProgressBar.style.width = '100%';
-    wildPokemonProgressBar.style.backgroundColor = 'green';
-    // Checke FacedPokemon Array
-    for(let i = 0; i < facedPokemons.length; i++) {
-        if(rndPokeID === facedPokemons[i].id) {
-            currentWildPokemon = new Pokemon(facedPokemons[i].id,
-                                            facedPokemons[i].name,
-                                            facedPokemons[i].type,
-                                            parseInt(Math.random() * 20) + 3,
-                                            facedPokemons[i].moves,
-                                            facedPokemons[i].spriteFront,
-                                            facedPokemons[i].spriteBack,
-                                            facedPokemons[i].statAttack,
-                                            facedPokemons[i].statDefense,
-                                            facedPokemons[i].xp,
-                                            facedPokemons[i].hp);
-
-            wildPokeImage.src = currentWildPokemon.spriteFront;
-            wildPokeImage.style.opacity = "1";
-            wildPokeName.innerHTML = `${makeFirstLetterBig(currentWildPokemon.name)} | Lv. ${currentWildPokemon.level} -- KP.${currentWildPokemon.hp}`;
-            currentWildPokeHP = currentWildPokemon.hp;
-            console.log("Found Pokemon in FacedPokemons");
-            foundIdInFacedPokemonArray = true;
-        }
-
-    }
-
-        // Pokemon nicht im Array facedPokemons enthalten, also Fetch Req
-        if(foundIdInFacedPokemonArray === false) {
-        fetchPokemon(rndPokeID);
-        }
-}
-
-//######################################################
-// Mein Pokemon rendern
-//######################################################
-function createMyPokemon() {
-    myPokeImage.src = myStaticPokemon.spriteBack;
-    myCurrentPokemonHP = myStaticPokemon.hp;
-    myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${myStaticPokemon.level} -- KP.${myStaticPokemon.hp}`;
-}
-
-//######################################################
-// Fetch Request an Poke API. Kann mittels ID oder Name übergeben werden
-//######################################################
-
-function fetchPokemon(id) {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
-    .then((res) => res.json())
-    .then(data => {
-        console.log(data)
-        currentWildPokemon = new Pokemon(data.id,
-                                     data.name,
-                                     data.types[0].type.name,
-                                     parseInt(Math.random() * 20) + 3,
-                                     data.moves[0].move.name,
-                                     data.sprites.front_default,
-                                     data.sprites.back_default,
-                                     data.stats[1].base_stat,
-                                     data.stats[2].base_stat,
-                                     data.base_experience,
-                                     data.stats[0].base_stat)
-        console.log(currentWildPokemon)
-        // Wildes Pokemon rendern
-        wildPokeImage.src = currentWildPokemon.spriteFront
-        wildPokeImage.style.opacity = "1";
-        wildPokeName.innerHTML = `${makeFirstLetterBig(currentWildPokemon.name)} | Lv. ${currentWildPokemon.level} -- KP.${currentWildPokemon.hp}`
-        currentWildPokeHP = currentWildPokemon.hp
-        showInfoBox(`Ein wildes ${makeFirstLetterBig(currentWildPokemon.name)} erscheint`)
-        // Pokemon auf dem Gerät abspeichern, um beim nächsten mal keinen erneuten Fetch Request auszulösen
-        facedPokemons.push(currentWildPokemon)
-        localStorage.setItem('storedFacedPokemons', JSON.stringify(facedPokemons))
-    });
-}
-
-//######################################################
-// Macht den Anfangsbuchstaben groß
-//######################################################
-function makeFirstLetterBig(pokeName) {
-    const firstLetter = pokeName[0];
-    let exportPokeName = firstLetter.toUpperCase();
-    for(let i = 1; i < pokeName.length; i++) {
-        exportPokeName += pokeName[i];
-    }
-    return exportPokeName;
-}
-
-//######################################################
-// Wichtige Informationen einer Attacke fetchen und ganze Attacke abspeichern
-//######################################################
-function fetchAttack(nameId) {
-    fetch(`https://pokeapi.co/api/v2/move/${nameId}/`)
-    .then((res) => res.json())
-    .then(data => {
-        console.log('Move', data)
-        pokeMove = new PokeMove(data.name,
-                                data.names[4].name,
-                                data.flavor_text_entries[22].flavor_text,
-                                data.accuracy, data.power,
-                                data.meta.minHits,
-                                data.meta.maxHits,
-                                data.pp,
-                                data.type.name)
-        console.log('Gesp.Move:', allMoves);
-        // In alle Attacken abspeichern
-        allMoves.push(pokeMove)
-        localStorage.setItem('storedMove', JSON.stringify(allMoves))
-    });
-}
-
-
-//######################################################
-// Quelle: https://www.pokewiki.de/Schaden
-// Formel für Schadensberechnung
-// Schaden=⌊((Level⋅25+2)⋅Basisschaden⋅(Sp.) Angr.50⋅(Sp.) Vert.⋅F1+2)⋅Volltreffer⋅F2⋅Z100⋅STAB⋅Typ1⋅Typ2⋅F3⌋
-//!!!!!
-// Schaden = ((angriffPokeLevel * 40% + 2) * baseDamage * (angriffstatAttack / 50 + VertPokestatDefense) * 1 + 2) * Volltreffer * F2 * (Z / 100) * 1.5 * Typverrechnung
-// [((lv 25 * 40% + 2) * tackle=40 (Glurak Angr 84 / 50 + Magneton Vert 95) * 3) * 1,1 * (95 / 100) * 1,5] *  WertAusTypvergl=FeuerVsElektro=1
-// ((12) * 40 * (0,58) * 3)) * 1,1 * (0,95) * 1,5 * 1 = 1.309
-//!!!!!
-// Level gibt das aktuelle Level des Angreifers an und kann dementsprechend zwischen 1 und 100 variieren.
-// (Sp.-)Angr. gibt allgemein den Angriffs- bzw. Spezial-Angriffs-Wert des Angreifers an
-// Volltreffer ist für gewöhnlich 1 (Berechnung aus Accuracy)
-// Z ist ein Wert, der berechnet wird, indem von 100 eine zufällige Zahl zwischen 0 und 15 abgezogen wird
-// F2 zwischen 1 und 1,3
-
-// Die Bezeichnungen Typ1 und Typ2 stellen die Effektivität der genutzten Attacke auf das Ziel dar. Ist die Attacke nicht sehr effektiv gegenüber dem Typen des Ziels,
-// ist der Faktor 0,5, ist er sehr effektiv, wird 2 eingesetzt und hat sie keinen Einfluss auf den Gegner, so wird 0 eingesetzt. In allen anderen Fällen wird 1 eingesetzt
-//######################################################
-function myPokemonAttack(whoIsExecuting) {
-        // Initwerte sind so eingestellt, dass ein Angriff von meinem Pokemon aus geht
-        let lv = myStaticPokemon.level;
-        let defPokeLv = currentWildPokemon.level;
-        const attbaseDamage = pokeMove.baseDamage;
-        let attackVal = myStaticPokemon.statAttack;
-        let defenceVal = currentWildPokemon.statDefense;
-        const f2 = Math.random() * (1.3 - 1) + 1;
-        const z = 100 - parseInt(Math.random() * 15 + 1);
-        const attackType = pokeMove.type;
-        let defPokeType =  currentWildPokemon.type;
-        const typeCalc = 0.5; // Typ Attacke wird mit Typ verteidigendesPokemon verglichen 0x / 0.5x / 1x / 2x --TODO: Funktion für den Vergleich bauen
-        let whoIsAffected = 'wildPokemon';
-        console.log(`Pokemove: ${pokeMove} // attbaseDamage: ${attbaseDamage} // attacktype: ${attackType}`)
-
-        // Wenn wildes Pokemon angreift
-        if(whoIsExecuting === 'wildPokemon') {
-            lv = currentWildPokemon.level;
-            defPokeLv = myStaticPokemon.level;
-            attackVal = currentWildPokemon.statAttack;
-            defenceVal = myStaticPokemon.statDefense;
-            defPokeType = myStaticPokemon.type;
-            whoIsAffected = 'myPokemon';
-        }else{
-
-        }
-
-        // Grundsätzliche Berechnung des Schadens
-        const rawDamage = ((lv * 0.4) + 2) * attbaseDamage * (attackVal / (defenceVal + 50 + defPokeLv)) * 3 * f2 * (z / 100);
-        const damage = parseInt((rawDamage * typeCalc) / 20);
-
-        // Wenn wildes Pokemon am Zug ist
-        if(whoIsExecuting === 'wildPokemon') {
-            // console.log(`MyPokemon got attacked: ${myCurrentPokemonHP} - Damage: ${damage} = ${myCurrentPokemonHP - damage}`);
-                myCurrentPokemonHP -= damage;
-            // console.log(`WldPokeAttacke: ((Lv.${lv} * 0.4) + 2) * AttackName: ${pokeMove.name} attbaseDamage: ${attbaseDamage} * (attackVal: ${attackVal} / (defenceVal: ${defenceVal}
-                        // + 50 + defPokeLv:${defPokeLv}=${defenceVal+50+defPokeLv})) * 3 * f2: ${f2} * (z: ${z} / 100)`);
-            // console.log(`rawDamage= ${rawDamage}`);
-            // console.log(`TypAtt: ${attackType} | TypDefPoke: ${defPokeType} =  typeCalc: ${typeCalc}`);
-        }else{
-            // console.log(`currentWildPokeHP: ${currentWildPokeHP} - Damage: ${damage} = ${currentWildPokeHP - damage}`);
-                currentWildPokeHP -= damage;
-            // console.log(`MyStaticPokemon: ${myStaticPokemon}`);
-            // console.log(`((Lv.${lv} * 0.4) + 2) * AttackName: ${pokeMove.name} attbaseDamage: ${attbaseDamage} * (attackVal: ${attackVal} / (defenceVal: ${defenceVal}
-                        // + 50 + defPokeLv:${defPokeLv}=${defenceVal+50+defPokeLv})) * 3 * f2: ${f2} * (z: ${z} / 100)`);
-            // console.log(`rawDamage= ${rawDamage}`);
-            // console.log(`TypAtt: ${attackType} | TypDefPoke: ${defPokeType} =  typeCalc: ${typeCalc}`);
-        }
-
-
-        animateProgressBar(damage, whoIsAffected);
-
-}
-
-//######################################################
-
-//######################################################
-function animateProgressBar(damage, whoIsAffected) {
-
-    let fullHP = currentWildPokemon.hp;
-    let currentHP = currentWildPokeHP;
-    let hpInPercent = parseInt(currentHP * 100 / fullHP);
-    let effectedImage = wildPokeImage;
-    let effectedPokeName = wildPokeName;
-    let effectedProgressbar = wildPokemonProgressBar;
-    let atackerPokemon = myStaticPokemon;
-    let defenderPokemon = currentWildPokemon;
-
-    if(whoIsAffected === 'myPokemon') {
-        fullHP = myStaticPokemon.hp;
-        currentHP = myCurrentPokemonHP;
-        hpInPercent = parseInt(currentHP * 100 / fullHP);
-        effectedImage = myPokeImage;
-        effectedPokeName = myPokeName;
-        effectedProgressbar = myProgressBar;
-        atackerPokemon = currentWildPokemon;
-        defenderPokemon = myStaticPokemon;
-    }
-
-
-            // Balken anzeigen
-    if(hpInPercent <= 0) {
-        effectedProgressbar.style.width = '0%';
-    }else{
-        effectedProgressbar.style.width = `${hpInPercent}%`;
-    }
-
-    // Auswirkungsanzeige
-    setTimeout(() => {
-        // Textbox
-        if(hpInPercent <= 0) {
-            // Textbox
-            showInfoBox(`${makeFirstLetterBig(defenderPokemon.name)} wurde besiegt`);
-            // Besiegtes Pokemon verschwindet
-            effectedImage.style.opacity = "0";
-            effectedPokeName.innerHTML = "";
-            // Neues Pokemon wird erstellt, dient nur zum testen
-            // setTimeout(() => {
-            //     createWildPokemon();
-            // }, 5000);
-            if(whoIsAffected !== 'myPokemon') {
-                battleSound2.pause();
-                victorySound.play();
-            }
-        }else{
-            showInfoBox(`${makeFirstLetterBig(atackerPokemon.name)} führt "${pokeMove.name}" aus und richtet ${damage} Schaden an.`);
-            effectedPokeName.innerHTML = `${makeFirstLetterBig(defenderPokemon.name)} | Lv. ${defenderPokemon.level} | KP.${currentHP}`
-        }
-
-    }, 1000);
-
-    setTimeout(() => {
-        checkWhoExecuteNext();
-    }, 2000);
-
-    // Balken einfärben
-    if(hpInPercent >= 50) {
-        effectedProgressbar.style.backgroundColor = 'green';
-    }else if(hpInPercent >= 20) {
-        effectedProgressbar.style.backgroundColor = 'orange';
-    }else{
-        effectedProgressbar.style.backgroundColor = 'red';
-    }
-}
-
-//######################################################
-// UI Elemente
-//######################################################
-function showInfoBox(text) {
-    infoBox.hidden = false;
-    infoBox.innerHTML = text;
-    setTimeout(() => {
-        infoBox.hidden = true;
-    }, 4000);
-}
-
-function showMainButtons() {
-    moveButtons.hidden = true;
-    mainButtons.hidden = false;
-    disableMainButtons();
-}
-
-function showMoveButtons() {
-    moveButtons.hidden = false;
-    mainButtons.hidden = true;
-}
-
-function disableMainButtons() {
-    mainButtons.style.backgroundColor = 'red';
-    document.getElementById("mainButton1").disabled = true;
-    document.getElementById("mainButton2").disabled = true;
-    document.getElementById("mainButton3").disabled = true;
-}
-
-function enableMainButtons() {
-    mainButtons.style.backgroundColor = 'rgba(0, 0, 10, 0.384)';
-    document.getElementById("mainButton1").disabled = false;
-    document.getElementById("mainButton2").disabled = false;
-    document.getElementById("mainButton3").disabled = false;
-}
-
-//######################################################
-// Move Steuerung
-//######################################################
-function pokeFight() {
-    showMoveButtons();
-}
-
-function attack1() {
-    // debugger
-    showMainButtons();
-    const btnMoveName = document.getElementById("btnAttack1").innerText;
-    init_Move(btnMoveName);
-    playBattleSound();
-}
-
-
-
-function attack2() {
-    playBattleSound();
-}
-
-function attack3() {
-    playBattleSound();
-
-}
-
-
-//######################################################
-// Init Move
-//######################################################
-function init_Move(moveName) {
-    // const moveName = 'fire-punch';
-    // const germanMoveName = 'Feuerschlag';
-    let foundMoveInAllMoves = false;
-    // Checke Attacke im Attacken Array
-    for(let i = 0; i < allMoves.length; i++) {
-        // console.log(`${allMoves[i].name}`)
-        if(moveName === allMoves[i].name) {
-            currentAttack = new PokeMove(
-                allMoves[i].name,
-                allMoves[i].germanName,
-                allMoves[i].descr,
-                allMoves[i].accuracy,
-                allMoves[i].baseDamage,
-                allMoves[i].minHits,
-                allMoves[i].maxHits,
-                allMoves[i].pp,
-                allMoves[i].type)
-                console.log('GeladenMove:', allMoves);
-                foundMoveInAllMoves = true;
-                pokeMove = currentAttack;
-        }
-    }
-
-    if(foundMoveInAllMoves === false) {
-        // console.log("Move nicht gefunden");
-        fetchAttack(moveName);
-    }
-
-    setTimeout(() => {
-        myPokemonAttack('myPokemon')
-    }, 1000);
-}
-
-//######################################################
-
-//######################################################
-
-function ki_Move() {
-    if(currentWildPokeHP > 0) {
-        const move = currentWildPokemon.moves;
-        fetchAttack(move);
-        setTimeout(() => {
-            myPokemonAttack('wildPokemon')
-        }, 3000);
-    }else{
-        // Battle Szene hier beenden
-        setTimeout(() => {
-            console.log("Szene beendet");
-            showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
-            window.Location = "pokedex.html";
-        }, 5000);
-    }
-}
-
-//######################################################
-
-// Wildes Pokemon fangen
-
-//######################################################
-function catchPokemon() {
-
-    // Abfragen, ob man noch Pokebälle hat
-if( myPokeballAmount > 0) {
-    myPokeballAmount--;
-    const fullHP = currentWildPokemon.hp;
-    const hpInPercent = parseInt(currentWildPokeHP * 100 / fullHP);
-    const catchquote = 25 + (parseInt(Math.random() * hpInPercent  / 2)) - (parseInt(Math.random() * (hpInPercent + 5)));
-    console.log(`Catchquote: ${catchquote} // Pokebälle: ${myPokeballAmount}`);
-    if(catchquote >= 25) {
-        // Checken, ob Pokemon bereits im Array
-        let foundInCatchedPokemonArray = false;
-        for(let i = 0; i < myCatchedPokemons.length; i++) {
-            if(myCatchedPokemons[i].name === currentWildPokemon.name) {
-                foundInCatchedPokemonArray = true;
-            }
-        }
-        if(foundInCatchedPokemonArray === true) {
-            showInfoBox("Pokemon bereits vorhanden");
-        }else{
-
-        }
-
-
-        // Unsichtbar machen
-        wildPokeImage.style.opacity = "0";
-        wildPokeName.innerHTML = "";
-        // Musik
-        battleSound2.pause();
-        victorySound.play();
-
-        showInfoBox(`${currentWildPokemon.name} wurde gefangen`);
-        myCatchedPokemons.push(currentWildPokemon);
-        console.log("--- !!!  !!! ---> CATCHED", myCatchedPokemons);
-    }
-}else{
-    showInfoBox(`Nicht genug Pokebälle`);
-}
-
-
-}
-
-
-/*
-
-            "ghost": "Geist",
-
-            "dark": "Unlicht",
-
-            "electric": "Elektro",
-
-            "normal": "Normal",
-
-            "fire": "Feuer",
-
-            "psychic": "Psycho",
-
-            "flying": "Flug",
-
-            "steel": "Stahl",
-
-            "poison": "Gift",
-
-            "dragon": "Drache",
-
-            "water": "Wasser",
-
-            "ice": "Eis",
-
-            "rock": "Gestein",
-
-            "fighting": "Kampf",
-
-            "grass": "Pflanze",
-
-            "bug": "Käfer",
-
-            "ground": "Boden",
-
-            "fairy": "Fee",
-
-
-*/
-
-
-    </script>
+        <script src="public/javascript/main.js"></script>
 </body>
+
 </html>
