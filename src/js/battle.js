@@ -104,9 +104,11 @@ if (btnAttack3) {
 
 // Werfe Pokeball
 if (throwPokeball) {
-    throwPokeball.addEventListener('click', () => {
-        catchPokemon();
-    });
+        throwPokeball.addEventListener('click', () => {
+            if(myCurrentPokemonHP > 0) {
+            catchPokemon();
+            }
+        });
 }
 
 if(btn_closeActionwindow) {
@@ -878,7 +880,9 @@ function enableMainButtons() {
 // Move Steuerung
 //######################################################
 function pokeFight() {
-    showMoveButtons();
+    if(myCurrentPokemonHP > 0) {
+        showMoveButtons();
+    }
 }
 
 function attackAction(btnMoveName) {
@@ -1072,72 +1076,6 @@ function level_up() {
 }
 
 
-
-/**
- * // Leveln
-    func leveln(){
-        allocateXPAndGk()
-        let enLv = enemyPokemonLevel
-        let oldXP = currentXP
-                                                        print(" \(currentEnemyPokemon) / enLv \(enLv)")
-        // Formel
-        //let calcXP = (currentGK * enLv * 2 + myLife + 100) / (level - 3)
-        let calcXP = (currentGK * enLv * 2 + myLife + 160) / (level - 3)
-
-                                                        print("calcXP \(calcXP)")
-        // Neue Zuweisung
-        let newXP = currentXP + calcXP
-                                                        print("newXP \(newXP)")
-        // prüfen ob level erhöht werden kann
-        if oldXP <= 100 {
-            if newXP > 100{
-                level += 1
-                let resetXP = 0
-                currentXP = resetXP
-                // level löschen und erneut speichern
-                pokemonLevel.removeValue(forKey: currentPokemon)
-                pokemonLevel[currentPokemon] = level
-                UserDefaults.standard.set(pokemonLevel, forKey: "gespPokemonLevel")
-                xP[currentPokemon] = resetXP
-                UserDefaults.standard.set(xP, forKey: "gespXp")
-                CreateAlert(title: "Level +1", message: "\(currentPokemon) hat level \(level) erreicht")
-                let sizeOfXpFrame = currentXP * 2
-                lblXP.frame = CGRect(x: 60, y: 314, width: sizeOfXpFrame, height: 12)
-                lblXP.text = "   XP:\(currentXP)  +\(calcXP)"
-                LifeInPercent.text = "\(nameOfMyFightingPokemon) L.\(level) - \(myLife)%"
-                // prüfen ob sich pokemon weiterentwickeln kann weil 10er Stufe erreicht
-                //checkingEvolve()
-            }else{
-                xP[currentPokemon] = newXP
-                currentXP = newXP
-                UserDefaults.standard.set(xP, forKey: "gespXp")
-                let sizeOfXpFrame = currentXP * 2
-                lblXP.frame = CGRect(x: 60, y: 314, width: sizeOfXpFrame, height: 12)
-                lblXP.text = "   XP:\(currentXP)  +\(calcXP)"
-                print("\(currentPokemon): xP: \(currentXP) / GK: \(currentGK)")
-            }
-        }else if oldXP > 100{
-                  level += 1
-                  let resetXP = 0
-                  currentXP = resetXP
-                  // level löschen und erneut speichern
-                  pokemonLevel.removeValue(forKey: currentPokemon)
-                  pokemonLevel[currentPokemon] = level
-                  UserDefaults.standard.set(pokemonLevel, forKey: "gespPokemonLevel")
-                  xP[currentPokemon] = resetXP
-                  UserDefaults.standard.set(xP, forKey: "gespXp")
-                  CreateAlert(title: "Level +1", message: "\(currentPokemon) hat level \(level) erreicht")
-                  let sizeOfXpFrame = currentXP * 2
-                  lblXP.frame = CGRect(x: 60, y: 314, width: sizeOfXpFrame, height: 12)
-                  lblXP.text = "   XP:\(currentXP)  +\(calcXP)"
-                  LifeInPercent.text = "\(nameOfMyFightingPokemon) L.\(level) - \(myLife)%"
-        }
-
-
-    }
-
-
- */
 
     function checkPokeTypes(attackType, defenderType) {
 
