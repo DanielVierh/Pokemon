@@ -20,6 +20,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 
 /***/ }),
 
+/***/ "./serviceWorker.js":
+/*!**************************!*\
+  !*** ./serviceWorker.js ***!
+  \**************************/
+/***/ (() => {
+
+eval("self.addEventListener(\"install\", (event) => {\r\n\r\n})\r\nself.addEventListener(\"fetch\", (event) => {\r\n\r\n})\r\nself.addEventListener(\"activate\", (event) => {\r\n\r\n})\r\n\n\n//# sourceURL=webpack://project-template/./serviceWorker.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -27,7 +37,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _js_store_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/store.js */ \"./src/js/store.js\");\n/* harmony import */ var _js_store_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_js_store_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _js_pokedex_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/pokedex.js */ \"./src/js/pokedex.js\");\n/* harmony import */ var _js_pokedex_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_js_pokedex_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _js_catchedPokemon_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/catchedPokemon.js */ \"./src/js/catchedPokemon.js\");\n/* harmony import */ var _js_catchedPokemon_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_js_catchedPokemon_js__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _js_script_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/script.js */ \"./src/js/script.js\");\n/* harmony import */ var _js_script_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_js_script_js__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _js_battle_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/battle.js */ \"./src/js/battle.js\");\n/* harmony import */ var _js_battle_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_js_battle_js__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./scss/style.scss */ \"./src/scss/style.scss\");\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\n\n//# sourceURL=webpack://project-template/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _serviceWorker_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../serviceWorker.js */ \"./serviceWorker.js\");\n/* harmony import */ var _serviceWorker_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_serviceWorker_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _js_store_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/store.js */ \"./src/js/store.js\");\n/* harmony import */ var _js_store_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_js_store_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _js_pokedex_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/pokedex.js */ \"./src/js/pokedex.js\");\n/* harmony import */ var _js_pokedex_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_js_pokedex_js__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _js_catchedPokemon_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/catchedPokemon.js */ \"./src/js/catchedPokemon.js\");\n/* harmony import */ var _js_catchedPokemon_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_js_catchedPokemon_js__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _js_script_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/script.js */ \"./src/js/script.js\");\n/* harmony import */ var _js_script_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_js_script_js__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _js_battle_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/battle.js */ \"./src/js/battle.js\");\n/* harmony import */ var _js_battle_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_js_battle_js__WEBPACK_IMPORTED_MODULE_5__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./scss/style.scss */ \"./src/scss/style.scss\");\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nfunction init() {\r\n    checkServiceWorker();\r\n}\r\n\r\nfunction checkServiceWorker() {\r\n    if(\"serviceWorker\" in navigator) {\r\n        navigator.serviceWorker.register(\"/pokemon/serviceWorker.js\", { scope: \"/pokemon/\"})\r\n        .then(()=>  console.log('ServiceWorker geladen'))\r\n        .catch((error) => console.warn(error))\r\n    }\r\n}\r\n\n\n//# sourceURL=webpack://project-template/./src/index.js?");
 
 /***/ }),
 
