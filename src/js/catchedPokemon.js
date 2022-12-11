@@ -112,16 +112,25 @@ if (addBtn) {
             if (pokemonIndex >= 0) {
                 addedPokemon = myCatchedPokemons[pokemonIndex]
                 // console.log('addedPokemon', addedPokemon);
-
+ 
                 // check ob teamplatz frei
                 const freeTeamNumbers = myTeam.length;
                 if (freeTeamNumbers < 4) {
-                    //! check, ob dieses Pokemon schon im Team
-                    myTeam.unshift(addedPokemon);
-                    console.log(myTeam);
-                    renderTeam()
-                    save_SaveObj();
-                    location.reload();
+                    let isAlreadyInTeam = false;
+                    for(let i = 0; i < myTeam.length; i++) {
+                        if(myTeam[i].unique_ID === addedPokemon.unique_ID) {
+                            console.log('');
+                            isAlreadyInTeam = true;
+                            break
+                        }
+                    }
+                    if(isAlreadyInTeam === false) {
+                        myTeam.unshift(addedPokemon);
+                        console.log(myTeam);
+                        renderTeam()
+                        save_SaveObj();
+                        location.reload();
+                    }
                 } else {
                     alert("Kein Platz mehr frei")
                 }
