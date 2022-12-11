@@ -295,7 +295,7 @@ function loadMyTeam() {
     }
 }
 
-// Funktion erstellt zufällig 20 Pokemon. Diese sollen für einen Tag abgespeichert
+// Funktion erstellt zufällig 25 Pokemon. Diese sollen für einen Tag abgespeichert
 // werden und die möglichen Pokemon bildem, denen man begegnen kann
 
 function generate_today_Pokemons() {
@@ -308,7 +308,7 @@ function generate_today_Pokemons() {
         const min = 1;
         const max = 850;
 
-        for (let i = 1; i <= 20; i++) {
+        for (let i = 1; i <= 25; i++) {
             const randomPokemon = Math.floor(Math.random() * (max - min)) + min;
             todayPokemons.push(randomPokemon);
         }
@@ -773,7 +773,6 @@ function ki_Move() {
     } else {
         // Battle Szene hier beenden
         save_Object.myPokemonTeam[myCurrentPokemonIndex].hp = myCurrentPokemonHP;
-        // save_SaveObj()
         level_up();
         setTimeout(() => {
             window.location.reload();
@@ -809,6 +808,7 @@ function catchPokemon() {
                         currentWildPokemon.name,
                     )} wurde gefangen`,
                 );
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].hp = myCurrentPokemonHP;
                 level_up();
                 save_Object.myCatchedPokemons.push(currentWildPokemon);
                 save_SaveObj();
