@@ -7,6 +7,27 @@ body {
   font-family: sans-serif;
 }
 
+.imgAnimation {
+  display: none;
+}
+.imgAnimation.active {
+  display: block;
+  position: fixed;
+  left: 35%;
+  top: 30%;
+  max-width: 300px;
+  transform: rotate(40deg);
+  animation: shake 0.1s ease;
+}
+
+@keyframes shake {
+  from {
+    max-width: 30px;
+  }
+  to {
+    max-width: 300px;
+  }
+}
 .startButton {
   margin: 150px auto;
   width: 200px;
@@ -26,7 +47,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  background-image: url(../javascript/7d2c870dcefc2728fcff.png);
+  background-image: url(../javascript/c6f1ea955ffee5806e83.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -49,7 +70,7 @@ body {
   height: auto;
   position: absolute;
   top: 30%;
-  right: 0px;
+  right: 30px;
   animation: flightInPokemon 1s ease;
 }
 .wildPokemonImage.getAttacked {
@@ -64,7 +85,7 @@ body {
     right: 0px;
   }
   100% {
-    right: 10px;
+    right: 30px;
   }
 }
 @keyframes fadeOutPokemon {

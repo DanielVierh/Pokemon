@@ -35,7 +35,7 @@ const pokemonGenerationen = {
 };
 let myCurrentPokemonIndex = 0;
 let variableMoveName = false;
-
+let isHealing = false;
 
 
 
@@ -53,6 +53,8 @@ const pokemon2 = document.getElementById('teamPoke_1');
 const pokemon3 = document.getElementById('teamPoke_2');
 const pokemon4 = document.getElementById('teamPoke_3');
 const outpPokeball = document.getElementById('outpPokeball');
+const img_Animat = document.getElementById("img_Animat");
+
 
 let save_Object = {
     today_Date: '',
@@ -165,6 +167,7 @@ class PokeMove {
         maxHits,
         pp,
         type,
+        healing
     ) {
         (this.name = name),
             (this.germanName = germanName),
@@ -175,6 +178,7 @@ class PokeMove {
             (this.maxHits = maxHits),
             (this.pp = pp),
             (this.type = type);
+            (this.healing = healing);
     }
 }
 
@@ -533,6 +537,7 @@ function fetchAttack(nameId) {
                 data.meta.maxHits,
                 data.pp,
                 data.type.name,
+                data.meta.healing
             );
             // In alle Attacken abspeichern
             save_Object.allPokemonMoves.push(pokeMove);
@@ -559,6 +564,7 @@ function init_Move(moveName) {
                 allMoves[i].maxHits,
                 allMoves[i].pp,
                 allMoves[i].type,
+                allMoves[i].healing,
             );
             console.log('GeladenMove:', allMoves);
             foundMoveInAllMoves = true;
@@ -598,23 +604,24 @@ function myPokemonAttack(whoIsExecuting) {
     let lv = myStaticPokemon.level;
     let defPokeLv = currentWildPokemon.level;
     let attbaseDamage = pokeMove.baseDamage;
-    console.log('BaseDamage', attbaseDamage);
     let attackVal = myStaticPokemon.statAttack;
     let defenceVal = currentWildPokemon.statDefense;
     const f2 = Math.random() * (1.3 - 1) + 1;
     const z = 100 - parseInt(Math.random() * 15 + 1);
+    const healVal = pokeMove.healing;
+    console.log('healVal', healVal);
     let attackType = pokeMove.type;
     let defPokeType = currentWildPokemon.type;
     const typeCalc = checkPokeTypes(attackType, defPokeType) // Typ Attacke wird mit Typ verteidigendesPokemon verglichen 0x / 0.5x / 1x / 2x --TODO: Funktion für den Vergleich bauen
     let whoIsAffected = 'wildPokemon';
     variableMoveName = false;
-    console.log('SchadenTypWert: ',typeCalc);
+    isHealing = false;
+
     // Wenn wildes Pokemon angreift
     if (whoIsExecuting === 'wildPokemon') {
 
         // Wenn Basedamage = 0 soll per zufall tackle ausgeführt werden
         if(attbaseDamage === null && randomize()) {
-            console.warn('Damage 0 und wahr');
             attackType = 'normal'
             attbaseDamage = 50;
             variableMoveName = true;
@@ -631,13 +638,21 @@ function myPokemonAttack(whoIsExecuting) {
 
     // Grundsätzliche Berechnung des Schadens
     const rawDamage =
-        (lv * 0.4 + 2) *
+        (lv * 0.6 + 2) *
         attbaseDamage *
         (attackVal / (defenceVal + 50 + defPokeLv)) *
         3 *
         f2 *
         (z / 100);
+
+
     const damage = parseInt((rawDamage * typeCalc) / 20);
+
+        // Wenn Heil Move verwendet
+        if(healVal != undefined && healVal > 0) {
+            isHealing = true;
+
+        }
 
     // Wenn wildes Pokemon am Zug ist
     if (whoIsExecuting === 'wildPokemon') {
@@ -651,19 +666,23 @@ function myPokemonAttack(whoIsExecuting) {
     } else {
         currentWildPokeHP -= damage;
         if(damage > 0) {
+            img_Animat.classList.add('active');
+            setTimeout(() => {
+                img_Animat.classList.remove('active');
+            }, 300);
             wildPokeImage.classList.add('getAttacked');
             setTimeout(() => {
                 wildPokeImage.classList.remove('getAttacked');
             }, 600);
         }
     }
-    animateProgressBar(damage, whoIsAffected);
+    animateProgressBar(damage, whoIsAffected, healVal);
 }
 
 //######################################################
 
 //######################################################
-function animateProgressBar(damage, whoIsAffected) {
+function animateProgressBar(damage, whoIsAffected, healVal) {
     let fullHP = currentWildPokemon.maxHp;
     let currentHP = currentWildPokeHP;
     let hpInPercent = parseInt((currentHP * 100) / fullHP);
@@ -1023,10 +1042,12 @@ function level_up() {
             save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
             save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
             save_Object.myPokemonTeam[myCurrentPokemonIndex].hp+=1;
+            save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp+=1;
             save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack+=1;
             save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense+=1;
             save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
             save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
+            save_Object.myCatchedPokemons[pokemonIndex].maxHp+=1;
             save_Object.myCatchedPokemons[pokemonIndex].hp+=1;
             save_Object.myCatchedPokemons[pokemonIndex].statAttack+=1;
             save_Object.myCatchedPokemons[pokemonIndex].statDefense+=1;
@@ -1054,11 +1075,13 @@ function level_up() {
         save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
         save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
         save_Object.myPokemonTeam[myCurrentPokemonIndex].hp+=1;
+        save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp+=1;
         save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack+=1;
         save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense+=1;
         save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
         save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
         save_Object.myCatchedPokemons[pokemonIndex].hp+=1;
+        save_Object.myCatchedPokemons[pokemonIndex].maxHp+=1;
         save_Object.myCatchedPokemons[pokemonIndex].statAttack+=1;
         save_Object.myCatchedPokemons[pokemonIndex].statDefense+=1;
         myPokemonXPProgress.value = myStaticPokemon.xp
