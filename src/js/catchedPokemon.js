@@ -5,6 +5,9 @@ const catchedPokemonContaier = document.getElementById("catchedPokemonContaier")
 const teamPokemonContainer = document.getElementById("teamPokemonContainer");
 const btn_ResetGame = document.getElementById("btn_ResetGame");
 const btnHeal = document.getElementById("btnHeal");
+const cont_Detail = document.getElementById("cont_Detail")
+const btnCloseDetails = document.getElementById("btnCloseDetails");
+
 
 let save_Object = {
     today_Date: '',
@@ -61,6 +64,11 @@ function renderCatchedPokemons() {
         addBtn.classList.add("addButton")
         addBtn.id = myCatchedPokemons[i].unique_ID
 
+        let detailBtn = document.createElement("div");
+        detailBtn.innerHTML = "Info "
+        detailBtn.classList.add("detailBtn")
+        detailBtn.id = myCatchedPokemons[i].unique_ID
+
         let pokeimage = document.createElement("img");
         pokeimage.src = myCatchedPokemons[i].spriteFront;
 
@@ -84,6 +92,7 @@ function renderCatchedPokemons() {
         infocont.appendChild(number)
 
         pokeCont.appendChild(addBtn)
+        pokeCont.appendChild(detailBtn)
         pokeCont.appendChild(pokeimage)
         pokeCont.appendChild(pokename)
         pokeCont.appendChild(infocont)
@@ -161,6 +170,40 @@ if (delBtn) {
             }
         });
     });
+}
+
+
+const detailBtn = document.querySelectorAll('.detailBtn');
+if (detailBtn) {
+    detailBtn.forEach((button) => {
+        button.addEventListener('click', () => {
+            let pokemonIndex = -1;
+            for (let i = 0; i < myCatchedPokemons.length; i++) {
+                if (button.id === myCatchedPokemons[i].unique_ID) {
+                    pokemonIndex = i;
+                    break;
+                }
+            }
+
+            if (pokemonIndex >= 0) {
+                console.log('myCatchedPokemons[pokemonIndex]', myCatchedPokemons[pokemonIndex]);
+                cont_Detail.classList.add("active");
+                document.getElementById("det_Pokename").innerHTML = makeFirstLetterBig(myCatchedPokemons[pokemonIndex].name)
+                document.getElementById("det_PokemonImage").src = myCatchedPokemons[pokemonIndex].spriteFront
+                document.getElementById("det_Attack").innerHTML = `Angriff: ${myCatchedPokemons[pokemonIndex].statAttack}`
+                document.getElementById("det_Def").innerHTML = `Verteidigung: ${myCatchedPokemons[pokemonIndex].statDefense}`
+                document.getElementById("det_Lv").innerHTML = `Lv.${myCatchedPokemons[pokemonIndex].level}`
+                document.getElementById("det_HP").innerHTML = `Gesundheit: ${myCatchedPokemons[pokemonIndex].maxHp}`
+                document.getElementById("det_Type").innerHTML = `Typ: ${myCatchedPokemons[pokemonIndex].type}`
+            }
+        });
+    });
+}
+
+if(btnCloseDetails) {
+    btnCloseDetails.addEventListener("click", ()=> {
+        cont_Detail.classList.remove("active");
+    })
 }
 
 // Move Pokemon 1 pos down
@@ -305,3 +348,5 @@ if(btnHeal){
         alert("Deine Pokemon wurden geheilt")
     })
 }
+
+
