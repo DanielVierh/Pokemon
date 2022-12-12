@@ -214,10 +214,7 @@ function init() {
         generate_today_Pokemons();
         myPokemonProgress.value = 100;
         wildPokemonProgress.value = 100;
-        createMyFirstPokemon()
-        if(randomize()) {
-            checkWhoExecuteNext()
-        }
+        createMyFirstPokemon();
     }
 }
 
