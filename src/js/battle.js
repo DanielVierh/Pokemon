@@ -36,6 +36,7 @@ const pokemonGenerationen = {
 let myCurrentPokemonIndex = 0;
 let variableMoveName = false;
 let isHealing = false;
+let avarageLevel = 0;
 
 
 
@@ -54,6 +55,9 @@ const pokemon3 = document.getElementById('teamPoke_2');
 const pokemon4 = document.getElementById('teamPoke_3');
 const outpPokeball = document.getElementById('outpPokeball');
 const img_Animat = document.getElementById("img_Animat");
+const wildPkeBattleCard = document.getElementById("wildPkeBattleCard")
+const myPkeBattleCard = document.getElementById("myPkeBattleCard")
+
 
 
 let save_Object = {
@@ -134,6 +138,7 @@ class Pokemon {
         spriteBack,
         statAttack,
         statDefense,
+        specialDefense,
         xp,
         hp,
         maxHp,
@@ -148,6 +153,7 @@ class Pokemon {
         this.spriteBack = spriteBack;
         this.statAttack = statAttack;
         this.statDefense = statDefense;
+        this.specialDefense = specialDefense;
         this.xp = xp;
         this.hp = hp;
         this.maxHp = maxHp;
@@ -209,6 +215,9 @@ function init() {
         myPokemonProgress.value = 100;
         wildPokemonProgress.value = 100;
         createMyFirstPokemon()
+        if(randomize()) {
+            checkWhoExecuteNext()
+        }
     }
 }
 
@@ -252,6 +261,7 @@ function createMyStarterPokemon() {
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/59.png',
         110,
         80,
+        70,
         0,
         90,
         90,
@@ -291,12 +301,16 @@ function save_SaveObj() {
 
 //myPokemonTeam
 function loadMyTeam() {
+    let levelSum = 0;
     for (let i = 0; i < myTeam.length; i++) {
         document.getElementById(`teamPoke_${i}`).src = myTeam[i].spriteFront;
+        levelSum = levelSum += myTeam[i].level
         if(myTeam[i].isDefeated === true) {
-            document.getElementById(`teamPoke_${i}`).classList.add("defeat")
+            document.getElementById(`teamPoke_${i}`).classList.add("defeat");
         }
     }
+    // Durchschnittslevel berechnen
+    avarageLevel = parseInt(levelSum / myTeam.length);
 }
 
 // Funktion erstellt zufällig 25 Pokemon. Diese sollen für einen Tag abgespeichert
@@ -312,7 +326,7 @@ function generate_today_Pokemons() {
         const min = 1;
         const max = 850;
 
-        for (let i = 1; i <= 25; i++) {
+        for (let i = 1; i <= 30; i++) {
             const randomPokemon = Math.floor(Math.random() * (max - min)) + min;
             todayPokemons.push(randomPokemon);
         }
@@ -433,12 +447,13 @@ function createWildPokemon() {
                 facedPokemons[i].id,
                 makeFirstLetterBig(facedPokemons[i].name),
                 facedPokemons[i].type,
-                parseInt(Math.random() * 20) + 3,
+                parseInt(Math.random() * avarageLevel) + 3,
                 facedPokemons[i].moves,
                 facedPokemons[i].spriteFront,
                 facedPokemons[i].spriteBack,
                 facedPokemons[i].statAttack,
                 facedPokemons[i].statDefense,
+                facedPokemons[i].specialDefense,
                 facedPokemons[i].xp,
                 facedPokemons[i].hp,
                 facedPokemons[i].maxHp
@@ -490,6 +505,7 @@ function fetchPokemon(id) {
                 data.sprites.back_default,
                 data.stats[1].base_stat,
                 data.stats[2].base_stat,
+                data.stats[4].base_stat,
                 data.base_experience,
                 data.stats[0].base_stat,
                 data.stats[0].base_stat,
@@ -606,10 +622,12 @@ function myPokemonAttack(whoIsExecuting) {
     let attbaseDamage = pokeMove.baseDamage;
     let attackVal = myStaticPokemon.statAttack;
     let defenceVal = currentWildPokemon.statDefense;
+    let specialDefenseVal = currentWildPokemon.specialDefense;
     const f2 = Math.random() * (1.3 - 1) + 1;
     const z = 100 - parseInt(Math.random() * 15 + 1);
     const healVal = pokeMove.healing;
     console.log('healVal', healVal);
+    console.log('f2', f2);
     let attackType = pokeMove.type;
     let defPokeType = currentWildPokemon.type;
     const typeCalc = checkPokeTypes(attackType, defPokeType) // Typ Attacke wird mit Typ verteidigendesPokemon verglichen 0x / 0.5x / 1x / 2x --TODO: Funktion für den Vergleich bauen
@@ -631,24 +649,21 @@ function myPokemonAttack(whoIsExecuting) {
         defPokeLv = myStaticPokemon.level;
         attackVal = currentWildPokemon.statAttack;
         defenceVal = myStaticPokemon.statDefense;
+        specialDefenseVal = myStaticPokemon.specialDefense;
         defPokeType = myStaticPokemon.type;
         whoIsAffected = 'myPokemon';
     } else {
     }
 
     // Grundsätzliche Berechnung des Schadens
+    // Am 12.12 abgeändert, (lv * 0.4_Auf_0,1 + 2)
     const rawDamage =
-        (lv * 0.6 + 2) *
-        attbaseDamage *
-        (attackVal / (defenceVal + 50 + defPokeLv)) *
-        3 *
-        f2 *
-        (z / 100);
-
+        (lv * 0.1 + 2) * attbaseDamage * (attackVal / (defenceVal + 50 + defPokeLv + specialDefenseVal)) * 3 * f2 * (z / 100);
+    console.log('rawDamage', rawDamage);
 
     const damage = parseInt((rawDamage * typeCalc) / 20);
 
-        // Wenn Heil Move verwendet
+        //Todo:  Wenn Heil Move verwendet  
         if(healVal != undefined && healVal > 0) {
             isHealing = true;
 
@@ -768,10 +783,14 @@ function checkWhoExecuteNext() {
     if (iamExecuting === true) {
         enableMainButtons();
         iamExecuting = false;
+         wildPkeBattleCard.classList.remove("active");
+         myPkeBattleCard.classList.add("active");
     } else {
         disableMainButtons();
         ki_Move();
         iamExecuting = true;
+        myPkeBattleCard.classList.remove("active");
+        wildPkeBattleCard.classList.add("active");
     }
 }
 
@@ -926,6 +945,7 @@ if (pokemon1) {
                 myCurrentPokemonIndex = 0;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
+                checkWhoExecuteNext();
             }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
         } catch (error) {}
     });
@@ -945,6 +965,7 @@ if (pokemon2) {
                 myCurrentPokemonIndex = 1;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
+                checkWhoExecuteNext();
             }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
         } catch (error) {}
     });
@@ -964,6 +985,7 @@ if (pokemon3) {
                 myCurrentPokemonIndex = 2;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
+                checkWhoExecuteNext();
             }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
         } catch (error) {}
     });
@@ -983,6 +1005,7 @@ if (pokemon4) {
                 myCurrentPokemonIndex = 3;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
+                checkWhoExecuteNext();
             }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
         } catch (error) {}
     });
@@ -1036,8 +1059,8 @@ function level_up() {
             break;
         }
     }
-    if(oldXP <= 300) {
-        if(newXP > 300) {
+    if(oldXP <= 400) {
+        if(newXP > 400) {
             const newLevel = currentLevel++;
             save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
             save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
@@ -1070,7 +1093,7 @@ function level_up() {
             showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erhält ${calcXP} XP`);
         }
 
-    }else if(oldXP > 300) {
+    }else if(oldXP > 400) {
         const newLevel = currentLevel++;
         save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
         save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;

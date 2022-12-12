@@ -151,6 +151,9 @@ body {
   backdrop-filter: blur(15px);
   z-index: 10;
 }
+.myPokeBattleCard.active {
+  box-shadow: inset 0 0 15px lightgreen;
+}
 
 .pokeBattleCard {
   color: white;
@@ -171,6 +174,9 @@ body {
   position: fixed; /* Stay fixed */
   top: 2%;
   left: 10%;
+}
+.pokeBattleCard.active {
+  box-shadow: inset 0 0 15px lightgreen;
 }
 
 #myPokemonProgress {
