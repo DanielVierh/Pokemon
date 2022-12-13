@@ -4,7 +4,6 @@ const pokeballPrice = 10;
 const trankPrice = 15;
 const beleberPrice = 20;
 const bonbonPrice = 50;
-let money = 0;
 
 
 const catchedPokemonContaier = document.getElementById("catchedPokemonContaier");
@@ -59,7 +58,6 @@ function load_SaveObj() {
             renderCatchedPokemons();
             renderTeam();
             lbl_Money.innerHTML = `$ - ${save_Object.items.money}`;
-            money = save_Object.items.money;
         } catch (error) {
 
         }
