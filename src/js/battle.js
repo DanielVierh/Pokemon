@@ -806,8 +806,10 @@ function ki_Move() {
             myPokemonAttack('wildPokemon');
         }, 3000);
     } else {
-        // Battle Szene hier beenden
+        //? Battle Szene endet hier
         save_Object.myPokemonTeam[myCurrentPokemonIndex].hp = myCurrentPokemonHP;
+        // Speichert pro Sieg einen Geldbetrag wild pokemon lv / 2 Todo später verringern
+        save_Object.items.money += parseInt(currentWildPokemon.level / 2);
         level_up();
         setTimeout(() => {
             window.location.reload();
@@ -823,6 +825,8 @@ function catchPokemon() {
     // Abfragen, ob man noch Pokebälle hat
     if (myPokeballAmount > 0) {
         myPokeballAmount--;
+        save_Object.items.pokeballs = myPokeballAmount;
+        save_SaveObj();
         outpPokeball.innerHTML = myPokeballAmount;
         pokeball.classList.add('active');
         setTimeout(() => {

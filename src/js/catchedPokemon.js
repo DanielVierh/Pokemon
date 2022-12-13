@@ -1,5 +1,11 @@
 let myCatchedPokemons = [];
 let myTeam = [];
+const pokeballPrice = 10;
+const trankPrice = 15;
+const beleberPrice = 20;
+const bonbonPrice = 50;
+let money = 0;
+
 
 const catchedPokemonContaier = document.getElementById("catchedPokemonContaier");
 const teamPokemonContainer = document.getElementById("teamPokemonContainer");
@@ -7,7 +13,14 @@ const btn_ResetGame = document.getElementById("btn_ResetGame");
 const btnHeal = document.getElementById("btnHeal");
 const cont_Detail = document.getElementById("cont_Detail")
 const btnCloseDetails = document.getElementById("btnCloseDetails");
-
+const lbl_Money = document.getElementById("lbl_Money");
+const lbl_Shop_Money = document.getElementById("lbl_Shop_Money");
+const shopWindow = document.getElementById("shopWindow");
+const btnCloseShop = document.getElementById("btnCloseShop");
+const btn_open_Shop = document.getElementById("btn_open_Shop");
+const btn_Pokeball = document.getElementById("btn_Pokeball");
+const lbl_Amount_Pokeballs = document.getElementById("lbl_Amount_Pokeballs");
+const btn_Buy = document.getElementById("btn_Buy");
 
 let save_Object = {
     today_Date: '',
@@ -45,6 +58,8 @@ function load_SaveObj() {
         try {
             renderCatchedPokemons();
             renderTeam();
+            lbl_Money.innerHTML = `$ - ${save_Object.items.money}`;
+            money = save_Object.items.money;
         } catch (error) {
 
         }
@@ -186,8 +201,9 @@ const sellBtn = document.querySelectorAll('.sellBtn');
 if (sellBtn) {
     sellBtn.forEach((button) => {
         button.addEventListener('click', () => {
+            // Nur verkaufen, wenn mehr als 1 Pokemon vorhanden ist
+           if(myCatchedPokemons.length > 1) {
             let pokemonIndex = -1;
-            let removedPokemon;
             for (let i = 0; i < myCatchedPokemons.length; i++) {
                 if (button.id === myCatchedPokemons[i].unique_ID) {
                     pokemonIndex = i;
@@ -199,12 +215,26 @@ if (sellBtn) {
                 const pokemonPrice = parseInt(myCatchedPokemons[pokemonIndex].level * 9)
                 const confirmSell = window.confirm(`Möchtest du das Pokemon: "${myCatchedPokemons[pokemonIndex].name}" wirklich verkaufen? \nDu erhälst dafür ${pokemonPrice}$`)
                 if(confirmSell) {
-                myTeam.splice(pokemonIndex, 1);
-                renderTeam();
+                myCatchedPokemons.splice(pokemonIndex, 1);
+
+                 pokemonIndex = -1;
+                for (let i = 0; i < myTeam.length; i++) {
+                    if (button.id === myTeam[i].unique_ID) {
+                        pokemonIndex = i;
+                        break;
+                    }
+                }
+                if (pokemonIndex >= 0) {
+                    myTeam.splice(pokemonIndex, 1);
+                }
+                save_Object.items.money += pokemonPrice;
                 save_SaveObj();
                 location.reload();
                 }
             }
+           }else {
+            alert("Du benötigst mindestens 1 Pokemon")
+           }
         });
     });
 }
@@ -243,6 +273,7 @@ if(btnCloseDetails) {
         cont_Detail.classList.remove("active");
     })
 }
+
 
 // Move Pokemon 1 pos down
 const moveDownButton = document.querySelectorAll('.movedownButton');
@@ -392,4 +423,63 @@ if(btnHeal){
         save_SaveObj();
         alert("Deine Pokemon wurden geheilt")
     })
+}
+
+// #####################################################################
+// Shop
+let pokeballBuyAmount = 0;
+let shopMoney = 0;
+
+
+// Öffnen
+if(btn_open_Shop) {
+    btn_open_Shop.addEventListener("click", ()=> {
+        shopWindow.classList.add("active");
+        shopMoney = save_Object.items.money;
+        pokeballBuyAmount = 0;
+        btn_Pokeball.innerHTML = `Pokeball - ${pokeballPrice}$`
+        updateShop();
+    })
+}
+
+
+// Close
+if(btnCloseShop) {
+    btnCloseShop.addEventListener("click", ()=> {
+        shopWindow.classList.remove("active");
+    })
+}
+
+// Increase Pokeball
+if(btn_Pokeball) {
+    btn_Pokeball.addEventListener("click", ()=> {
+        if(shopMoney >= pokeballPrice) {
+            pokeballBuyAmount++;
+            shopMoney -= pokeballPrice;
+            updateShop()
+        }
+    })
+}
+
+
+if(btn_Buy) {
+    btn_Buy.addEventListener("click", ()=> {
+        if(pokeballBuyAmount > 0) {
+            save_Object.items.money = shopMoney;
+            save_Object.items.pokeballs += pokeballBuyAmount;
+            lbl_Money.innerHTML = `$ - ${save_Object.items.money}`;
+            save_SaveObj();
+            if(pokeballBuyAmount === 1) {
+                alert(`Du hast erfolgreich ${pokeballBuyAmount} Pokeball gekauft.`)
+            }else {
+                alert(`Du hast erfolgreich ${pokeballBuyAmount} Pokebälle gekauft.`)
+            }
+            shopWindow.classList.remove("active");
+        }
+    })
+}
+
+function updateShop() {
+    lbl_Shop_Money.innerHTML = `$ - ${shopMoney}`;
+    lbl_Amount_Pokeballs.innerHTML = pokeballBuyAmount;
 }
