@@ -10,8 +10,11 @@ let save_Object = {
     allPokemonMoves: [],
     today_Pokemons: [],
     items: {
-        pokeballs: 20,
+        pokeballs: 60,
         money: 100,
+        beleber: 5,
+        trank: 5,
+        bonbon: 3
     },
 };
 

@@ -17,8 +17,11 @@ let save_Object = {
     allPokemonMoves: [],
     today_Pokemons: [],
     items: {
-        pokeballs: 20,
+        pokeballs: 60,
         money: 100,
+        beleber: 5,
+        trank: 5,
+        bonbon: 3
     },
 };
 
@@ -69,6 +72,11 @@ function renderCatchedPokemons() {
         detailBtn.classList.add("detailBtn")
         detailBtn.id = myCatchedPokemons[i].unique_ID
 
+        let sellBtn = document.createElement("div");
+        sellBtn.innerHTML = "$"
+        sellBtn.classList.add("sellBtn")
+        sellBtn.id = myCatchedPokemons[i].unique_ID
+
         let pokeimage = document.createElement("img");
         pokeimage.src = myCatchedPokemons[i].spriteFront;
 
@@ -93,6 +101,7 @@ function renderCatchedPokemons() {
 
         pokeCont.appendChild(addBtn)
         pokeCont.appendChild(detailBtn)
+        pokeCont.appendChild(sellBtn)
         pokeCont.appendChild(pokeimage)
         pokeCont.appendChild(pokename)
         pokeCont.appendChild(infocont)
@@ -121,7 +130,7 @@ if (addBtn) {
             if (pokemonIndex >= 0) {
                 addedPokemon = myCatchedPokemons[pokemonIndex]
                 // console.log('addedPokemon', addedPokemon);
- 
+
                 // check ob teamplatz frei
                 const freeTeamNumbers = myTeam.length;
                 if (freeTeamNumbers < 4) {
@@ -173,6 +182,34 @@ if (delBtn) {
 }
 
 
+const sellBtn = document.querySelectorAll('.sellBtn');
+if (sellBtn) {
+    sellBtn.forEach((button) => {
+        button.addEventListener('click', () => {
+            let pokemonIndex = -1;
+            let removedPokemon;
+            for (let i = 0; i < myCatchedPokemons.length; i++) {
+                if (button.id === myCatchedPokemons[i].unique_ID) {
+                    pokemonIndex = i;
+                    break;
+                }
+            }
+
+            if (pokemonIndex >= 0) {
+                const pokemonPrice = parseInt(myCatchedPokemons[pokemonIndex].level * 9)
+                const confirmSell = window.confirm(`Möchtest du das Pokemon: "${myCatchedPokemons[pokemonIndex].name}" wirklich verkaufen? \nDu erhälst dafür ${pokemonPrice}$`)
+                if(confirmSell) {
+                myTeam.splice(pokemonIndex, 1);
+                renderTeam();
+                save_SaveObj();
+                location.reload();
+                }
+            }
+        });
+    });
+}
+
+
 const detailBtn = document.querySelectorAll('.detailBtn');
 if (detailBtn) {
     detailBtn.forEach((button) => {
@@ -195,6 +232,7 @@ if (detailBtn) {
                 document.getElementById("det_Lv").innerHTML = `Lv.${myCatchedPokemons[pokemonIndex].level}`
                 document.getElementById("det_HP").innerHTML = `Gesundheit: ${myCatchedPokemons[pokemonIndex].maxHp}`
                 document.getElementById("det_Type").innerHTML = `Typ: ${myCatchedPokemons[pokemonIndex].type}`
+                document.getElementById("det_Nr").innerHTML = `Nr: ${myCatchedPokemons[pokemonIndex].id}`
             }
         });
     });
@@ -253,6 +291,9 @@ function renderTeam() {
         let pokeimage = document.createElement("img");
         pokeimage.src = myTeam[i].spriteFront;
         document.getElementById(`teamPoke_${i}`).src = myTeam[i].spriteFront
+        if(myTeam[i].isDefeated === true) {
+            document.getElementById(`teamPoke_${i}`).classList.add("defeat");
+        }
 
         let pokename = document.createElement("p");
         pokename.innerHTML = makeFirstLetterBig(myTeam[i].name);
@@ -298,8 +339,11 @@ if(btn_ResetGame) {
             allPokemonMoves: [],
             today_Pokemons: [],
             items: {
-                pokeballs: 20,
+                pokeballs: 60,
                 money: 100,
+                beleber: 5,
+                trank: 5,
+                bonbon: 3
             },
         };
 
@@ -342,11 +386,10 @@ if(btnHeal){
 
         for(let i = 0; i < save_Object.myPokemonTeam.length; i++) {
             save_Object.myPokemonTeam[i].hp = save_Object.myPokemonTeam[i].maxHp;
+            document.getElementById(`teamPoke_${i}`).classList.remove("defeat");
         }
 
         save_SaveObj();
         alert("Deine Pokemon wurden geheilt")
     })
 }
-
-

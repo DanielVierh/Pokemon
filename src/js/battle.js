@@ -68,8 +68,11 @@ let save_Object = {
     allPokemonMoves: [],
     today_Pokemons: [],
     items: {
-        pokeballs: 20,
+        pokeballs: 60,
         money: 100,
+        beleber: 5,
+        trank: 5,
+        bonbon: 3
     },
 };
 
@@ -624,7 +627,6 @@ function myPokemonAttack(whoIsExecuting) {
     const z = 100 - parseInt(Math.random() * 15 + 1);
     const healVal = pokeMove.healing;
     console.log('healVal', healVal);
-    console.log('f2', f2);
     let attackType = pokeMove.type;
     let defPokeType = currentWildPokemon.type;
     const typeCalc = checkPokeTypes(attackType, defPokeType) // Typ Attacke wird mit Typ verteidigendesPokemon verglichen 0x / 0.5x / 1x / 2x --TODO: Funktion für den Vergleich bauen
@@ -653,17 +655,15 @@ function myPokemonAttack(whoIsExecuting) {
     }
 
     // Grundsätzliche Berechnung des Schadens
-    // Am 12.12 abgeändert, (lv * 0.4_Auf_0,1 + 2)
+    // Am 13.12 abgeändert, (lv * 0.4_Auf_0,2 + 2)
     const rawDamage =
-        (lv * 0.1 + 2) * attbaseDamage * (attackVal / (defenceVal + 50 + defPokeLv + specialDefenseVal)) * 3 * f2 * (z / 100);
-    console.log('rawDamage', rawDamage);
+        (lv * 0.2 + 2) * attbaseDamage * (attackVal / (defenceVal + 50 + defPokeLv + specialDefenseVal)) * 3 * f2 * (z / 100);
 
     const damage = parseInt((rawDamage * typeCalc) / 20);
 
-        //Todo:  Wenn Heil Move verwendet  
+        //Todo:  Wenn Heil Move verwendet
         if(healVal != undefined && healVal > 0) {
             isHealing = true;
-
         }
 
     // Wenn wildes Pokemon am Zug ist

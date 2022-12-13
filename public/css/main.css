@@ -673,6 +673,21 @@ h1 {
   box-shadow: inset 0 0 5px white;
 }
 
+.sellBtn {
+  position: absolute;
+  left: 5px;
+  top: 45%;
+  font-size: 0.7em;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: inset 0 0 5px yellow;
+  color: yellow;
+}
+
 .detailCard {
   display: none;
 }
