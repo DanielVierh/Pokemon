@@ -1122,7 +1122,7 @@ function checkPokeTypes(attackType, defenderType) {
     console.log('attackType', attackType);
     switch (attackType) {
         case 'fire':
-            img_Animat.src = `./assets/mv_fire`
+            img_Animat.src = `./assets/mv_fire.png`
             break;
         case 'electric':
             img_Animat.src = `./assets/mv_electro.png`
