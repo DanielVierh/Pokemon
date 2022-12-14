@@ -113,15 +113,15 @@ if (btnAttack3) {
 
 // Werfe Pokeball
 if (throwPokeball) {
-        throwPokeball.addEventListener('click', () => {
-            if(myCurrentPokemonHP > 0) {
+    throwPokeball.addEventListener('click', () => {
+        if (myCurrentPokemonHP > 0) {
             catchPokemon();
-            }
-        });
+        }
+    });
 }
 
-if(btn_closeActionwindow) {
-    btn_closeActionwindow.addEventListener("click", ()=> {
+if (btn_closeActionwindow) {
+    btn_closeActionwindow.addEventListener("click", () => {
         moveButtons.hidden = true;
         mainButtons.hidden = false;
     })
@@ -187,7 +187,7 @@ class PokeMove {
             (this.maxHits = maxHits),
             (this.pp = pp),
             (this.type = type);
-            (this.healing = healing);
+        (this.healing = healing);
     }
 }
 
@@ -203,7 +203,7 @@ let myStaticPokemon = new Pokemon(
     78,
     0,
     78,
-    );
+);
 
 
 window.onload = init();
@@ -228,7 +228,7 @@ function load_SaveObj() {
         allMoves = save_Object.allPokemonMoves;
         myTeam = save_Object.myPokemonTeam;
         try {
-            if(save_Object.allFacedPokemons.length === 0) {
+            if (save_Object.allFacedPokemons.length === 0) {
                 createMyStarterPokemon()
                 createMyFirstPokemon()
             }
@@ -238,7 +238,7 @@ function load_SaveObj() {
         } catch (error) {
             console.warn('Team konnte nicht angezeigt werden: ', error);
         }
-    }else {
+    } else {
         createMyStarterPokemon()
         createMyFirstPokemon()
     }
@@ -267,27 +267,27 @@ function createMyStarterPokemon() {
         90,
         'rabdomVal123'
     );
-        save_Object.myPokemonTeam.push(myStaticPokemon)
-        save_Object.myCatchedPokemons.push(myStaticPokemon)
-        save_SaveObj()
-        createMyPokemon()
-    }
+    save_Object.myPokemonTeam.push(myStaticPokemon)
+    save_Object.myCatchedPokemons.push(myStaticPokemon)
+    save_SaveObj()
+    createMyPokemon()
+}
 
 function createMyFirstPokemon() {
     let nextAvailablePokemon = 0;
-    for(let i = 0; i < myTeam.length; i++) {
-        if(myTeam[i].isDefeated === false) {
+    for (let i = 0; i < myTeam.length; i++) {
+        if (myTeam[i].isDefeated === false) {
             nextAvailablePokemon = i;
             break;
         }
     }
     try {
         const choosenPokemon = myTeam[nextAvailablePokemon];
-        if(choosenPokemon.isDefeated === false) {
+        if (choosenPokemon.isDefeated === false) {
             myCurrentPokemonIndex = nextAvailablePokemon;
             chooseNewPokemon(choosenPokemon);
             showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
-        }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
+        } else { alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden') }
     } catch (error) {
         console.log(error);
     }
@@ -305,7 +305,7 @@ function loadMyTeam() {
     for (let i = 0; i < myTeam.length; i++) {
         document.getElementById(`teamPoke_${i}`).src = myTeam[i].spriteFront;
         levelSum = levelSum += myTeam[i].level
-        if(myTeam[i].isDefeated === true) {
+        if (myTeam[i].isDefeated === true) {
             document.getElementById(`teamPoke_${i}`).classList.add("defeat");
         }
     }
@@ -425,9 +425,8 @@ function createMyPokemon() {
     myPokeImage.src = myStaticPokemon.spriteBack;
     myCurrentPokemonHP = myStaticPokemon.hp;
     myCurrentPokemonStaticHP = myStaticPokemon.maxHp;
-    myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${
-        myStaticPokemon.level
-    } -- KP.${myStaticPokemon.hp}`;
+    myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${myStaticPokemon.level
+        } -- KP.${myStaticPokemon.hp}`;
     console.log('MyCreated', myStaticPokemon);
 }
 
@@ -463,9 +462,8 @@ function createWildPokemon() {
             // wildPokeImage.style.opacity = "1";
             wildPokeName.innerHTML = `${makeFirstLetterBig(
                 currentWildPokemon.name,
-            )} | Lv. ${currentWildPokemon.level} -- KP.${
-                currentWildPokemon.hp
-            }`;
+            )} | Lv. ${currentWildPokemon.level} -- KP.${currentWildPokemon.hp
+                }`;
             currentWildPokeHP = currentWildPokemon.hp;
             console.log('Found Pokemon in FacedPokemons', currentWildPokemon);
             foundIdInFacedPokemonArray = true;
@@ -516,9 +514,8 @@ function fetchPokemon(id) {
             wildPokeImage.style.opacity = '1';
             wildPokeName.innerHTML = `${makeFirstLetterBig(
                 currentWildPokemon.name,
-            )} | Lv. ${currentWildPokemon.level} -- KP.${
-                currentWildPokemon.hp
-            }`;
+            )} | Lv. ${currentWildPokemon.level} -- KP.${currentWildPokemon.hp
+                }`;
             currentWildPokeHP = currentWildPokemon.hp;
             showInfoBox(
                 `Ein wildes ${makeFirstLetterBig(
@@ -638,7 +635,7 @@ function myPokemonAttack(whoIsExecuting) {
     if (whoIsExecuting === 'wildPokemon') {
 
         // Wenn Basedamage = 0 soll per zufall tackle ausgeführt werden
-        if(attbaseDamage === null && randomize()) {
+        if (attbaseDamage === null && randomize()) {
             attackType = 'normal'
             attbaseDamage = 50;
             variableMoveName = true;
@@ -661,10 +658,10 @@ function myPokemonAttack(whoIsExecuting) {
 
     const damage = parseInt((rawDamage * typeCalc) / 20);
 
-        //Todo:  Wenn Heil Move verwendet
-        if(healVal != undefined && healVal > 0) {
-            isHealing = true;
-        }
+    //Todo:  Wenn Heil Move verwendet
+    if (healVal != undefined && healVal > 0) {
+        isHealing = true;
+    }
 
     // Wenn wildes Pokemon am Zug ist
     if (whoIsExecuting === 'wildPokemon') {
@@ -677,7 +674,7 @@ function myPokemonAttack(whoIsExecuting) {
         }
     } else {
         currentWildPokeHP -= damage;
-        if(damage > 0) {
+        if (damage > 0) {
             img_Animat.classList.add('active');
             setTimeout(() => {
                 img_Animat.classList.remove('active');
@@ -737,7 +734,7 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
             setTimeout(() => {
                 effectedImage.style.opacity = '0';
                 effectedPokeName.innerHTML = '';
-                if(whoIsAffected === 'myPokemon') {
+                if (whoIsAffected === 'myPokemon') {
                     myPokemonXPProgress.style.width = '0%';
                     save_Object.myPokemonTeam[myCurrentPokemonIndex].isDefeated = true;
                     document.getElementById(`teamPoke_${myCurrentPokemonIndex}`).classList.add("defeat")
@@ -749,13 +746,12 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                 victorySound.play();
             }
         } else {
-            if(variableMoveName === false) {
+            if (variableMoveName === false) {
                 showInfoBox(
-                    `${makeFirstLetterBig(atackerPokemon.name)} führt "${
-                        makeFirstLetterBig(pokeMove.name)
+                    `${makeFirstLetterBig(atackerPokemon.name)} führt "${makeFirstLetterBig(pokeMove.name)
                     }" aus und richtet ${damage} Schaden an.`,
                 );
-            }else {
+            } else {
                 showInfoBox(
                     `${makeFirstLetterBig(atackerPokemon.name)} führt "Tackle" aus und richtet ${damage} Schaden an.`,
                 );
@@ -780,8 +776,8 @@ function checkWhoExecuteNext() {
     if (iamExecuting === true) {
         enableMainButtons();
         iamExecuting = false;
-         wildPkeBattleCard.classList.remove("active");
-         myPkeBattleCard.classList.add("active");
+        wildPkeBattleCard.classList.remove("active");
+        myPkeBattleCard.classList.add("active");
     } else {
         disableMainButtons();
         ki_Move();
@@ -919,7 +915,7 @@ function enableMainButtons() {
 // Move Steuerung
 //######################################################
 function pokeFight() {
-    if(myCurrentPokemonHP > 0) {
+    if (myCurrentPokemonHP > 0) {
         showMoveButtons();
     }
 }
@@ -942,13 +938,13 @@ if (pokemon1) {
             }
 
             const choosenPokemon = myTeam[0];
-            if(choosenPokemon.isDefeated === false) {
+            if (choosenPokemon.isDefeated === false) {
                 myCurrentPokemonIndex = 0;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
                 checkWhoExecuteNext();
-            }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
-        } catch (error) {}
+            } else { alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden') }
+        } catch (error) { }
     });
 }
 
@@ -962,13 +958,13 @@ if (pokemon2) {
                 console.log('Error Error', error);
             }
             const choosenPokemon = myTeam[1];
-            if(choosenPokemon.isDefeated === false) {
+            if (choosenPokemon.isDefeated === false) {
                 myCurrentPokemonIndex = 1;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
                 checkWhoExecuteNext();
-            }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
-        } catch (error) {}
+            } else { alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden') }
+        } catch (error) { }
     });
 }
 
@@ -982,13 +978,13 @@ if (pokemon3) {
                 console.log('Error Error', error);
             }
             const choosenPokemon = myTeam[2];
-            if(choosenPokemon.isDefeated === false) {
+            if (choosenPokemon.isDefeated === false) {
                 myCurrentPokemonIndex = 2;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
                 checkWhoExecuteNext();
-            }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
-        } catch (error) {}
+            } else { alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden') }
+        } catch (error) { }
     });
 }
 
@@ -1002,47 +998,47 @@ if (pokemon4) {
                 console.log('Error Error', error);
             }
             const choosenPokemon = myTeam[3];
-            if(choosenPokemon.isDefeated === false) {
+            if (choosenPokemon.isDefeated === false) {
                 myCurrentPokemonIndex = 3;
                 chooseNewPokemon(choosenPokemon);
                 showInfoBox(`Los ${makeFirstLetterBig(choosenPokemon.name)}. Du schaffst das`);
                 checkWhoExecuteNext();
-            }else {alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden')}
-        } catch (error) {}
+            } else { alert('Ein besiegtes Pokemon kann nicht in den Kampf geschickt werden') }
+        } catch (error) { }
     });
 }
 
 function chooseNewPokemon(choosenPokemon) {
-        console.log('myStaticPokemon.id',myStaticPokemon.id);
-        myStaticPokemon.id = choosenPokemon.id;
-        myStaticPokemon.name = choosenPokemon.name;
-        myStaticPokemon.src = choosenPokemon.spriteBack;
-        myStaticPokemon.type = choosenPokemon.type;
-        myStaticPokemon.level = choosenPokemon.level;
-        myStaticPokemon.moves = choosenPokemon.moves;
-        myStaticPokemon.statAttack = choosenPokemon.statAttack;
-        myStaticPokemon.statDefense = choosenPokemon.statDefense;
-        myStaticPokemon.xp = choosenPokemon.xp;
-        myStaticPokemon.hp = choosenPokemon.hp;
-        myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
-        myPokeImage.style.opacity = '1';
-        myPokeImage.src = choosenPokemon.spriteBack;
-        myCurrentPokemonHP = choosenPokemon.hp;
-        myCurrentPokemonStaticHP = choosenPokemon.maxHp;
-        myPokemonXPProgress.style.width = '10%'
-        myPokemonXPProgress.value = myStaticPokemon.xp;
-        myPokemonProgress.style.width = '30%'
-        const hpInPercent = parseInt((myCurrentPokemonHP * 100) / myCurrentPokemonStaticHP);
-        myPokemonProgress.value = hpInPercent;
-        myPokeName.innerHTML = `${makeFirstLetterBig(
-            choosenPokemon.name,
-        )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
-        document.getElementById('windowMenu').classList.remove('active');
-        // Lade Moves
-        for (let i = 0; i <= 3; i++) {
-            document.getElementById(`btnAttack${i}`).innerText =
-                myStaticPokemon.moves[i];
-        }
+    console.log('myStaticPokemon.id', myStaticPokemon.id);
+    myStaticPokemon.id = choosenPokemon.id;
+    myStaticPokemon.name = choosenPokemon.name;
+    myStaticPokemon.src = choosenPokemon.spriteBack;
+    myStaticPokemon.type = choosenPokemon.type;
+    myStaticPokemon.level = choosenPokemon.level;
+    myStaticPokemon.moves = choosenPokemon.moves;
+    myStaticPokemon.statAttack = choosenPokemon.statAttack;
+    myStaticPokemon.statDefense = choosenPokemon.statDefense;
+    myStaticPokemon.xp = choosenPokemon.xp;
+    myStaticPokemon.hp = choosenPokemon.hp;
+    myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
+    myPokeImage.style.opacity = '1';
+    myPokeImage.src = choosenPokemon.spriteBack;
+    myCurrentPokemonHP = choosenPokemon.hp;
+    myCurrentPokemonStaticHP = choosenPokemon.maxHp;
+    myPokemonXPProgress.style.width = '10%'
+    myPokemonXPProgress.value = myStaticPokemon.xp;
+    myPokemonProgress.style.width = '30%'
+    const hpInPercent = parseInt((myCurrentPokemonHP * 100) / myCurrentPokemonStaticHP);
+    myPokemonProgress.value = hpInPercent;
+    myPokeName.innerHTML = `${makeFirstLetterBig(
+        choosenPokemon.name,
+    )} | Lv.${choosenPokemon.level} -- KP.${choosenPokemon.hp}`;
+    document.getElementById('windowMenu').classList.remove('active');
+    // Lade Moves
+    for (let i = 0; i <= 3; i++) {
+        document.getElementById(`btnAttack${i}`).innerText =
+            myStaticPokemon.moves[i];
+    }
 }
 
 
@@ -1060,21 +1056,21 @@ function level_up() {
             break;
         }
     }
-    if(oldXP <= 400) {
-        if(newXP > 400) {
+    if (oldXP <= 400) {
+        if (newXP > 400) {
             const newLevel = currentLevel++;
             save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
             save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
-            save_Object.myPokemonTeam[myCurrentPokemonIndex].hp+=1;
-            save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp+=1;
-            save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack+=1;
-            save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense+=1;
+            save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
+            save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp += 1;
+            save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack += 1;
+            save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense += 1;
             save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
             save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
-            save_Object.myCatchedPokemons[pokemonIndex].maxHp+=1;
-            save_Object.myCatchedPokemons[pokemonIndex].hp+=1;
-            save_Object.myCatchedPokemons[pokemonIndex].statAttack+=1;
-            save_Object.myCatchedPokemons[pokemonIndex].statDefense+=1;
+            save_Object.myCatchedPokemons[pokemonIndex].maxHp += 1;
+            save_Object.myCatchedPokemons[pokemonIndex].hp += 1;
+            save_Object.myCatchedPokemons[pokemonIndex].statAttack += 1;
+            save_Object.myCatchedPokemons[pokemonIndex].statDefense += 1;
             myPokemonXPProgress.value = myStaticPokemon.xp
             save_SaveObj();
             showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel} <br>
@@ -1082,11 +1078,10 @@ function level_up() {
         Angriff: + 1 <br>
         Verteidigung: + 1`);
             setTimeout(() => {
-                myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${
-                    currentLevel
-                } -- KP.${myStaticPokemon.hp}`;
+                myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${currentLevel
+                    } -- KP.${myStaticPokemon.hp}`;
             }, 1000);
-        }else {
+        } else {
             save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = newXP;
             save_Object.myCatchedPokemons[pokemonIndex].xp = newXP;
             myPokemonXPProgress.value = myStaticPokemon.xp
@@ -1094,20 +1089,20 @@ function level_up() {
             showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erhält ${calcXP} XP`);
         }
 
-    }else if(oldXP > 400) {
+    } else if (oldXP > 400) {
         const newLevel = currentLevel++;
         save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
         save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
-        save_Object.myPokemonTeam[myCurrentPokemonIndex].hp+=1;
-        save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp+=1;
-        save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack+=1;
-        save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense+=1;
+        save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
+        save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp += 1;
+        save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack += 1;
+        save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense += 1;
         save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
         save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
-        save_Object.myCatchedPokemons[pokemonIndex].hp+=1;
-        save_Object.myCatchedPokemons[pokemonIndex].maxHp+=1;
-        save_Object.myCatchedPokemons[pokemonIndex].statAttack+=1;
-        save_Object.myCatchedPokemons[pokemonIndex].statDefense+=1;
+        save_Object.myCatchedPokemons[pokemonIndex].hp += 1;
+        save_Object.myCatchedPokemons[pokemonIndex].maxHp += 1;
+        save_Object.myCatchedPokemons[pokemonIndex].statAttack += 1;
+        save_Object.myCatchedPokemons[pokemonIndex].statDefense += 1;
         myPokemonXPProgress.value = myStaticPokemon.xp
         save_SaveObj();
         showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel} <br>
@@ -1115,150 +1110,173 @@ function level_up() {
         Angriff: + 1 <br>
         Verteidigung: + 1`);
         setTimeout(() => {
-            myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${
-                currentLevel
-            } -- KP.${myStaticPokemon.hp}`;
+            myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${currentLevel
+                } -- KP.${myStaticPokemon.hp}`;
         }, 1000);
     }
 }
 
 
 
-    function checkPokeTypes(attackType, defenderType) {
+function checkPokeTypes(attackType, defenderType) {
+    console.log('attackType', attackType);
+    switch (attackType) {
+        case 'fire':
+            img_Animat.src = `./assets/mv_fire`
+            break;
+        case 'electric':
+            img_Animat.src = `./assets/mv_electro.png`
+            break;
+        case 'water':
+            img_Animat.src = `./assets/mv_water.png`
+            break;
+        case 'normal':
+            img_Animat.src = `./assets/mv_normal.png`
+            break;
+        case 'rock':
+            img_Animat.src = `./assets/mv_rock.png`
+            break;
+        case 'grass':
+            img_Animat.src = `./assets/mv_grass.png`
+            break;
+        default:
+            img_Animat.src = `./assets/mv_normal.png`
+            break;
+    }
 
-        const attackTypeValues = {
-            normal: {
-                200: [],
-                100: ["normal","fighting","flying","poison","ground","bug","fire","water","grass","electric","psychic","ice","dragon","dark","fairy"],
-                50: ["rock","steel"],
-                0: ["ghost"]
-            },
-            fighting: {
-                200: ["normal","rock","steel","ice","dark"],
-                100: ["fighting","ground","fire","water","grass","electric","dragon"],
-                50: ["flying","poison","bug","psychic","fairy"],
-                0: ["ghost"]
-            },
-            flying: {
-                200: ["fighting","bug","grass"],
-                100: ["normal","flying","poison","ground","ghost","fire","water","psychic","ice","dragon","dark","fairy"],
-                50: ["rock","steel","electric"],
-                0: []
-            },
-            poison: {
-                200: ["grass", "fairy"],
-                100: ["normal","fighting","flying","bug","fire","water","electric","psychic","ice","dragon","dark"],
-                50: ["poison","ground","rock","ghost"],
-                0: ["steel"]
-            },
-            ground: {
-                200: ["poison","rock","steel","fire","electric"],
-                100: ["normal","fighting","ground","ghost","water","psychic","ice","dragon","dark","fairy"],
-                50: ["bug", "grass"],
-                0: ["flying"]
-            },
-            rock: {
-                200: ["flying","bug","fire","ice"],
-                100: ["normal","poison","rock","ghost","water","grass","electric","psychic","dragon","dark","fairy"],
-                50: ["fighting","ground","steel"],
-                0: []
-            },
-            bug: {
-                200: ["grass","psychic","dark"],
-                100: ["normal","ground","rock","bug","water","electric","ice","dragon"],
-                50: ["fighting","flying","poison","ghost","steel","fire","fairy"],
-                0: []
-            },
-            ghost: {
-                200: ["ghost", "psychic"],
-                100: ["fighting","flying","poison","ground","rock","bug","steel","fire","water","grass","electric","ice","dragon","fairy"],
-                50: ["dark"],
-                0: ["normal"]
-            },
-            steel: {
-                200: ["rock","ice","fairy"],
-                100: ["normal","fighting","flying","poison","ground","bug","ghost","grass","psychic","dragon","dark"],
-                50: ["steel","fire","water","electric"],
-                0: []
-            },
-            fire: {
-                200: ["bug","steel","grass","ice"],
-                100: ["normal","fighting","flying","poison","ground","ghost","electric","psychic","dark","fairy"],
-                50: ["rock","fire","water","dragon"],
-                0: []
-            },
-            water: {
-                200: ["ground","rock","fire"],
-                100: ["normal","fighting","flying","poison","bug","ghost","steel","electric","psychic","ice","dark","fairy"],
-                50: ["water","grass","dragon"],
-                0: []
-            },
-            grass: {
-                200: ["ground","rock","water"],
-                100: ["normal","fighting","ghost","electric","psychic","ice","dark","fairy"],
-                50: ["flying","poison","bug","steel","fire","grass","dragon"],
-                0: []
-            },
-            electric: {
-                200: ["flying","water"],
-                100: ["normal","fighting","poison","rock","bug","ghost","steel","fire","psychic","ice","dark","fairy"],
-                50: ["grass","electric","dragon"],
-                0: ["ground"]
-            },
-            psychic: {
-                200: ["fighting","poison"],
-                100: ["normal","flying","ground","rock","bug","ghost","fire","water","grass","electric","ice","dragon","fairy"],
-                50: ["steel","psychic"],
-                0: ["dark"]
-            },
-            ice: {
-                200: ["flying","ground","grass","dragon"],
-                100: ["normal","fighting","poison","rock","bug","ghost","electric","psychic","dark","fairy"],
-                50: ["steel","fire","water","ice"],
-                0: []
-            },
-            dragon: {
-                200: ["dragon"],
-                100: ["normal","fighting","flying","poison","ground","rock","bug","ghost","fire","water","grass","electric","psychic","ice","dark"],
-                50: ["steel"],
-                0: ["fairy"]
-            },
-            dark: {
-                200: ["ghost","psychic"],
-                100: ["normal","flying","poison","ground","rock","bug","steel","fire","water","grass","electric","ice","dragon"],
-                50: ["fighting","dark","fairy"],
-                0: []
-            },
-            fairy: {
-                200: ["fighting","dragon","dark"],
-                100: ["normal","flying","ground","rock","bug","ghost","water","grass","electric","psychic","ice","fairy"],
-                50: ["poison","steel","fire"],
-                0: []
-            }
+    const attackTypeValues = {
+        normal: {
+            200: [],
+            100: ["normal", "fighting", "flying", "poison", "ground", "bug", "fire", "water", "grass", "electric", "psychic", "ice", "dragon", "dark", "fairy"],
+            50: ["rock", "steel"],
+            0: ["ghost"]
+        },
+        fighting: {
+            200: ["normal", "rock", "steel", "ice", "dark"],
+            100: ["fighting", "ground", "fire", "water", "grass", "electric", "dragon"],
+            50: ["flying", "poison", "bug", "psychic", "fairy"],
+            0: ["ghost"]
+        },
+        flying: {
+            200: ["fighting", "bug", "grass"],
+            100: ["normal", "flying", "poison", "ground", "ghost", "fire", "water", "psychic", "ice", "dragon", "dark", "fairy"],
+            50: ["rock", "steel", "electric"],
+            0: []
+        },
+        poison: {
+            200: ["grass", "fairy"],
+            100: ["normal", "fighting", "flying", "bug", "fire", "water", "electric", "psychic", "ice", "dragon", "dark"],
+            50: ["poison", "ground", "rock", "ghost"],
+            0: ["steel"]
+        },
+        ground: {
+            200: ["poison", "rock", "steel", "fire", "electric"],
+            100: ["normal", "fighting", "ground", "ghost", "water", "psychic", "ice", "dragon", "dark", "fairy"],
+            50: ["bug", "grass"],
+            0: ["flying"]
+        },
+        rock: {
+            200: ["flying", "bug", "fire", "ice"],
+            100: ["normal", "poison", "rock", "ghost", "water", "grass", "electric", "psychic", "dragon", "dark", "fairy"],
+            50: ["fighting", "ground", "steel"],
+            0: []
+        },
+        bug: {
+            200: ["grass", "psychic", "dark"],
+            100: ["normal", "ground", "rock", "bug", "water", "electric", "ice", "dragon"],
+            50: ["fighting", "flying", "poison", "ghost", "steel", "fire", "fairy"],
+            0: []
+        },
+        ghost: {
+            200: ["ghost", "psychic"],
+            100: ["fighting", "flying", "poison", "ground", "rock", "bug", "steel", "fire", "water", "grass", "electric", "ice", "dragon", "fairy"],
+            50: ["dark"],
+            0: ["normal"]
+        },
+        steel: {
+            200: ["rock", "ice", "fairy"],
+            100: ["normal", "fighting", "flying", "poison", "ground", "bug", "ghost", "grass", "psychic", "dragon", "dark"],
+            50: ["steel", "fire", "water", "electric"],
+            0: []
+        },
+        fire: {
+            200: ["bug", "steel", "grass", "ice"],
+            100: ["normal", "fighting", "flying", "poison", "ground", "ghost", "electric", "psychic", "dark", "fairy"],
+            50: ["rock", "fire", "water", "dragon"],
+            0: []
+        },
+        water: {
+            200: ["ground", "rock", "fire"],
+            100: ["normal", "fighting", "flying", "poison", "bug", "ghost", "steel", "electric", "psychic", "ice", "dark", "fairy"],
+            50: ["water", "grass", "dragon"],
+            0: []
+        },
+        grass: {
+            200: ["ground", "rock", "water"],
+            100: ["normal", "fighting", "ghost", "electric", "psychic", "ice", "dark", "fairy"],
+            50: ["flying", "poison", "bug", "steel", "fire", "grass", "dragon"],
+            0: []
+        },
+        electric: {
+            200: ["flying", "water"],
+            100: ["normal", "fighting", "poison", "rock", "bug", "ghost", "steel", "fire", "psychic", "ice", "dark", "fairy"],
+            50: ["grass", "electric", "dragon"],
+            0: ["ground"]
+        },
+        psychic: {
+            200: ["fighting", "poison"],
+            100: ["normal", "flying", "ground", "rock", "bug", "ghost", "fire", "water", "grass", "electric", "ice", "dragon", "fairy"],
+            50: ["steel", "psychic"],
+            0: ["dark"]
+        },
+        ice: {
+            200: ["flying", "ground", "grass", "dragon"],
+            100: ["normal", "fighting", "poison", "rock", "bug", "ghost", "electric", "psychic", "dark", "fairy"],
+            50: ["steel", "fire", "water", "ice"],
+            0: []
+        },
+        dragon: {
+            200: ["dragon"],
+            100: ["normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "fire", "water", "grass", "electric", "psychic", "ice", "dark"],
+            50: ["steel"],
+            0: ["fairy"]
+        },
+        dark: {
+            200: ["ghost", "psychic"],
+            100: ["normal", "flying", "poison", "ground", "rock", "bug", "steel", "fire", "water", "grass", "electric", "ice", "dragon"],
+            50: ["fighting", "dark", "fairy"],
+            0: []
+        },
+        fairy: {
+            200: ["fighting", "dragon", "dark"],
+            100: ["normal", "flying", "ground", "rock", "bug", "ghost", "water", "grass", "electric", "psychic", "ice", "fairy"],
+            50: ["poison", "steel", "fire"],
+            0: []
         }
+    }
 
     let attackTypeValue = 0;
     let attackReturnValue = 0
     const keyWord = `${attackType}`
     const effectedPokemonArrays = attackTypeValues[keyWord]
     for (const [key, value] of Object.entries(effectedPokemonArrays)) {
-        if(value.includes(defenderType)) {
+        if (value.includes(defenderType)) {
             attackTypeValue = parseInt(key);
             parseInt(attackTypeValue)
             break
         }
     }
 
-    if(attackTypeValue === 200) {
+    if (attackTypeValue === 200) {
         attackReturnValue = 2
     }
-    if(attackTypeValue === 100) {
+    if (attackTypeValue === 100) {
         attackReturnValue = 1
     }
-    if(attackTypeValue === 50) {
+    if (attackTypeValue === 50) {
         attackReturnValue = .5
     }
-    if(attackTypeValue === 0) {
+    if (attackTypeValue === 0) {
         attackReturnValue = 0
     }
 
@@ -1270,9 +1288,9 @@ function level_up() {
 
 function randomize() {
     const randomnumber = Math.random()
-    if(randomnumber <= 0.5) {
+    if (randomnumber <= 0.5) {
         return true
-    }else {
+    } else {
         return false
     }
 }
