@@ -259,6 +259,19 @@
             flex-wrap: wrap;
         }
 
+        .move_button {
+            color: white;
+            background-color: rgb(52, 51, 51);
+            padding: 5px;
+            margin-right: 15px;
+            text-align: center;
+            border-radius: 8px;
+
+            &.move_active {
+                background-color: green;
+            }
+        }
+
         p{
             color: white;
             background-color: black;
@@ -268,6 +281,7 @@
             border-radius: 8px;
         }
     }
+
 
 
     .detailCloseButton {
@@ -284,6 +298,40 @@
         justify-content: center;
     }
 }
+
+
+.modal {
+    display: none;
+
+
+    &.active {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: black;
+        z-index: 1200;
+        color: white;
+        flex-direction: column;
+        text-align: center;
+        justify-content: start;
+    }
+
+    .move_active {
+        margin: 15px;
+        width: 90%;
+        box-shadow: inset 0 0 10px white;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+
 
 
 .shop {

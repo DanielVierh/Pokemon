@@ -1,5 +1,10 @@
 let myCatchedPokemons = [];
 let myTeam = [];
+
+let currentDetailPokemonIndex = -1;
+let newLearnedMoveIndex = -1;
+let is_LearningNewMove = false;
+
 const pokeballPrice = 10;
 const trankPrice = 15;
 const beleberPrice = 20;
@@ -20,6 +25,13 @@ const btn_open_Shop = document.getElementById("btn_open_Shop");
 const btn_Pokeball = document.getElementById("btn_Pokeball");
 const lbl_Amount_Pokeballs = document.getElementById("lbl_Amount_Pokeballs");
 const btn_Buy = document.getElementById("btn_Buy");
+
+const mv_0 = document.getElementById("mv_0")
+const mv_1 = document.getElementById("mv_1")
+const mv_2 = document.getElementById("mv_2")
+const mv_3 = document.getElementById("mv_3")
+const modalMoves = document.getElementById("modalMoves")
+
 
 let save_Object = {
     today_Date: '',
@@ -246,6 +258,7 @@ if (detailBtn) {
             for (let i = 0; i < myCatchedPokemons.length; i++) {
                 if (button.id === myCatchedPokemons[i].unique_ID) {
                     pokemonIndex = i;
+                    currentDetailPokemonIndex = i
                     break;
                 }
             }
@@ -261,6 +274,43 @@ if (detailBtn) {
                 document.getElementById("det_HP").innerHTML = `Gesundheit: ${myCatchedPokemons[pokemonIndex].maxHp}`
                 document.getElementById("det_Type").innerHTML = `Typ: ${myCatchedPokemons[pokemonIndex].type}`
                 document.getElementById("det_Nr").innerHTML = `Nr: ${myCatchedPokemons[pokemonIndex].id}`
+            // moveList
+            const moveList = document.getElementById("moveList");
+            moveList.innerHTML = ''
+            for(let i = 0; i < myCatchedPokemons[pokemonIndex].moves.length; i++) {
+                    let mvBtn = document.createElement('div')
+                    mvBtn.innerHTML = myCatchedPokemons[pokemonIndex].moves[i]
+                    mvBtn.classList.add('move_button')
+                    if(i <= 3) {
+                        mvBtn.classList.add("move_active")
+                    }
+                    moveList.appendChild(mvBtn)
+                }
+            }
+
+
+
+            // Funktion für Move ändern
+            const moveButtonClick = document.querySelectorAll('.move_button');
+            if (moveButtonClick) {
+                moveButtonClick.forEach((button, index) => {
+                    button.addEventListener('click', () => {
+                        if(index > 3) {
+                            if(is_LearningNewMove === false) {
+                                const confirmLerning = window.confirm(`Möchtest du, dass dein Pokemon die Attacke ${myCatchedPokemons[currentDetailPokemonIndex].moves[index]} erlernt?`)
+                                if(confirmLerning) {
+                                    is_LearningNewMove = true
+                                    newLearnedMoveIndex = index
+                                    alert("Klicke auf die Attacke, welche verlernt werden soll. Keine sorge, dein Pokemon vergisst sie nicht vollständig.")
+                                    modalMoves.classList.add("active")
+                                    for(let i = 0; i <= 3; i++) {
+                                        document.getElementById(`mv_${i}`).innerHTML = myCatchedPokemons[pokemonIndex].moves[i]
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
             }
         });
     });
@@ -270,6 +320,46 @@ if(btnCloseDetails) {
     btnCloseDetails.addEventListener("click", ()=> {
         cont_Detail.classList.remove("active");
     })
+}
+
+
+if(mv_0) {
+    mv_0.addEventListener("click", ()=> {
+        learn_forget_Attack(0)
+        modalMoves.classList.remove("active")
+    })
+}
+if(mv_1) {
+    mv_1.addEventListener("click", ()=> {
+        learn_forget_Attack(1)
+        modalMoves.classList.remove("active")
+    })
+}
+if(mv_2) {
+    mv_2.addEventListener("click", ()=> {
+        learn_forget_Attack(2)
+        modalMoves.classList.remove("active")
+    })
+}
+if(mv_3) {
+    mv_3.addEventListener("click", ()=> {
+        learn_forget_Attack(3)
+        modalMoves.classList.remove("active")
+    })
+}
+
+
+ // Attacke aufnehmen die vergessen werden soll und tauschen
+function learn_forget_Attack(forgotIndex) {
+    const toForgetMoveName = myCatchedPokemons[currentDetailPokemonIndex].moves[forgotIndex]
+    const toLearnMoveName = myCatchedPokemons[currentDetailPokemonIndex].moves[newLearnedMoveIndex]
+    myCatchedPokemons[currentDetailPokemonIndex].moves.splice(forgotIndex, 1, toLearnMoveName)
+    myCatchedPokemons[currentDetailPokemonIndex].moves.splice(newLearnedMoveIndex, 1)
+    myCatchedPokemons[currentDetailPokemonIndex].moves.push(toForgetMoveName)
+    is_LearningNewMove = false;
+    alert(`${makeFirstLetterBig(toLearnMoveName)} wurde erlernt und ${makeFirstLetterBig(toForgetMoveName)} wurde vergessen.`)
+    save_SaveObj();
+    cont_Detail.classList.remove("active");
 }
 
 
