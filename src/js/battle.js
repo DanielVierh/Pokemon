@@ -1239,13 +1239,25 @@ function checkPokeTypes(attackType, defenderType) {
             img_Animat.src = `./assets/mv_water.png`;
             break;
         case 'normal':
-            img_Animat.src = `./assets/mv_normal.png`;
+            img_Animat.src = `./assets/mv_normal2.png`;
             break;
         case 'rock':
             img_Animat.src = `./assets/mv_rock.png`;
             break;
         case 'grass':
             img_Animat.src = `./assets/mv_grass.png`;
+            break;
+        case 'ice':
+            img_Animat.src = `./assets/mv_ice.png`;
+            break;
+        case 'poison':
+            img_Animat.src = `./assets/mv_poison.png`;
+            break;
+        case 'dark':
+            img_Animat.src = `./assets/mv_dark.png`;
+            break;
+        case 'ground':
+            img_Animat.src = `./assets/mv_ground.png`;
             break;
         default:
             img_Animat.src = `./assets/mv_normal.png`;
