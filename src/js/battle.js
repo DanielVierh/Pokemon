@@ -1126,7 +1126,7 @@ function level_up() {
                         console.log('Newdata', data);
                         newAttackName = data.moves[Math.floor(Math.random() * (data.moves.length))].move.name;
                         newAttackMessage = `${makeFirstLetterBig(myStaticPokemon.name)} lernt ${newAttackName}`;
-                        save_Object.myPokemonTeam[myCurrentPokemonIndex].moves.push(newAttackName)
+                        save_Object.myCatchedPokemons[pokemonIndex].moves.push(newAttackName)
                         save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
                         save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
                         save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
