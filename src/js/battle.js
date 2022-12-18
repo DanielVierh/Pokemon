@@ -132,6 +132,7 @@ class Pokemon {
         name,
         type,
         level,
+        allMoves,
         moves,
         spriteFront,
         spriteBack,
@@ -147,6 +148,7 @@ class Pokemon {
         this.name = name;
         this.type = type;
         this.level = level;
+        this.allMoves = allMoves;
         this.moves = moves;
         this.spriteFront = spriteFront;
         this.spriteBack = spriteBack;
@@ -192,6 +194,7 @@ let myStaticPokemon = new Pokemon(
     'Charizard',
     'fire',
     8,
+    'mega-punch',
     'mega-punch',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/6.png',
@@ -247,6 +250,7 @@ function createMyStarterPokemon() {
         'Arcanine',
         'fire',
         3,
+        ['will-o-wisp', 'hidden-power', 'thief', 'giga-impact', 'teleport'],
         ['will-o-wisp', 'hidden-power', 'thief', 'giga-impact', 'teleport'],
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/59.png',
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/59.png',
@@ -441,12 +445,20 @@ function createWildPokemon() {
     console.log('facedPokemons', facedPokemons);
     for (let i = 0; i < facedPokemons.length; i++) {
         if (randomPokemon === facedPokemons[i].id) {
+            const all_moves = facedPokemons[i].allMoves
+            let four_moves = [];
+            for (let i = 0; i <= 4; i++) {
+                const randomMove =
+                    Math.floor(Math.random() * (all_moves.length - 1)) + 1;
+                    four_moves.push(all_moves[randomMove].move.name);
+            }
             currentWildPokemon = new Pokemon(
                 facedPokemons[i].id,
                 makeFirstLetterBig(facedPokemons[i].name),
                 facedPokemons[i].type,
                 parseInt(Math.random() * avarageLevel) + 3,
-                facedPokemons[i].moves,
+                facedPokemons[i].allMoves,
+                four_moves,
                 facedPokemons[i].spriteFront,
                 facedPokemons[i].spriteBack,
                 facedPokemons[i].statAttack,
@@ -491,13 +503,14 @@ function fetchPokemon(id) {
             for (let i = 0; i <= 4; i++) {
                 const randomMove =
                     Math.floor(Math.random() * (data.moves.length - 1)) + 1;
-                four_moves.push(data.moves[randomMove].move.name);
+                    four_moves.push(data.moves[randomMove].move.name);
             }
             currentWildPokemon = new Pokemon(
                 data.id,
                 data.name,
                 data.types[0].type.name,
                 parseInt(Math.random() * 20) + 3,
+                data.moves,
                 four_moves,
                 data.sprites.front_default,
                 data.sprites.back_default,
@@ -544,7 +557,7 @@ function fetchAttack(nameId) {
             pokeMove = new PokeMove(
                 data.name,
                 data.names[4].name,
-                data.flavor_text_entries[22].flavor_text,
+                0,
                 data.accuracy,
                 data.power,
                 data.meta.minHits,
@@ -571,7 +584,7 @@ function init_Move(moveName) {
             currentAttack = new PokeMove(
                 allMoves[i].name,
                 allMoves[i].germanName,
-                allMoves[i].descr,
+                0,
                 allMoves[i].accuracy,
                 allMoves[i].baseDamage,
                 allMoves[i].minHits,
