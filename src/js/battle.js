@@ -249,15 +249,15 @@ function createMyStarterPokemon() {
         59,
         'Arcanine',
         'fire',
-        3,
-        ['will-o-wisp', 'hidden-power', 'thief', 'giga-impact', 'teleport'],
+        4,
+        ['headbutt', 'body-slam', 'take-down', 'double-edge', 'leer', 'bite', 'roar', 'ember', 'flamethrower', 'hyper-beam', 'strength', 'solar-beam', 'dragon-rage', 'fire-spin', 'dig', 'toxic', 'agility', 'rage', 'teleport', 'mimic', 'double-team', 'reflect', 'bide', 'fire-blast', 'swift', 'skull-bash', 'rest', 'substitute', 'thief', 'flame-wheel', 'snore', 'curse', 'reversal', 'protect', 'scary-face', 'mud-slap', 'outrage', 'endure', 'swagger', 'attract', 'sleep-talk', 'return', 'frustration', 'safeguard', 'dragon-breath', 'iron-tail', 'hidden-power', 'sunny-day', 'crunch', 'extreme-speed', 'rock-smash', 'heat-wave', 'will-o-wisp', 'facade', 'helping-hand', 'superpower', 'secret-power', 'hyper-voice', 'overheat', 'odor-sleuth', 'aerial-ace', 'howl', 'covet', 'natural-gift', 'close-combat', 'flare-blitz', 'dragon-pulse', 'giga-impact', 'thunder-fang', 'fire-fang', 'rock-climb', 'iron-head', 'captivate', 'flame-charge', 'round', 'incinerate', 'retaliate', 'bulldoze', 'wild-charge', 'snarl', 'play-rough', 'confide', 'laser-focus', 'burn-up', 'psychic-fangs', 'scorching-sands'],
         ['will-o-wisp', 'hidden-power', 'thief', 'giga-impact', 'teleport'],
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/59.png',
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/59.png',
         110,
         80,
         70,
-        0,
+        399,
         90,
         90,
         'rabdomVal123',
@@ -450,7 +450,7 @@ function createWildPokemon() {
             for (let i = 0; i <= 4; i++) {
                 const randomMove =
                     Math.floor(Math.random() * (all_moves.length - 1)) + 1;
-                    four_moves.push(all_moves[randomMove].move.name);
+                    four_moves.push(all_moves[randomMove]);
             }
             currentWildPokemon = new Pokemon(
                 facedPokemons[i].id,
@@ -499,6 +499,10 @@ function fetchPokemon(id) {
         .then((res) => res.json())
         .then((data) => {
             console.log('data', data);
+            let x_moves = [];
+            for (let i = 0; i < data.moves.length; i++) {
+                x_moves.push(data.moves[i].move.name);
+            }
             let four_moves = [];
             for (let i = 0; i <= 4; i++) {
                 const randomMove =
@@ -510,7 +514,7 @@ function fetchPokemon(id) {
                 data.name,
                 data.types[0].type.name,
                 parseInt(Math.random() * 20) + 3,
-                data.moves,
+                x_moves,
                 four_moves,
                 data.sprites.front_default,
                 data.sprites.back_default,
@@ -1131,15 +1135,18 @@ function level_up() {
             let newAttackName = '';
             // ? Wenn Level 5 Modulus = 0, soll neue Attacke gelernt werden
             if (levelDevideBy5 === 0) {
-                console.log('Ist = 0');
                 const pokemonId = save_Object.myPokemonTeam[myCurrentPokemonIndex].id;
-                fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`)
-                    .then((res) => res.json())
-                    .then((data) => {
-                        console.log('Newdata', data);
-                        newAttackName = data.moves[Math.floor(Math.random() * (data.moves.length))].move.name;
-                        newAttackMessage = `${makeFirstLetterBig(myStaticPokemon.name)} lernt ${newAttackName}`;
-                        save_Object.myCatchedPokemons[pokemonIndex].moves.push(newAttackName)
+                    let newAttackIndex = -1
+                    let moveArr = ''
+                        try {
+                            newAttackIndex = save_Object.myCatchedPokemons[pokemonIndex].moves.length;
+                            moveArr = save_Object.myCatchedPokemons[pokemonIndex].allMoves
+                            newAttackName = moveArr[newAttackIndex];
+                            newAttackMessage = `${makeFirstLetterBig(myStaticPokemon.name)} lernt ${newAttackName}`;
+                            save_Object.myCatchedPokemons[pokemonIndex].moves.push(newAttackName)
+                        } catch (error) {
+                            console.warn('New Move Error', error)
+                        }
                         save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
                         save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
                         save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
@@ -1166,10 +1173,6 @@ function level_up() {
                                 myStaticPokemon.name,
                             )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
                         }, 1000);
-                    })
-                    .catch((error) => {
-                        console.warn(error);
-                    });
                     // ? Normales Leveln ohne neue Attacke zu erlernen
             }else {
                 save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
@@ -1654,3 +1657,41 @@ function randomize() {
         return false;
     }
 }
+
+
+
+
+function fetchWunschPokemon(id) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+    .then((res) => res.json())
+    .then((data) => {
+        console.log('Wunschpokemon', data);
+
+        let x_moves = [];
+        for (let i = 0; i < data.moves.length; i++) {
+            x_moves.push(data.moves[i].move.name);
+        }
+        console.log(x_moves);
+        // currentWildPokemon = new Pokemon(
+        //     data.id,
+        //     data.name,
+        //     data.types[0].type.name,
+        //     parseInt(Math.random() * 20) + 3,
+        //     data.moves,
+        //     four_moves,
+        //     data.sprites.front_default,
+        //     data.sprites.back_default,
+        //     data.stats[1].base_stat,
+        //     data.stats[2].base_stat,
+        //     data.stats[4].base_stat,
+        //     data.base_experience,
+        //     data.stats[0].base_stat,
+        //     data.stats[0].base_stat,
+        // );
+    })
+    .catch((error) => {
+        console.warn(error);
+    });
+}
+
+fetchWunschPokemon(59)
