@@ -93,7 +93,7 @@ function renderCatchedPokemons() {
         addBtn.id = myCatchedPokemons[i].unique_ID
 
         let detailBtn = document.createElement("div");
-        detailBtn.innerHTML = "Info "
+        detailBtn.innerHTML = "i "
         detailBtn.classList.add("detailBtn")
         detailBtn.id = myCatchedPokemons[i].unique_ID
 
@@ -128,8 +128,8 @@ function renderCatchedPokemons() {
         pokeCont.appendChild(detailBtn)
         pokeCont.appendChild(sellBtn)
         pokeCont.appendChild(pokeimage)
-        pokeCont.appendChild(pokename)
-        pokeCont.appendChild(infocont)
+        // pokeCont.appendChild(pokename)
+        // pokeCont.appendChild(infocont)
 
         catchedPokemonContaier.appendChild(pokeCont)
     }
@@ -396,14 +396,15 @@ function renderTeam() {
     for (let i = 0; i < myTeam.length; i++) {
         let pokeCont = document.createElement('div');
         pokeCont.classList.add("pokemonContaier")
+        pokeCont.classList.add("tp")
 
-        let addBtn = document.createElement("div");
-        addBtn.innerHTML = "-"
-        addBtn.classList.add("deleteButton")
-        addBtn.id = myTeam[i].unique_ID
+        let delBtn = document.createElement("div");
+        delBtn.innerHTML = "-"
+        delBtn.classList.add("deleteButton")
+        delBtn.id = myTeam[i].unique_ID
 
         let moveBtn = document.createElement('div');
-        moveBtn.innerHTML = 'v'
+        moveBtn.innerHTML = '>'
         moveBtn.classList.add("movedownButton")
         moveBtn.id = myTeam[i].unique_ID
 
@@ -433,11 +434,11 @@ function renderTeam() {
         infocont.appendChild(type)
         infocont.appendChild(number)
 
-        pokeCont.appendChild(addBtn)
+        pokeCont.appendChild(delBtn)
         pokeCont.appendChild(moveBtn)
         pokeCont.appendChild(pokeimage)
-        pokeCont.appendChild(pokename)
-        pokeCont.appendChild(infocont)
+        // pokeCont.appendChild(pokename)
+        // pokeCont.appendChild(infocont)
 
         teamPokemonContainer.appendChild(pokeCont)
     }

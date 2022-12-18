@@ -15,8 +15,12 @@
     <h1>Meine Pokemon</h1>
     <p class="label" id="outpCatchedAmount">12 Gefangen</p>
     <h3 class="label" id="lbl_Money">$ - 0</h3>
-    <div class="healButton" id="btnHeal">Heilen</div>
-    <div class="shopButton" id="btn_open_Shop">Shop</div>
+
+    <div class="hstack">
+        <div class="healButton" id="btnHeal">Heilen</div>
+        <div class="shopButton" id="btn_open_Shop">Shop</div>
+    </div>
+
     <div class="resetGameButton" id="btn_ResetGame">Lösche</div>
 
     <div class="menueButton" id="btn_Menue">Menü</div>
@@ -61,14 +65,21 @@
     <div class="modal" id="modalMoves">
         <h2>Welche Attacke soll verlernt werden?</h2>
         <div class="move_active" id="mv_0">Move 1</div>
-        <div class="move_active" id="mv_1">Move  2</div>
+        <div class="move_active" id="mv_1">Move 2</div>
         <div class="move_active" id="mv_2">Move 3</div>
         <div class="move_active" id="mv_3">Move 4</div>
     </div>
 
     <div class="Listwrapper" id="catchPokeTag">
 
-        <div class="halfContainer left">
+        <div class="halfContainer top">
+            <h3>Mein Team</h3>
+            <div class="catchedPokemonContaier" id="teamPokemonContainer"></div>
+        </div>
+
+
+
+        <div class="halfContainer bottom">
             <h3>Gefangene Pokemon</h3>
 
             <div class="catchedPokemonContaier" id="catchedPokemonContaier">
@@ -76,10 +87,7 @@
 
         </div>
 
-        <div class="halfContainer right">
-            <h3>Mein Team</h3>
-            <div class="catchedPokemonContaier" id="teamPokemonContainer"></div>
-        </div>
+
 
     </div>
 

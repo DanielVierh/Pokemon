@@ -1,12 +1,19 @@
+.hstack {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 
 .Listwrapper {
     width: 100%;
     height: 100vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    // margin: 0 auto;
 }
 
 .resetGameButton {
@@ -27,26 +34,25 @@
 
 
 .halfContainer {
-    width: 50%;
+    width: 100%;
     height: 100vw;
 
     border: 1px solid black;
     color: white;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     text-align: center;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
 
-    &.left {
-        background-color: lightgreen;
-        justify-content: start;
+    &.bottom {
+        background-color: rgb(20, 23, 20);
         overflow-y: scroll;
     }
 
-    &.right {
-        background-color: lightblue;
-        justify-content: start;
-        overflow-y: scroll;
+    &.top {
+        background-color: rgb(13, 17, 19);
+        height: auto;
     }
 
     h3{
@@ -56,24 +62,32 @@
     }
 
     .catchedPokemonContaier {
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
 
         .pokemonContaier {
-            width: 90%;
+            width: 90px;
+            height: 100px;
             border-bottom: 3px solid black;
             background-color: rgb(34, 34, 34);
             position: relative;
-            margin: 20px auto;
-            padding: 10px;
+            margin-right: 10px;
+            // padding: 10px;
             border-radius: 10px;
+
+            &.tp {
+                width: 65px;
+            }
 
             .addButton {
                 position: absolute;
-                top: 5px;
-                right: 5px;
-                width: 20px;
-                height: 20px;
+                top: 0px;
+                left: 60%;
+                width: 15px;
+                height: 15px;
                 border-radius: 50%;
                 padding: 5px;
                 background-color: green;
@@ -86,10 +100,10 @@
 
             .deleteButton {
                 position: absolute;
-                top: 5px;
-                right: 5px;
-                width: 20px;
-                height: 20px;
+                top: 0px;
+                right: 0px;
+                width: 15px;
+                height: 15px;
                 border-radius: 50%;
                 padding: 5px;
                 background-color: red;
@@ -102,13 +116,13 @@
 
             .movedownButton {
                 position: absolute;
-                top: 5px;
-                left: 5px;
-                width: 20px;
-                height: 20px;
+                bottom: 0px;
+                right: 0px;
+                width: 15px;
+                height: 15px;
                 border-radius: 50%;
                 padding: 5px;
-                background-color: black;
+                background-color: transparent;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -118,9 +132,9 @@
             }
 
             img {
-                width: 90px;
-                height: 90px;
-                margin-top: -10px;
+                width: 70px;
+                height: 70px;
+                margin-top: 25px;
             }
 
             p {
@@ -179,17 +193,18 @@
     box-shadow: inset 0 0 10px white;
     border-radius: 10px;
     margin-bottom: 10px;
-    margin-top: 50px;
 }
 
 
 .detailBtn {
     position: absolute;
-    left: 3px;
-    top: 3px;
+    right: 0px;
+    top: 50%;
     font-size: .7em;
     padding: 8px;
     border-radius: 10px;
+    background-color: blue;
+    color: yellow;
     box-shadow: inset 0 0 5px white;
 
 }
@@ -197,7 +212,7 @@
 .sellBtn {
     position: absolute;
     left: 5px;
-    top: 45%;
+    top: 80%;
     font-size: .7em;
     width: 25px;
     height: 25px;
