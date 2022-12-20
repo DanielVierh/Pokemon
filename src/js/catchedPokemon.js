@@ -106,7 +106,7 @@ function renderCatchedPokemons() {
         pokeimage.src = myCatchedPokemons[i].spriteFront;
 
         let pokename = document.createElement("p");
-        pokename.innerHTML = makeFirstLetterBig(myCatchedPokemons[i].name);
+        pokename.innerHTML = makeFirstLetterBig(myCatchedPokemons[i].name) + ` | Lv.${myCatchedPokemons[i].level}`;
 
         let infocont = document.createElement("div");
         infocont.classList.add("infobox");
@@ -128,7 +128,7 @@ function renderCatchedPokemons() {
         pokeCont.appendChild(detailBtn)
         pokeCont.appendChild(sellBtn)
         pokeCont.appendChild(pokeimage)
-        // pokeCont.appendChild(pokename)
+        pokeCont.appendChild(pokename)
         // pokeCont.appendChild(infocont)
 
         catchedPokemonContaier.appendChild(pokeCont)
@@ -271,7 +271,7 @@ if (detailBtn) {
                 document.getElementById("det_Attack").innerHTML = `Angriff: ${myCatchedPokemons[pokemonIndex].statAttack}`
                 document.getElementById("det_Def").innerHTML = `Verteidigung: ${myCatchedPokemons[pokemonIndex].statDefense}`
                 document.getElementById("det_Lv").innerHTML = `Lv.${myCatchedPokemons[pokemonIndex].level}`
-                document.getElementById("det_HP").innerHTML = `Gesundheit: ${myCatchedPokemons[pokemonIndex].maxHp}`
+                document.getElementById("det_HP").innerHTML = `Max KP: ${myCatchedPokemons[pokemonIndex].maxHp}`
                 document.getElementById("det_Type").innerHTML = `Typ: ${myCatchedPokemons[pokemonIndex].type}`
                 document.getElementById("det_Nr").innerHTML = `Nr: ${myCatchedPokemons[pokemonIndex].id}`
             // moveList
