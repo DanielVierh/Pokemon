@@ -26,6 +26,7 @@ const btn_Pokeball = document.getElementById("btn_Pokeball");
 const lbl_Amount_Pokeballs = document.getElementById("lbl_Amount_Pokeballs");
 const btn_Buy = document.getElementById("btn_Buy");
 const setting_Gen = document.getElementById("setting_Gen");
+const btn_refresh_todays_Pokemon = document.getElementById("btn_refresh_todays_Pokemon")
 
 const mv_0 = document.getElementById("mv_0")
 const mv_1 = document.getElementById("mv_1")
@@ -72,6 +73,7 @@ function load_SaveObj() {
             renderCatchedPokemons();
             renderTeam();
             lbl_Money.innerHTML = `$ - ${save_Object.items.money}`;
+            setting_Gen.value = save_Object.gen
         } catch (error) {
 
         }
@@ -581,6 +583,22 @@ if(setting_Gen) {
     setting_Gen.addEventListener("change", ()=> {
         const value = setting_Gen.value;
         save_Object.gen = value;
-        save_SaveObj();
+        resetPokemon()
     })
+}
+
+
+
+if(btn_refresh_todays_Pokemon) {
+    btn_refresh_todays_Pokemon.addEventListener("click", ()=> {
+        const request = window.confirm("Sollen die Pokemon von Heute neu gemischt werden?")
+        if(request) {
+            resetPokemon()
+        }
+    })
+}
+
+function resetPokemon() {
+    save_Object.today_Date = '';
+    save_SaveObj()
 }

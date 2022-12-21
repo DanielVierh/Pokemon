@@ -359,10 +359,17 @@ function generate_today_Pokemons() {
         todayPokemons = save_Object.today_Pokemons;
         createWildPokemon();
     } else {
-        // const min = pokemonGenerationen.gen1_start;
-        // const max = pokemonGenerationen.gen1_end;
-        const min = 1;
-        const max = 850;
+        let min = 1;
+        let max = 850;
+        // Try to set the selected generation
+        try {
+            const savedGen = save_Object.gen;
+            const genRange =  pokemonGenerationen[savedGen]
+            min = genRange.start
+            max = genRange.end
+        } catch (error) {
+          console.warn('Gen Error: ', error)
+        }
 
         for (let i = 1; i <= 30; i++) {
             const randomPokemon = Math.floor(Math.random() * (max - min)) + min;
@@ -385,6 +392,8 @@ function today_equal_savedDay() {
         return false;
     }
 }
+
+
 
 function createDateFromToday() {
     const date = new Date();
@@ -1758,4 +1767,4 @@ function fetchWunschPokemon(id) {
     });
 }
 
-fetchWunschPokemon(59)
+//fetchWunschPokemon(59)
