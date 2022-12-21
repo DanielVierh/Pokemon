@@ -16,6 +16,7 @@ let save_Object = {
         trank: 5,
         bonbon: 3
     },
+    gen: 'all'
 };
 
 window.onload = init();

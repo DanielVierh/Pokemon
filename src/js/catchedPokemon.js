@@ -25,6 +25,7 @@ const btn_open_Shop = document.getElementById("btn_open_Shop");
 const btn_Pokeball = document.getElementById("btn_Pokeball");
 const lbl_Amount_Pokeballs = document.getElementById("lbl_Amount_Pokeballs");
 const btn_Buy = document.getElementById("btn_Buy");
+const setting_Gen = document.getElementById("setting_Gen");
 
 const mv_0 = document.getElementById("mv_0")
 const mv_1 = document.getElementById("mv_1")
@@ -47,6 +48,7 @@ let save_Object = {
         trank: 5,
         bonbon: 3
     },
+    gen: 'all'
 };
 
 
@@ -463,6 +465,7 @@ if(btn_ResetGame) {
                 trank: 5,
                 bonbon: 3
             },
+            gen: 'all'
         };
 
         save_SaveObj();
@@ -569,4 +572,15 @@ if(btn_Buy) {
 function updateShop() {
     lbl_Shop_Money.innerHTML = `$ - ${shopMoney}`;
     lbl_Amount_Pokeballs.innerHTML = pokeballBuyAmount;
+}
+
+
+// Generation auswählen
+
+if(setting_Gen) {
+    setting_Gen.addEventListener("change", ()=> {
+        const value = setting_Gen.value;
+        save_Object.gen = value;
+        save_SaveObj();
+    })
 }

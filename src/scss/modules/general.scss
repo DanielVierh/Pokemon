@@ -42,6 +42,7 @@ body{
     border-radius: 8px;
     font-size: 2em;
     box-shadow: 0 0 15px white, inset 0 0 10px white;
+    cursor: pointer;
 }
 
 
@@ -242,6 +243,7 @@ body{
     justify-content: center;
     margin-left: 5px;
     position: relative;
+    cursor: pointer;
     span {
         position: absolute;
         top: -20px;
@@ -347,6 +349,7 @@ body{
         border-radius: 10px;
         position: relative;
         z-index: 1000;
+        cursor: pointer;
 
     }
 }
@@ -387,8 +390,6 @@ body{
         border-radius: 50%;
         font-size: 1em;
         cursor: pointer;
-
-
     }
 
 
