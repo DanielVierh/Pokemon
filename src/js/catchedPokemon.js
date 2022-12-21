@@ -154,7 +154,6 @@ if (addBtn) {
             // Prüfen ob Pokemon gefunden
             if (pokemonIndex >= 0) {
                 addedPokemon = myCatchedPokemons[pokemonIndex]
-                // console.log('addedPokemon', addedPokemon);
 
                 // check ob teamplatz frei
                 const freeTeamNumbers = myTeam.length;
@@ -170,7 +169,6 @@ if (addBtn) {
                     if(isAlreadyInTeam === false) {
                         myTeam.unshift(addedPokemon);
                         console.log(myTeam);
-                        renderTeam()
                         save_SaveObj();
                         location.reload();
                     }

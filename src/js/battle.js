@@ -739,6 +739,8 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
         effectedProgressbar.style.width = 0;
     } else {
         if (damage > 0) {
+            //!####################################################
+            // init_downgrading_Kp(hpInPercent,currentHP,effectedProgressbar)
             effectedProgressbar.value = hpInPercent;
         }
     }
@@ -798,6 +800,32 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
         checkWhoExecuteNext();
     }, 2000);
 }
+
+//###############################################################################################
+// Statusbar Animation
+let kp_value = 100;
+let intv = undefined;
+
+// function init_downgrading_Kp(targetValue, old_kp_value, effectedProgressbar) {
+//     kp_value = old_kp_value;
+//     intv = setInterval(function () { countingDown(targetValue); }, 17);
+//     console.log('targetValue', targetValue);
+//     console.log('old_kp_value', old_kp_value);
+//     console.log('effectedProgressbar', effectedProgressbar);
+// }
+
+// function countingDown(targetValue,effectedProgressbar) {
+//     kp_value--;
+//     if (kp_value === targetValue) {
+//         clearInterval(intv);
+//         kp_value = targetValue;
+//     }
+//     console.log(kp_value);
+//     effectedProgressbar.style.width = kp_value;
+//     // effectedProgressbar.value = kp_value;
+//     // tempLabel.innerText = `${kp_value}°C`;
+// }
+//###############################################################################################
 
 // Gameloop
 function checkWhoExecuteNext() {
