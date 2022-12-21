@@ -1745,26 +1745,37 @@ function fetchWunschPokemon(id) {
             x_moves.push(data.moves[i].move.name);
         }
         console.log(x_moves);
-        // currentWildPokemon = new Pokemon(
-        //     data.id,
-        //     data.name,
-        //     data.types[0].type.name,
-        //     parseInt(Math.random() * 20) + 3,
-        //     data.moves,
-        //     four_moves,
-        //     data.sprites.front_default,
-        //     data.sprites.back_default,
-        //     data.stats[1].base_stat,
-        //     data.stats[2].base_stat,
-        //     data.stats[4].base_stat,
-        //     data.base_experience,
-        //     data.stats[0].base_stat,
-        //     data.stats[0].base_stat,
-        // );
     })
     .catch((error) => {
         console.warn(error);
     });
 }
 
-//fetchWunschPokemon(59)
+// fetchWunschPokemon(59)
+
+
+function evolution() {
+    fetch(`https://pokeapi.co/api/v2/pokemon-species/charmander/`)
+    .then((res) => res.json())
+    .then((data) => {
+        console.log('maindata', data);
+        fetch(data.evolution_chain.url)
+        .then((res) => res.json())
+        .then((data2) => {
+            console.log('evolutionchain', data2)
+            const fetchNewPokemonUrl = data2.chain.evolves_to[0].species.url
+            fetch(fetchNewPokemonUrl)
+            .then((res) => res.json())
+            .then((dataNewPoke) => {
+                console.log('newPokemon: ', dataNewPoke);
+                const evolveToId =  dataNewPoke.id;
+                console.log('To ID ', evolveToId);
+            })
+        })
+    })
+    .catch((error) => {
+        console.warn(error);
+    });
+}
+
+evolution()
