@@ -10,7 +10,8 @@ body{
     &.active {
         display: block;
         position: fixed;
-        left: 35%;
+        // left: 35%;
+        right: 30px;
         top: 30%;
         max-width: 300px;
         transform: rotate(40deg);
