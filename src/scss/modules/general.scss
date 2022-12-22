@@ -69,6 +69,10 @@ body{
     &.getAttacked {
         animation: pokemon_Animation_my_PokemonGetAttacked .5s ease;
     }
+
+    @media (min-width: 1200px) {
+        width: 420px;
+    }
   }
 
 
@@ -86,6 +90,11 @@ body{
 
     &.getDestroyed {
         animation: fadeOutPokemon .5s ease;
+    }
+
+    @media (min-width: 1200px) {
+        width: 350px;
+        top: 25%;
     }
   }
 
@@ -131,7 +140,6 @@ body{
 
     0% {
         left: -20px;
-        // width: 0px;
     }
     25% {
         left: 20px;
