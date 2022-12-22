@@ -1360,30 +1360,22 @@ function level_up() {
                 fetch(`https://pokeapi.co/api/v2/pokemon-species/${myStaticPokemon.name}/`)
                 .then((res) => res.json())
                 .then((data) => {
-                    //! console.log('maindata', data);
                     fetch(data.evolution_chain.url)
                         .then((res) => res.json())
                         .then((data2) => {
-                            //! console.log('data2', data2);
                             const fetchNewPokemonUrl =
                                 data2.chain.evolves_to[0].species.url;
                             fetch(fetchNewPokemonUrl)
                                 .then((res) => res.json())
                                 .then((data3) => {
-                                    //! console.log('data3: ', data3);
                                      evolveToId = data3.id;
                                      evolvedName = data3.name;
                                     fetch(`https://pokeapi.co/api/v2/pokemon/${evolveToId}/`)
                                         .then((res) => res.json())
                                         .then((data4) => {
-                                        //! console.log('Data4 ', data4);
                                          evolve_spriteFront = data4.sprites.front_default;
                                          evolve_spriteBack = data4.sprites.back_default;
-
-
                                         if(oldID !== evolveToId) {
-                                            console.log('Weiterentwickelt');
-                                            console.log('evolveToId', evolveToId, 'evolvedName', evolvedName);
                                             save_Object.myPokemonTeam[myCurrentPokemonIndex].spriteBack = evolve_spriteBack
                                             save_Object.myPokemonTeam[myCurrentPokemonIndex].spriteFront = evolve_spriteFront
                                             save_Object.myPokemonTeam[myCurrentPokemonIndex].id = evolveToId
@@ -1418,7 +1410,6 @@ function level_up() {
                                             }, 1000);
 
                                         }else {
-                                            console.log('Keine Weiterentwicklung möglich');
                                             save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
                                             save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
                                             save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
