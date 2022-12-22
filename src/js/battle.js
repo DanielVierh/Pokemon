@@ -1288,7 +1288,7 @@ function level_up() {
         if (newXP > 400) {
             const newLevel = currentLevel++;
             const levelDevideBy5 = currentLevel % 5;
-            const evolveLevel = currentLevel % 1;
+            const evolveLevel = currentLevel % 11;
             let newAttackMessage = '';
             let newAttackName = '';
             //#####################################################################
