@@ -303,7 +303,7 @@ if (detailBtn) {
                                 if(confirmLerning) {
                                     is_LearningNewMove = true
                                     newLearnedMoveIndex = index
-                                    alert("Klicke auf die Attacke, welche verlernt werden soll. Keine sorge, dein Pokemon vergisst sie nicht vollständig.")
+                                    // alert("Klicke auf die Attacke, welche verlernt werden soll. Keine sorge, dein Pokemon vergisst sie nicht vollständig.")
                                     modalMoves.classList.add("active")
                                     for(let i = 0; i <= 3; i++) {
                                         document.getElementById(`mv_${i}`).innerHTML = myCatchedPokemons[pokemonIndex].moves[i]
@@ -353,11 +353,31 @@ if(mv_3) {
 
  // Attacke aufnehmen die vergessen werden soll und tauschen
 function learn_forget_Attack(forgotIndex) {
+    let teamPokemonIndex = -1;
+    const searchID = myCatchedPokemons[currentDetailPokemonIndex].unique_ID
+
+    for(let i = 0; i < myTeam.length; i++) {
+        if(myTeam[i].unique_ID === searchID) {
+            teamPokemonIndex = i;
+            console.log('Yeeeeeeeeeeeeepppp!!!!!!!!!!!!!');
+            break
+        }
+    }
     const toForgetMoveName = myCatchedPokemons[currentDetailPokemonIndex].moves[forgotIndex]
     const toLearnMoveName = myCatchedPokemons[currentDetailPokemonIndex].moves[newLearnedMoveIndex]
     myCatchedPokemons[currentDetailPokemonIndex].moves.splice(forgotIndex, 1, toLearnMoveName)
     myCatchedPokemons[currentDetailPokemonIndex].moves.splice(newLearnedMoveIndex, 1)
     myCatchedPokemons[currentDetailPokemonIndex].moves.push(toForgetMoveName)
+
+    if(teamPokemonIndex !== -1) {
+        console.log('Biiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin');
+        const toForgetMoveName = myCatchedPokemons[teamPokemonIndex].moves[forgotIndex]
+        const toLearnMoveName = myCatchedPokemons[teamPokemonIndex].moves[newLearnedMoveIndex]
+        myCatchedPokemons[teamPokemonIndex].moves.splice(forgotIndex, 1, toLearnMoveName)
+        myCatchedPokemons[teamPokemonIndex].moves.splice(newLearnedMoveIndex, 1)
+        myCatchedPokemons[teamPokemonIndex].moves.push(toForgetMoveName)
+    }
+
     is_LearningNewMove = false;
     alert(`${makeFirstLetterBig(toLearnMoveName)} wurde erlernt und ${makeFirstLetterBig(toForgetMoveName)} wurde vergessen.`)
     save_SaveObj();
@@ -489,7 +509,6 @@ function makeFirstLetterBig(word) {
     }
     return exportword;
 }
-
 
 
 if(btnHeal){
