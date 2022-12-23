@@ -359,7 +359,6 @@ function learn_forget_Attack(forgotIndex) {
     for(let i = 0; i < myTeam.length; i++) {
         if(myTeam[i].unique_ID === searchID) {
             teamPokemonIndex = i;
-            console.log('Yeeeeeeeeeeeeepppp!!!!!!!!!!!!!');
             break
         }
     }
@@ -370,7 +369,6 @@ function learn_forget_Attack(forgotIndex) {
     myCatchedPokemons[currentDetailPokemonIndex].moves.push(toForgetMoveName)
 
     if(teamPokemonIndex !== -1) {
-        console.log('Biiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin');
         const toForgetMoveName = myCatchedPokemons[teamPokemonIndex].moves[forgotIndex]
         const toLearnMoveName = myCatchedPokemons[teamPokemonIndex].moves[newLearnedMoveIndex]
         myCatchedPokemons[teamPokemonIndex].moves.splice(forgotIndex, 1, toLearnMoveName)
