@@ -483,7 +483,7 @@ function generate_today_Pokemons() {
             console.warn('Gen Error: ', error);
         }
 
-        for (let i = 1; i <= 30; i++) {
+        for (let i = 1; i < 30; i++) {
             const randomPokemon = Math.floor(Math.random() * (max - min)) + min;
             todayPokemons.push(randomPokemon);
         }
@@ -522,7 +522,7 @@ function addZero(val) {
 }
 
 function currentRandomPokemon() {
-    const randomPokemon = parseInt(Math.random() * todayPokemons.length);
+    const randomPokemon = parseInt(Math.random() * todayPokemons.length + 1);
     fetchPokemon(todayPokemons[randomPokemon]);
 }
 
@@ -604,7 +604,7 @@ function createWildPokemon() {
             let four_moves = [];
             for (let i = 0; i <= 4; i++) {
                 const randomMove =
-                    Math.floor(Math.random() * (all_moves.length - 1)) + 1;
+                    Math.floor(Math.random() * all_moves.length + 1);
                 four_moves.push(all_moves[randomMove]);
             }
             currentWildPokemon = new Pokemon(
@@ -925,8 +925,10 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                 }
             }, 400);
             if (whoIsAffected !== 'myPokemon') {
-                battleSound2.pause();
-                victorySound.play();
+                randomBattleSound.pause();
+                setTimeout(() => {
+                    victorySound.play(); 
+                }, 10);
             }
         } else {
             if (variableMoveName === false) {
@@ -1311,7 +1313,270 @@ function level_up() {
     }
     if (oldXP <= 400) {
         if (newXP > 400) {
+            randomBattleSound.pause();
+            setTimeout(() => {
+                levelUpSound.play() 
+            }, 10);
             const newLevel = currentLevel++;
+            const levelDevideBy5 = currentLevel % 5;
+            const evolveLevel = currentLevel % 11;
+            let newAttackMessage = '';
+            let newAttackName = '';
+            //#####################################################################
+            // ? Wenn Level 5 Modulus = 0, soll neue Attacke gelernt werden
+            //#####################################################################
+            if (levelDevideBy5 === 0) {
+                const pokemonId =
+                    save_Object.myPokemonTeam[myCurrentPokemonIndex].id;
+                let newAttackIndex = -1;
+                let moveArr = '';
+                try {
+                    newAttackIndex =
+                        save_Object.myCatchedPokemons[pokemonIndex].moves
+                            .length;
+                    moveArr =
+                        save_Object.myCatchedPokemons[pokemonIndex].allMoves;
+                    newAttackName = moveArr[newAttackIndex];
+                    newAttackMessage = `${makeFirstLetterBig(
+                        myStaticPokemon.name,
+                    )} lernt ${newAttackName}`;
+                    save_Object.myCatchedPokemons[pokemonIndex].moves.push(
+                        newAttackName,
+                    );
+                } catch (error) {
+                    console.warn('New Move Error', error);
+                }
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].level =
+                    currentLevel;
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp += 1;
+                save_Object.myPokemonTeam[
+                    myCurrentPokemonIndex
+                ].statAttack += 1;
+                save_Object.myPokemonTeam[
+                    myCurrentPokemonIndex
+                ].statDefense += 1;
+                save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
+                save_Object.myCatchedPokemons[pokemonIndex].level =
+                    currentLevel;
+                save_Object.myCatchedPokemons[pokemonIndex].maxHp += 1;
+                save_Object.myCatchedPokemons[pokemonIndex].hp += 1;
+                save_Object.myCatchedPokemons[pokemonIndex].statAttack += 1;
+                save_Object.myCatchedPokemons[pokemonIndex].statDefense += 1;
+                myPokemonXPProgress.value = myStaticPokemon.xp;
+                save_SaveObj();
+                showInfoBox(`${makeFirstLetterBig(
+                    myStaticPokemon.name,
+                )} erreicht Level ${currentLevel} <br>
+                    Gesundheit: + 1 <br>
+                    Angriff: + 1 <br>
+                    Verteidigung: + 1 <br>
+                    ${newAttackMessage}`);
+                    victorySound.pause()
+                    levelUpSound.play()
+                setTimeout(() => {
+                    myPokeName.innerHTML = `${makeFirstLetterBig(
+                        myStaticPokemon.name,
+                    )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
+                }, 1000);
+                //#####################################################################
+                // ? Leveln inklusive Evolution !!!
+                //#####################################################################
+            }else if(evolveLevel === 0) {
+                const oldID = myStaticPokemon.id;
+                let evolveToId = 0;
+                let evolvedName = '';
+                let evolve_spriteFront = '';
+                let evolve_spriteBack = '';
+
+                fetch(`https://pokeapi.co/api/v2/pokemon-species/${myStaticPokemon.name}/`)
+                .then((res) => res.json())
+                .then((data) => {
+                    fetch(data.evolution_chain.url)
+                        .then((res) => res.json())
+                        .then((data2) => {
+                            const fetchNewPokemonUrl =
+                                data2.chain.evolves_to[0].species.url;
+                            fetch(fetchNewPokemonUrl)
+                                .then((res) => res.json())
+                                .then((data3) => {
+                                     evolveToId = data3.id;
+                                     evolvedName = data3.name;
+                                    fetch(`https://pokeapi.co/api/v2/pokemon/${evolveToId}/`)
+                                        .then((res) => res.json())
+                                        .then((data4) => {
+                                         evolve_spriteFront = data4.sprites.front_default;
+                                         evolve_spriteBack = data4.sprites.back_default;
+                                        if(oldID !== evolveToId) {
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].spriteBack = evolve_spriteBack
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].spriteFront = evolve_spriteFront
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].id = evolveToId
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].name = evolvedName
+                                            save_Object.myCatchedPokemons[pokemonIndex].spriteBack = evolve_spriteBack
+                                            save_Object.myCatchedPokemons[pokemonIndex].spriteFront = evolve_spriteFront
+                                            save_Object.myCatchedPokemons[pokemonIndex].id = evolveToId
+                                            save_Object.myCatchedPokemons[pokemonIndex].name = evolvedName
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp += 1;
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack += 1;
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense += 1;
+                                            save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
+                                            save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
+                                            save_Object.myCatchedPokemons[pokemonIndex].maxHp += 1;
+                                            save_Object.myCatchedPokemons[pokemonIndex].hp += 1;
+                                            save_Object.myCatchedPokemons[pokemonIndex].statAttack += 1;
+                                            save_Object.myCatchedPokemons[pokemonIndex].statDefense += 1;
+                                            myPokemonXPProgress.value = myStaticPokemon.xp;
+                                            save_SaveObj();
+                                            alert(`Wow, ${makeFirstLetterBig(myStaticPokemon.name )} entwickelt sich zu ${evolvedName}`)
+                                            showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name )} erreicht Level ${currentLevel} <br>
+                                            Gesundheit: + 1 <br>
+                                            Angriff: + 1 <br>
+                                            Verteidigung: + 1`);
+                                            victorySound.pause()
+                                            levelUpSound.play()
+                                            setTimeout(() => {
+                                                myPokeName.innerHTML = `${makeFirstLetterBig(
+                                                    myStaticPokemon.name,
+                                                )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
+                                            }, 1000);
+
+                                        }else {
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp += 1;
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack += 1;
+                                            save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense += 1;
+                                            save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
+                                            save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
+                                            save_Object.myCatchedPokemons[pokemonIndex].maxHp += 1;
+                                            save_Object.myCatchedPokemons[pokemonIndex].hp += 1;
+                                            save_Object.myCatchedPokemons[pokemonIndex].statAttack += 1;
+                                            save_Object.myCatchedPokemons[pokemonIndex].statDefense += 1;
+                                            myPokemonXPProgress.value = myStaticPokemon.xp;
+                                            save_SaveObj();
+                                            showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name )} erreicht Level ${currentLevel} <br>
+                                            Gesundheit: + 1 <br>
+                                            Angriff: + 1 <br>
+                                            Verteidigung: + 1`);
+                                            victorySound.pause()
+                                            levelUpSound.play()
+                                            setTimeout(() => {
+                                                myPokeName.innerHTML = `${makeFirstLetterBig(
+                                                    myStaticPokemon.name,
+                                                )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
+                                            }, 1000);
+                                        }
+                                    });
+                                });
+                        });
+                })
+                .catch((error) => {
+                    console.warn(error);
+                    save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
+                    save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
+                    save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
+                    save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp += 1;
+                    save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack += 1;
+                    save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense += 1;
+                    save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
+                    save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
+                    save_Object.myCatchedPokemons[pokemonIndex].maxHp += 1;
+                    save_Object.myCatchedPokemons[pokemonIndex].hp += 1;
+                    save_Object.myCatchedPokemons[pokemonIndex].statAttack += 1;
+                    save_Object.myCatchedPokemons[pokemonIndex].statDefense += 1;
+                    myPokemonXPProgress.value = myStaticPokemon.xp;
+                    save_SaveObj();
+                    showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name )} erreicht Level ${currentLevel} <br>
+                    Gesundheit: + 1 <br>
+                    Angriff: + 1 <br>
+                    Verteidigung: + 1`);
+                    victorySound.pause()
+                    levelUpSound.play()
+                    setTimeout(() => {
+                        myPokeName.innerHTML = `${makeFirstLetterBig(
+                            myStaticPokemon.name,
+                        )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
+                    }, 1000);
+                });
+
+
+                //#####################################################################
+                // ? Normales Leveln ohne neue Attacke zu erlernen
+                //#####################################################################
+            } else {
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp += 1;
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack += 1;
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense += 1;
+                save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
+                save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
+                save_Object.myCatchedPokemons[pokemonIndex].maxHp += 1;
+                save_Object.myCatchedPokemons[pokemonIndex].hp += 1;
+                save_Object.myCatchedPokemons[pokemonIndex].statAttack += 1;
+                save_Object.myCatchedPokemons[pokemonIndex].statDefense += 1;
+                myPokemonXPProgress.value = myStaticPokemon.xp;
+                save_SaveObj();
+                showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name )} erreicht Level ${currentLevel} <br>
+                Gesundheit: + 1 <br>
+                Angriff: + 1 <br>
+                Verteidigung: + 1`);
+                setTimeout(() => {
+                    myPokeName.innerHTML = `${makeFirstLetterBig(
+                        myStaticPokemon.name,
+                    )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
+                }, 1000);
+            }
+        } else {
+            save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = newXP;
+            save_Object.myCatchedPokemons[pokemonIndex].xp = newXP;
+            myPokemonXPProgress.value = myStaticPokemon.xp;
+            save_SaveObj();
+            showInfoBox(
+                `${makeFirstLetterBig(
+                    myStaticPokemon.name,
+                )} erhält ${calcXP} XP`,
+            );
+        }
+    } else if (oldXP > 400) {
+        randomBattleSound.pause();
+        setTimeout(() => {
+            levelUpSound.play() 
+        }, 10);
+        // const newLevel = currentLevel++;
+        // save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
+        // save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
+        // save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
+        // save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp += 1;
+        // save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack += 1;
+        // save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense += 1;
+        // save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
+        // save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
+        // save_Object.myCatchedPokemons[pokemonIndex].hp += 1;
+        // save_Object.myCatchedPokemons[pokemonIndex].maxHp += 1;
+        // save_Object.myCatchedPokemons[pokemonIndex].statAttack += 1;
+        // save_Object.myCatchedPokemons[pokemonIndex].statDefense += 1;
+        // myPokemonXPProgress.value = myStaticPokemon.xp;
+        // save_SaveObj();
+        // showInfoBox(`${makeFirstLetterBig(
+        //     myStaticPokemon.name,
+        // )} erreicht Level ${currentLevel} <br>
+        // Gesundheit: + 1 <br>
+        // Angriff: + 1 <br>
+        // Verteidigung: + 1`);
+        // setTimeout(() => {
+        //     myPokeName.innerHTML = `${makeFirstLetterBig(
+        //         myStaticPokemon.name,
+        //     )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
+        // }, 1000);
+
+        const newLevel = currentLevel++;
             const levelDevideBy5 = currentLevel % 5;
             const evolveLevel = currentLevel % 11;
             let newAttackMessage = '';
@@ -1502,44 +1767,6 @@ function level_up() {
                     )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
                 }, 1000);
             }
-        } else {
-            save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = newXP;
-            save_Object.myCatchedPokemons[pokemonIndex].xp = newXP;
-            myPokemonXPProgress.value = myStaticPokemon.xp;
-            save_SaveObj();
-            showInfoBox(
-                `${makeFirstLetterBig(
-                    myStaticPokemon.name,
-                )} erhält ${calcXP} XP`,
-            );
-        }
-    } else if (oldXP > 400) {
-        const newLevel = currentLevel++;
-        save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
-        save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
-        save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
-        save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp += 1;
-        save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack += 1;
-        save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense += 1;
-        save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
-        save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
-        save_Object.myCatchedPokemons[pokemonIndex].hp += 1;
-        save_Object.myCatchedPokemons[pokemonIndex].maxHp += 1;
-        save_Object.myCatchedPokemons[pokemonIndex].statAttack += 1;
-        save_Object.myCatchedPokemons[pokemonIndex].statDefense += 1;
-        myPokemonXPProgress.value = myStaticPokemon.xp;
-        save_SaveObj();
-        showInfoBox(`${makeFirstLetterBig(
-            myStaticPokemon.name,
-        )} erreicht Level ${currentLevel} <br>
-        Gesundheit: + 1 <br>
-        Angriff: + 1 <br>
-        Verteidigung: + 1`);
-        setTimeout(() => {
-            myPokeName.innerHTML = `${makeFirstLetterBig(
-                myStaticPokemon.name,
-            )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
-        }, 1000);
     }
 }
 
