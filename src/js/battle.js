@@ -23,8 +23,19 @@ let currentWildPokeHP;
 let myCurrentPokemonHP;
 let myCurrentPokemonStaticHP;
 let iamExecuting = false;
-const battleSound2 = new Audio('assets/sound/battle2.mp3');
+const battleSound1 = new Audio('assets/sound/Battle1.mp3');
+const battleSound2 = new Audio('assets/sound/Battle2.mp3');
+const battleSound3 = new Audio('assets/sound/Battle3.mp3');
+const battleSound4 = new Audio('assets/sound/Battle4.mp3');
+const battleSound5 = new Audio('assets/sound/Battle5.mp3');
+const battleSound6 = new Audio('assets/sound/Battle6.mp3');
+const battleSound7 = new Audio('assets/sound/Battle7.mp3');
+const battleSound8 = new Audio('assets/sound/Battle8.mp3');
+const battleSound9 = new Audio('assets/sound/Battle9.mp3');
+const battleSound10 = new Audio('assets/sound/Battle10.mp3');
 const victorySound = new Audio('assets/sound/victory.mp3');
+const levelUpSound = new Audio('assets/sound/levelup.mp3');
+let randomBattleSound = new Audio('assets/sound/Battle1.mp3');
 let musikIsPlaying = true; // Wenn auf false, wird sie nach erster Aktion abgespielt
 let myPokeballAmount = 35;
 let todayPokemons = []; // 20 Pokemon werden random mäßig erstellt
@@ -106,11 +117,22 @@ let save_Object = {
         bonbon: 3,
     },
     gen: 'all',
+    sound: true
 };
+
+function create_RandomBattleSound () {
+    const randomNumber = parseInt(Math.random() * 10 + 1) 
+    randomBattleSound = new Audio(`assets/sound/Battle${randomNumber}.mp3`);
+}
+create_RandomBattleSound()
+
 
 if (mainButton1) {
     mainButton1.addEventListener('click', () => {
         pokeFight();
+        // if(save_Object.sound === true) {
+            randomBattleSound.play()
+        // }
     });
 }
 
@@ -148,6 +170,9 @@ if (throwPokeball) {
     throwPokeball.addEventListener('click', () => {
         if (myCurrentPokemonHP > 0) {
             catchPokemon();
+            // if(save_Object.sound === true) {
+                battleSound2.play()
+            // }
         }
     });
 }
@@ -901,7 +926,7 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
             }, 400);
             if (whoIsAffected !== 'myPokemon') {
                 battleSound2.pause();
-                // victorySound.play();
+                victorySound.play();
             }
         } else {
             if (variableMoveName === false) {
@@ -1342,6 +1367,8 @@ function level_up() {
                     Angriff: + 1 <br>
                     Verteidigung: + 1 <br>
                     ${newAttackMessage}`);
+                    victorySound.pause()
+                    levelUpSound.play()
                 setTimeout(() => {
                     myPokeName.innerHTML = `${makeFirstLetterBig(
                         myStaticPokemon.name,
@@ -1403,6 +1430,8 @@ function level_up() {
                                             Gesundheit: + 1 <br>
                                             Angriff: + 1 <br>
                                             Verteidigung: + 1`);
+                                            victorySound.pause()
+                                            levelUpSound.play()
                                             setTimeout(() => {
                                                 myPokeName.innerHTML = `${makeFirstLetterBig(
                                                     myStaticPokemon.name,
@@ -1428,6 +1457,8 @@ function level_up() {
                                             Gesundheit: + 1 <br>
                                             Angriff: + 1 <br>
                                             Verteidigung: + 1`);
+                                            victorySound.pause()
+                                            levelUpSound.play()
                                             setTimeout(() => {
                                                 myPokeName.innerHTML = `${makeFirstLetterBig(
                                                     myStaticPokemon.name,
