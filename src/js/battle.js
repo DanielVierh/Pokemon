@@ -1239,13 +1239,13 @@ function chooseNewPokemon(choosenPokemon) {
     myStaticPokemon.xp = choosenPokemon.xp;
     myStaticPokemon.hp = choosenPokemon.hp;
     myStaticPokemon.unique_ID = choosenPokemon.unique_ID;
-    myPokeImage.style.opacity = '1';
     myPokeImage.src = choosenPokemon.spriteBack;
     myCurrentPokemonHP = choosenPokemon.hp;
     myCurrentPokemonStaticHP = choosenPokemon.maxHp;
     myPokemonXPProgress.style.width = '10%';
     myPokemonXPProgress.value = myStaticPokemon.xp;
     myPokemonProgress.style.width = '30%';
+    myPokeImage.style.opacity = '1';
     const hpInPercent = parseInt(
         (myCurrentPokemonHP * 100) / myCurrentPokemonStaticHP,
     );
