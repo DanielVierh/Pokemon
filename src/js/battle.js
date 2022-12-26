@@ -23,20 +23,6 @@ let currentWildPokeHP;
 let myCurrentPokemonHP;
 let myCurrentPokemonStaticHP;
 let iamExecuting = false;
-const battleSound1 = new Audio('assets/sound/Battle1.mp3');
-const battleSound2 = new Audio('assets/sound/Battle2.mp3');
-const battleSound3 = new Audio('assets/sound/Battle3.mp3');
-const battleSound4 = new Audio('assets/sound/Battle4.mp3');
-const battleSound5 = new Audio('assets/sound/Battle5.mp3');
-const battleSound6 = new Audio('assets/sound/Battle6.mp3');
-const battleSound7 = new Audio('assets/sound/Battle7.mp3');
-const battleSound8 = new Audio('assets/sound/Battle8.mp3');
-const battleSound9 = new Audio('assets/sound/Battle9.mp3');
-const battleSound10 = new Audio('assets/sound/Battle10.mp3');
-const victorySound = new Audio('assets/sound/victory.mp3');
-const levelUpSound = new Audio('assets/sound/levelup.mp3');
-let randomBattleSound = new Audio('assets/sound/Battle1.mp3');
-let musikIsPlaying = true; // Wenn auf false, wird sie nach erster Aktion abgespielt
 let myPokeballAmount = 35;
 let todayPokemons = []; // 20 Pokemon werden random mäßig erstellt
 const maxPokemon = 898;
@@ -120,19 +106,11 @@ let save_Object = {
     sound: true
 };
 
-function create_RandomBattleSound () {
-    const randomNumber = parseInt(Math.random() * 10 + 1) 
-    randomBattleSound = new Audio(`assets/sound/Battle${randomNumber}.mp3`);
-}
-create_RandomBattleSound()
 
 
 if (mainButton1) {
     mainButton1.addEventListener('click', () => {
         pokeFight();
-        // if(save_Object.sound === true) {
-            randomBattleSound.play()
-        // }
     });
 }
 
@@ -170,9 +148,6 @@ if (throwPokeball) {
     throwPokeball.addEventListener('click', () => {
         if (myCurrentPokemonHP > 0) {
             catchPokemon();
-            // if(save_Object.sound === true) {
-                battleSound2.play()
-            // }
         }
     });
 }
@@ -924,12 +899,6 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                     save_SaveObj();
                 }
             }, 400);
-            if (whoIsAffected !== 'myPokemon') {
-                randomBattleSound.pause();
-                setTimeout(() => {
-                    victorySound.play(); 
-                }, 10);
-            }
         } else {
             if (variableMoveName === false) {
                 showInfoBox(
@@ -1313,10 +1282,6 @@ function level_up() {
     }
     if (oldXP <= 400) {
         if (newXP > 400) {
-            randomBattleSound.pause();
-            setTimeout(() => {
-                levelUpSound.play() 
-            }, 10);
             const newLevel = currentLevel++;
             const levelDevideBy5 = currentLevel % 5;
             const evolveLevel = currentLevel % 11;
@@ -1373,8 +1338,6 @@ function level_up() {
                     Angriff: + 1 <br>
                     Verteidigung: + 1 <br>
                     ${newAttackMessage}`);
-                    victorySound.pause()
-                    levelUpSound.play()
                 setTimeout(() => {
                     myPokeName.innerHTML = `${makeFirstLetterBig(
                         myStaticPokemon.name,
@@ -1436,8 +1399,6 @@ function level_up() {
                                             Gesundheit: + 1 <br>
                                             Angriff: + 1 <br>
                                             Verteidigung: + 1`);
-                                            victorySound.pause()
-                                            levelUpSound.play()
                                             setTimeout(() => {
                                                 myPokeName.innerHTML = `${makeFirstLetterBig(
                                                     myStaticPokemon.name,
@@ -1463,8 +1424,6 @@ function level_up() {
                                             Gesundheit: + 1 <br>
                                             Angriff: + 1 <br>
                                             Verteidigung: + 1`);
-                                            victorySound.pause()
-                                            levelUpSound.play()
                                             setTimeout(() => {
                                                 myPokeName.innerHTML = `${makeFirstLetterBig(
                                                     myStaticPokemon.name,
@@ -1495,8 +1454,6 @@ function level_up() {
                     Gesundheit: + 1 <br>
                     Angriff: + 1 <br>
                     Verteidigung: + 1`);
-                    victorySound.pause()
-                    levelUpSound.play()
                     setTimeout(() => {
                         myPokeName.innerHTML = `${makeFirstLetterBig(
                             myStaticPokemon.name,
@@ -1545,37 +1502,6 @@ function level_up() {
             );
         }
     } else if (oldXP > 400) {
-        randomBattleSound.pause();
-        setTimeout(() => {
-            levelUpSound.play() 
-        }, 10);
-        // const newLevel = currentLevel++;
-        // save_Object.myPokemonTeam[myCurrentPokemonIndex].level = currentLevel;
-        // save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = 0;
-        // save_Object.myPokemonTeam[myCurrentPokemonIndex].hp += 1;
-        // save_Object.myPokemonTeam[myCurrentPokemonIndex].maxHp += 1;
-        // save_Object.myPokemonTeam[myCurrentPokemonIndex].statAttack += 1;
-        // save_Object.myPokemonTeam[myCurrentPokemonIndex].statDefense += 1;
-        // save_Object.myCatchedPokemons[pokemonIndex].xp = 0;
-        // save_Object.myCatchedPokemons[pokemonIndex].level = currentLevel;
-        // save_Object.myCatchedPokemons[pokemonIndex].hp += 1;
-        // save_Object.myCatchedPokemons[pokemonIndex].maxHp += 1;
-        // save_Object.myCatchedPokemons[pokemonIndex].statAttack += 1;
-        // save_Object.myCatchedPokemons[pokemonIndex].statDefense += 1;
-        // myPokemonXPProgress.value = myStaticPokemon.xp;
-        // save_SaveObj();
-        // showInfoBox(`${makeFirstLetterBig(
-        //     myStaticPokemon.name,
-        // )} erreicht Level ${currentLevel} <br>
-        // Gesundheit: + 1 <br>
-        // Angriff: + 1 <br>
-        // Verteidigung: + 1`);
-        // setTimeout(() => {
-        //     myPokeName.innerHTML = `${makeFirstLetterBig(
-        //         myStaticPokemon.name,
-        //     )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
-        // }, 1000);
-
         const newLevel = currentLevel++;
             const levelDevideBy5 = currentLevel % 5;
             const evolveLevel = currentLevel % 11;
@@ -1632,8 +1558,6 @@ function level_up() {
                     Angriff: + 1 <br>
                     Verteidigung: + 1 <br>
                     ${newAttackMessage}`);
-                    victorySound.pause()
-                    levelUpSound.play()
                 setTimeout(() => {
                     myPokeName.innerHTML = `${makeFirstLetterBig(
                         myStaticPokemon.name,
@@ -1695,8 +1619,6 @@ function level_up() {
                                             Gesundheit: + 1 <br>
                                             Angriff: + 1 <br>
                                             Verteidigung: + 1`);
-                                            victorySound.pause()
-                                            levelUpSound.play()
                                             setTimeout(() => {
                                                 myPokeName.innerHTML = `${makeFirstLetterBig(
                                                     myStaticPokemon.name,
@@ -1722,8 +1644,6 @@ function level_up() {
                                             Gesundheit: + 1 <br>
                                             Angriff: + 1 <br>
                                             Verteidigung: + 1`);
-                                            victorySound.pause()
-                                            levelUpSound.play()
                                             setTimeout(() => {
                                                 myPokeName.innerHTML = `${makeFirstLetterBig(
                                                     myStaticPokemon.name,

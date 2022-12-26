@@ -369,11 +369,11 @@ function learn_forget_Attack(forgotIndex) {
     myCatchedPokemons[currentDetailPokemonIndex].moves.push(toForgetMoveName)
 
     if(teamPokemonIndex !== -1) {
-        const toForgetMoveName = myCatchedPokemons[teamPokemonIndex].moves[forgotIndex]
-        const toLearnMoveName = myCatchedPokemons[teamPokemonIndex].moves[newLearnedMoveIndex]
-        myCatchedPokemons[teamPokemonIndex].moves.splice(forgotIndex, 1, toLearnMoveName)
-        myCatchedPokemons[teamPokemonIndex].moves.splice(newLearnedMoveIndex, 1)
-        myCatchedPokemons[teamPokemonIndex].moves.push(toForgetMoveName)
+        const toForgetMoveName = myTeam[teamPokemonIndex].moves[forgotIndex]
+        const toLearnMoveName = myTeam[teamPokemonIndex].moves[newLearnedMoveIndex]
+        myTeam[teamPokemonIndex].moves.splice(forgotIndex, 1, toLearnMoveName)
+        myTeam[teamPokemonIndex].moves.splice(newLearnedMoveIndex, 1)
+        myTeam[teamPokemonIndex].moves.push(toForgetMoveName)
     }
 
     is_LearningNewMove = false;
