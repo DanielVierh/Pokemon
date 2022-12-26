@@ -72,6 +72,10 @@
             // padding: 10px;
             border-radius: 10px;
 
+            &.isMember {
+                background-color: rgb(17, 50, 12);
+            }
+
             p{
                 font-size: .8em;
             }

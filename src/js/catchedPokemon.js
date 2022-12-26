@@ -1,6 +1,6 @@
 let myCatchedPokemons = [];
 let myTeam = [];
-
+let pokemonByID = []
 let currentDetailPokemonIndex = -1;
 let newLearnedMoveIndex = -1;
 let is_LearningNewMove = false;
@@ -69,6 +69,11 @@ function load_SaveObj() {
         myCatchedPokemons = save_Object.myCatchedPokemons;
         document.getElementById("outpCatchedAmount").innerHTML = `${myCatchedPokemons.length} gefangen`
 
+        pokemonByID = myCatchedPokemons.slice(0);
+        pokemonByID.sort(function(a,b) {
+            return a.id - b.id;
+        });
+
         try {
             renderCatchedPokemons();
             renderTeam();
@@ -87,42 +92,50 @@ function save_SaveObj() {
 
 
 function renderCatchedPokemons() {
-    for (let i = 0; i < myCatchedPokemons.length; i++) {
+    for (let i = 0; i < pokemonByID.length; i++) {
         let pokeCont = document.createElement('div');
         pokeCont.classList.add("pokemonContaier")
 
         let addBtn = document.createElement("div");
         addBtn.innerHTML = "+"
         addBtn.classList.add("addButton")
-        addBtn.id = myCatchedPokemons[i].unique_ID
+        addBtn.id = pokemonByID[i].unique_ID
+
+        for(let j = 0; j < myTeam.length; j++) {
+            if(pokemonByID[i].unique_ID === myTeam[j].unique_ID) {
+                pokeCont.classList.add('isMember')
+                break
+            }
+        }
+
 
         let detailBtn = document.createElement("div");
         detailBtn.innerHTML = "i "
         detailBtn.classList.add("detailBtn")
-        detailBtn.id = myCatchedPokemons[i].unique_ID
+        detailBtn.id = pokemonByID[i].unique_ID
 
         let sellBtn = document.createElement("div");
         sellBtn.innerHTML = "$"
         sellBtn.classList.add("sellBtn")
-        sellBtn.id = myCatchedPokemons[i].unique_ID
+        sellBtn.id = pokemonByID[i].unique_ID
 
         let pokeimage = document.createElement("img");
-        pokeimage.src = myCatchedPokemons[i].spriteFront;
+        pokeimage.src = pokemonByID[i].spriteFront;
 
         let pokename = document.createElement("p");
-        pokename.innerHTML = makeFirstLetterBig(myCatchedPokemons[i].name) + ` | Lv.${myCatchedPokemons[i].level}`;
+        pokename.innerHTML = makeFirstLetterBig(pokemonByID[i].name) + ` | Lv.${pokemonByID[i].level}`;
 
         let infocont = document.createElement("div");
         infocont.classList.add("infobox");
 
         let level = document.createElement("p");
-        level.innerHTML = `Lv.${myCatchedPokemons[i].level}`;
+        level.innerHTML = `Lv.${pokemonByID[i].level}`;
 
         let type = document.createElement("p");
-        type.innerHTML = `Typ: ${makeFirstLetterBig(myCatchedPokemons[i].type)}`;
+        type.innerHTML = `Typ: ${makeFirstLetterBig(pokemonByID[i].type)}`;
 
         let number = document.createElement("p");
-        number.innerHTML = `Nr. ${myCatchedPokemons[i].id}`;
+        number.innerHTML = `Nr. ${pokemonByID[i].id}`;
 
         infocont.appendChild(level)
         infocont.appendChild(type)
