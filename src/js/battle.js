@@ -458,8 +458,8 @@ function generate_today_Pokemons() {
             console.warn('Gen Error: ', error);
         }
 
-        for (let i = 1; i < 30; i++) {
-            const randomPokemon = Math.floor(Math.random() * (max - min)) + min;
+        for (let i = 1; i <= 30; i++) {
+            const randomPokemon = Math.floor(Math.random() * max) + min;
             todayPokemons.push(randomPokemon);
         }
         save_Object.today_Pokemons = todayPokemons;
@@ -468,6 +468,7 @@ function generate_today_Pokemons() {
         createWildPokemon();
     }
 }
+
 
 function today_equal_savedDay() {
     const checkDay = save_Object.today_Date;
