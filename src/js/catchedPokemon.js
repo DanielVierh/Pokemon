@@ -293,7 +293,11 @@ if (detailBtn) {
                     document.getElementById("det_catchDate").innerHTML = `Gefangen am: <br> ${myCatchedPokemons[pokemonIndex].catchval.catchDate}`
                     document.getElementById("det_catchName").innerHTML = `Name: <br> ${makeFirstLetterBig(myCatchedPokemons[pokemonIndex].catchval.catchName)}`
                     document.getElementById("det_catchLv").innerHTML = `Level: <br> ${myCatchedPokemons[pokemonIndex].catchval.catchLevel}`
-                } catch (error) { }
+                } catch (error) {
+                    document.getElementById("det_catchDate").innerHTML = `Gefangen am: <br> -`
+                    document.getElementById("det_catchName").innerHTML = `Name: <br> -`
+                    document.getElementById("det_catchLv").innerHTML = `Level: <br> -`
+                 }
                 
             // moveList
             const moveList = document.getElementById("moveList");
