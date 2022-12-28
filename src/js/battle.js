@@ -1011,10 +1011,8 @@ function catchPokemon() {
             pokeball.classList.remove('active');
             const fullHP = currentWildPokemon.hp;
             const hpInPercent = parseInt((currentWildPokeHP * 100) / fullHP);
-            const catchquote =
-                25 +
-                parseInt((Math.random() * hpInPercent) / 2) -
-                parseInt(Math.random() * (hpInPercent + 5));
+            const catchquote = 25 + parseInt((Math.random() * hpInPercent) / 2) -
+                               parseInt(Math.random() * (hpInPercent + 5));
 
             if (catchquote >= 25) {
                 // Unsichtbar machen
@@ -1025,9 +1023,15 @@ function catchPokemon() {
                         currentWildPokemon.name,
                     )} wurde gefangen`,
                 );
-                save_Object.myPokemonTeam[myCurrentPokemonIndex].hp =
-                    myCurrentPokemonHP;
+                save_Object.myPokemonTeam[myCurrentPokemonIndex].hp = myCurrentPokemonHP;
                 level_up();
+
+                currentWildPokemon.catchval = {
+                    catchLevel: currentWildPokemon.level,
+                    catchDate: save_Object.today_Date,
+                    catchName: currentWildPokemon.name
+                }
+
                 save_Object.myCatchedPokemons.push(currentWildPokemon);
                 save_SaveObj();
                 setTimeout(() => {

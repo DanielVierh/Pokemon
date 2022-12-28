@@ -289,6 +289,12 @@ if (detailBtn) {
                 document.getElementById("det_HP").innerHTML = `Max KP: ${myCatchedPokemons[pokemonIndex].maxHp}`
                 document.getElementById("det_Type").innerHTML = `Typ: ${myCatchedPokemons[pokemonIndex].type}`
                 document.getElementById("det_Nr").innerHTML = `Nr: ${myCatchedPokemons[pokemonIndex].id}`
+                try {
+                    document.getElementById("det_catchDate").innerHTML = `Gefangen am: <br> ${myCatchedPokemons[pokemonIndex].catchval.catchDate}`
+                    document.getElementById("det_catchName").innerHTML = `Name: <br> ${makeFirstLetterBig(myCatchedPokemons[pokemonIndex].catchval.catchName)}`
+                    document.getElementById("det_catchLv").innerHTML = `Level: <br> ${myCatchedPokemons[pokemonIndex].catchval.catchLevel}`
+                } catch (error) { }
+                
             // moveList
             const moveList = document.getElementById("moveList");
             moveList.innerHTML = ''
