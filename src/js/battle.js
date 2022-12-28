@@ -385,6 +385,12 @@ function createMyStarterPokemon() {
         90,
         'rabdomVal123',
     );
+
+    myStaticPokemon.catchval = {
+        catchLevel: 4,
+        catchDate: createDateFromToday(),
+        catchName: 'Arcanine'
+    },
     save_Object.myPokemonTeam.push(myStaticPokemon);
     save_Object.myCatchedPokemons.push(myStaticPokemon);
     save_SaveObj();
