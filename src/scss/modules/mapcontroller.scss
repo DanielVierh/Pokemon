@@ -1,0 +1,23 @@
+.joystick {
+    background-color: rgb(4, 38, 41);
+    position: fixed;
+    bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 300px;
+
+    .leftrightdiv {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .joystickButton {
+        margin: 10px;
+        background-color: black;
+        padding: 10px;
+        color: white;
+        border-radius: 8px;
+    }
+}

@@ -968,3 +968,25 @@ h1 {
   box-shadow: inset 0 0 10px white;
   font-size: 0.8em;
 }
+
+.joystick {
+  background-color: rgb(4, 38, 41);
+  position: fixed;
+  bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 300px;
+}
+.joystick .leftrightdiv {
+  display: flex;
+  justify-content: space-around;
+}
+.joystick .joystickButton {
+  margin: 10px;
+  background-color: black;
+  padding: 10px;
+  color: white;
+  border-radius: 8px;
+}
