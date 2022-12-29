@@ -1,5 +1,6 @@
 import "../serviceWorker.js"
 import "./js/store.js"
+import "./js/game-map1.js"
 import "./js/pokedex.js"
 import "./js/catchedPokemon.js"
 import "./js/script.js"
