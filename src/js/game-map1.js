@@ -154,7 +154,7 @@ if (canvas) {
         }
 
         draw() {
-            ctx.fillStyle = 'rgba(255,0,0,0.4)';
+            ctx.fillStyle = 'rgba(255,0,0,0.0)';
             ctx.fillRect(
                 this.position.x,
                 this.position.y,
@@ -166,7 +166,7 @@ if (canvas) {
 
     const boundaries = [];
     const offset = {
-        x: 10,
+        x: 0,
         y: -400,
     };
     collisionMap.forEach((row, i) => {
@@ -192,27 +192,36 @@ if (canvas) {
     const image = new Image();
     image.src = './assets/main-map.png';
 
-    const playerImage = new Image();
-    playerImage.src = './assets/playerDown.png';
+    const playerDownImage = new Image();
+    playerDownImage.src = './assets/playerDown.png';
+
+    const playerUpImage = new Image();
+    playerUpImage.src = './assets/playerUp.png';
+
+    const playerLeftImage = new Image();
+    playerLeftImage.src = './assets/playerLeft.png';
+
+    const playerRightImage = new Image();
+    playerRightImage.src = './assets/playerRight.png';
 
     class Sprite {
-        constructor({position, velocity, image, frames = {max: 1}}) {
+        constructor({position, velocity, image, frames = {max: 1}, sprites = []}) {
             this.position = position;
             this.image = image;
-            this.frames = frames;
+            this.frames = {...frames, val: 0, elapsed: 0};
 
             this.image.onload = () => {
                 this.width = this.image.width / this.frames.max;
                 this.height = this.image.height;
-                console.log(this.width);
-                console.log(this.height);
             };
+            this.moving = false;
+            this.sprites = sprites
         }
 
         draw() {
             ctx.drawImage(
                 this.image,
-                0,
+                this.frames.val * this.width,
                 0,
                 this.image.width / this.frames.max,
                 this.image.height,
@@ -221,6 +230,18 @@ if (canvas) {
                 this.image.width / this.frames.max,
                 this.image.height,
             );
+            if (this.moving === true) {
+                if (this.frames.max > 1) {
+                    this.frames.elapsed++;
+                }
+                if (this.frames.elapsed % 10 === 0) {
+                    if (this.frames.val < this.frames.max - 1) {
+                        this.frames.val++;
+                    } else {
+                        this.frames.val = 0;
+                    }
+                }
+            }
         }
     }
 
@@ -229,10 +250,16 @@ if (canvas) {
             x: canvas.width / 2 - 183 / 3,
             y: canvas.height / 2 - 62 / 2,
         },
-        image: playerImage,
+        image: playerDownImage,
         frames: {
             max: 3,
         },
+        sprites: {
+            up: playerUpImage,
+            left: playerLeftImage,
+            down: playerDownImage,
+            right: playerRightImage
+        }
     });
 
     const background = new Sprite({
@@ -282,42 +309,109 @@ if (canvas) {
         boundaries.forEach((boundary) => {
             boundary.draw();
             // Collision Detection
-
         });
         let moving = true;
+        player.moving = false
         if (keys.w.pressed && lastKey === 'w') {
-            for(let i = 0; i < boundaries.length; i++) {
-                const boundary = boundaries[i]
+            player.moving = true
+            player.image = player.sprites.up
+            for (let i = 0; i < boundaries.length; i++) {
+                const boundary = boundaries[i];
                 if (
                     rectangularCollision({
                         rectangle1: player,
-                        rectangle2: {...boundary, position: {
-                            x: boundary.position.x,
-                            y: boundary.position.y + 3
-                        }},
+                        rectangle2: {
+                            ...boundary,
+                            position: {
+                                x: boundary.position.x,
+                                y: boundary.position.y + 3,
+                            },
+                        },
                     })
                 ) {
-                    console.log('Colliding');
-                    moving = false
-                    break
+                    moving = false;
+                    break;
                 }
             }
-            if(moving)
-            movables.forEach((movable) => {
-                movable.position.y += 3;
-            });
+            if (moving)
+                movables.forEach((movable) => {
+                    movable.position.y += 3;
+                });
         } else if (keys.a.pressed && lastKey === 'a') {
-            movables.forEach((movable) => {
-                movable.position.x += 3;
-            });
+            player.moving = true
+            player.image = player.sprites.left
+            for (let i = 0; i < boundaries.length; i++) {
+                const boundary = boundaries[i];
+                if (
+                    rectangularCollision({
+                        rectangle1: player,
+                        rectangle2: {
+                            ...boundary,
+                            position: {
+                                x: boundary.position.x + 3,
+                                y: boundary.position.y,
+                            },
+                        },
+                    })
+                ) {
+                    moving = false;
+                    break;
+                }
+            }
+            if (moving)
+                movables.forEach((movable) => {
+                    movable.position.x += 3;
+                });
         } else if (keys.s.pressed && lastKey === 's') {
-            movables.forEach((movable) => {
-                movable.position.y -= 3;
-            });
+            player.moving = true
+            player.image = player.sprites.down
+            for (let i = 0; i < boundaries.length; i++) {
+                const boundary = boundaries[i];
+                if (
+                    rectangularCollision({
+                        rectangle1: player,
+                        rectangle2: {
+                            ...boundary,
+                            position: {
+                                x: boundary.position.x,
+                                y: boundary.position.y - 3,
+                            },
+                        },
+                    })
+                ) {
+                    moving = false;
+                    break;
+                }
+            }
+            if (moving)
+                movables.forEach((movable) => {
+                    movable.position.y -= 3;
+                });
         } else if (keys.d.pressed && lastKey === 'd') {
-            movables.forEach((movable) => {
-                movable.position.x -= 3;
-            });
+            player.moving = true
+            player.image = player.sprites.right
+            for (let i = 0; i < boundaries.length; i++) {
+                const boundary = boundaries[i];
+                if (
+                    rectangularCollision({
+                        rectangle1: player,
+                        rectangle2: {
+                            ...boundary,
+                            position: {
+                                x: boundary.position.x - 3,
+                                y: boundary.position.y,
+                            },
+                        },
+                    })
+                ) {
+                    moving = false;
+                    break;
+                }
+            }
+            if (moving)
+                movables.forEach((movable) => {
+                    movable.position.x -= 3;
+                });
         }
     }
 
@@ -404,12 +498,14 @@ if (canvas) {
     const rightBtn = document.getElementById('right');
 
     document.addEventListener('DOMContentLoaded', function () {
-
-        document.querySelector('div').addEventListener('contextmenu', function(e) {
-            // Alternative
-            e.preventDefault();
-        }, false);
-
+        document.querySelector('div').addEventListener(
+            'contextmenu',
+            function (e) {
+                // Alternative
+                e.preventDefault();
+            },
+            false,
+        );
     });
 
     new ClickAndHold(upBtn, () => {
