@@ -405,7 +405,7 @@ if (canvas) {
 
     document.addEventListener('DOMContentLoaded', function () {
 
-        document.querySelector('button').addEventListener('contextmenu', function(e) {
+        document.querySelector('div').addEventListener('contextmenu', function(e) {
             // Alternative
             e.preventDefault();
         }, false);
