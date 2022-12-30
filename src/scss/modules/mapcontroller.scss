@@ -1,7 +1,7 @@
 .joystick {
     background-color: rgb(4, 38, 41);
     position: fixed;
-    bottom: 100px;
+    bottom: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,13 +14,12 @@
     }
 
     .joystickButton {
-        margin: 10px;
+        margin: 20px;
         background-color: black;
         padding: 10px;
         color: white;
         border-radius: 8px;
-        -moz-user-select: none;
-        -khtml-user-select: none;
-        user-select: none;
+        height: 30px;
+        min-width: 70px;
     }
 }
