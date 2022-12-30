@@ -200,6 +200,13 @@ if (canvas) {
             this.position = position;
             this.image = image;
             this.frames = frames;
+
+            this.image.onload = () => {
+                this.width = this.image.width / this.frames.max;
+                this.height = this.image.height;
+                console.log(this.width);
+                console.log(this.height);
+            };
         }
 
         draw() {
@@ -217,17 +224,16 @@ if (canvas) {
         }
     }
 
-    const player =  new Sprite({
+    const player = new Sprite({
         position: {
-            x: canvas.width / 2 - 240 / 3,
-            y: canvas.height / 2 - 80 / 2
+            x: canvas.width / 2 - 183 / 3,
+            y: canvas.height / 2 - 62 / 2,
         },
         image: playerImage,
         frames: {
-            max: 3
-        }
-    })
-
+            max: 3,
+        },
+    });
 
     const background = new Sprite({
         position: {
@@ -235,7 +241,6 @@ if (canvas) {
             y: offset.y,
         },
         image: image,
-
     });
 
     const keys = {
@@ -253,14 +258,18 @@ if (canvas) {
         },
     };
 
-    const testBoundary = new Boundary({
-        position: {
-            x: 200,
-            y: 200,
-        },
-    });
+    const movables = [background, ...boundaries];
 
-    const movables = [background, testBoundary];
+    function rectangularCollision({rectangle1, rectangle2}) {
+        return (
+            rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
+            rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
+            rectangle1.position.y <=
+                rectangle2.position.y + rectangle2.height &&
+            rectangle1.position.y + rectangle1.height >= rectangle2.position.y
+        );
+    }
+
     // Animation loop
     function animate() {
         window.requestAnimationFrame(animate);
@@ -268,20 +277,32 @@ if (canvas) {
         // Draw Methods
         background.draw();
 
-        player.draw()
+        player.draw();
 
-        // Collision Detection
-        if(player.position.x + player.width >= testBoundary.position.x) {
-            console.log('Colliding');
-        }
+        boundaries.forEach((boundary) => {
+            boundary.draw();
+            // Collision Detection
 
-        // boundaries.forEach(boundary => {
-        //     boundary.draw()
-        // })
-
-        testBoundary.draw();
-
+        });
+        let moving = true;
         if (keys.w.pressed && lastKey === 'w') {
+            for(let i = 0; i < boundaries.length; i++) {
+                const boundary = boundaries[i]
+                if (
+                    rectangularCollision({
+                        rectangle1: player,
+                        rectangle2: {...boundary, position: {
+                            x: boundary.position.x,
+                            y: boundary.position.y + 3
+                        }},
+                    })
+                ) {
+                    console.log('Colliding');
+                    moving = false
+                    break
+                }
+            }
+            if(moving)
             movables.forEach((movable) => {
                 movable.position.y += 3;
             });
@@ -381,6 +402,15 @@ if (canvas) {
     const leftBtn = document.getElementById('left');
     const downBtn = document.getElementById('down');
     const rightBtn = document.getElementById('right');
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        document.querySelector('button').addEventListener('contextmenu', function(e) {
+            // Alternative
+            e.preventDefault();
+        }, false);
+
+    });
 
     new ClickAndHold(upBtn, () => {
         keys.w.pressed = true;
