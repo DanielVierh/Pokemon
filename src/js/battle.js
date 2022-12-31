@@ -997,7 +997,8 @@ function ki_Move() {
         save_Object.items.money += parseInt(currentWildPokemon.level / 2);
         level_up();
         setTimeout(() => {
-            window.location.reload();
+            // window.location.reload();
+            window.location = "map1.html"
         }, 3000);
     }
 }
@@ -1043,7 +1044,8 @@ function catchPokemon() {
                 save_SaveObj();
                 setTimeout(() => {
                     showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
-                    window.location.reload();
+                    // window.location.reload();
+                    window.location = "map1.html"
                 }, 1000);
             } else {
                 showInfoBox(

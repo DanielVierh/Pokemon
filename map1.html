@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,13 @@
     <title>Pokemon</title>
     <link rel="stylesheet" href="public/css/main.css">
 </head>
+
 <body style="display: flex; justify-content: center; align-items: start;">
-    <canvas id="canvas" style="background-color: black; margin: 0 auto;"></canvas>
+
+    <div style="display: inline-block; position: relative;">
+        <div class="battleInitForeground" id="bttleEffect"></div>
+        <canvas id="canvas" style="background-color: black; margin: 0 auto;"></canvas>
+    </div>
 
     <div class="joystick">
         <div class="joystickButton" id="up"></div>
@@ -21,4 +27,5 @@
 
     <script src="public/javascript/main.js"></script>
 </body>
+
 </html>

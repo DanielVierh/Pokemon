@@ -992,3 +992,35 @@ h1 {
   height: 30px;
   min-width: 70px;
 }
+
+.battleInitForeground {
+  background-color: black;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+  opacity: 0;
+}
+.battleInitForeground.active {
+  animation: blinkEffekt 1s ease infinite;
+}
+
+@keyframes blinkEffekt {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
