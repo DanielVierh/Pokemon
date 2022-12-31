@@ -10,7 +10,7 @@ window.onload = init();
 function init() {
     if(startButton) {
         startButton.addEventListener("click", ()=> {
-            window.location = 'battle.html'
+            window.location = 'map1.html'
         })
     }
 }
