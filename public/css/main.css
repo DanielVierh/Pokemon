@@ -978,10 +978,12 @@ h1 {
   justify-content: center;
   text-align: center;
   width: 300px;
+  user-select: none;
 }
 .joystick .leftrightdiv {
   display: flex;
   justify-content: space-around;
+  user-select: none;
 }
 .joystick .joystickButton {
   margin: 20px;
@@ -991,6 +993,7 @@ h1 {
   border-radius: 8px;
   height: 30px;
   min-width: 70px;
+  user-select: none;
 }
 
 .battleInitForeground {

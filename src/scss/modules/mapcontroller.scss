@@ -7,10 +7,12 @@
     justify-content: center;
     text-align: center;
     width: 300px;
+    user-select: none;
 
     .leftrightdiv {
         display: flex;
         justify-content: space-around;
+        user-select: none;
     }
 
     .joystickButton {
@@ -21,6 +23,7 @@
         border-radius: 8px;
         height: 30px;
         min-width: 70px;
+        user-select: none;
     }
 }
 
