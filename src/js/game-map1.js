@@ -280,9 +280,9 @@ if (canvas) {
         const beta = event.beta;
         const gamma = event.gamma;
         // Do stuff...
-        // outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
-        const rnd = Math.random() * 10
-        outp_gyro.innerHTML = `Macht was ${rnd}`
+        outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
+        // const rnd = Math.random() * 10
+        // outp_gyro.innerHTML = `Macht was ${rnd}`
     }
 
     activate_Gyroscope.addEventListener("click", ()=> {
