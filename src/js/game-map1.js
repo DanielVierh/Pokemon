@@ -290,7 +290,7 @@ if (canvas) {
               .then((state) => {
                 if (state === 'granted') {
                   window.addEventListener('devicemotion', handleOrientation);
-                  const rnd = Math.random()
+                  const rnd = Math.random() * 10
                   outp_gyro.innerHTML = `Macht was ${rnd}`
                 } else {
                   console.error('Request to access the orientation was rejected');
