@@ -275,6 +275,14 @@ if (canvas) {
     const activate_Gyroscope = document.getElementById("btn_Activate_Gyroscope")
     const outp_gyro = document.getElementById("outp_gyro");
 
+    function handleOrientation(event) {
+        const alpha = event.alpha;
+        const beta = event.beta;
+        const gamma = event.gamma;
+        // Do stuff...
+        // outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
+    }
+
     activate_Gyroscope.addEventListener("click", ()=> {
         if (typeof DeviceMotionEvent.requestPermission === 'function') {
             // Handle iOS 13+ devices.
@@ -282,7 +290,8 @@ if (canvas) {
               .then((state) => {
                 if (state === 'granted') {
                   window.addEventListener('devicemotion', handleOrientation);
-                  outp_gyro.innerHTML = `Macht was `
+                  const rnd = Math.random()
+                  outp_gyro.innerHTML = `Macht was ${rnd}`
                 } else {
                   console.error('Request to access the orientation was rejected');
                 }
@@ -294,13 +303,7 @@ if (canvas) {
           }
     })
 
-    function handleOrientation(event) {
-        const alpha = event.alpha;
-        const beta = event.beta;
-        const gamma = event.gamma;
-        // Do stuff...
-        // outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
-      }
+
 
     window.onload = init();
 
