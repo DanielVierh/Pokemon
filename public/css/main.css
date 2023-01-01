@@ -979,11 +979,19 @@ h1 {
   text-align: center;
   width: 300px;
   user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 .joystick .leftrightdiv {
   display: flex;
   justify-content: space-around;
   user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 .joystick .joystickButton {
   margin: 20px;
@@ -994,6 +1002,10 @@ h1 {
   height: 30px;
   min-width: 70px;
   user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .battleInitForeground {

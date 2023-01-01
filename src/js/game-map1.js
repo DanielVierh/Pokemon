@@ -272,26 +272,26 @@ let myTeam = [];
 
 if (canvas) {
 
-    const activate_Gyroscope = document.getElementById("btn_Activate_Gyroscope")
-    const outp_gyro = document.getElementById("outp_gyro");
+    // const activate_Gyroscope = document.getElementById("btn_Activate_Gyroscope")
+    // const outp_gyro = document.getElementById("outp_gyro");
 
-    activate_Gyroscope.addEventListener("click", ()=> {
-        if (typeof DeviceMotionEvent.requestPermission === 'function') {
-            // Handle iOS 13+ devices.
-            DeviceMotionEvent.requestPermission()
-              .then((state) => {
-                if (state === 'granted') {
-                  window.addEventListener('devicemotion', handleOrientation(e));
-                } else {
-                  console.error('Request to access the orientation was rejected');
-                }
-              })
-              .catch(console.error);
-          } else {
-            // Handle regular non iOS 13+ devices.
-            window.addEventListener('devicemotion', handleOrientation);
-          }
-    })
+    // activate_Gyroscope.addEventListener("click", ()=> {
+    //     if (typeof DeviceMotionEvent.requestPermission === 'function') {
+    //         // Handle iOS 13+ devices.
+    //         DeviceMotionEvent.requestPermission()
+    //           .then((state) => {
+    //             if (state === 'granted') {
+    //               window.addEventListener('devicemotion', handleOrientation(e));
+    //             } else {
+    //               console.error('Request to access the orientation was rejected');
+    //             }
+    //           })
+    //           .catch(console.error);
+    //       } else {
+    //         // Handle regular non iOS 13+ devices.
+    //         window.addEventListener('devicemotion', handleOrientation);
+    //       }
+    // })
 
 
 
@@ -862,16 +862,16 @@ if (canvas) {
 
     ////////////////////////////////////////////////////////
 
-    function handleOrientation(event) {
-        console.log(event);
-        const alpha = event.rotationRate.alpha;
-        const beta = event.rotationRate.beta;
-        const gamma = event.rotationRate.gamma;
-        // Do stuff...
-        outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
-        // const rnd = Math.random() * 10
-        // outp_gyro.innerHTML = `Macht was ${rnd}`
-    }
+    // function handleOrientation(event) {
+    //     console.log(event);
+    //     const alpha = event.rotationRate.alpha;
+    //     const beta = event.rotationRate.beta;
+    //     const gamma = event.rotationRate.gamma;
+    //     // Do stuff...
+    //     outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
+    //     // const rnd = Math.random() * 10
+    //     // outp_gyro.innerHTML = `Macht was ${rnd}`
+    // }
 
     window.addEventListener('keyup', (e) => {
         switch (e.key) {

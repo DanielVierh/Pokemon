@@ -8,11 +8,19 @@
     text-align: center;
     width: 300px;
     user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 
     .leftrightdiv {
         display: flex;
         justify-content: space-around;
         user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -webkit-tap-highlight-color: transparent;
     }
 
     .joystickButton {
@@ -24,9 +32,12 @@
         height: 30px;
         min-width: 70px;
         user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -webkit-tap-highlight-color: transparent;
     }
 }
-
 
 .battleInitForeground {
     background-color: black;
@@ -41,9 +52,7 @@
     &.active {
         animation: blinkEffekt 1s ease infinite;
     }
-
 }
-
 
 @keyframes blinkEffekt {
     0% {
@@ -54,7 +63,7 @@
         opacity: 1;
     }
 
-    50%{
+    50% {
         opacity: 0;
     }
 
@@ -67,17 +76,15 @@
     }
 }
 
-
 .gyroButton {
     position: fixed;
     bottom: 0;
 }
-
 
 .gyroOutput {
     position: fixed;
     top: 50%;
     left: 20px;
     color: white;
-    font-size: .7em;
+    font-size: 0.7em;
 }
