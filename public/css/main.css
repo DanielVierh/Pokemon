@@ -1026,3 +1026,15 @@ h1 {
     opacity: 0;
   }
 }
+.gyroButton {
+  position: fixed;
+  bottom: 0;
+}
+
+.gyroOutput {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  color: white;
+  font-size: 0.7em;
+}
