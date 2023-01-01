@@ -354,7 +354,7 @@ if (canvas) {
     const boundaries = [];
     const offset = {
         x: -500,
-        y: -300,
+        y: -100,
     };
     collisionMap.forEach((row, i) => {
         row.forEach((symbol, j) => {
