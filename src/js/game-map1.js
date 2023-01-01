@@ -282,6 +282,7 @@ if (canvas) {
               .then((state) => {
                 if (state === 'granted') {
                   window.addEventListener('devicemotion', handleOrientation);
+                  outp_gyro.innerHTML = `Macht was `
                 } else {
                   console.error('Request to access the orientation was rejected');
                 }
@@ -298,10 +299,7 @@ if (canvas) {
         const beta = event.beta;
         const gamma = event.gamma;
         // Do stuff...
-        console.log('alpha:', alpha);
-        console.log('beta:', beta);
-        console.log('gamma:', gamma);
-        outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
+        // outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
       }
 
     window.onload = init();
