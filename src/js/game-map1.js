@@ -281,6 +281,8 @@ if (canvas) {
         const gamma = event.gamma;
         // Do stuff...
         // outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
+        const rnd = Math.random() * 10
+        outp_gyro.innerHTML = `Macht was ${rnd}`
     }
 
     activate_Gyroscope.addEventListener("click", ()=> {
@@ -290,8 +292,6 @@ if (canvas) {
               .then((state) => {
                 if (state === 'granted') {
                   window.addEventListener('devicemotion', handleOrientation);
-                  const rnd = Math.random() * 10
-                  outp_gyro.innerHTML = `Macht was ${rnd}`
                 } else {
                   console.error('Request to access the orientation was rejected');
                 }
