@@ -291,7 +291,7 @@ if (canvas) {
             DeviceMotionEvent.requestPermission()
               .then((state) => {
                 if (state === 'granted') {
-                  window.addEventListener('devicemotion', handleOrientation);
+                  window.addEventListener('devicemotion', handleOrientation(e));
                 } else {
                   console.error('Request to access the orientation was rejected');
                 }
