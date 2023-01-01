@@ -9,7 +9,25 @@
     <link rel="stylesheet" href="public/css/main.css">
 </head>
 
-<body style="display: flex; justify-content: center; align-items: start;">
+<body style="display: flex; justify-content: center; align-items: start;" id="mapTag">
+
+    <div class="menueButton" id="btn_Menue">Menü</div>
+    <div class="menueWindow" id="windowMenu">
+        <div class="closebutton" id="btnCloseMenue">X</div>
+
+        <div class="poketeamContainer">
+            <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_0">
+            <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_1">
+            <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_2">
+            <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_3">
+        </div>
+
+        <div class="menuCont">
+            <a href="catchedPokemons.html" class="munulink">Meine Pokemons</a>
+            <a href="pokedex.html" class="munulink">Pokedex</a>
+        </div>
+    </div>
+
 
     <div style="display: inline-block; position: relative;">
         <div class="battleInitForeground" id="bttleEffect"></div>

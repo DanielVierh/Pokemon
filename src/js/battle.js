@@ -998,7 +998,7 @@ function ki_Move() {
         level_up();
         setTimeout(() => {
             // window.location.reload();
-            window.location = "map1.html"
+            window.location.reload();
         }, 3000);
     }
 }
@@ -1045,7 +1045,7 @@ function catchPokemon() {
                 setTimeout(() => {
                     showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
                     // window.location.reload();
-                    window.location = "map1.html"
+                    window.location.reload();
                 }, 1000);
             } else {
                 showInfoBox(

@@ -251,7 +251,65 @@ let lastPosition = {
     y: 0,
 };
 
+let save_Object = {
+    today_Date: '',
+    myPokemonTeam: [],
+    myCatchedPokemons: [],
+    allFacedPokemons: [],
+    allPokemonMoves: [],
+    today_Pokemons: [],
+    items: {
+        pokeballs: 60,
+        money: 100,
+        beleber: 5,
+        trank: 5,
+        bonbon: 3
+    },
+    gen: 'all'
+};
+
+let myTeam = [];
+
 if (canvas) {
+
+    window.onload = init();
+
+    function init() {
+        if (document.getElementById("mapTag")) {
+            load_SaveObj();
+        }
+    }
+
+    function load_SaveObj() {
+        if (localStorage.getItem('stored_save_Object') != null) {
+            save_Object = JSON.parse(localStorage.getItem('stored_save_Object'));
+            myTeam = save_Object.myPokemonTeam;
+
+            try {
+                renderTeam();
+            } catch (error) {}
+        }
+    }
+
+    function save_SaveObj() {
+        localStorage.setItem('stored_save_Object', JSON.stringify(save_Object));
+        console.log('SaveObj', save_Object);
+    }
+
+    function renderTeam() {
+        for (let i = 0; i < myTeam.length; i++) {
+            document.getElementById(`teamPoke_${i}`).src = myTeam[i].spriteFront;
+            if (myTeam[i].isDefeated === true) {
+                document.getElementById(`teamPoke_${i}`).classList.add('defeat');
+            }
+        }
+    }
+
+
+
+
+
+
     canvas.width = 400;
     canvas.height = 400;
     const ctx = canvas.getContext('2d');
