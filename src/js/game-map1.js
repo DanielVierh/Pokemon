@@ -864,9 +864,9 @@ if (canvas) {
 
     function handleOrientation(event) {
         console.log(event);
-        const alpha = event.alpha;
-        const beta = event.beta;
-        const gamma = event.gamma;
+        const alpha = event.rotationRate.alpha;
+        const beta = event.rotationRate.beta;
+        const gamma = event.rotationRate.gamma;
         // Do stuff...
         outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
         // const rnd = Math.random() * 10
