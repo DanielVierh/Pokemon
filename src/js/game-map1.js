@@ -275,16 +275,6 @@ if (canvas) {
     const activate_Gyroscope = document.getElementById("btn_Activate_Gyroscope")
     const outp_gyro = document.getElementById("outp_gyro");
 
-    function handleOrientation(event) {
-        const alpha = event.alpha;
-        const beta = event.beta;
-        const gamma = event.gamma;
-        // Do stuff...
-        outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
-        // const rnd = Math.random() * 10
-        // outp_gyro.innerHTML = `Macht was ${rnd}`
-    }
-
     activate_Gyroscope.addEventListener("click", ()=> {
         if (typeof DeviceMotionEvent.requestPermission === 'function') {
             // Handle iOS 13+ devices.
@@ -871,6 +861,17 @@ if (canvas) {
     });
 
     ////////////////////////////////////////////////////////
+
+    function handleOrientation(event) {
+        console.log(event);
+        const alpha = event.alpha;
+        const beta = event.beta;
+        const gamma = event.gamma;
+        // Do stuff...
+        outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
+        // const rnd = Math.random() * 10
+        // outp_gyro.innerHTML = `Macht was ${rnd}`
+    }
 
     window.addEventListener('keyup', (e) => {
         switch (e.key) {
