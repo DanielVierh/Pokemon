@@ -1007,6 +1007,22 @@ function ki_Move() {
 // Wildes Pokemon fangen
 //######################################################
 
+// function simulateCatchQuote() {
+
+//     let catched = []
+//     for(let i = 1; i < 1000; i++) {
+//         const fullHP = currentWildPokemon.maxHp;
+//         const current_HP = currentWildPokemon.hp
+//         const hpInPercent = parseInt((currentWildPokeHP * 100) / fullHP);
+//         const catchquote = 50 - parseInt(Math.random() * (hpInPercent + 10));
+//         if(catchquote >=25) {
+//             catched.push(catchquote)
+//         }
+//     }
+//     const catchPercent = catched.length * 100 / 1000
+//     alert(`Von 1000x wäre das Pokemon ${catched.length}x gefangen worden. Fangquote in % = ${catchPercent}`, catched);
+// }
+
 function catchPokemon() {
     // Abfragen, ob man noch Pokebälle hat
     if (myPokeballAmount > 0) {
@@ -1017,11 +1033,11 @@ function catchPokemon() {
         pokeball.classList.add('active');
         setTimeout(() => {
             pokeball.classList.remove('active');
-            const fullHP = currentWildPokemon.hp;
+            // const fullHP = currentWildPokemon.hp;
+            const fullHP = currentWildPokemon.maxHp;
+            const current_HP = currentWildPokemon.hp
             const hpInPercent = parseInt((currentWildPokeHP * 100) / fullHP);
-            const catchquote = 25 + parseInt((Math.random() * hpInPercent) / 2) -
-                               parseInt(Math.random() * (hpInPercent + 5));
-
+            const catchquote = 50 - parseInt(Math.random() * (hpInPercent + 10));
             if (catchquote >= 25) {
                 // Unsichtbar machen
                 wildPokeImage.style.opacity = '0';
