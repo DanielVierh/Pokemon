@@ -650,7 +650,7 @@ function fetchPokemon(id) {
                 data.id,
                 data.name,
                 data.types[0].type.name,
-                parseInt(Math.random() * 20) + 3,
+                parseInt(Math.random() * avarageLevel) + 3,
                 x_moves,
                 four_moves,
                 data.sprites.front_default,
