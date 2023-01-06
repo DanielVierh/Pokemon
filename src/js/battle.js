@@ -763,9 +763,6 @@ function init_Move(moveName) {
 // Volltreffer ist für gewöhnlich 1 (Berechnung aus Accuracy)
 // Z ist ein Wert, der berechnet wird, indem von 100 eine zufällige Zahl zwischen 0 und 15 abgezogen wird
 // F2 zwischen 1 und 1,3
-
-// Die Bezeichnungen Typ1 und Typ2 stellen die Effektivität der genutzten Attacke auf das Ziel dar. Ist die Attacke nicht sehr effektiv gegenüber dem Typen des Ziels,
-// ist der Faktor 0,5, ist er sehr effektiv, wird 2 eingesetzt und hat sie keinen Einfluss auf den Gegner, so wird 0 eingesetzt. In allen anderen Fällen wird 1 eingesetzt
 //######################################################
 function myPokemonAttack(whoIsExecuting) {
     // Initwerte sind so eingestellt, dass ein Angriff von meinem Pokemon aus geht
