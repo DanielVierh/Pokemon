@@ -22,6 +22,7 @@ let currentAttack;
 let currentWildPokeHP;
 let myCurrentPokemonHP;
 let myCurrentPokemonStaticHP;
+let fightRate = 0;
 let iamExecuting = false;
 let myPokeballAmount = 35;
 let todayPokemons = []; // 20 Pokemon werden random mäßig erstellt
@@ -116,14 +117,15 @@ if (mainButton1) {
 
 if (btnAttack0) {
     btnAttack0.addEventListener('click', () => {
+        fightRate++;
         const btnMoveName = btnAttack0.innerText;
-        console.log(btnMoveName);
         attackAction(btnMoveName);
     });
 }
 
 if (btnAttack1) {
     btnAttack1.addEventListener('click', () => {
+        fightRate++;
         const btnMoveName = btnAttack1.innerText;
         attackAction(btnMoveName);
     });
@@ -131,6 +133,7 @@ if (btnAttack1) {
 
 if (btnAttack2) {
     btnAttack2.addEventListener('click', () => {
+        fightRate++;
         const btnMoveName = btnAttack2.innerText;
         attackAction(btnMoveName);
     });
@@ -138,6 +141,7 @@ if (btnAttack2) {
 
 if (btnAttack3) {
     btnAttack3.addEventListener('click', () => {
+        fightRate++;
         const btnMoveName = btnAttack3.innerText;
         attackAction(btnMoveName);
     });
@@ -1311,7 +1315,7 @@ function level_up() {
     const wildPokemon_MaxHP = currentWildPokemon.maxHp
     const oldXP = myStaticPokemon.xp;
     // const calcXP = Math.floor(enemyLevel * 4 + (myStaticPokemon.hp + 160) / (currentLevel + 3));
-    const calcXP = Math.floor((enemyLevel * wildPokemon_MaxHP) / currentLevel)
+    const calcXP = Math.floor((enemyLevel * wildPokemon_MaxHP * (fightRate + 2)) / currentLevel)
     console.warn(`eLv(${enemyLevel}) * wPMHP(${wildPokemon_MaxHP}) / CLv(${currentLevel}) = ${calcXP}`);
     const newXP = oldXP + calcXP;
     let pokemonIndex = -1;
