@@ -574,6 +574,7 @@ function createMyPokemon() {
 // Erstellt Zufallszahl und checkt, ob ID bereits im Array FacedPokemons gespeichert ist,
 // wenn nein, Fetch Request an Poke API
 //######################################################
+
 function createWildPokemon() {
     let randomPokemon = parseInt(Math.random() * todayPokemons.length);
     randomPokemon = todayPokemons[randomPokemon];
@@ -1287,13 +1288,31 @@ function chooseNewPokemon(choosenPokemon) {
     }
 }
 
+//! ////////////////////////////////////////////////////////////////////////////////////////////////
+// function levelTest() {
+//     let enemyLevel = 50; 
+//     let wildPokemon_MaxHP = 72
+//     let currentLevel = 3;
+
+//     let xpTestArray = []
+//     for(let i = 0; i < 100; i++) {
+//         currentLevel = i
+//         const theTestXP = Math.floor((enemyLevel * wildPokemon_MaxHP) / (currentLevel))
+//         xpTestArray.push(`eLv(${enemyLevel}) * wPMHP(${wildPokemon_MaxHP}) / CLv(${currentLevel}) = ${theTestXP}`)
+//     }
+//     console.warn('TestXP: ', xpTestArray);
+// }
+
+// levelTest()
+//! ////////////////////////////////////////////////////////////////////////////////////////////////
 function level_up() {
     const enemyLevel = currentWildPokemon.level;
     let currentLevel = myStaticPokemon.level;
+    const wildPokemon_MaxHP = currentWildPokemon.maxHp
     const oldXP = myStaticPokemon.xp;
-    const calcXP = Math.floor(
-        enemyLevel * 4 + (myStaticPokemon.hp + 160) / (currentLevel + 3),
-    );
+    // const calcXP = Math.floor(enemyLevel * 4 + (myStaticPokemon.hp + 160) / (currentLevel + 3));
+    const calcXP = Math.floor((enemyLevel * wildPokemon_MaxHP) / currentLevel)
+    console.warn(`eLv(${enemyLevel}) * wPMHP(${wildPokemon_MaxHP}) / CLv(${currentLevel}) = ${calcXP}`);
     const newXP = oldXP + calcXP;
     let pokemonIndex = -1;
     for (let i = 0; i < save_Object.myCatchedPokemons.length; i++) {

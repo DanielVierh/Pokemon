@@ -246,10 +246,6 @@ const battleZoneData = [
 
 const bttleEffect = document.getElementById('bttleEffect');
 
-let lastPosition = {
-    x: 0,
-    y: 0,
-};
 
 let save_Object = {
     today_Date: '',
@@ -374,10 +370,26 @@ if (canvas) {
         }
     }
 
+const place_Coordinates = {
+    battlezone_Coordinates : {
+        x:-500,
+        y: -250
+    },
+    pokecenter_Coordinates: {
+        x: -1440,
+        y: -200
+    },
+    pokemarket_Coordinates: {
+        x: -10,
+        y:-360
+    }
+}
+
+
     const boundaries = [];
     const offset = {
         x: -500,
-        y: -100,
+        y: -250,
     };
     collisionMap.forEach((row, i) => {
         row.forEach((symbol, j) => {
@@ -393,9 +405,6 @@ if (canvas) {
             }
         });
     });
-
-    // ctx.fillStyle = 'white';
-    // ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const battleZones = [];
     battlezoneMap.forEach((row, i) => {
@@ -600,8 +609,6 @@ if (canvas) {
             if (moving)
                 movables.forEach((movable) => {
                     movable.position.y += 3;
-                    lastPosition.y = movable.position.y;
-                    console.log('x:', lastPosition.x,' y:',  lastPosition.y);
                 });
         } else if (keys.a.pressed && lastKey === 'a') {
             player.moving = true;
@@ -648,8 +655,6 @@ if (canvas) {
             if (moving)
                 movables.forEach((movable) => {
                     movable.position.x += 3;
-                    lastPosition.x = movable.position.x;
-                    console.log('x:', lastPosition.x,' y:',  lastPosition.y);
                 });
         } else if (keys.s.pressed && lastKey === 's') {
             player.moving = true;
@@ -696,8 +701,6 @@ if (canvas) {
             if (moving)
                 movables.forEach((movable) => {
                     movable.position.y -= 3;
-                    lastPosition.y = movable.position.y;
-                    console.log('x:', lastPosition.x,' y:',  lastPosition.y);
                 });
         } else if (keys.d.pressed && lastKey === 'd') {
             player.moving = true;
@@ -744,8 +747,6 @@ if (canvas) {
             if (moving)
                 movables.forEach((movable) => {
                     movable.position.x -= 3;
-                    lastPosition.x = movable.position.x;
-                    console.log('x:', lastPosition.x,' y:',  lastPosition.y);
                 });
         }
     }
