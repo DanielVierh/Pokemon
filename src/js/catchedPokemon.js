@@ -479,8 +479,7 @@ function renderTeam() {
         pokeCont.appendChild(delBtn)
         pokeCont.appendChild(moveBtn)
         pokeCont.appendChild(pokeimage)
-        // pokeCont.appendChild(pokename)
-        // pokeCont.appendChild(infocont)
+
 
         teamPokemonContainer.appendChild(pokeCont)
     }
