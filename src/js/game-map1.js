@@ -362,6 +362,9 @@ const pokecenterEntrance = [
 
 const bttleEffect = document.getElementById('bttleEffect');
 
+// Neue Properties für Save_Object:
+// lastLocation: 'pokecenter'
+
 let save_Object = {
     today_Date: '',
     myPokemonTeam: [],
@@ -473,7 +476,7 @@ if (canvas) {
         },
         pokecenter_Coordinates: {
             x: -1440,
-            y: -200,
+            y: -250,
         },
         pokemarket_Coordinates: {
             x: -10,
@@ -482,10 +485,22 @@ if (canvas) {
     };
 
     const boundaries = [];
-    const offset = {
+    let offset = {
         x: -1440,
         y: -250,
     };
+
+    if(save_Object.lastLocation === 'battlezone') {
+        offset.x = place_Coordinates.battlezone_Coordinates.x
+        offset.y = place_Coordinates.battlezone_Coordinates.y
+    }else if(save_Object.lastLocation === 'pokecenter') {
+        offset.x = place_Coordinates.pokecenter_Coordinates.x;
+        offset.y = place_Coordinates.pokecenter_Coordinates.y
+    }else {
+        offset.x = place_Coordinates.battlezone_Coordinates.x
+        offset.y = place_Coordinates.battlezone_Coordinates.y
+    }
+
     collisionMap.forEach((row, i) => {
         row.forEach((symbol, j) => {
             if (symbol === 24025) {
@@ -735,6 +750,8 @@ if (canvas) {
                         rectangle2: PokecenterZne,
                     })
                 ) {
+                    save_Object.lastLocation = 'pokecenter'
+                    save_SaveObj();
                     window.location = 'pokecenter.html';
                     break;
                 }
@@ -779,6 +796,8 @@ if (canvas) {
                         player.moving = false;
                         bttleEffect.classList.add('active');
                         setTimeout(() => {
+                            save_Object.lastLocation = 'battlezone'
+                            save_SaveObj();
                             window.location = 'battle.html';
                         }, 2000);
                     }
@@ -794,6 +813,8 @@ if (canvas) {
                         rectangle2: PokecenterZne,
                     })
                 ) {
+                    save_Object.lastLocation = 'pokecenter'
+                    save_SaveObj();
                     window.location = 'pokecenter.html';
                     break;
                 }
@@ -838,6 +859,8 @@ if (canvas) {
                         player.moving = false;
                         bttleEffect.classList.add('active');
                         setTimeout(() => {
+                            save_Object.lastLocation = 'battlezone'
+                            save_SaveObj();
                             window.location = 'battle.html';
                         }, 2000);
                     }
@@ -853,6 +876,8 @@ if (canvas) {
                         rectangle2: PokecenterZne,
                     })
                 ) {
+                    save_Object.lastLocation = 'pokecenter'
+                    save_SaveObj();
                     window.location = 'pokecenter.html';
                     break;
                 }
@@ -897,6 +922,8 @@ if (canvas) {
                         player.moving = false;
                         bttleEffect.classList.add('active');
                         setTimeout(() => {
+                            save_Object.lastLocation = 'battlezone'
+                            save_SaveObj();
                             window.location = 'battle.html';
                         }, 2000);
                     }
@@ -912,6 +939,8 @@ if (canvas) {
                         rectangle2: PokecenterZne,
                     })
                 ) {
+                    save_Object.lastLocation = 'pokecenter'
+                    save_SaveObj();
                     window.location = 'pokecenter.html';
                     break;
                 }
