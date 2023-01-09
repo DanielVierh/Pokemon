@@ -101,6 +101,7 @@ let save_Object = {
 };
 
 let myTeam = [];
+let myCatchedPokemons = [];
 
 if (canvas2) {
     window.onload = init();
@@ -117,6 +118,7 @@ if (canvas2) {
                 localStorage.getItem('stored_save_Object'),
             );
             myTeam = save_Object.myPokemonTeam;
+            myCatchedPokemons = save_Object.myCatchedPokemons;
 
             try {
                 renderTeam();
@@ -546,15 +548,15 @@ if (canvas2) {
     function healFunc() {
         healing.initiated = true;
         player.moving = false;
-        // healingEffect.classList.add('active');
-        // for(let i = 0; i < myTeam.length; i++) {
-        //     myTeam[i].isDefeated = false;
-        //     myTeam[i].hp = myTeam[i].maxHp;
-        // }
-        // for(let i = 0; i < myCatchedPokemons.length; i++) {
-        //     myCatchedPokemons[i].isDefeated = false;
-        //     myCatchedPokemons[i].hp = myCatchedPokemons[i].maxHp;
-        // }
+        healingEffect.classList.add('active');
+        for(let i = 0; i < myTeam.length; i++) {
+            myTeam[i].isDefeated = false;
+            myTeam[i].hp = myTeam[i].maxHp;
+        }
+        for(let i = 0; i < myCatchedPokemons.length; i++) {
+            myCatchedPokemons[i].isDefeated = false;
+            myCatchedPokemons[i].hp = myCatchedPokemons[i].maxHp;
+        }
 
         for(let i = 0; i < save_Object.myCatchedPokemons.length; i++) {
             save_Object.myCatchedPokemons[i].hp = save_Object.myCatchedPokemons[i].maxHp;
