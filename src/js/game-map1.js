@@ -399,11 +399,12 @@ if (canvas) {
                 localStorage.getItem('stored_save_Object'),
             );
             myTeam = save_Object.myPokemonTeam;
-
+            console.log('Saveobj', save_Object);
             try {
                 renderTeam();
             } catch (error) {}
         }
+
     }
 
     function save_SaveObj() {

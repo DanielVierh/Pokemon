@@ -223,7 +223,7 @@ if (canvas2) {
     console.log('battlezones', battleZones);
 
     const image = new Image();
-    image.src = './assets/Pokecenter_Tile.png';
+    image.src = './assets/Pokecenter2.png';
 
     const playerDownImage = new Image();
     playerDownImage.src = './assets/playerDown.png';
@@ -548,7 +548,7 @@ if (canvas2) {
     function healFunc() {
         healing.initiated = true;
         player.moving = false;
-        healingEffect.classList.add('active');
+        animate_Healing();
         for(let i = 0; i < myTeam.length; i++) {
             myTeam[i].isDefeated = false;
             myTeam[i].hp = myTeam[i].maxHp;
@@ -564,16 +564,33 @@ if (canvas2) {
 
         for(let i = 0; i < save_Object.myPokemonTeam.length; i++) {
             save_Object.myPokemonTeam[i].hp = save_Object.myPokemonTeam[i].maxHp;
+            save_Object.myPokemonTeam[i].isDefeated = false;
             document.getElementById(`teamPoke_${i}`).classList.remove("defeat");
         }
-
         save_SaveObj();
         setTimeout(() => {
             showInfoBox('Deine Pokemon werden geheilt');
-        }, 500);
+        }, 100);
         setTimeout(() => {
             window.location = 'map1.html';
         }, 4000);
+    }
+
+    function animate_Healing() {
+        image.src = './assets/Pokecenter_pbVisible.png';
+        setTimeout(() => {
+            image.src = './assets/Pokecenter_pbInvisible.png';
+        }, 400);
+        setTimeout(() => {
+            image.src = './assets/Pokecenter_pbVisible.png';
+        }, 800);
+        setTimeout(() => {
+            image.src = './assets/Pokecenter_pbInvisible.png';
+        }, 1200);
+        setTimeout(() => {
+            image.src = './assets/Pokecenter_pbVisible.png';
+        }, 1600);
+
     }
 
     ////////////////////////////////////////////////////////
