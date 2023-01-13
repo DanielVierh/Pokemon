@@ -1396,6 +1396,7 @@ function level_up() {
                 // ? Leveln inklusive Evolution !!!
                 //#####################################################################
             }else if(evolveLevel === 0) {
+                
                 const oldID = myStaticPokemon.id;
                 let evolveToId = 0;
                 let evolvedName = '';
@@ -1408,8 +1409,11 @@ function level_up() {
                     fetch(data.evolution_chain.url)
                         .then((res) => res.json())
                         .then((data2) => {
-                            const fetchNewPokemonUrl =
-                                data2.chain.evolves_to[0].species.url;
+                            let fetchNewPokemonUrl = data2.chain.evolves_to[0].species.url;
+                            try {
+                                fetchNewPokemonUrl = data2.chain.evolves_to[0].evolves_to[0].species.url;
+                            } catch (error) {
+                            }
                             fetch(fetchNewPokemonUrl)
                                 .then((res) => res.json())
                                 .then((data3) => {
@@ -1628,8 +1632,11 @@ function level_up() {
                     fetch(data.evolution_chain.url)
                         .then((res) => res.json())
                         .then((data2) => {
-                            const fetchNewPokemonUrl =
-                                data2.chain.evolves_to[0].species.url;
+                            let fetchNewPokemonUrl = data2.chain.evolves_to[0].species.url;
+                            try {
+                                fetchNewPokemonUrl = data2.chain.evolves_to[0].evolves_to[0].species.url;
+                            } catch (error) {
+                            }
                             fetch(fetchNewPokemonUrl)
                                 .then((res) => res.json())
                                 .then((data3) => {
