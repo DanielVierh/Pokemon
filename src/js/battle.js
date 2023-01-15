@@ -1406,9 +1406,16 @@ function level_up() {
                 fetch(`https://pokeapi.co/api/v2/pokemon-species/${myStaticPokemon.name}/`)
                 .then((res) => res.json())
                 .then((data) => {
+                    console.log('Data', data);
                     fetch(data.evolution_chain.url)
                         .then((res) => res.json())
                         .then((data2) => {
+                            console.log('Data2', data2);
+                            console.log('EvolutionDataLength:', data2.chain.evolves_to.length);
+                            if(data2.chain.evolves_to.length > 0) {
+                                console.log('Keine Evolution möglich');
+                            }
+                            debugger
                             let fetchNewPokemonUrl = data2.chain.evolves_to[0].species.url;
                             try {
                                 fetchNewPokemonUrl = data2.chain.evolves_to[0].evolves_to[0].species.url;
@@ -1629,9 +1636,11 @@ function level_up() {
                 fetch(`https://pokeapi.co/api/v2/pokemon-species/${myStaticPokemon.name}/`)
                 .then((res) => res.json())
                 .then((data) => {
+                    console.log('data: ', data);
                     fetch(data.evolution_chain.url)
                         .then((res) => res.json())
                         .then((data2) => {
+                            console.log('data2: ', data2);
                             let fetchNewPokemonUrl = data2.chain.evolves_to[0].species.url;
                             try {
                                 fetchNewPokemonUrl = data2.chain.evolves_to[0].evolves_to[0].species.url;
@@ -1640,11 +1649,14 @@ function level_up() {
                             fetch(fetchNewPokemonUrl)
                                 .then((res) => res.json())
                                 .then((data3) => {
+                                    console.log('data3: ', data3);
                                      evolveToId = data3.id;
                                      evolvedName = data3.name;
                                     fetch(`https://pokeapi.co/api/v2/pokemon/${evolveToId}/`)
                                         .then((res) => res.json())
                                         .then((data4) => {
+                                            console.log('data4: ', data4);
+                                            debugger
                                          evolve_spriteFront = data4.sprites.front_default;
                                          evolve_spriteBack = data4.sprites.back_default;
                                         if(oldID !== evolveToId) {
