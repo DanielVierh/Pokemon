@@ -41,7 +41,8 @@
 
     &.bottom {
         background-color: rgb(20, 23, 20);
-        overflow-y: scroll;
+        // overflow-y: scroll;
+        padding-bottom: 20px;
     }
 
     &.top {

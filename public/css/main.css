@@ -566,7 +566,7 @@ h1 {
 }
 .halfContainer.bottom {
   background-color: rgb(20, 23, 20);
-  overflow-y: scroll;
+  padding-bottom: 20px;
 }
 .halfContainer.top {
   background-color: rgb(13, 17, 19);
