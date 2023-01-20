@@ -61,7 +61,7 @@ const collisions = [
     0, 0, 0, 0, 0, 0,
 ];
 
-const battleZoneData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+const buyingZoneData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -94,6 +94,40 @@ const battleZoneData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+const exitData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 243781, 243781, 243781, 243781, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 const buyingEffect = document.getElementById('buyingEffect');
 let infoBox = document.getElementById('infoBox');
@@ -185,12 +219,18 @@ if (canvas3) {
     ////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////
-    // Battlezone Map
-    const battlezoneMap = [];
-    for (let i = 0; i < battleZoneData.length; i += 41) {
-        battlezoneMap.push(battleZoneData.slice(i, 41 + i));
+    // buyingzone Map
+    const buyingzoneMap = [];
+    for (let i = 0; i < buyingZoneData.length; i += 41) {
+        buyingzoneMap.push(buyingZoneData.slice(i, 41 + i));
     }
-    console.log(battlezoneMap);
+
+    // Exit Map
+    const exitDataMap = [];
+    for (let i = 0; i < exitData.length; i += 41) {
+        exitDataMap.push(exitData.slice(i, 41 + i));
+    }
+
 
     class Boundary {
         static width = 28;
@@ -232,11 +272,11 @@ if (canvas3) {
         });
     });
 
-    const battleZones = [];
-    battlezoneMap.forEach((row, i) => {
+    const buyingZones = [];
+    buyingzoneMap.forEach((row, i) => {
         row.forEach((symbol, j) => {
             if (symbol === 24378) {
-                battleZones.push(
+                buyingZones.push(
                     new Boundary({
                         position: {
                             x: j * Boundary.width + offset.x,
@@ -248,7 +288,22 @@ if (canvas3) {
         });
     });
 
-    console.log('battlezones', battleZones);
+    const exitZones = [];
+    exitDataMap.forEach((row, i) => {
+        row.forEach((symbol, j) => {
+            if (symbol === 243781) {
+                exitZones.push(
+                    new Boundary({
+                        position: {
+                            x: j * Boundary.width + offset.x,
+                            y: i * Boundary.height + offset.y,
+                        },
+                    }),
+                );
+            }
+        });
+    });
+
 
     const image = new Image();
     image.src = './assets/pokemarkt.png';
@@ -352,7 +407,7 @@ if (canvas3) {
         },
     };
 
-    const movables = [background, ...boundaries, ...battleZones];
+    const movables = [background, ...boundaries, ...buyingZones, ...exitZones];
 
     function rectangularCollision({rectangle1, rectangle2}) {
         return (
@@ -375,8 +430,12 @@ if (canvas3) {
         // Draw Methods
         background.draw();
 
-        battleZones.forEach((battlezone) => {
-            battlezone.draw();
+        buyingZones.forEach((buyingzone) => {
+            buyingzone.draw();
+        });
+
+        exitZones.forEach((exitZone) => {
+            exitZone.draw();
         });
 
         player.draw();
@@ -411,16 +470,29 @@ if (canvas3) {
                 }
             }
 
-            // Collision Detection for Battlezone
-            for (let i = 0; i < battleZones.length; i++) {
-                const battleZone = battleZones[i];
+            // Collision Detection for buyingzone
+            for (let i = 0; i < buyingZones.length; i++) {
+                const buyingZone = buyingZones[i];
                 if (
                     rectangularCollision({
                         rectangle1: player,
-                        rectangle2: battleZone,
+                        rectangle2: buyingZone,
                     })
                 ) {
                     healFunc();
+                    break;
+                }
+            }
+            // Collision Detection for EXITzone
+            for (let i = 0; i < exitZones.length; i++) {
+                const exitZone = exitZones[i];
+                if (
+                    rectangularCollision({
+                        rectangle1: player,
+                        rectangle2: exitZone,
+                    })
+                ) {
+                    window.location = 'map1.html';
                     break;
                 }
             }
@@ -449,16 +521,29 @@ if (canvas3) {
                     break;
                 }
             }
-            // Collision Detection for Battlezone
-            for (let i = 0; i < battleZones.length; i++) {
-                const battleZone = battleZones[i];
+            // Collision Detection for buyingzone
+            for (let i = 0; i < buyingZones.length; i++) {
+                const buyingZone = buyingZones[i];
                 if (
                     rectangularCollision({
                         rectangle1: player,
-                        rectangle2: battleZone,
+                        rectangle2: buyingZone,
                     })
                 ) {
                     healFunc();
+                    break;
+                }
+            }
+            // Collision Detection for EXITzone
+            for (let i = 0; i < exitZones.length; i++) {
+                const exitZone = exitZones[i];
+                if (
+                    rectangularCollision({
+                        rectangle1: player,
+                        rectangle2: exitZone,
+                    })
+                ) {
+                    window.location = 'map1.html';
                     break;
                 }
             }
@@ -487,16 +572,29 @@ if (canvas3) {
                     break;
                 }
             }
-            // Collision Detection for Battlezone
-            for (let i = 0; i < battleZones.length; i++) {
-                const battleZone = battleZones[i];
+            // Collision Detection for buyingzone
+            for (let i = 0; i < buyingZones.length; i++) {
+                const buyingZone = buyingZones[i];
                 if (
                     rectangularCollision({
                         rectangle1: player,
-                        rectangle2: battleZone,
+                        rectangle2: buyingZone,
                     })
                 ) {
                     healFunc();
+                    break;
+                }
+            }
+            // Collision Detection for EXITzone
+            for (let i = 0; i < exitZones.length; i++) {
+                const exitZone = exitZones[i];
+                if (
+                    rectangularCollision({
+                        rectangle1: player,
+                        rectangle2: exitZone,
+                    })
+                ) {
+                    window.location = 'map1.html';
                     break;
                 }
             }
@@ -525,16 +623,29 @@ if (canvas3) {
                     break;
                 }
             }
-            // Collision Detection for Battlezone
-            for (let i = 0; i < battleZones.length; i++) {
-                const battleZone = battleZones[i];
+            // Collision Detection for buyingzone
+            for (let i = 0; i < buyingZones.length; i++) {
+                const buyingZone = buyingZones[i];
                 if (
                     rectangularCollision({
                         rectangle1: player,
-                        rectangle2: battleZone,
+                        rectangle2: buyingZone,
                     })
                 ) {
                     healFunc();
+                    break;
+                }
+            }
+            // Collision Detection for EXITzone
+            for (let i = 0; i < exitZones.length; i++) {
+                const exitZone = exitZones[i];
+                if (
+                    rectangularCollision({
+                        rectangle1: player,
+                        rectangle2: exitZone,
+                    })
+                ) {
+                    window.location = 'map1.html';
                     break;
                 }
             }
