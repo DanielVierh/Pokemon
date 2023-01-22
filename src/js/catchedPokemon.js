@@ -539,6 +539,8 @@ if(btnHeal){
         for(let i = 0; i < myTeam.length; i++) {
             myTeam[i].isDefeated = false;
             myTeam[i].hp = myTeam[i].maxHp;
+            let hpInPercent = myTeam[i].hp * 100 / myTeam[i].maxHp
+            document.getElementById(`teamPokeProgress_${i}`).value = hpInPercent
         }
         for(let i = 0; i < myCatchedPokemons.length; i++) {
             myCatchedPokemons[i].isDefeated = false;
