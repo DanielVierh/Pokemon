@@ -197,6 +197,9 @@ if (canvas3) {
         for (let i = 0; i < myTeam.length; i++) {
             document.getElementById(`teamPoke_${i}`).src =
                 myTeam[i].spriteFront;
+                document.getElementById(`teamPokeName_${i}`).innerHTML = makeFirstLetterBig(myTeam[i].name)
+                let hpInPercent = myTeam[i].hp * 100 / myTeam[i].maxHp
+                document.getElementById(`teamPokeProgress_${i}`).value = hpInPercent
             if (myTeam[i].isDefeated === true) {
                 document
                     .getElementById(`teamPoke_${i}`)
@@ -897,4 +900,18 @@ if(btn_Buy) {
 function updateShop() {
     lbl_Shop_Money.innerHTML = `$ - ${shopMoney}`;
     lbl_Amount_Pokeballs.innerHTML = pokeballBuyAmount;
+}
+
+
+
+//######################################################
+// Macht den Anfangsbuchstaben groß
+//######################################################
+function makeFirstLetterBig(word) {
+    const firstLetter = word[0];
+    let exportword = firstLetter.toUpperCase();
+    for (let i = 1; i < word.length; i++) {
+        exportword += word[i];
+    }
+    return exportword;
 }

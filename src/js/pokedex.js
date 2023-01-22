@@ -49,6 +49,9 @@ function loadFacedPokemons() {
 function loadMyTeam() {
     for (let i = 0; i < myTeam.length; i++) {
         document.getElementById(`teamPoke_${i}`).src = myTeam[i].spriteFront;
+        document.getElementById(`teamPokeName_${i}`).innerHTML = makeFirstLetterBig(myTeam[i].name)
+        let hpInPercent = myTeam[i].hp * 100 / myTeam[i].maxHp
+        document.getElementById(`teamPokeProgress_${i}`).value = hpInPercent
     }
 }
 

@@ -453,6 +453,10 @@ function renderTeam() {
         let pokeimage = document.createElement("img");
         pokeimage.src = myTeam[i].spriteFront;
         document.getElementById(`teamPoke_${i}`).src = myTeam[i].spriteFront
+        document.getElementById(`teamPokeName_${i}`).innerHTML = makeFirstLetterBig(myTeam[i].name)
+        let hpInPercent = myTeam[i].hp * 100 / myTeam[i].maxHp
+        document.getElementById(`teamPokeProgress_${i}`).value = hpInPercent
+        
         if(myTeam[i].isDefeated === true) {
             document.getElementById(`teamPoke_${i}`).classList.add("defeat");
         }

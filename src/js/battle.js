@@ -439,6 +439,9 @@ function loadMyTeam() {
     let levelSum = 0;
     for (let i = 0; i < myTeam.length; i++) {
         document.getElementById(`teamPoke_${i}`).src = myTeam[i].spriteFront;
+        document.getElementById(`teamPokeName_${i}`).innerHTML = makeFirstLetterBig(myTeam[i].name)
+        let hpInPercentx = myTeam[i].hp * 100 / myTeam[i].maxHp
+        document.getElementById(`teamPokeProgress_${i}`).value = hpInPercentx
         levelSum = levelSum += myTeam[i].level;
         if (myTeam[i].isDefeated === true) {
             document.getElementById(`teamPoke_${i}`).classList.add('defeat');
@@ -871,6 +874,7 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
         effectedProgressbar = myPokemonProgress;
         atackerPokemon = currentWildPokemon;
         defenderPokemon = myStaticPokemon;
+        document.getElementById(`teamPokeProgress_${myCurrentPokemonIndex}`).value = hpInPercent
     }
 
     // Balken anzeigen
@@ -899,12 +903,9 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                 effectedPokeName.innerHTML = '';
                 if (whoIsAffected === 'myPokemon') {
                     myPokemonXPProgress.style.width = '0%';
-                    save_Object.myPokemonTeam[
-                        myCurrentPokemonIndex
-                    ].isDefeated = true;
-                    document
-                        .getElementById(`teamPoke_${myCurrentPokemonIndex}`)
-                        .classList.add('defeat');
+                    save_Object.myPokemonTeam[myCurrentPokemonIndex].isDefeated = true;
+                    document.getElementById(`teamPokeProgress_${myCurrentPokemonIndex}`).value = hpInPercent
+                    document.getElementById(`teamPoke_${myCurrentPokemonIndex}`).classList.add('defeat');
                     save_SaveObj();
                 }
             }, 400);
