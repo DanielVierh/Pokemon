@@ -142,7 +142,9 @@ const shopWindow = document.getElementById("shopWindow");
 const btnCloseShop = document.getElementById("btnCloseShop");
 const btn_open_Shop = document.getElementById("btn_open_Shop");
 const btn_Pokeball = document.getElementById("btn_Pokeball");
+const btn_Trank = document.getElementById("btn_Trank");
 const lbl_Amount_Pokeballs = document.getElementById("lbl_Amount_Pokeballs");
+const lbl_Amount_Tranks = document.getElementById("lbl_Amount_Tranks");
 const btn_Buy = document.getElementById("btn_Buy");
 
 let save_Object = {
@@ -720,7 +722,9 @@ if (canvas3) {
         shopWindow.classList.add("active");
         shopMoney = save_Object.items.money;
         pokeballBuyAmount = 0;
+        trankBuyAmount = 0;
         btn_Pokeball.innerHTML = `Pokeball - ${pokeballPrice}$`
+        btn_Trank.innerHTML = `Supertrank - ${trankPrice}$`
         updateShop();
 
     }
@@ -845,16 +849,20 @@ if (canvas3) {
 // #####################################################################
 // Shop
 let pokeballBuyAmount = 0;
+let trankBuyAmount = 0;
 let shopMoney = 0;
 
 
 // Öffnen
 if(btn_open_Shop) {
+    console.log('Bin im Shop');
     btn_open_Shop.addEventListener("click", ()=> {
         shopWindow.classList.add("active");
         shopMoney = save_Object.items.money;
         pokeballBuyAmount = 0;
+        trankBuyAmount = 0;
         btn_Pokeball.innerHTML = `Pokeball - ${pokeballPrice}$`
+        btn_Trank.innerHTML = `Supertrank - ${trankPrice}$`
         updateShop();
     })
 }
@@ -878,6 +886,16 @@ if(btn_Pokeball) {
         }
     })
 }
+// Increase Trank
+if(btn_Trank) {
+    btn_Trank.addEventListener("click", ()=> {
+        if(shopMoney >= trankPrice) {
+            trankBuyAmount++;
+            shopMoney -= trankPrice;
+            updateShop()
+        }
+    })
+}
 
 
 if(btn_Buy) {
@@ -891,6 +909,18 @@ if(btn_Buy) {
             }else {
                 alert(`Du hast erfolgreich ${pokeballBuyAmount} Pokebälle gekauft.`)
             }
+        }
+        if(trankBuyAmount > 0) {
+            save_Object.items.money = shopMoney;
+            save_Object.items.trank += trankBuyAmount;
+            save_SaveObj();
+            if(trankBuyAmount === 1) {
+                alert(`Du hast erfolgreich ${trankBuyAmount} Supertrank gekauft.`)
+            }else {
+                alert(`Du hast erfolgreich ${trankBuyAmount} Supertränke gekauft.`)
+            }
+        }
+        if(pokeballBuyAmount > 0 || trankBuyAmount > 0) {
             shopWindow.classList.remove("active");
             window.location = 'map1.html'
         }
@@ -900,6 +930,7 @@ if(btn_Buy) {
 function updateShop() {
     lbl_Shop_Money.innerHTML = `$ - ${shopMoney}`;
     lbl_Amount_Pokeballs.innerHTML = pokeballBuyAmount;
+    lbl_Amount_Tranks.innerHTML = trankBuyAmount;
 }
 
 
