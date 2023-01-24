@@ -391,7 +391,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.8);
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   z-index: 20;
@@ -533,6 +533,7 @@ body {
   letter-spacing: 1.5px;
   background-color: blue;
   font-weight: bold;
+  cursor: pointer;
 }
 .itemContainer .amountLabel {
   width: 70px;
@@ -1005,6 +1006,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .shop .contentContainer .miniwrapper-shop .amountlabel {
   background-color: gray;
