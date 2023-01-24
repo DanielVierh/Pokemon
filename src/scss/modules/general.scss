@@ -417,7 +417,7 @@ body{
         right: 0;
         bottom: 0;
         background-color: rgba(0, 0, 0, 0.4);
-        -webkit-backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(15px);
         backdrop-filter: blur(15px);
         z-index: 20;
         transition: all 1s ease;
@@ -449,7 +449,7 @@ body{
             display: flex;
             color: black;
             align-items: center;
-            justify-content: space-around;
+            justify-content: space-evenly;
 
             .pokemonMiniCont {
                 width: 50px;
@@ -464,7 +464,7 @@ body{
 
             .nameProgressCont {
                 width: 140px;
-                
+
                 .namefield {
                     font-size: 1em;
                     padding: 0;
@@ -485,7 +485,7 @@ body{
                 padding: 5px;
                 border-radius: 10px;
             }
-            
+
         }
     }
 

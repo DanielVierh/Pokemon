@@ -2085,7 +2085,7 @@ if (giveTrank) {
         if (save_Object.items.trank >= 1) {
             const pokemonName = myTeam[pokemonItemId].name;
 
-            const healRequest = window.confirm(`Möchtest du Deinem Pokemon ${makeFirstLetterBig(pokemonName)} 1 Supertrank geben?`)
+            const healRequest = window.confirm(`Möchtest du Deinem Pokemon ${makeFirstLetterBig(pokemonName)} \n 1 Supertrank geben?`)
             if (healRequest) {
                 // Herausfinden, ob Pokemon gerade kämpft
                 const staticPokemonUniqueId = myStaticPokemon.unique_ID;
@@ -2128,8 +2128,3 @@ if (giveTrank) {
         }
     })
 }
-
-
-
-
-

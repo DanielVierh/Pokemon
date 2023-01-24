@@ -131,10 +131,10 @@ const exitData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 const buyingEffect = document.getElementById('buyingEffect');
 let infoBox = document.getElementById('infoBox');
-const pokeballPrice = 10;
-const trankPrice = 15;
-const beleberPrice = 20;
-const bonbonPrice = 50;
+const pokeballPrice = 20;
+const trankPrice = 50;
+const beleberPrice = 70;
+const bonbonPrice = 100;
 
 const lbl_Money = document.getElementById("lbl_Money");
 const lbl_Shop_Money = document.getElementById("lbl_Shop_Money");
