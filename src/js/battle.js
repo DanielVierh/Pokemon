@@ -962,7 +962,7 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
 
     setTimeout(() => {
         checkWhoExecuteNext();
-    }, 2000);
+    }, 3100);
 }
 
 
