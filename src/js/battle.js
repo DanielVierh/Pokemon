@@ -935,7 +935,7 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                     document.getElementById(`teamPoke_${myCurrentPokemonIndex}`).classList.add('defeat');
                     save_SaveObj();
                 }
-            }, 800);
+            }, 400);
         } else {
 
             if (variableMoveName === false) {
@@ -958,7 +958,7 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                 defenderPokemon.name,
             )} | Lv. ${defenderPokemon.level} | KP.${currentHP}`;
         }
-    }, 1000);
+    }, 1700);
 
     setTimeout(() => {
         checkWhoExecuteNext();
