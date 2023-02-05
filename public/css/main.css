@@ -1091,7 +1091,7 @@ h1 {
 .joystick .joystickButton {
   margin: 20px;
   background-color: black;
-  padding: 10px;
+  padding: 3px;
   color: white;
   border-radius: 8px;
   height: 30px;
