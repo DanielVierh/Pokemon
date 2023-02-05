@@ -859,7 +859,6 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
     let fullHP = currentWildPokemon.maxHp;
     let currentHP = currentWildPokeHP;
     let oldHPInPercent = parseInt(((currentHP + damage) *100 ) / fullHP)
-    console.log('oldHPInPercent', oldHPInPercent);
     let hpInPercent = parseInt((currentHP * 100) / fullHP);
     let effectedImage = wildPokeImage;
     let effectedPokeName = wildPokeName;
@@ -883,7 +882,10 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
         document.getElementById(`teamPokeProgress_${myCurrentPokemonIndex}`).value = hpInPercent
     }
 
-                    //!############################################################
+//!############################################################
+// Inner Function to descrease the prgress bar slowly
+//!############################################################
+
                     hp_in_percent_val = oldHPInPercent;
                     let intv = undefined;
 
@@ -899,19 +901,16 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                             hp_in_percent_val = decreacingKp;
                         }
                         effectedProgressbar.value = hp_in_percent_val;
-                        console.log(`${hp_in_percent_val} %`);
                     }
 
-                    //!############################################################
+//!############################################################
 
     // Balken anzeigen
     if (hpInPercent <= 0) {
-        // effectedProgressbar.style.width = 0;
         initUpcountingTemp(0)
     } else {
         if (damage > 0) {
-            //!####################################################
-            initUpcountingTemp(hpInPercent)
+        initUpcountingTemp(hpInPercent)
         }
     }
 
@@ -936,7 +935,7 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                     document.getElementById(`teamPoke_${myCurrentPokemonIndex}`).classList.add('defeat');
                     save_SaveObj();
                 }
-            }, 400);
+            }, 800);
         } else {
 
             if (variableMoveName === false) {
