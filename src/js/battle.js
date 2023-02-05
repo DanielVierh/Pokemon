@@ -958,7 +958,7 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                 defenderPokemon.name,
             )} | Lv. ${defenderPokemon.level} | KP.${currentHP}`;
         }
-    }, 1700);
+    }, 3000);
 
     setTimeout(() => {
         checkWhoExecuteNext();
