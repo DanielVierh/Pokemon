@@ -858,16 +858,22 @@ function myPokemonAttack(whoIsExecuting) {
 function animateProgressBar(damage, whoIsAffected, healVal) {
     let fullHP = currentWildPokemon.maxHp;
     let currentHP = currentWildPokeHP;
+    let oldHPInPercent = parseInt(((currentHP + damage) *100 ) / fullHP)
+    console.log('oldHPInPercent', oldHPInPercent);
     let hpInPercent = parseInt((currentHP * 100) / fullHP);
     let effectedImage = wildPokeImage;
     let effectedPokeName = wildPokeName;
     let effectedProgressbar = wildPokemonProgress;
     let atackerPokemon = myStaticPokemon;
     let defenderPokemon = currentWildPokemon;
+    let hp_in_percent_val = oldHPInPercent;
+
 
     if (whoIsAffected === 'myPokemon') {
         fullHP = myCurrentPokemonStaticHP;
         currentHP = myCurrentPokemonHP;
+        oldHPInPercent = parseInt(((currentHP + damage) * 100 ) / fullHP)
+        hp_in_percent_val = oldHPInPercent;
         hpInPercent = parseInt((currentHP * 100) / fullHP);
         effectedImage = myPokeImage;
         effectedPokeName = myPokeName;
@@ -877,14 +883,35 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
         document.getElementById(`teamPokeProgress_${myCurrentPokemonIndex}`).value = hpInPercent
     }
 
+                    //!############################################################
+                    hp_in_percent_val = oldHPInPercent;
+                    let intv = undefined;
+
+                    function initUpcountingTemp(decreacingKp) {
+                        hp_in_percent_val = oldHPInPercent;
+                        intv = setInterval(function () { countingUp(decreacingKp); }, 20);
+                    }
+
+                    function countingUp(decreacingKp) {
+                        hp_in_percent_val--;
+                        if (hp_in_percent_val === decreacingKp) {
+                            clearInterval(intv);
+                            hp_in_percent_val = decreacingKp;
+                        }
+                        effectedProgressbar.value = hp_in_percent_val;
+                        console.log(`${hp_in_percent_val} %`);
+                    }
+
+                    //!############################################################
+
     // Balken anzeigen
     if (hpInPercent <= 0) {
-        effectedProgressbar.style.width = 0;
+        // effectedProgressbar.style.width = 0;
+        initUpcountingTemp(0)
     } else {
         if (damage > 0) {
             //!####################################################
-            // init_downgrading_Kp(hpInPercent,currentHP,effectedProgressbar)
-            effectedProgressbar.value = hpInPercent;
+            initUpcountingTemp(hpInPercent)
         }
     }
 
@@ -898,6 +925,7 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
             );
             // Besiegtes Pokemon verschwindet
             effectedImage.classList.add('getDestroyed');
+
             setTimeout(() => {
                 effectedImage.style.opacity = '0';
                 effectedPokeName.innerHTML = '';
@@ -910,6 +938,7 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                 }
             }, 400);
         } else {
+
             if (variableMoveName === false) {
                 showInfoBox(
                     `${makeFirstLetterBig(
@@ -937,31 +966,8 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
     }, 2000);
 }
 
-//###############################################################################################
-// Statusbar Animation
-let kp_value = 100;
-let intv = undefined;
 
-// function init_downgrading_Kp(targetValue, old_kp_value, effectedProgressbar) {
-//     kp_value = old_kp_value;
-//     intv = setInterval(function () { countingDown(targetValue); }, 17);
-//     console.log('targetValue', targetValue);
-//     console.log('old_kp_value', old_kp_value);
-//     console.log('effectedProgressbar', effectedProgressbar);
-// }
-
-// function countingDown(targetValue,effectedProgressbar) {
-//     kp_value--;
-//     if (kp_value === targetValue) {
-//         clearInterval(intv);
-//         kp_value = targetValue;
-//     }
-//     console.log(kp_value);
-//     effectedProgressbar.style.width = kp_value;
-//     // effectedProgressbar.value = kp_value;
-//     // tempLabel.innerText = `${kp_value}°C`;
-// }
-//###############################################################################################
+//######################################################
 
 // Gameloop
 function checkWhoExecuteNext() {
@@ -979,7 +985,7 @@ function checkWhoExecuteNext() {
     }
 }
 
-//######################################################
+
 
 //######################################################
 
