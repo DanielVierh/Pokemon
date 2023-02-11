@@ -1155,12 +1155,12 @@ h1 {
   -webkit-tap-highlight-color: transparent;
 }
 .joystick .joystickButton {
-  margin: 20px;
+  margin: 10px;
   background-color: black;
   padding: 3px;
   color: white;
   border-radius: 8px;
-  height: 30px;
+  height: 50px;
   min-width: 70px;
   user-select: none;
   -moz-user-select: none;

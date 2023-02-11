@@ -1197,16 +1197,6 @@ if (canvas) {
 
     ////////////////////////////////////////////////////////
 
-    // function handleOrientation(event) {
-    //     console.log(event);
-    //     const alpha = event.rotationRate.alpha;
-    //     const beta = event.rotationRate.beta;
-    //     const gamma = event.rotationRate.gamma;
-    //     // Do stuff...
-    //     outp_gyro.innerHTML = `alpha: ${alpha} | beta: ${beta} | gamma: ${gamma}`
-    //     // const rnd = Math.random() * 10
-    //     // outp_gyro.innerHTML = `Macht was ${rnd}`
-    // }
 
     window.addEventListener('keyup', (e) => {
         switch (e.key) {
@@ -1241,3 +1231,6 @@ function makeFirstLetterBig(word) {
     }
     return exportword;
 }
+
+
+
