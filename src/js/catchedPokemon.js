@@ -160,22 +160,21 @@ function renderCatchedPokemons() {
 //####################################################################
 
 function renderTodayPokemons() {
-    //pokemonListCont
-    console.log('save_Object.allFacedPokemons', save_Object.allFacedPokemons);
     for(let i = 0; i < save_Object.today_Pokemons.length; i++) {
         let box = document.createElement('div');
         box.classList.add('pokeBox');
         let isKnown = false;
         let imgP = document.createElement('img');
+        const searchedID = save_Object.today_Pokemons[i]
         for(let j = 0; j < save_Object.allFacedPokemons.length; j++) {
-            if(save_Object.today_Pokemons[i].id === save_Object.allFacedPokemons[j].id) {
+            if(searchedID === save_Object.allFacedPokemons[j].id) {
                 isKnown = true;
                 imgP.src = save_Object.allFacedPokemons[j].spriteFront;
                 break;
             }
         }
         if(isKnown === true) {
-            box.appendChild(img)
+            box.appendChild(imgP)
         }else {
             box.innerHTML = `? <br> ${save_Object.today_Pokemons[i]}`;
         }
