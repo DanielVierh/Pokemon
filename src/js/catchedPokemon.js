@@ -21,12 +21,15 @@ const lbl_Money = document.getElementById("lbl_Money");
 const lbl_Shop_Money = document.getElementById("lbl_Shop_Money");
 const shopWindow = document.getElementById("shopWindow");
 const btnCloseShop = document.getElementById("btnCloseShop");
-const btn_open_Shop = document.getElementById("btn_open_Shop");
+const btn_open_Pokelist = document.getElementById("btn_open_Pokelist");
 const btn_Pokeball = document.getElementById("btn_Pokeball");
 const lbl_Amount_Pokeballs = document.getElementById("lbl_Amount_Pokeballs");
 const btn_Buy = document.getElementById("btn_Buy");
 const setting_Gen = document.getElementById("setting_Gen");
-const btn_refresh_todays_Pokemon = document.getElementById("btn_refresh_todays_Pokemon")
+const btn_refresh_todays_Pokemon = document.getElementById("btn_refresh_todays_Pokemon");
+const pokemonListCont = document.getElementById("pokemonListCont");
+const btnClosePokemonList = document.getElementById("btnClosePokemonList");
+const todayPokemonListWindow = document.getElementById("todayPokemonListWindow");
 
 const mv_0 = document.getElementById("mv_0")
 const mv_1 = document.getElementById("mv_1")
@@ -77,6 +80,7 @@ function load_SaveObj() {
         try {
             renderCatchedPokemons();
             renderTeam();
+            renderTodayPokemons();
             lbl_Money.innerHTML = `$ - ${save_Object.items.money}`;
             setting_Gen.value = save_Object.gen
         } catch (error) {
@@ -151,8 +155,47 @@ function renderCatchedPokemons() {
         catchedPokemonContaier.appendChild(pokeCont)
     }
 }
+//####################################################################
+// HEUTIGE POKEMON
+//####################################################################
 
+function renderTodayPokemons() {
+    //pokemonListCont
+    console.log('save_Object.allFacedPokemons', save_Object.allFacedPokemons);
+    for(let i = 0; i < save_Object.today_Pokemons.length; i++) {
+        let box = document.createElement('div');
+        box.classList.add('pokeBox');
+        let isKnown = false;
+        let imgP = document.createElement('img');
+        for(let j = 0; j < save_Object.allFacedPokemons.length; j++) {
+            if(save_Object.today_Pokemons[i].id === save_Object.allFacedPokemons[j].id) {
+                isKnown = true;
+                imgP.src = save_Object.allFacedPokemons[j].spriteFront;
+                break;
+            }
+        }
+        if(isKnown === true) {
+            box.appendChild(img)
+        }else {
+            box.innerHTML = `? <br> ${save_Object.today_Pokemons[i]}`;
+        }
+        pokemonListCont.appendChild(box)
+    }
+}
 
+// Öffnen
+if(btn_open_Pokelist) {
+    btn_open_Pokelist.addEventListener("click", ()=> {
+        todayPokemonListWindow.classList.add('active')
+    })
+}
+
+if(btnClosePokemonList) {
+    btnClosePokemonList.addEventListener('click', ()=> {
+        todayPokemonListWindow.classList.remove('active')
+    })
+}
+//####################################################################
 
 // Pokemon hinzufügen
 const addBtn = document.querySelectorAll('.addButton');
@@ -567,16 +610,7 @@ let pokeballBuyAmount = 0;
 let shopMoney = 0;
 
 
-// Öffnen
-if(btn_open_Shop) {
-    btn_open_Shop.addEventListener("click", ()=> {
-        shopWindow.classList.add("active");
-        shopMoney = save_Object.items.money;
-        pokeballBuyAmount = 0;
-        btn_Pokeball.innerHTML = `Pokeball - ${pokeballPrice}$`
-        updateShop();
-    })
-}
+
 
 
 // Close
