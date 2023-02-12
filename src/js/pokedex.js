@@ -60,6 +60,7 @@ function renderPokeCards() {
     let pokename = '';
     let pokelevel = 0;
     let poketype = '';
+    let stats = '';
 
     console.log(facedPokemons);
 
@@ -68,15 +69,16 @@ function renderPokeCards() {
         pokename = pokemonByID[i].name;
         pokelevel = pokemonByID[i].level;
         poketype = pokemonByID[i].type;
-        buildCard(pokeId, pokename, pokelevel, poketype);
+        stats = `Ang:${pokemonByID[i].statAttack} Ver:${pokemonByID[i].statDefense} Kp:${pokemonByID[i].hp}`
+        buildCard(pokeId, pokename, pokelevel, poketype, stats);
     }
 }
 
-function buildCard(id, name, level, type) {
+function buildCard(id, name, level, type, stats) {
     let cont = document.createElement('div');
     let txtlbl = document.createElement('p');
     let imgP = document.createElement('img');
-    txtlbl.innerText = `${makeFirstLetterBig(name)} Nr.${id} \n Typ: ${makeFirstLetterBig(type)}`;
+    txtlbl.innerText = `${makeFirstLetterBig(name)} Nr.${id} \n Typ: ${makeFirstLetterBig(type)} \n ${stats}`;
     txtlbl.classList.add('pokedexName');
     imgP.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
     cont.appendChild(imgP);
