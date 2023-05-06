@@ -211,8 +211,10 @@ body{
     position: fixed;
     left: 20px;
     bottom: 50px;
-    background-color: red;
+    // background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
     z-index: 11;
+    height: 20px;
 }
 
 #myPokemonXPProgress {
@@ -223,7 +225,11 @@ body{
 }
 
 #wildPokemonProgress {
-    background-color: red;
+    // background-color: rgba(0, 0, 0, 0.6);
+    width: 70%;
+    max-width: 300px;
+    height: 20px;
+    border-radius: 8px;
 }
 
 .buttonContainer{
