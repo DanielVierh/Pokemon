@@ -575,7 +575,7 @@ function createMyPokemon() {
     myCurrentPokemonHP = myStaticPokemon.hp;
     myCurrentPokemonStaticHP = myStaticPokemon.maxHp;
     myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${myStaticPokemon.level
-        } -- KP.${myStaticPokemon.hp}`;
+        } | KP.${myStaticPokemon.hp}`;
     console.log('MyCreated', myStaticPokemon);
 }
 
@@ -620,7 +620,7 @@ function createWildPokemon() {
             // wildPokeImage.style.opacity = "1";
             wildPokeName.innerHTML = `${makeFirstLetterBig(
                 currentWildPokemon.name,
-            )} | Lv. ${currentWildPokemon.level} -- KP.${currentWildPokemon.hp
+            )} | Lv. ${currentWildPokemon.level} | KP.${currentWildPokemon.hp
                 }`;
             currentWildPokeHP = currentWildPokemon.hp;
             console.log('Found Pokemon in FacedPokemons', currentWildPokemon);
@@ -677,7 +677,7 @@ function fetchPokemon(id) {
             wildPokeImage.style.opacity = '1';
             wildPokeName.innerHTML = `${makeFirstLetterBig(
                 currentWildPokemon.name,
-            )} | Lv. ${currentWildPokemon.level} -- KP.${currentWildPokemon.hp
+            )} | Lv. ${currentWildPokemon.level}| KP.${currentWildPokemon.hp
                 }`;
             currentWildPokeHP = currentWildPokemon.hp;
             showInfoBox(
@@ -1299,7 +1299,7 @@ function chooseNewPokemon(choosenPokemon) {
     );
     myPokemonProgress.value = hpInPercent;
     myPokeName.innerHTML = `${makeFirstLetterBig(choosenPokemon.name)} | Lv.${choosenPokemon.level
-        } -- KP.${choosenPokemon.hp}`;
+        } | KP.${choosenPokemon.hp}`;
     document.getElementById('windowMenu').classList.remove('active');
     // Lade Moves
     for (let i = 0; i <= 3; i++) {
@@ -1425,7 +1425,7 @@ function normalLevelUp(currentLevel, pokemonIndex) {
     setTimeout(() => {
         myPokeName.innerHTML = `${makeFirstLetterBig(
             myStaticPokemon.name,
-        )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
+        )} | Lv.${currentLevel} | KP.${myStaticPokemon.hp}`;
     }, 1000);
 }
 
@@ -1481,7 +1481,7 @@ function levelUp_with_learn_Attack(currentLevel, pokemonIndex) {
     setTimeout(() => {
         myPokeName.innerHTML = `${makeFirstLetterBig(
             myStaticPokemon.name,
-        )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
+        )} | Lv.${currentLevel} | KP.${myStaticPokemon.hp}`;
     }, 1000);
 }
 
@@ -1547,7 +1547,7 @@ function levelUp_with_Evolving(currentLevel, pokemonIndex) {
                                         setTimeout(() => {
                                             myPokeName.innerHTML = `${makeFirstLetterBig(
                                                 myStaticPokemon.name,
-                                            )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
+                                            )} | Lv.${currentLevel} | KP.${myStaticPokemon.hp}`;
                                         }, 1000);
 
                                     } else {
@@ -1572,7 +1572,7 @@ function levelUp_with_Evolving(currentLevel, pokemonIndex) {
                                         setTimeout(() => {
                                             myPokeName.innerHTML = `${makeFirstLetterBig(
                                                 myStaticPokemon.name,
-                                            )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
+                                            )} | Lv.${currentLevel} | KP.${myStaticPokemon.hp}`;
                                         }, 1000);
                                     }
                                 });
@@ -1601,7 +1601,7 @@ function levelUp_with_Evolving(currentLevel, pokemonIndex) {
             setTimeout(() => {
                 myPokeName.innerHTML = `${makeFirstLetterBig(
                     myStaticPokemon.name,
-                )} | Lv.${currentLevel} -- KP.${myStaticPokemon.hp}`;
+                )} | Lv.${currentLevel} | KP.${myStaticPokemon.hp}`;
             }, 1000);
         });
 }
