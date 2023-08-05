@@ -937,15 +937,25 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                 }
             }, 400);
         } else {
-
             if (variableMoveName === false) {
-                showInfoBox(
-                    `${makeFirstLetterBig(
-                        atackerPokemon.name,
-                    )} führt "${makeFirstLetterBig(
-                        pokeMove.name,
-                    )}" aus und richtet ${damage} Schaden an.`,
-                );
+                console.warn('Damage: ', damage);
+                if(damage === 0) {
+                    showInfoBox(
+                        `${makeFirstLetterBig(
+                            atackerPokemon.name,
+                        )} führt "${makeFirstLetterBig(
+                            pokeMove.name,
+                        )}" aus. Die Attacke hat keine Wirkung.`,
+                    );
+                }else {
+                    showInfoBox(
+                        `${makeFirstLetterBig(
+                            atackerPokemon.name,
+                        )} führt "${makeFirstLetterBig(
+                            pokeMove.name,
+                        )}" aus und richtet ${damage} Schaden an.`,
+                    );
+                }
             } else {
                 showInfoBox(
                     `${makeFirstLetterBig(
@@ -1607,7 +1617,6 @@ function levelUp_with_Evolving(currentLevel, pokemonIndex) {
 }
 
 function checkPokeTypes(attackType, defenderType) {
-    console.log('attackType', attackType);
     switch (attackType) {
         case 'fire':
             img_Animat.src = `./assets/mv_fire.png`;
