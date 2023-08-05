@@ -938,7 +938,6 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
             }, 400);
         } else {
             if (variableMoveName === false) {
-                console.warn('Damage: ', damage);
                 if(damage === 0) {
                     showInfoBox(
                         `${makeFirstLetterBig(
