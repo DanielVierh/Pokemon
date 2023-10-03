@@ -1060,7 +1060,7 @@ function ki_Move() {
         save_Object.items.money += parseInt(currentWildPokemon.level / 2);
         level_up();
         setTimeout(() => {
-            if(is_trainerBattle === true && trainerBattle_round < 4) {
+            if(is_trainerBattle === true && trainerBattle_round < 3) {
                 trainerBattle_round++;
                 localStorage.setItem('stored_battlecounter', JSON.stringify(trainerBattle_round));
             }
