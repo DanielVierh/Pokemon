@@ -29,7 +29,7 @@ let todayPokemons = []; // 20 Pokemon werden random mäßig erstellt
 const maxPokemon = 898;
 
 let is_trainerBattle = false;
-let trainerBattle_round = 0;
+let trainerBattle_round = 1;
 
 
 const pokemonGenerationen = {
@@ -271,10 +271,19 @@ function init() {
             createMyFirstPokemon();
             renderItems();
             document.getElementById('battleTag').classList.add('trainer-battle-container')
-            trainerBattle_round++;
+            //trainerBattle_round++;
             document.getElementById("mainButton2").style.display = 'none';
             trainer_battleCounter.classList.add('active');
-            trainer_battleCounter.innerHTML = `${trainerBattle_round}/3`;
+
+            try {
+                if(is_trainerBattle === true) {
+                    trainerBattle_round =  JSON.parse(localStorage.getItem('stored_battlecounter'));
+                    console.log('loaded trainerBattle_round', trainerBattle_round);
+                    trainer_battleCounter.innerHTML = `${trainerBattle_round}/3`;
+                }
+            } catch (error) {
+                console.log('stored_battlecounter ', error);
+            }
         }
 
 
@@ -287,6 +296,7 @@ function load_SaveObj() {
         facedPokemons = save_Object.allFacedPokemons;
         allMoves = save_Object.allPokemonMoves;
         myTeam = save_Object.myPokemonTeam;
+
         if(save_Object.lastLocation === 'pokegym') {
             is_trainerBattle = true;
         }else {
@@ -1049,7 +1059,10 @@ function ki_Move() {
         save_Object.items.money += parseInt(currentWildPokemon.level / 2);
         level_up();
         setTimeout(() => {
-            // window.location.reload();
+            if(is_trainerBattle === true && trainerBattle_round < 4) {
+                trainerBattle_round++;
+                localStorage.setItem('stored_battlecounter', JSON.stringify(trainerBattle_round));
+            }
             window.location.reload();
         }, 3000);
     }
