@@ -875,6 +875,8 @@ if (canvas) {
                         player.moving = false;
                         bttleEffect.classList.add('active');
                         setTimeout(() => {
+                            save_Object.lastLocation = 'battlezone'
+                            save_SaveObj();
                             window.location = 'battle.html';
                         }, 2000);
                     }
@@ -907,7 +909,7 @@ if (canvas) {
                 ) {
                     save_Object.lastLocation = 'pokegym'
                     save_SaveObj();
-                    window.location = 'trainerBattle.html';
+                    window.location = 'battle.html';
                     break;
                 }
             }
@@ -1000,7 +1002,7 @@ if (canvas) {
                 ) {
                     save_Object.lastLocation = 'pokegym'
                     save_SaveObj();
-                    window.location = 'trainerBattle.html';
+                    window.location = 'battle.html';
                     break;
                 }
             }
@@ -1093,7 +1095,7 @@ if (canvas) {
                 ) {
                     save_Object.lastLocation = 'pokegym'
                     save_SaveObj();
-                    window.location = 'trainerBattle.html';
+                    window.location = 'battle.html';
                     break;
                 }
             }
@@ -1186,7 +1188,7 @@ if (canvas) {
                 ) {
                     save_Object.lastLocation = 'pokegym'
                     save_SaveObj();
-                    window.location = 'trainerBattle.html';
+                    window.location = 'battle.html';
                     break;
                 }
             }

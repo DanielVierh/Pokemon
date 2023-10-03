@@ -28,9 +28,7 @@ let myPokeballAmount = 35;
 let todayPokemons = []; // 20 Pokemon werden random mäßig erstellt
 const maxPokemon = 898;
 
-// Trainer Battle
-let is_trainerbattle = false;
-let trainerBattle_Round = 0;
+let is_trainerBattle = false;
 
 
 const pokemonGenerationen = {
@@ -258,22 +256,23 @@ function init() {
     // Check first if battle window is open
     if (document.getElementById('battleTag')) {
         load_SaveObj();
-        generate_today_Pokemons();
-        myPokemonProgress.value = 100;
-        wildPokemonProgress.value = 100;
-        createMyFirstPokemon();
-        renderItems();
-    }else if(document.getElementById('trainerBattleTag')) {
-        console.log('Trainerbattle');
-        is_trainerbattle = true;
-        trainerBattle_Round ++;
-        load_SaveObj();
-        generate_today_Pokemons();
-        myPokemonProgress.value = 100;
-        wildPokemonProgress.value = 100;
-        //TODO - Create Trainer Pokemens
-        createMyFirstPokemon();
-        renderItems();
+        if(is_trainerBattle === false) {
+            console.log('Trainerbattle:', is_trainerBattle);
+            generate_today_Pokemons();
+            myPokemonProgress.value = 100;
+            wildPokemonProgress.value = 100;
+            createMyFirstPokemon();
+            renderItems();
+        }else {
+            console.log('Trainerbattle:', is_trainerBattle);
+            generate_today_Pokemons();
+            myPokemonProgress.value = 100;
+            wildPokemonProgress.value = 100;
+            createMyFirstPokemon();
+            renderItems();
+        }
+
+
     }
 }
 
@@ -283,6 +282,11 @@ function load_SaveObj() {
         facedPokemons = save_Object.allFacedPokemons;
         allMoves = save_Object.allPokemonMoves;
         myTeam = save_Object.myPokemonTeam;
+        if(save_Object.lastLocation === 'pokegym') {
+            is_trainerBattle = true;
+        }else {
+            is_trainerBattle = false;
+        }
         try {
             if (save_Object.allFacedPokemons.length === 0) {
                 createMyStarterPokemon();
@@ -291,6 +295,7 @@ function load_SaveObj() {
             loadMyTeam();
             myPokeballAmount = save_Object.items.pokeballs;
             outpPokeball.innerHTML = myPokeballAmount;
+            console.log('3');
         } catch (error) {
             console.warn('Team konnte nicht angezeigt werden: ', error);
         }
@@ -954,24 +959,15 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                 }
             }, 400);
         } else {
+
             if (variableMoveName === false) {
-                if(damage === 0) {
-                    showInfoBox(
-                        `${makeFirstLetterBig(
-                            atackerPokemon.name,
-                        )} führt "${makeFirstLetterBig(
-                            pokeMove.name,
-                        )}" aus. Die Attacke hat keine Wirkung.`,
-                    );
-                }else {
-                    showInfoBox(
-                        `${makeFirstLetterBig(
-                            atackerPokemon.name,
-                        )} führt "${makeFirstLetterBig(
-                            pokeMove.name,
-                        )}" aus und richtet ${damage} Schaden an.`,
-                    );
-                }
+                showInfoBox(
+                    `${makeFirstLetterBig(
+                        atackerPokemon.name,
+                    )} führt "${makeFirstLetterBig(
+                        pokeMove.name,
+                    )}" aus und richtet ${damage} Schaden an.`,
+                );
             } else {
                 showInfoBox(
                     `${makeFirstLetterBig(
@@ -984,11 +980,11 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                 defenderPokemon.name,
             )} | Lv. ${defenderPokemon.level} | KP.${currentHP}`;
         }
-    }, 1500);
+    }, 3000);
 
     setTimeout(() => {
         checkWhoExecuteNext();
-    }, 1600);
+    }, 3100);
 }
 
 
@@ -1633,6 +1629,7 @@ function levelUp_with_Evolving(currentLevel, pokemonIndex) {
 }
 
 function checkPokeTypes(attackType, defenderType) {
+    console.log('attackType', attackType);
     switch (attackType) {
         case 'fire':
             img_Animat.src = `./assets/mv_fire.png`;
