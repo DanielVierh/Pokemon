@@ -270,7 +270,6 @@ function init() {
             wildPokemonProgress.value = 100;
             createMyFirstPokemon();
             renderItems();
-            //TODO - Create Trainer Pokemon
             document.getElementById('battleTag').classList.add('trainer-battle-container')
             trainerBattle_round++;
             document.getElementById("mainButton2").style.display = 'none';
@@ -644,6 +643,11 @@ function createWildPokemon() {
                 facedPokemons[i].maxHp,
             );
 
+            //ANCHOR -  Trainer Pokemon
+            if(is_trainerBattle === true) {
+                create_trainer_pokemon();
+            }
+        
             wildPokeImage.src = currentWildPokemon.spriteFront;
             // wildPokeImage.style.opacity = "1";
             wildPokeName.innerHTML = `${makeFirstLetterBig(
@@ -699,7 +703,11 @@ function fetchPokemon(id) {
                 data.stats[0].base_stat,
                 data.stats[0].base_stat,
             );
-            console.log('currentWildPokemon', currentWildPokemon);
+    
+            //ANCHOR -  Trainer Pokemon
+            if(is_trainerBattle === true) {
+                create_trainer_pokemon();
+            }
             // Wildes Pokemon rendern
             wildPokeImage.src = currentWildPokemon.spriteFront;
             wildPokeImage.style.opacity = '1';
@@ -721,6 +729,14 @@ function fetchPokemon(id) {
             console.warn(error);
             createWildPokemon();
         });
+}
+
+function create_trainer_pokemon() {
+    currentWildPokemon.level = (avarageLevel + 30);
+    currentWildPokemon.statAttack = currentWildPokemon.statAttack + 30;
+    currentWildPokemon.statDefense = currentWildPokemon.statDefense + 30;
+    currentWildPokemon.maxHp = currentWildPokemon.maxHp + 30;
+    currentWildPokemon.hp = currentWildPokemon.hp + 30;
 }
 
 //######################################################
