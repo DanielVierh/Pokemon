@@ -94,6 +94,7 @@ const img_Animat = document.getElementById('img_Animat');
 const wildPkeBattleCard = document.getElementById('wildPkeBattleCard');
 const myPkeBattleCard = document.getElementById('myPkeBattleCard');
 const itemButtons = document.querySelectorAll('.itemButton');
+const trainer_battleCounter = document.getElementById("lbl_trainer_battle_counter")
 
 
 let save_Object = {
@@ -273,6 +274,8 @@ function init() {
             document.getElementById('battleTag').classList.add('trainer-battle-container')
             trainerBattle_round++;
             document.getElementById("mainButton2").style.display = 'none';
+            trainer_battleCounter.classList.add('active');
+            trainer_battleCounter.innerHTML = `${trainerBattle_round}/3`;
         }
 
 
