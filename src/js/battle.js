@@ -988,6 +988,7 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
                     document.getElementById(`teamPokeProgress_${myCurrentPokemonIndex}`).value = hpInPercent
                     document.getElementById(`teamPoke_${myCurrentPokemonIndex}`).classList.add('defeat');
                     save_SaveObj();
+                    check_if_all_defeated();
                 }
             }, 400);
         } else {
@@ -2189,4 +2190,23 @@ if (giveTrank) {
             }
         }
     })
+}
+
+function check_if_all_defeated() {
+    let minimum_one_alive = false;
+    for (let i = 0; i < myTeam.length; i++) {
+        if (myTeam[i].isDefeated === false) {
+            minimum_one_alive = true;
+            break
+        }
+    }
+
+    if(minimum_one_alive === false) {
+        alert("Dir wird schwarz vor augen");
+        trainerBattle_round = 1;
+        localStorage.setItem('stored_battlecounter', JSON.stringify(trainerBattle_round));
+        save_Object.lastLocation = 'pokecenter';
+        save_SaveObj();
+        window.location = 'pokecenter.html';
+    }
 }
