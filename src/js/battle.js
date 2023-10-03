@@ -29,6 +29,7 @@ let todayPokemons = []; // 20 Pokemon werden random mäßig erstellt
 const maxPokemon = 898;
 
 let is_trainerBattle = false;
+let trainerBattle_round = 0;
 
 
 const pokemonGenerationen = {
@@ -270,6 +271,10 @@ function init() {
             wildPokemonProgress.value = 100;
             createMyFirstPokemon();
             renderItems();
+            //TODO - Create Trainer Pokemon
+            document.getElementById('battleTag').classList.add('trainer-battle-container')
+            trainerBattle_round++;
+            console.log('trainerBattle_round', trainerBattle_round);
         }
 
 
