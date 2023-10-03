@@ -57,6 +57,10 @@ body{
     background-size: cover;
     background-position: center;
     position: relative;
+
+    &.trainer-battle-container {
+        background-image: url(../../assets/trainer-battle.jpg);
+    }
 }
 
 

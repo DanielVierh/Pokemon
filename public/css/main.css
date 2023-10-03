@@ -54,6 +54,9 @@ body {
   background-position: center;
   position: relative;
 }
+.mainContainer.trainer-battle-container {
+  background-image: url(../javascript/f96373cd44e9d00f9326.jpg);
+}
 
 .myPokemonImage {
   width: 250px;

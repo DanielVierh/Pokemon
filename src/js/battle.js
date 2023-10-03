@@ -27,6 +27,12 @@ let iamExecuting = false;
 let myPokeballAmount = 35;
 let todayPokemons = []; // 20 Pokemon werden random mäßig erstellt
 const maxPokemon = 898;
+
+// Trainer Battle
+let is_trainerbattle = false;
+let trainerBattle_Round = 0;
+
+
 const pokemonGenerationen = {
     gen1: {
         start: 1,
@@ -255,6 +261,17 @@ function init() {
         generate_today_Pokemons();
         myPokemonProgress.value = 100;
         wildPokemonProgress.value = 100;
+        createMyFirstPokemon();
+        renderItems();
+    }else if(document.getElementById('trainerBattleTag')) {
+        console.log('Trainerbattle');
+        is_trainerbattle = true;
+        trainerBattle_Round ++;
+        load_SaveObj();
+        generate_today_Pokemons();
+        myPokemonProgress.value = 100;
+        wildPokemonProgress.value = 100;
+        //TODO - Create Trainer Pokemens
         createMyFirstPokemon();
         renderItems();
     }
