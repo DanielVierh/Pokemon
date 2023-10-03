@@ -742,11 +742,11 @@ function fetchPokemon(id) {
 }
 
 function create_trainer_pokemon() {
-    currentWildPokemon.level = (avarageLevel + 35);
-    currentWildPokemon.statAttack = currentWildPokemon.statAttack + 35;
-    currentWildPokemon.statDefense = currentWildPokemon.statDefense + 35;
-    currentWildPokemon.maxHp = currentWildPokemon.maxHp + 35;
-    currentWildPokemon.hp = currentWildPokemon.hp + 35;
+    currentWildPokemon.level = (avarageLevel + 45);
+    currentWildPokemon.statAttack = currentWildPokemon.statAttack + 45;
+    currentWildPokemon.statDefense = currentWildPokemon.statDefense + 45;
+    currentWildPokemon.maxHp = currentWildPokemon.maxHp + 45;
+    currentWildPokemon.hp = currentWildPokemon.hp + 45;
 }
 
 //######################################################
