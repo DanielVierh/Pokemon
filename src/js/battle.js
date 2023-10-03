@@ -1062,6 +1062,14 @@ function ki_Move() {
         setTimeout(() => {
             if(is_trainerBattle === true && trainerBattle_round < 3) {
                 trainerBattle_round++;
+
+                if(trainerBattle_round === 4) {
+                    alert('Klasse, du hast den Trainer besiegt. Du gewinnst 5 Pokebälle und 2 Supertränke');
+                    save_Object.items.pokeballs += 5;
+                    save_Object.items.trank += 5;
+                    save_SaveObj();
+                    trainerBattle_round = 1;
+                }
                 localStorage.setItem('stored_battlecounter', JSON.stringify(trainerBattle_round));
             }
             window.location.reload();
