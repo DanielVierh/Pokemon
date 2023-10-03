@@ -1069,6 +1069,8 @@ function ki_Move() {
                     save_Object.items.trank += 5;
                     save_SaveObj();
                     trainerBattle_round = 1;
+                    localStorage.setItem('stored_battlecounter', JSON.stringify(trainerBattle_round));
+                    window.location = 'map1.html';
                 }
                 localStorage.setItem('stored_battlecounter', JSON.stringify(trainerBattle_round));
             }
