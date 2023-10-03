@@ -258,14 +258,12 @@ function init() {
     if (document.getElementById('battleTag')) {
         load_SaveObj();
         if(is_trainerBattle === false) {
-            console.log('Trainerbattle:', is_trainerBattle);
             generate_today_Pokemons();
             myPokemonProgress.value = 100;
             wildPokemonProgress.value = 100;
             createMyFirstPokemon();
             renderItems();
         }else {
-            console.log('Trainerbattle:', is_trainerBattle);
             generate_today_Pokemons();
             myPokemonProgress.value = 100;
             wildPokemonProgress.value = 100;
@@ -274,7 +272,7 @@ function init() {
             //TODO - Create Trainer Pokemon
             document.getElementById('battleTag').classList.add('trainer-battle-container')
             trainerBattle_round++;
-            console.log('trainerBattle_round', trainerBattle_round);
+            document.getElementById("mainButton2").style.display = 'none';
         }
 
 
