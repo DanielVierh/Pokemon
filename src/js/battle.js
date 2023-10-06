@@ -1487,7 +1487,7 @@ function normalLevelUp(currentLevel, pokemonIndex) {
     myPokemonXPProgress.value = myStaticPokemon.xp;
     save_SaveObj();
     showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel} <br>
-    Gesundheit: + 1 <br>
+    KP: + 1 <br>
     Angriff: + 1 <br>
     Verteidigung: + 1`);
     setTimeout(() => {
@@ -1542,7 +1542,7 @@ function levelUp_with_learn_Attack(currentLevel, pokemonIndex) {
     showInfoBox(`${makeFirstLetterBig(
         myStaticPokemon.name,
     )} erreicht Level ${currentLevel} <br>
-        Gesundheit: + 1 <br>
+        KP: + 1 <br>
         Angriff: + 1 <br>
         Verteidigung: + 1 <br>
         ${newAttackMessage}`);
@@ -1609,7 +1609,7 @@ function levelUp_with_Evolving(currentLevel, pokemonIndex) {
                                         save_SaveObj();
                                         alert(`Wow, ${makeFirstLetterBig(myStaticPokemon.name)} entwickelt sich zu ${evolvedName}`)
                                         showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel} <br>
-                                            Gesundheit: + 1 <br>
+                                            KP: + 1 <br>
                                             Angriff: + 1 <br>
                                             Verteidigung: + 1`);
                                         setTimeout(() => {
@@ -1634,7 +1634,7 @@ function levelUp_with_Evolving(currentLevel, pokemonIndex) {
                                         myPokemonXPProgress.value = myStaticPokemon.xp;
                                         save_SaveObj();
                                         showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel} <br>
-                                            Gesundheit: + 1 <br>
+                                            KP: + 1 <br>
                                             Angriff: + 1 <br>
                                             Verteidigung: + 1`);
                                         setTimeout(() => {
@@ -1663,7 +1663,7 @@ function levelUp_with_Evolving(currentLevel, pokemonIndex) {
             myPokemonXPProgress.value = myStaticPokemon.xp;
             save_SaveObj();
             showInfoBox(`${makeFirstLetterBig(myStaticPokemon.name)} erreicht Level ${currentLevel} <br>
-                    Gesundheit: + 1 <br>
+                    KP: + 1 <br>
                     Angriff: + 1 <br>
                     Verteidigung: + 1`);
             setTimeout(() => {
