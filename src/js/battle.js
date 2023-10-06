@@ -744,9 +744,9 @@ function fetchPokemon(id) {
 function create_trainer_pokemon() {
     currentWildPokemon.level = (avarageLevel + 45);
     currentWildPokemon.statAttack = currentWildPokemon.statAttack + 45;
-    currentWildPokemon.statDefense = currentWildPokemon.statDefense + 45;
-    currentWildPokemon.maxHp = currentWildPokemon.maxHp + 45;
-    currentWildPokemon.hp = currentWildPokemon.hp + 45;
+    currentWildPokemon.statDefense = currentWildPokemon.statDefense + 95;
+    currentWildPokemon.maxHp = currentWildPokemon.maxHp + 90;
+    currentWildPokemon.hp = currentWildPokemon.hp + 90;
 }
 
 //######################################################
