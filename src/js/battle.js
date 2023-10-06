@@ -2217,10 +2217,6 @@ if (giveBeleber) {
          * Belegt das Pokemon und füllt 70 kp auf
          */
         const pokeKp = myTeam[pokemonItemId].hp;
-        console.log('name', myTeam[pokemonItemId].name, 'Defeated', myTeam[pokemonItemId].isDefeated);
-        console.log('save_Object.items.beleber', save_Object.items.beleber);
-        // save_Object.items.beleber += 10;
-        // save_SaveObj();
 
         if (save_Object.items.beleber >= 1) {
             const pokemonName = myTeam[pokemonItemId].name;
@@ -2253,7 +2249,6 @@ if (giveBeleber) {
                     cHpPerc = cHp * 100 / mHp
                     document.getElementById(`teamPokeProgress_${pokemonItemId}`).value = cHpPerc
                 }
-                console.log('myTeam[pokemonItemId]', myTeam[pokemonItemId]);
                 // Speichern
                 save_Object.items.beleber -= 1;
                 save_SaveObj();
