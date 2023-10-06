@@ -2211,6 +2211,58 @@ if (giveTrank) {
         }
     })
 }
+if (giveBeleber) {
+    giveBeleber.addEventListener("click", () => {
+        /**
+         * Belegt das Pokemon und füllt 70 kp auf
+         */
+        const pokeKp = myTeam[pokemonItemId].hp;
+        console.log('name', myTeam[pokemonItemId].name, 'Defeated', myTeam[pokemonItemId].isDefeated);
+        console.log('save_Object.items.beleber', save_Object.items.beleber);
+        // save_Object.items.beleber += 10;
+        // save_SaveObj();
+
+        if (save_Object.items.beleber >= 1) {
+            const pokemonName = myTeam[pokemonItemId].name;
+            const healRequest = window.confirm(`Möchtest du Dein Pokemon ${makeFirstLetterBig(pokemonName)} \n wiederbeleben?`)
+            if (healRequest) {
+                // Herausfinden, ob Pokemon gerade kämpft
+                const staticPokemonUniqueId = myStaticPokemon.unique_ID;
+                const itemPokemonUniqueId = myTeam[pokemonItemId].unique_ID;
+                if (staticPokemonUniqueId === itemPokemonUniqueId) {
+                    myTeam[pokemonItemId].isDefeated = false;
+                    document.getElementById(`teamPoke_${pokemonItemId}`).classList.remove('defeat');
+                    myCurrentPokemonHP = 40;
+                    const hpPerc = myCurrentPokemonHP * 100 / myCurrentPokemonStaticHP
+                    myPokemonProgress.value = hpPerc
+                    document.getElementById(`teamPokeProgress_${pokemonItemId}`).value = hpPerc
+                    myPokeName.innerHTML = `${makeFirstLetterBig(pokemonName)} | Lv. ${myTeam[pokemonItemId].level} | KP.${myCurrentPokemonHP}`;
+
+                } else {
+                    myTeam[pokemonItemId].isDefeated = false;
+                    document.getElementById(`teamPoke_${pokemonItemId}`).classList.remove('defeat');
+                    let cHp = myTeam[pokemonItemId].hp
+                    let mHp = myTeam[pokemonItemId].maxHp
+                    let newHP = mHp
+                    const hpAfterTrank = cHp += 60;
+                    if (hpAfterTrank < mHp) {
+                        newHP = hpAfterTrank
+                    }
+                    cHp = newHP;
+                    myTeam[pokemonItemId].hp = cHp
+                    cHpPerc = cHp * 100 / mHp
+                    document.getElementById(`teamPokeProgress_${pokemonItemId}`).value = cHpPerc
+                }
+                console.log('myTeam[pokemonItemId]', myTeam[pokemonItemId]);
+                // Speichern
+                save_Object.items.beleber -= 1;
+                save_SaveObj();
+                // Schließen
+                itemWindow.classList.remove("active")
+            }
+        }
+    })
+}
 
 function check_if_all_defeated() {
     let minimum_one_alive = false;
