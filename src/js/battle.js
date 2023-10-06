@@ -994,13 +994,23 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
         } else {
 
             if (variableMoveName === false) {
-                showInfoBox(
-                    `${makeFirstLetterBig(
-                        atackerPokemon.name,
-                    )} führt "${makeFirstLetterBig(
-                        pokeMove.name,
-                    )}" aus und richtet ${damage} Schaden an.`,
-                );
+                if(damage === 0) {
+                    showInfoBox(
+                        `${makeFirstLetterBig(
+                            atackerPokemon.name,
+                        )} führt "${makeFirstLetterBig(
+                            pokeMove.name,
+                        )}" aus. Die Attacke hat keine Wirkung.`,
+                    );
+                }else {
+                    showInfoBox(
+                        `${makeFirstLetterBig(
+                            atackerPokemon.name,
+                        )} führt "${makeFirstLetterBig(
+                            pokeMove.name,
+                        )}" aus und richtet ${damage} Schaden an.`,
+                    );
+                }
             } else {
                 showInfoBox(
                     `${makeFirstLetterBig(
