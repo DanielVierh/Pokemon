@@ -310,7 +310,6 @@ function load_SaveObj() {
             loadMyTeam();
             myPokeballAmount = save_Object.items.pokeballs;
             outpPokeball.innerHTML = myPokeballAmount;
-            console.log('3');
         } catch (error) {
             console.warn('Team konnte nicht angezeigt werden: ', error);
         }
@@ -1074,9 +1073,17 @@ function ki_Move() {
                 trainerBattle_round++;
 
                 if(trainerBattle_round === 4) {
-                    alert('Klasse, du hast den Trainer besiegt. Du gewinnst 5 Pokebälle und 2 Supertränke');
-                    save_Object.items.pokeballs += 5;
-                    save_Object.items.trank += 2;
+                    const winner_random_number = parseInt(Math.random() * 10) + 1
+                    if(winner_random_number <= 3) {
+                        alert('Klasse, du hast den Trainer besiegt. Du gewinnst 5 Pokebälle');
+                        save_Object.items.pokeballs += 5;
+                    }else if(winner_random_number >= 4 && winner_random_number <=7) {
+                        alert('Klasse, du hast den Trainer besiegt. Du gewinnst 2 Supertränke');
+                        save_Object.items.trank += 2;
+                    }else {
+                        alert('Klasse, du hast den Trainer besiegt. Du gewinnst 2 Beleber');
+                        save_Object.items.beleber += 2;
+                    }
                     save_SaveObj();
                     trainerBattle_round = 1;
                     localStorage.setItem('stored_battlecounter', JSON.stringify(trainerBattle_round));
@@ -1089,6 +1096,13 @@ function ki_Move() {
     }
 }
 
+function test() {
+    for(let i = 0; i < 100; i++) {
+        const winner_random_number = parseInt(Math.random() * 10) + 1
+        console.log(winner_random_number);
+    }
+}
+test()
 //######################################################
 // Wildes Pokemon fangen
 //######################################################
