@@ -1066,7 +1066,7 @@ function ki_Move() {
                 if(trainerBattle_round === 4) {
                     alert('Klasse, du hast den Trainer besiegt. Du gewinnst 5 Pokebälle und 2 Supertränke');
                     save_Object.items.pokeballs += 5;
-                    save_Object.items.trank += 5;
+                    save_Object.items.trank += 2;
                     save_SaveObj();
                     trainerBattle_round = 1;
                     localStorage.setItem('stored_battlecounter', JSON.stringify(trainerBattle_round));
