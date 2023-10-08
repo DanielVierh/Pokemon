@@ -94,7 +94,8 @@ const img_Animat = document.getElementById('img_Animat');
 const wildPkeBattleCard = document.getElementById('wildPkeBattleCard');
 const myPkeBattleCard = document.getElementById('myPkeBattleCard');
 const itemButtons = document.querySelectorAll('.itemButton');
-const trainer_battleCounter = document.getElementById("lbl_trainer_battle_counter")
+const trainer_battleCounter = document.getElementById("lbl_trainer_battle_counter");
+const trainer_image = document.getElementById("trainer_img");
 
 
 let save_Object = {
@@ -274,6 +275,30 @@ function init() {
             //trainerBattle_round++;
             document.getElementById("mainButton2").style.display = 'none';
             trainer_battleCounter.classList.add('active');
+            trainer_image.classList.add('active');
+            const trainer_random_number = parseInt(Math.random() * 6) + 1;
+            switch (trainer_random_number) {
+                case 1:
+                    trainer_image.src = './assets/trainer/IMG_1976.PNG';
+                    break;
+                case 2:
+                    trainer_image.src = './assets/trainer/IMG_1977.PNG';
+                    break;
+                case 3:
+                    trainer_image.src = './assets/trainer/IMG_1978.PNG';
+                    break;
+                case 4:
+                    trainer_image.src = './assets/trainer/IMG_1979.PNG';
+                    break;
+                case 5:
+                    trainer_image.src = './assets/trainer/IMG_1980.PNG';
+                    break;
+                case 6:
+                    trainer_image.src = './assets/trainer/IMG_1981.PNG';
+                    break;
+                default:
+                    break;
+            }
 
             try {
                 if(is_trainerBattle === true) {

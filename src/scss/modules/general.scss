@@ -626,3 +626,16 @@ body{
     }
 
 }
+
+
+.pokemonTrainer {
+    width: 150px;
+    position: fixed;
+    top: 110px;
+    left: 90px;
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
