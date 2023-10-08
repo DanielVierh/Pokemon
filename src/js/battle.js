@@ -1235,12 +1235,14 @@ function disableMainButtons() {
     mainButtons.style.backgroundColor = 'red';
     document.getElementById('mainButton1').disabled = true;
     document.getElementById('mainButton2').disabled = true;
+    document.getElementById('btn_Menue').setAttribute('data-blocked', 'true');
 }
 
 function enableMainButtons() {
     mainButtons.style.backgroundColor = 'rgba(0, 0, 10, 0.384)';
     document.getElementById('mainButton1').disabled = false;
     document.getElementById('mainButton2').disabled = false;
+    document.getElementById('btn_Menue').setAttribute('data-blocked', 'false');
 }
 
 //######################################################

@@ -19,7 +19,10 @@ function init() {
 
 if(menueButton) {
     menueButton.addEventListener("click", ()=> {
+        const is_blocked = menueButton.getAttribute('data-blocked');
+        if(is_blocked !== 'true') {
             menueWindow.classList.add("active")
+        }
     })
 }
 
