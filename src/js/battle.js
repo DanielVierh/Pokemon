@@ -1007,7 +1007,7 @@ function animateProgressBar(damage, whoIsAffected, healVal, is_strike) {
                             atackerPokemon.name,
                         )} führt "${makeFirstLetterBig(
                             pokeMove.name,
-                        )}" aus. Die Attacke hat keine Wirkung auf ${currentWildPokemon.name}.`,
+                        )}" aus. Die Attacke hat keine Wirkung.`,
                     );
                 }else if(damage === 0 && is_strike === false) {
                     showInfoBox(
