@@ -843,6 +843,7 @@ function myPokemonAttack(whoIsExecuting) {
     let whoIsAffected = 'wildPokemon';
     variableMoveName = false;
     isHealing = false;
+    let is_strike = true;
 
     // Wenn wildes Pokemon angreift
     if (whoIsExecuting === 'wildPokemon') {
@@ -873,7 +874,14 @@ function myPokemonAttack(whoIsExecuting) {
         f2 *
         (z / 100);
 
-    const damage = parseInt((rawDamage * typeCalc) / 20);
+    let damage = parseInt((rawDamage * typeCalc) / 20);
+
+    // No Damage under 30% hit rate
+    const strike_rate = parseInt(Math.random() * 10) + 1
+    if(strike_rate <= 2) {
+        damage = 0;
+        is_strike = false;
+    }
 
     //Todo:  Wenn Heil Move verwendet
     if (healVal != undefined && healVal > 0) {
@@ -902,13 +910,13 @@ function myPokemonAttack(whoIsExecuting) {
             }, 600);
         }
     }
-    animateProgressBar(damage, whoIsAffected, healVal);
+    animateProgressBar(damage, whoIsAffected, healVal, is_strike);
 }
 
 //######################################################
 
 //######################################################
-function animateProgressBar(damage, whoIsAffected, healVal) {
+function animateProgressBar(damage, whoIsAffected, healVal, is_strike) {
     let fullHP = currentWildPokemon.maxHp;
     let currentHP = currentWildPokeHP;
     let oldHPInPercent = parseInt(((currentHP + damage) *100 ) / fullHP)
@@ -993,13 +1001,21 @@ function animateProgressBar(damage, whoIsAffected, healVal) {
         } else {
 
             if (variableMoveName === false) {
-                if(damage === 0) {
+                if(damage === 0 && is_strike === true) {
                     showInfoBox(
                         `${makeFirstLetterBig(
                             atackerPokemon.name,
                         )} führt "${makeFirstLetterBig(
                             pokeMove.name,
                         )}" aus. Die Attacke hat keine Wirkung.`,
+                    );
+                }else if(damage === 0 && is_strike === false) {
+                    showInfoBox(
+                        `${makeFirstLetterBig(
+                            atackerPokemon.name,
+                        )} führt "${makeFirstLetterBig(
+                            pokeMove.name,
+                        )}" aus. Die Attacke ging daneben.`,
                     );
                 }else {
                     showInfoBox(
@@ -1096,13 +1112,6 @@ function ki_Move() {
     }
 }
 
-function test() {
-    for(let i = 0; i < 100; i++) {
-        const winner_random_number = parseInt(Math.random() * 10) + 1
-        console.log(winner_random_number);
-    }
-}
-test()
 //######################################################
 // Wildes Pokemon fangen
 //######################################################
