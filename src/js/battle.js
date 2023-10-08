@@ -1116,13 +1116,13 @@ function ki_Move() {
                 if(trainerBattle_round === 4) {
                     const winner_random_number = parseInt(Math.random() * 10) + 1
                     if(winner_random_number <= 3) {
-                        alert('Klasse, du hast den Trainer besiegt. Du gewinnst 5 Pokebälle');
+                        alert('Klasse, du hast alle drei Trainer besiegt. Du gewinnst 5 Pokebälle');
                         save_Object.items.pokeballs += 5;
                     }else if(winner_random_number >= 4 && winner_random_number <=7) {
-                        alert('Klasse, du hast den Trainer besiegt. Du gewinnst 2 Supertränke');
+                        alert('Klasse, du hast alle drei Trainer besiegt. Du gewinnst 2 Supertränke');
                         save_Object.items.trank += 2;
                     }else {
-                        alert('Klasse, du hast den Trainer besiegt. Du gewinnst 2 Beleber');
+                        alert('Klasse, du hast alle drei Trainer besiegt. Du gewinnst 2 Beleber');
                         save_Object.items.beleber += 2;
                     }
                     save_SaveObj();
