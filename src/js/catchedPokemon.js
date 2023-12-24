@@ -80,6 +80,7 @@ function load_SaveObj() {
         try {
             renderCatchedPokemons();
             renderTeam();
+            render_replaceable_pokemon()
             renderTodayPokemons();
             lbl_Money.innerHTML = `$ - ${save_Object.items.money}`;
             setting_Gen.value = save_Object.gen
@@ -220,7 +221,6 @@ if (addBtn) {
                     let isAlreadyInTeam = false;
                     for(let i = 0; i < myTeam.length; i++) {
                         if(myTeam[i].unique_ID === addedPokemon.unique_ID) {
-                            console.log('');
                             isAlreadyInTeam = true;
                             break
                         }
@@ -232,6 +232,7 @@ if (addBtn) {
                         location.reload();
                     }
                 } else {
+                    document.getElementById('modal_Replace_Pokemon').classList.add('active')
                     alert("Kein Platz mehr frei")
                 }
             }
@@ -528,6 +529,30 @@ function renderTeam() {
 
 
         teamPokemonContainer.appendChild(pokeCont)
+    }
+}
+
+// *ANCHOR - Pokemon die ersetzt werden können im team
+function render_replaceable_pokemon() {
+    
+    for (let i = 0; i < myTeam.length; i++) {
+
+        //delBtn.id = myTeam[i].unique_ID
+
+        let pokeimage = document.createElement("img");
+        pokeimage.src = myTeam[i].spriteFront;
+
+        let pokename = document.createElement('p');
+        pokename.innerHTML = makeFirstLetterBig(myTeam[i].name);
+
+        let contentContainer = document.createElement('div');
+        contentContainer.classList.add('hstack');
+        contentContainer.classList.add('content');
+        contentContainer.appendChild(pokeimage);
+        contentContainer.appendChild(pokename);
+
+        document.getElementById(`repl_pk_${i}`).appendChild(contentContainer);
+
     }
 }
 

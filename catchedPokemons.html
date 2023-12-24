@@ -97,7 +97,7 @@
     <div class="detailCard" id="cont_Detail">
         <div class="detailCloseButton" id="btnCloseDetails">X</div>
         <div class="contentContainer">
-            <h2 id="det_Pokename">Glurak</h2>
+            <h2 id="det_Pokename">Pokemon</h2>
             <img src="assets/6F.png" alt="Pokemon" id="det_PokemonImage">
             <div class="statsContainer">
                 <p id="det_Attack">Angriff: 0</p>
@@ -115,9 +115,7 @@
             <div class="statsContainer" id="moveList">
                 <div class="move_button">Scratch</div>
             </div>
-
         </div>
-
     </div>
 
     <div class="modal" id="modalMoves">
@@ -128,25 +126,24 @@
         <div class="move_active" id="mv_3">Move 4</div>
     </div>
 
-    <div class="Listwrapper" id="catchPokeTag">
+    <div class="modal repl-poke" id="modal_Replace_Pokemon">
+        <h2>Welches Pokemon soll ersetzt werden?</h2>
+            <div class="replace-pokecont" id="repl_pk_0"></div>
+            <div class="replace-pokecont" id="repl_pk_1"></div>
+            <div class="replace-pokecont" id="repl_pk_2"></div>
+            <div class="replace-pokecont" id="repl_pk_3"></div>
+    </div>
 
+    <div class="Listwrapper" id="catchPokeTag">
         <div class="halfContainer top">
             <h3>Mein Team</h3>
             <div class="catchedPokemonContaier" id="teamPokemonContainer"></div>
         </div>
-
-
-
         <div class="halfContainer bottom">
             <h3>Gefangene Pokemon</h3>
-
             <div class="catchedPokemonContaier" id="catchedPokemonContaier">
             </div>
-
         </div>
-
-
-
     </div>
 
 
@@ -154,15 +151,12 @@
         <div class="detailCloseButton" id="btnCloseShop">X</div>
         <div class="contentContainer">
             <div class="money" id="lbl_Shop_Money">$ - 30</div>
-
             <div class="miniwrapper-shop">
                 <div class="buttonPokeball" id="btn_Pokeball">1x -</div>
                 <div class="amountlabel" id="lbl_Amount_Pokeballs">1x</div>
             </div>
-
             <div class="buybutton" id="btn_Buy">Kaufen</div>
         </div>
-
     </div>
 
     <script src="public/javascript/main.js"></script>

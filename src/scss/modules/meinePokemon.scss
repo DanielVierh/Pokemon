@@ -381,6 +381,18 @@
         justify-content: center;
         align-items: center;
     }
+
+    &.repl-poke {
+        .content {
+            background-color: rgb(33, 33, 33);
+            margin-bottom: 25px;
+        }
+        .replace-pokecont {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
 }
 
 
