@@ -31,11 +31,12 @@ const pokemonListCont = document.getElementById("pokemonListCont");
 const btnClosePokemonList = document.getElementById("btnClosePokemonList");
 const todayPokemonListWindow = document.getElementById("todayPokemonListWindow");
 
-const mv_0 = document.getElementById("mv_0")
-const mv_1 = document.getElementById("mv_1")
-const mv_2 = document.getElementById("mv_2")
-const mv_3 = document.getElementById("mv_3")
-const modalMoves = document.getElementById("modalMoves")
+const mv_0 = document.getElementById("mv_0");
+const mv_1 = document.getElementById("mv_1");
+const mv_2 = document.getElementById("mv_2");
+const mv_3 = document.getElementById("mv_3");
+const modalMoves = document.getElementById("modalMoves");
+let addedPokemon;
 
 
 let save_Object = {
@@ -197,13 +198,13 @@ if(btnClosePokemonList) {
 }
 //####################################################################
 
-// Pokemon hinzufügen
+//*ANCHOR -  Pokemon hinzufügen
 const addBtn = document.querySelectorAll('.addButton');
 if (addBtn) {
     addBtn.forEach((button) => {
         button.addEventListener('click', () => {
             let pokemonIndex = -1;
-            let addedPokemon;
+            // let addedPokemon;
             for (let i = 0; i < myCatchedPokemons.length; i++) {
                 if (button.id === myCatchedPokemons[i].unique_ID) {
                     pokemonIndex = i;
@@ -211,11 +212,11 @@ if (addBtn) {
                 }
             }
 
-            // Prüfen ob Pokemon gefunden
+            //* Prüfen ob Pokemon gefunden
             if (pokemonIndex >= 0) {
                 addedPokemon = myCatchedPokemons[pokemonIndex]
 
-                // check ob teamplatz frei
+                //* check ob teamplatz frei
                 const freeTeamNumbers = myTeam.length;
                 if (freeTeamNumbers < 4) {
                     let isAlreadyInTeam = false;
@@ -232,8 +233,8 @@ if (addBtn) {
                         location.reload();
                     }
                 } else {
-                    document.getElementById('modal_Replace_Pokemon').classList.add('active')
-                    alert("Kein Platz mehr frei")
+                    alert("Kein Platz mehr frei");
+                    document.getElementById('modal_Replace_Pokemon').classList.add('active');
                 }
             }
         });
@@ -554,6 +555,42 @@ function render_replaceable_pokemon() {
         document.getElementById(`repl_pk_${i}`).appendChild(contentContainer);
 
     }
+}
+const replaced_pokemon_0 = document.getElementById('repl_pk_0');
+const replaced_pokemon_1 = document.getElementById('repl_pk_1');
+const replaced_pokemon_2 = document.getElementById('repl_pk_2');
+const replaced_pokemon_3 = document.getElementById('repl_pk_3');
+
+if(replaced_pokemon_0) {
+    replaced_pokemon_0.addEventListener("click", ()=> {
+        replace_pokemon(0);
+        document.getElementById('modal_Replace_Pokemon').classList.remove('active');
+    })
+}
+if(replaced_pokemon_1) {
+    replaced_pokemon_1.addEventListener("click", ()=> {
+        replace_pokemon(1);
+        document.getElementById('modal_Replace_Pokemon').classList.remove('active');
+    })
+}
+if(replaced_pokemon_2) {
+    replaced_pokemon_2.addEventListener("click", ()=> {
+        replace_pokemon(2);
+        document.getElementById('modal_Replace_Pokemon').classList.remove('active');
+    })
+}
+if(replaced_pokemon_3) {
+    replaced_pokemon_3.addEventListener("click", ()=> {
+        replace_pokemon(3);
+        document.getElementById('modal_Replace_Pokemon').classList.remove('active');
+    })
+}
+
+function replace_pokemon(index) {
+    myTeam.splice(index, 1);
+    myTeam.splice(index, 0, addedPokemon);
+    save_SaveObj();
+    location.reload();
 }
 
 
