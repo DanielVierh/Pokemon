@@ -544,7 +544,7 @@ function render_replaceable_pokemon() {
         pokeimage.src = myTeam[i].spriteFront;
 
         let pokename = document.createElement('p');
-        pokename.innerHTML = makeFirstLetterBig(myTeam[i].name);
+        pokename.innerHTML = `${makeFirstLetterBig(myTeam[i].name)} - Lv. ${myTeam[i].level}`;
 
         let contentContainer = document.createElement('div');
         contentContainer.classList.add('hstack');
