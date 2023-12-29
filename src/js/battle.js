@@ -861,7 +861,7 @@ function init_Move(moveName) {
 //######################################################
 //*ANCHOR - Pokemon Attack
 function myPokemonAttack(whoIsExecuting) {
-    // Initwerte sind so eingestellt, dass ein Angriff von meinem Pokemon aus geht
+    //* Initwerte sind so eingestellt, dass ein Angriff von meinem Pokemon aus geht
     let lv = myStaticPokemon.level;
     let defPokeLv = currentWildPokemon.level;
     let attbaseDamage = pokeMove.baseDamage;
@@ -874,7 +874,7 @@ function myPokemonAttack(whoIsExecuting) {
     console.log('healVal', healVal);
     let attackType = pokeMove.type;
     let defPokeType = currentWildPokemon.type;
-    const typeCalc = checkPokeTypes(attackType, defPokeType); // Typ Attacke wird mit Typ verteidigendesPokemon verglichen 0x / 0.5x / 1x / 2x --TODO: Funktion für den Vergleich bauen
+    const typeCalc = checkPokeTypes(attackType, defPokeType); //* Typ Attacke wird mit Typ verteidigendesPokemon verglichen 0x / 0.5x / 1x / 2x --TODO: Funktion für den Vergleich bauen
     let whoIsAffected = 'wildPokemon';
     variableMoveName = false;
     isHealing = false;
@@ -882,7 +882,7 @@ function myPokemonAttack(whoIsExecuting) {
 
     //* Wenn wildes Pokemon angreift
     if (whoIsExecuting === 'wildPokemon') {
-        // Wenn Basedamage = 0 soll per zufall tackle ausgeführt werden
+        //* Wenn Basedamage = 0 soll per zufall tackle ausgeführt werden
         if (attbaseDamage === null && randomize()) {
             attackType = 'normal';
             attbaseDamage = 50;
@@ -911,9 +911,9 @@ function myPokemonAttack(whoIsExecuting) {
 
     let damage = parseInt((rawDamage * typeCalc) / 20);
 
-    //* No Damage under 30% hit rate
+    //* No Damage under 10% hit rate
     const strike_rate = parseInt(Math.random() * 10) + 1
-    if(strike_rate <= 2) {
+    if(strike_rate <= 1) {
         damage = 0;
         is_strike = false;
     }
