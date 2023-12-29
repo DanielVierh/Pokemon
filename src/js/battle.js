@@ -802,8 +802,20 @@ function fetchAttack(nameId) {
                 data.type.name,
                 data.meta.healing,
             );
-            // In alle Attacken abspeichern
-            save_Object.allPokemonMoves.push(pokeMove);
+
+            //* In alle Attacken abspeichern
+            //* check if already available
+            let move_in_AllPomkemonMoves = false;
+            for(let mvI = 0; mvI < allPokemonMoves.length; mvI++) {
+                if(allPokemonMoves[mvI].name === pokeMove.name) {
+                    move_in_AllPomkemonMoves = true;
+                    break
+                }
+            }
+            console.log('move_in_AllPomkemonMoves', move_in_AllPomkemonMoves);
+            if(move_in_AllPomkemonMoves === false) {
+                save_Object.allPokemonMoves.push(pokeMove);
+            }
             allMoves.push(pokeMove);
             save_SaveObj();
         });
@@ -879,6 +891,7 @@ function myPokemonAttack(whoIsExecuting) {
     variableMoveName = false;
     isHealing = false;
     let is_strike = true;
+    console.log('Pokemon Move', pokeMove);
 
     //* Wenn wildes Pokemon angreift
     if (whoIsExecuting === 'wildPokemon') {
@@ -911,9 +924,13 @@ function myPokemonAttack(whoIsExecuting) {
 
     let damage = parseInt((rawDamage * typeCalc) / 20);
 
-    //* No Damage under 10% hit rate
-    const strike_rate = parseInt(Math.random() * 10) + 1
-    if(strike_rate <= 1) {
+    //* No Damage under 10% hit rate 
+    let strike_rate = 100;
+    const accuracy = pokeMove.accuracy;
+    if(accuracy < 100) {
+        strike_rate = parseInt(Math.random() * accuracy) + 1
+    }
+    if(strike_rate <= 10) {
         damage = 0;
         is_strike = false;
     }
