@@ -31,7 +31,7 @@ const maxPokemon = 898;
 let is_trainerBattle = false;
 let trainerBattle_round = 1;
 
-
+//*ANCHOR - Generation
 const pokemonGenerationen = {
     gen1: {
         start: 1,
@@ -97,7 +97,7 @@ const itemButtons = document.querySelectorAll('.itemButton');
 const trainer_battleCounter = document.getElementById("lbl_trainer_battle_counter");
 const trainer_image = document.getElementById("trainer_img");
 
-
+//*ANCHOR - Save Object
 let save_Object = {
     today_Date: '',
     myPokemonTeam: [],
@@ -117,7 +117,7 @@ let save_Object = {
 };
 
 
-
+//*ANCHOR - Event listener for Buttons
 if (mainButton1) {
     mainButton1.addEventListener('click', () => {
         pokeFight();
@@ -173,7 +173,7 @@ if (btn_closeActionwindow) {
 }
 
 //######################################################
-// Klassen
+//*ANCHOR - Klassen
 //######################################################
 class Pokemon {
     constructor(
@@ -237,7 +237,7 @@ class PokeMove {
         this.healing = healing;
     }
 }
-
+//*ANCHOR - Static Pokemon
 let myStaticPokemon = new Pokemon(
     6,
     'Charizard',
@@ -253,6 +253,7 @@ let myStaticPokemon = new Pokemon(
     78,
 );
 
+//*ANCHOR - Init
 window.onload = init();
 
 function init() {
@@ -315,6 +316,7 @@ function init() {
     }
 }
 
+//*ANCHOR - Load Localstorage
 function load_SaveObj() {
     if (localStorage.getItem('stored_save_Object') != null) {
         save_Object = JSON.parse(localStorage.getItem('stored_save_Object'));
@@ -345,7 +347,7 @@ function load_SaveObj() {
 }
 
 //######################################################
-// Statisches Pokemon
+//*ANCHOR -Statisches Pokemon
 //######################################################
 function createMyStarterPokemon() {
     // Statisches Pokemon -- Arcanine
@@ -465,6 +467,7 @@ function createMyStarterPokemon() {
     createMyPokemon();
 }
 
+//*ANCHOR - Create first Pokemon
 function createMyFirstPokemon() {
     let nextAvailablePokemon = 0;
     for (let i = 0; i < myTeam.length; i++) {
@@ -493,12 +496,13 @@ function createMyFirstPokemon() {
     }
 }
 
+//*ANCHOR - Save to LocalStorage
 function save_SaveObj() {
     localStorage.setItem('stored_save_Object', JSON.stringify(save_Object));
     console.log('SaveObj', save_Object);
 }
 
-//myPokemonTeam
+//*ANCHOR - Load myPokemonTeam
 function loadMyTeam() {
     let levelSum = 0;
     for (let i = 0; i < myTeam.length; i++) {
@@ -511,13 +515,13 @@ function loadMyTeam() {
             document.getElementById(`teamPoke_${i}`).classList.add('defeat');
         }
     }
-    // Durchschnittslevel berechnen
+    //* Durchschnittslevel berechnen
     avarageLevel = parseInt(levelSum / myTeam.length);
 }
 
-// Funktion erstellt zufällig 25 Pokemon. Diese sollen für einen Tag abgespeichert
-// werden und die möglichen Pokemon bildem, denen man begegnen kann
-
+//* Funktion erstellt zufällig 25 Pokemon. Diese sollen für einen Tag abgespeichert
+//* werden und die möglichen Pokemon bildem, denen man begegnen kann
+//*ANCHOR - Generate today Pokemon
 function generate_today_Pokemons() {
     if (today_equal_savedDay() === true) {
         todayPokemons = save_Object.today_Pokemons;
@@ -557,7 +561,7 @@ function today_equal_savedDay() {
         return false;
     }
 }
-
+//*ANCHOR - Create Date
 function createDateFromToday() {
     const date = new Date();
     const day = addZero(date.getDate());
@@ -567,6 +571,7 @@ function createDateFromToday() {
     return today;
 }
 
+//*ANCHOR - Add Zero
 function addZero(val) {
     if (val < 10) {
         val = `0${val}`;
@@ -579,6 +584,7 @@ function currentRandomPokemon() {
     fetchPokemon(todayPokemons[randomPokemon]);
 }
 
+//*ANCHOR - UID Generator
 function uniqueID_Generator() {
     const rndStuff = [
         'A',
@@ -629,7 +635,7 @@ function uniqueID_Generator() {
 }
 
 //######################################################
-// Mein Pokemon rendern
+//*ANCHOR - Mein Pokemon rendern
 //######################################################
 function createMyPokemon() {
     myPokeImage.src = myStaticPokemon.spriteBack;
@@ -641,8 +647,9 @@ function createMyPokemon() {
 }
 
 //######################################################
-// Erstellt Zufallszahl und checkt, ob ID bereits im Array FacedPokemons gespeichert ist,
-// wenn nein, Fetch Request an Poke API
+//* Erstellt Zufallszahl und checkt, ob ID bereits im Array FacedPokemons gespeichert ist,
+//* wenn nein, Fetch Request an Poke API
+//*ANCHOR - Create wild Pokemon
 //######################################################
 
 function createWildPokemon() {
@@ -695,7 +702,7 @@ function createWildPokemon() {
         }
     }
 
-    // Pokemon nicht im Array facedPokemons enthalten, also Fetch Req
+    //* Pokemon nicht im Array facedPokemons enthalten, also Fetch Req
     if (foundIdInFacedPokemonArray === false) {
         console.log('Nicht gefunden also fetchPokemon mit ID ', randomPokemon);
         fetchPokemon(randomPokemon);
@@ -703,7 +710,8 @@ function createWildPokemon() {
 }
 
 //######################################################
-// Fetch Request an Poke API. Kann mittels ID oder Name übergeben werden
+//* Fetch Request an Poke API. Kann mittels ID oder Name übergeben werden
+//*ANCHOR - Fetch Pokemon
 //######################################################
 
 function fetchPokemon(id) {
@@ -742,7 +750,7 @@ function fetchPokemon(id) {
             if(is_trainerBattle === true) {
                 create_trainer_pokemon();
             }
-            // Wildes Pokemon rendern
+            //* Wildes Pokemon rendern
             wildPokeImage.src = currentWildPokemon.spriteFront;
             wildPokeImage.style.opacity = '1';
             wildPokeName.innerHTML = `${makeFirstLetterBig(
@@ -774,7 +782,8 @@ function create_trainer_pokemon() {
 }
 
 //######################################################
-// Wichtige Informationen einer Attacke fetchen und ganze Attacke abspeichern
+//* Wichtige Informationen einer Attacke fetchen und ganze Attacke abspeichern
+//*ANCHOR - Fetch Attack
 //######################################################
 function fetchAttack(nameId) {
     fetch(`https://pokeapi.co/api/v2/move/${nameId}/`)
@@ -801,11 +810,11 @@ function fetchAttack(nameId) {
 }
 
 //######################################################
-
+//*ANCHOR - Init Move
 //######################################################
 function init_Move(moveName) {
     let foundMoveInAllMoves = false;
-    // Checke Attacke im Attacken Array
+    //* Checke Attacke im Attacken Array
     for (let i = 0; i < allMoves.length; i++) {
         if (moveName === allMoves[i].name) {
             currentAttack = new PokeMove(
@@ -850,6 +859,7 @@ function init_Move(moveName) {
 // Z ist ein Wert, der berechnet wird, indem von 100 eine zufällige Zahl zwischen 0 und 15 abgezogen wird
 // F2 zwischen 1 und 1,3
 //######################################################
+//*ANCHOR - Pokemon Attack
 function myPokemonAttack(whoIsExecuting) {
     // Initwerte sind so eingestellt, dass ein Angriff von meinem Pokemon aus geht
     let lv = myStaticPokemon.level;
@@ -870,7 +880,7 @@ function myPokemonAttack(whoIsExecuting) {
     isHealing = false;
     let is_strike = true;
 
-    // Wenn wildes Pokemon angreift
+    //* Wenn wildes Pokemon angreift
     if (whoIsExecuting === 'wildPokemon') {
         // Wenn Basedamage = 0 soll per zufall tackle ausgeführt werden
         if (attbaseDamage === null && randomize()) {
@@ -889,8 +899,8 @@ function myPokemonAttack(whoIsExecuting) {
     } else {
     }
 
-    // Grundsätzliche Berechnung des Schadens
-    // Am 13.12 abgeändert, (lv * 0.4_Auf_0,2 + 2)
+    //* Grundsätzliche Berechnung des Schadens
+    //* Am 13.12 abgeändert, (lv * 0.4_Auf_0,2 + 2)
     const rawDamage =
         (lv * 0.2 + 2) *
         attbaseDamage *
@@ -901,7 +911,7 @@ function myPokemonAttack(whoIsExecuting) {
 
     let damage = parseInt((rawDamage * typeCalc) / 20);
 
-    // No Damage under 30% hit rate
+    //* No Damage under 30% hit rate
     const strike_rate = parseInt(Math.random() * 10) + 1
     if(strike_rate <= 2) {
         damage = 0;
@@ -913,7 +923,7 @@ function myPokemonAttack(whoIsExecuting) {
         isHealing = true;
     }
 
-    // Wenn wildes Pokemon am Zug ist
+    //* Wenn wildes Pokemon am Zug ist
     if (whoIsExecuting === 'wildPokemon') {
         myCurrentPokemonHP -= damage;
         if (damage > 0) {
@@ -939,7 +949,7 @@ function myPokemonAttack(whoIsExecuting) {
 }
 
 //######################################################
-
+//*ANCHOR - Animate Progress Bar
 //######################################################
 function animateProgressBar(damage, whoIsAffected, healVal, is_strike) {
     let fullHP = currentWildPokemon.maxHp;
@@ -969,7 +979,7 @@ function animateProgressBar(damage, whoIsAffected, healVal, is_strike) {
     }
 
 //!############################################################
-// Inner Function to descrease the prgress bar slowly
+//*ANCHOR - Inner Function to descrease the prgress bar slowly
 //!############################################################
 
                     hp_in_percent_val = oldHPInPercent;
@@ -991,7 +1001,7 @@ function animateProgressBar(damage, whoIsAffected, healVal, is_strike) {
 
 //!############################################################
 
-    // Balken anzeigen
+    //* Balken anzeigen
     if (hpInPercent <= 0) {
         initUpcountingTemp(0)
     } else {
@@ -1000,7 +1010,7 @@ function animateProgressBar(damage, whoIsAffected, healVal, is_strike) {
         }
     }
 
-    // Auswirkungsanzeige
+    //* Auswirkungsanzeige
     setTimeout(() => {
         // Textbox
         if (hpInPercent <= 0) {
@@ -1073,7 +1083,7 @@ function animateProgressBar(damage, whoIsAffected, healVal, is_strike) {
 
 //######################################################
 
-// Gameloop
+//*ANCHOR - Gameloop
 function checkWhoExecuteNext() {
     if (iamExecuting === true) {
         enableMainButtons();
@@ -1092,7 +1102,7 @@ function checkWhoExecuteNext() {
 
 
 //######################################################
-
+//*ANCHOR - Ki Move
 function ki_Move() {
     if (currentWildPokeHP > 0) {
         const randomMove = parseInt(
@@ -1138,7 +1148,7 @@ function ki_Move() {
 }
 
 //######################################################
-// Wildes Pokemon fangen
+//*ANCHOR - Wildes Pokemon fangen
 //######################################################
 
 // function simulateCatchQuote() {
@@ -1158,7 +1168,7 @@ function ki_Move() {
 // }
 
 function catchPokemon() {
-    // Abfragen, ob man noch Pokebälle hat
+    //* Abfragen, ob man noch Pokebälle hat
     if (myPokeballAmount > 0) {
         myPokeballAmount--;
         save_Object.items.pokeballs = myPokeballAmount;
@@ -1167,13 +1177,13 @@ function catchPokemon() {
         pokeball.classList.add('active');
         setTimeout(() => {
             pokeball.classList.remove('active');
-            // const fullHP = currentWildPokemon.hp;
+            //* const fullHP = currentWildPokemon.hp;
             const fullHP = currentWildPokemon.maxHp;
             const current_HP = currentWildPokemon.hp
             const hpInPercent = parseInt((currentWildPokeHP * 100) / fullHP);
             const catchquote = 50 - parseInt(Math.random() * (hpInPercent + 10));
             if (catchquote >= 25) {
-                // Unsichtbar machen
+                //* Unsichtbar machen
                 wildPokeImage.style.opacity = '0';
                 wildPokeName.innerHTML = '';
                 showInfoBox(
@@ -1194,7 +1204,7 @@ function catchPokemon() {
                 save_SaveObj();
                 setTimeout(() => {
                     showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
-                    // window.location.reload();
+                    //* window.location.reload();
                     window.location.reload();
                 }, 1000);
             } else {
@@ -1212,7 +1222,7 @@ function catchPokemon() {
 }
 
 //######################################################
-// Macht den Anfangsbuchstaben groß
+//*ANCHOR - Macht den Anfangsbuchstaben groß
 //######################################################
 function makeFirstLetterBig(word) {
     const firstLetter = word[0];
@@ -1235,7 +1245,7 @@ function makeFirstLetterSmall(word) {
 
 
 //######################################################
-// UI Elemente
+//*ANCHOR - UI Elemente
 //######################################################
 function showInfoBox(text) {
     infoBox.hidden = false;
@@ -1273,7 +1283,7 @@ function enableMainButtons() {
 }
 
 //######################################################
-// Move Steuerung
+//*ANCHOR - Move Steuerung
 //######################################################
 function pokeFight() {
     if (myCurrentPokemonHP > 0) {
@@ -1287,7 +1297,7 @@ function attackAction(btnMoveName) {
 }
 
 // ########################################################
-// Schicke ein anderes Pokemon in den Kampf
+//*ANCHOR - Schicke ein anderes Pokemon in den Kampf
 if (pokemon1) {
     pokemon1.addEventListener('click', () => {
         try {
@@ -1405,6 +1415,7 @@ if (pokemon4) {
     });
 }
 
+//*ANCHOR - Choose new Pokemon
 function chooseNewPokemon(choosenPokemon) {
     myStaticPokemon.id = choosenPokemon.id;
     myStaticPokemon.name = choosenPokemon.name;
@@ -1455,6 +1466,7 @@ function chooseNewPokemon(choosenPokemon) {
 
 // levelTest()
 //! ////////////////////////////////////////////////////////////////////////////////////////////////
+//*ANCHOR - Level up
 function level_up() {
     const enemyLevel = currentWildPokemon.level;
     let currentLevel = myStaticPokemon.level;
@@ -1515,17 +1527,17 @@ function level_up() {
         let newAttackMessage = '';
         let newAttackName = '';
         //#####################################################################
-        // ? Wenn Level 5 Modulus = 0, soll neue Attacke gelernt werden
+        //* Wenn Level 5 Modulus = 0, soll neue Attacke gelernt werden
         //#####################################################################
         if (levelDevideBy5 === 0) {
             levelUp_with_learn_Attack(currentLevel, pokemonIndex)
             //#####################################################################
-            // ? Leveln inklusive Evolution !!!
+            // * Leveln inklusive Evolution !!!
             //#####################################################################
         } else if (evolveLevel === 0) {
             levelUp_with_Evolving(currentLevel, pokemonIndex)
             //#####################################################################
-            // ? Normales Leveln ohne neue Attacke zu erlernen
+            // * Normales Leveln ohne neue Attacke zu erlernen
             //#####################################################################
         } else {
             normalLevelUp(currentLevel, pokemonIndex)
@@ -1559,7 +1571,7 @@ function normalLevelUp(currentLevel, pokemonIndex) {
     }, 1000);
 }
 
-
+//*ANCHOR - Level up with new attack
 function levelUp_with_learn_Attack(currentLevel, pokemonIndex) {
     let newAttackMessage = '';
     let newAttackName = '';
@@ -1615,6 +1627,7 @@ function levelUp_with_learn_Attack(currentLevel, pokemonIndex) {
     }, 1000);
 }
 
+//*ANCHOR - Level up with evolving
 function levelUp_with_Evolving(currentLevel, pokemonIndex) {
     const oldID = myStaticPokemon.id;
     let evolveToId = 0;
@@ -1736,6 +1749,7 @@ function levelUp_with_Evolving(currentLevel, pokemonIndex) {
         });
 }
 
+//*ANCHOR - Check Poketypes
 function checkPokeTypes(attackType, defenderType) {
     console.log('attackType', attackType);
     switch (attackType) {
@@ -1773,7 +1787,7 @@ function checkPokeTypes(attackType, defenderType) {
             img_Animat.src = `./assets/mv_normal.png`;
             break;
     }
-
+//*ANCHOR - Attack Values
     const attackTypeValues = {
         normal: {
             200: [],
@@ -2143,6 +2157,7 @@ function checkPokeTypes(attackType, defenderType) {
     return attackReturnValue;
 }
 
+//*ANCHOR - Randomize
 function randomize() {
     const randomnumber = Math.random();
     if (randomnumber <= 0.5) {
@@ -2152,6 +2167,7 @@ function randomize() {
     }
 }
 
+//*ANCHOR - Wunschpokemon
 function fetchWunschPokemon(id) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
         .then((res) => res.json())
@@ -2173,7 +2189,7 @@ function fetchWunschPokemon(id) {
 // fetchWunschPokemon(75)
 
 
-
+//*ANCHOR - Render Items
 
 function renderItems() {
     document.getElementById("trankAmount").innerHTML = save_Object.items.trank;
@@ -2189,17 +2205,17 @@ const giveBeleber = document.getElementById("giveBeleber")
 const giveBonbon = document.getElementById("giveBonbon")
 
 let pokemonItemId = -1;
-// Pokemon Items anwenden
+//*ANCHOR - Pokemon Items anwenden
 if (itemButtons) {
     itemButtons.forEach(((itemButton, index) => {
         itemButton.addEventListener("click", () => {
             pokemonItemId = -1
             const buttonIndex = index;
-            // Herausfinden ob Pokemon vorhanden
+            //* Herausfinden ob Pokemon vorhanden
             if (myTeam[buttonIndex] !== undefined) {
-                // An globaler Variable Id weitergeben
+                //* An globaler Variable Id weitergeben
                 pokemonItemId = index
-                // Wenn ja, Item Fenster öffnen
+                //* Wenn ja, Item Fenster öffnen
                 itemWindow.classList.add("active")
             }
         })
@@ -2211,7 +2227,7 @@ if (closeItemWindow) {
         itemWindow.classList.remove("active")
     })
 }
-
+//*ANCHOR - Give Trank
 if (giveTrank) {
     giveTrank.addEventListener("click", () => {
         /**
@@ -2222,7 +2238,7 @@ if (giveTrank) {
 
             const healRequest = window.confirm(`Möchtest du Deinem Pokemon ${makeFirstLetterBig(pokemonName)} \n 1 Supertrank geben?`)
             if (healRequest) {
-                // Herausfinden, ob Pokemon gerade kämpft
+                //* Herausfinden, ob Pokemon gerade kämpft
                 const staticPokemonUniqueId = myStaticPokemon.unique_ID;
                 const itemPokemonUniqueId = myTeam[pokemonItemId].unique_ID;
                 if (staticPokemonUniqueId === itemPokemonUniqueId) {
@@ -2254,15 +2270,16 @@ if (giveTrank) {
                     cHpPerc = cHp * 100 / mHp
                     document.getElementById(`teamPokeProgress_${pokemonItemId}`).value = cHpPerc
                 }
-                // Speichern
+                //* Speichern
                 save_Object.items.trank -= 1;
                 save_SaveObj();
-                // Schließen
+                //* Schließen
                 itemWindow.classList.remove("active")
             }
         }
     })
 }
+//*ANCHOR - Give Beleber
 if (giveBeleber) {
     giveBeleber.addEventListener("click", () => {
         /**
@@ -2274,7 +2291,7 @@ if (giveBeleber) {
             const pokemonName = myTeam[pokemonItemId].name;
             const healRequest = window.confirm(`Möchtest du Dein Pokemon ${makeFirstLetterBig(pokemonName)} \n wiederbeleben?`)
             if (healRequest) {
-                // Herausfinden, ob Pokemon gerade kämpft
+                //* Herausfinden, ob Pokemon gerade kämpft
                 const staticPokemonUniqueId = myStaticPokemon.unique_ID;
                 const itemPokemonUniqueId = myTeam[pokemonItemId].unique_ID;
                 if (staticPokemonUniqueId === itemPokemonUniqueId) {
@@ -2301,16 +2318,17 @@ if (giveBeleber) {
                     cHpPerc = cHp * 100 / mHp
                     document.getElementById(`teamPokeProgress_${pokemonItemId}`).value = cHpPerc
                 }
-                // Speichern
+                //* Speichern
                 save_Object.items.beleber -= 1;
                 save_SaveObj();
-                // Schließen
+                //* Schließen
                 itemWindow.classList.remove("active")
             }
         }
     })
 }
 
+//*ANCHOR - Check if all defeated
 function check_if_all_defeated() {
     let minimum_one_alive = false;
     for (let i = 0; i < myTeam.length; i++) {
