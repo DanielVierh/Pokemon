@@ -35,7 +35,7 @@ let trainerBattle_round = 1;
 const pokemonGenerationen = {
     gen1: {
         start: 1,
-        end: 150,
+        end: 151,
     },
     gen2: {
         start: 152,
