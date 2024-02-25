@@ -647,7 +647,7 @@ function createMyPokemon() {
     const img_name = myStaticPokemon.spriteBack
     const img_ending = img_name.substring(img_name.length-3, img_name.length);
     if(img_ending === 'gif') {
-        myPokeImage.style.width = '120px';
+        myPokeImage.style.width = '220px';
     }else {
         myPokeImage.style.width = '250px';
     }
@@ -1493,7 +1493,7 @@ function chooseNewPokemon(choosenPokemon) {
     const img_name = choosenPokemon.spriteBack
     const img_ending = img_name.substring(img_name.length-3, img_name.length);
     if(img_ending === 'gif') {
-        myPokeImage.style.width = '120px';
+        myPokeImage.style.width = '220px';
     }else {
         myPokeImage.style.width = '250px';
     }
