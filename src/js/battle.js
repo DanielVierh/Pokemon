@@ -644,6 +644,14 @@ function createMyPokemon() {
     myPokeName.innerHTML = `${makeFirstLetterBig(myStaticPokemon.name)} | Lv.${myStaticPokemon.level
         } | KP.${myStaticPokemon.hp}`;
     console.log('MyCreated', myStaticPokemon);
+    const img_name = myStaticPokemon.spriteBack
+    const img_ending = img_name.substring(img_name.length-3, img_name.length);
+    if(img_ending === 'gif') {
+        myPokeImage.style.width = '120px';
+    }else {
+        myPokeImage.style.width = '250px';
+    }
+    
 }
 
 //######################################################
@@ -666,6 +674,9 @@ function createWildPokemon() {
                 const randomMove =
                     Math.floor(Math.random() * all_moves.length + 1);
                 four_moves.push(all_moves[randomMove]);
+            }
+            if(facedPokemons[i].spriteBack === null) {
+                console.log('%c Pokemon hat KEIN alternatives BackSprite', 'background-color: red; color: black; font-size: 2rem;');
             }
             currentWildPokemon = new Pokemon(
                 facedPokemons[i].id,
@@ -718,7 +729,21 @@ function fetchPokemon(id) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
         .then((res) => res.json())
         .then((data) => {
+            let sptite_Back = null;
             console.log('data', data);
+            //* Sprite ermitteln
+            if(data.sprites.back_default === null) {
+                console.log('%c Pokemon hat kein Default BackSprite', 'background-color: yellow; color: black; font-size: 2rem;');
+                if(data.sprites.other.showdown.back_default === null) {
+                    console.log('%c Pokemon hat kein Default und kein Alternatives BackSprite', 'background-color: red; color: black; font-size: 2rem;');
+                }else {
+                    console.log('%c Pokemon hat alternativen BackSprite', 'background-color: green; color: white; font-size: 2rem;');
+                    sptite_Back = data.sprites.other.showdown.back_default;
+                }
+            }else {
+                sptite_Back = data.sprites.back_default;
+            }
+            //* Moves ermitteln
             let x_moves = [];
             for (let i = 0; i < data.moves.length; i++) {
                 x_moves.push(data.moves[i].move.name);
@@ -737,7 +762,7 @@ function fetchPokemon(id) {
                 x_moves,
                 four_moves,
                 data.sprites.front_default,
-                data.sprites.back_default,
+                sptite_Back,
                 data.stats[1].base_stat,
                 data.stats[2].base_stat,
                 data.stats[4].base_stat,
@@ -1463,6 +1488,14 @@ function chooseNewPokemon(choosenPokemon) {
     for (let i = 0; i <= 3; i++) {
         document.getElementById(`btnAttack${i}`).innerText =
             myStaticPokemon.moves[i];
+    }
+
+    const img_name = choosenPokemon.spriteBack
+    const img_ending = img_name.substring(img_name.length-3, img_name.length);
+    if(img_ending === 'gif') {
+        myPokeImage.style.width = '120px';
+    }else {
+        myPokeImage.style.width = '250px';
     }
 }
 
