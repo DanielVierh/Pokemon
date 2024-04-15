@@ -372,7 +372,7 @@ if (detailBtn) {
                                     // alert("Klicke auf die Attacke, welche verlernt werden soll. Keine sorge, dein Pokemon vergisst sie nicht vollständig.")
                                     modalMoves.classList.add("active")
                                     for(let i = 0; i <= 3; i++) {
-                                        document.getElementById(`mv_${i}`).innerHTML = myCatchedPokemons[pokemonIndex].moves[i]
+                                        document.getElementById(`mv_${i}`).innerHTML = myCatchedPokemons[pokemonIndex].moves[i];
                                     }
                                 }
                             }
@@ -422,18 +422,22 @@ function learn_forget_Attack(forgotIndex) {
     let teamPokemonIndex = -1;
     const searchID = myCatchedPokemons[currentDetailPokemonIndex].unique_ID
 
+    // * Assign teamPokemonIndex
     for(let i = 0; i < myTeam.length; i++) {
         if(myTeam[i].unique_ID === searchID) {
             teamPokemonIndex = i;
             break
         }
     }
+
+    //* Catched Pokemon is learning a new attack
     const toForgetMoveName = myCatchedPokemons[currentDetailPokemonIndex].moves[forgotIndex]
     const toLearnMoveName = myCatchedPokemons[currentDetailPokemonIndex].moves[newLearnedMoveIndex]
     myCatchedPokemons[currentDetailPokemonIndex].moves.splice(forgotIndex, 1, toLearnMoveName)
     myCatchedPokemons[currentDetailPokemonIndex].moves.splice(newLearnedMoveIndex, 1)
     myCatchedPokemons[currentDetailPokemonIndex].moves.push(toForgetMoveName)
 
+     //* Team Pokemon is learning a new attack
     if(teamPokemonIndex !== -1) {
         const toForgetMoveName = myTeam[teamPokemonIndex].moves[forgotIndex]
         const toLearnMoveName = myTeam[teamPokemonIndex].moves[newLearnedMoveIndex]
