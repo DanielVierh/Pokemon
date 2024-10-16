@@ -1,4 +1,4 @@
-facedPokemons = [];
+let facedPokemons = [];
 let myTeam = [];
 let pokemonByID = []
 
