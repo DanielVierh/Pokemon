@@ -7,12 +7,45 @@
     <link rel="stylesheet" href="public/css/main.css" />
     <link rel="manifest" href="danielvierh.github.io/pokemon/manifest.json" />
     <title>Meine Pokemons</title>
+    <style>
+      /* Sofort-Hotfix: zentriere Anzahl und Geld ohne Neu-Kompilierung */
+      .catchedTopbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .catchedTopbar .label {
+        text-align: center;
+        margin: 0;
+        padding: 8px 12px;
+      }
+
+      /* explizit die beiden IDs ansprechen, falls andere Regeln überschreiben */
+      .catchedTopbar #outpCatchedAmount,
+      .catchedTopbar #lbl_Money {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin: 0;
+        padding: 8px 12px;
+      }
+
+      @media (max-width: 860px) {
+        .catchedTopbar {
+          flex-direction: column;
+          gap: 6px;
+        }
+      }
+    </style>
   </head>
 
   <body class="catchedPage">
     <div class="catchedTopbar">
-      <p class="label" id="outpCatchedAmount">12 Gefangen</p>
-      <h3 class="label" id="lbl_Money">$ - 0</h3>
+      <p class="label" id="outpCatchedAmount" style="margin:0 auto; text-align:center;">12 Gefangen</p>
+      <h3 class="label" id="lbl_Money" style="margin:0 auto; text-align:center;">$ - 0</h3>
     </div>
 
     <div class="catchedControls">

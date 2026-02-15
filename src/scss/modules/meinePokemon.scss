@@ -599,14 +599,16 @@
   width: min(1040px, calc(100% - 24px));
   max-width: calc(100% - 24px);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  flex-direction: row;
+  text-align: center;
 }
 
 .catchedPage .label {
   color: #f4f7ff;
-  text-align: left;
+  text-align: center;
   margin: 0;
   padding: 10px 14px;
   border-radius: 12px;
