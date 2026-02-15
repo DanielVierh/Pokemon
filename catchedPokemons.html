@@ -1,165 +1,201 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/css/main.css">
-    <link rel="manifest" href="danielvierh.github.io/pokemon/manifest.json">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="public/css/main.css" />
+    <link rel="manifest" href="danielvierh.github.io/pokemon/manifest.json" />
     <title>Meine Pokemons</title>
-</head>
+  </head>
 
-<body>
+  <body class="catchedPage">
+    <div class="catchedTopbar">
+      <p class="label" id="outpCatchedAmount">12 Gefangen</p>
+      <h3 class="label" id="lbl_Money">$ - 0</h3>
+    </div>
 
-    <p class="label" id="outpCatchedAmount">12 Gefangen</p>
-    <h3 class="label" id="lbl_Money">$ - 0</h3>
-
-    <div class="gen_option_field">
+    <div class="catchedControls">
+      <div class="gen_option_field">
         <div class="refreshbutton" id="btn_refresh_todays_Pokemon">Refresh</div>
         <h4>Generation:</h4>
         <select id="setting_Gen" class="optionfield">
-            <option value="all">Alle</option>
-            <option value="gen1">Gen 1</option>
-            <option value="gen2">Gen 2</option>
-            <option value="gen3">Gen 3</option>
-            <option value="gen4">Gen 4</option>
-            <option value="gen5">Gen 5</option>
-            <option value="gen6">Gen 6</option>
-            <option value="gen7">Gen 7</option>
-            <option value="gen8">Gen 8</option>
+          <option value="all">Alle</option>
+          <option value="gen1">Gen 1</option>
+          <option value="gen2">Gen 2</option>
+          <option value="gen3">Gen 3</option>
+          <option value="gen4">Gen 4</option>
+          <option value="gen5">Gen 5</option>
+          <option value="gen6">Gen 6</option>
+          <option value="gen7">Gen 7</option>
+          <option value="gen8">Gen 8</option>
         </select>
-    </div>
+      </div>
 
-
-    <div class="hstack">
+      <div class="hstack">
         <div class="healButton" id="btnHeal">Heilen</div>
         <div class="shopButton" id="btn_open_Pokelist">Heutige Pokemon</div>
+      </div>
+
+      <div class="actionLegend">
+        <span><strong>＋</strong> Ins Team</span>
+        <span><strong>ℹ</strong> Details</span>
+        <span><strong>💰</strong> Verkaufen</span>
+        <span><strong>－</strong> Aus Team</span>
+        <span><strong>↧</strong> Team-Reihenfolge</span>
+      </div>
     </div>
 
     <!-- Pokemon Liste für Heute -->
     <div class="todayPokemonListWindow" id="todayPokemonListWindow">
-        <div class="PokelistClosebutton" id="btnClosePokemonList">X</div>
-        <div class="contentContainerForPokemon">
-            <h2>Liste heutiger Pokemon</h2>
-            <div class="pokemonListCont" id="pokemonListCont"></div>
-        </div>
+      <div class="PokelistClosebutton" id="btnClosePokemonList">X</div>
+      <div class="contentContainerForPokemon">
+        <h2>Liste heutiger Pokemon</h2>
+        <div class="pokemonListCont" id="pokemonListCont"></div>
+      </div>
     </div>
 
     <div class="resetGameButton" id="btn_ResetGame">Reset</div>
 
     <div class="menueButton" id="btn_Menue">Menü</div>
     <div class="menueWindow" id="windowMenu">
-        <div class="closebutton" id="btnCloseMenue">X</div>
+      <div class="closebutton" id="btnCloseMenue">X</div>
 
-        <div class="menuCont">
-            <a href="catchedPokemons.html" class="munulink">Meine Pokemons</a>
-            <a href="pokedex.html" class="munulink">Pokedex</a>
-            <a href="map1.html" class="munulink">Zurück</a>
-        </div>
+      <div class="menuCont">
+        <a href="catchedPokemons.html" class="munulink">Meine Pokemons</a>
+        <a href="pokedex.html" class="munulink">Pokedex</a>
+        <a href="map1.html" class="munulink">Zurück</a>
+      </div>
 
-        <div class="pokeTeamContainer">
-            <div class="pokeRow">
-                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_0">
-                <div class="nameProgressCont">
-                    <h3 class="namefield" id="teamPokeName_0">-</h3>
-                    <progress class="teamPokeProgress" id="teamPokeProgress_0" max="100" value="0"></progress>
-                </div>
-                <div class="itemButton" id="teamPokeItem_0">Heilen</div>
-            </div>
-            <div class="pokeRow">
-                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_1">
-                <div class="nameProgressCont">
-                    <h3 class="namefield" id="teamPokeName_1">-</h3>
-                    <progress class="teamPokeProgress" id="teamPokeProgress_1" max="100" value="0"></progress>
-                </div>
-                <div class="itemButton" id="teamPokeItem_1">Heilen</div>
-            </div>
-            <div class="pokeRow">
-                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_2">
-                <div class="nameProgressCont">
-                    <h3 class="namefield" id="teamPokeName_2">-</h3>
-                    <progress class="teamPokeProgress" id="teamPokeProgress_2" max="100" value="0"></progress>
-                </div>
-                <div class="itemButton" id="teamPokeItem_2">Heilen</div>
-            </div>
-            <div class="pokeRow">
-                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_3">
-                <div class="nameProgressCont">
-                    <h3 class="namefield" id="teamPokeName_3">-</h3>
-                    <progress class="teamPokeProgress" id="teamPokeProgress_3" max="100" value="0"></progress>
-                </div>
-                <div class="itemButton" id="teamPokeItem_3">Heilen</div>
-            </div>
+      <div class="pokeTeamContainer">
+        <div class="pokeRow">
+          <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_0" />
+          <div class="nameProgressCont">
+            <h3 class="namefield" id="teamPokeName_0">-</h3>
+            <progress
+              class="teamPokeProgress"
+              id="teamPokeProgress_0"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
+          <div class="itemButton" id="teamPokeItem_0">Heilen</div>
         </div>
+        <div class="pokeRow">
+          <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_1" />
+          <div class="nameProgressCont">
+            <h3 class="namefield" id="teamPokeName_1">-</h3>
+            <progress
+              class="teamPokeProgress"
+              id="teamPokeProgress_1"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
+          <div class="itemButton" id="teamPokeItem_1">Heilen</div>
+        </div>
+        <div class="pokeRow">
+          <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_2" />
+          <div class="nameProgressCont">
+            <h3 class="namefield" id="teamPokeName_2">-</h3>
+            <progress
+              class="teamPokeProgress"
+              id="teamPokeProgress_2"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
+          <div class="itemButton" id="teamPokeItem_2">Heilen</div>
+        </div>
+        <div class="pokeRow">
+          <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_3" />
+          <div class="nameProgressCont">
+            <h3 class="namefield" id="teamPokeName_3">-</h3>
+            <progress
+              class="teamPokeProgress"
+              id="teamPokeProgress_3"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
+          <div class="itemButton" id="teamPokeItem_3">Heilen</div>
+        </div>
+      </div>
     </div>
 
     <div class="detailCard" id="cont_Detail">
-        <div class="detailCloseButton" id="btnCloseDetails">X</div>
-        <div class="contentContainer">
-            <h2 id="det_Pokename">Pokemon</h2>
-            <img src="assets/6F.png" alt="Pokemon" id="det_PokemonImage">
-            <div class="statsContainer">
-                <p id="det_Attack">Angriff: 0</p>
-                <p id="det_Def">Verteidigung: 0</p>
-                <p id="det_Lv">Level: 0</p>
-                <p id="det_HP">KP: 0</p>
-                <p id="det_Type">Typ: 0</p>
-                <p id="det_Nr">Nr: 0</p>
-            </div>
-            <div class="catchDetails">
-                <p id="det_catchDate">Gefangen am: <br> - </p>
-                <p id="det_catchName">Name: <br> - </p>
-                <p id="det_catchLv">Level: - </p>
-            </div>
-            <div class="statsContainer" id="moveList">
-                <div class="move_button">Scratch</div>
-            </div>
+      <div class="detailCloseButton" id="btnCloseDetails">X</div>
+      <div class="contentContainer">
+        <h2 id="det_Pokename">Pokemon</h2>
+        <img src="assets/6F.png" alt="Pokemon" id="det_PokemonImage" />
+        <div class="statsContainer">
+          <p id="det_Attack">Angriff: 0</p>
+          <p id="det_Def">Verteidigung: 0</p>
+          <p id="det_Lv">Level: 0</p>
+          <p id="det_HP">KP: 0</p>
+          <p id="det_Type">Typ: 0</p>
+          <p id="det_Nr">Nr: 0</p>
         </div>
+        <div class="catchDetails">
+          <p id="det_catchDate">
+            Gefangen am: <br />
+            -
+          </p>
+          <p id="det_catchName">
+            Name: <br />
+            -
+          </p>
+          <p id="det_catchLv">Level: -</p>
+        </div>
+        <div class="statsContainer" id="moveList">
+          <div class="move_button">Scratch</div>
+        </div>
+      </div>
     </div>
 
     <div class="modal" id="modalMoves">
-        <h2>Welche Attacke soll verlernt werden?</h2>
-        <div class="move_active" id="mv_0">Move 1</div>
-        <div class="move_active" id="mv_1">Move 2</div>
-        <div class="move_active" id="mv_2">Move 3</div>
-        <div class="move_active" id="mv_3">Move 4</div>
+      <h2>Welche Attacke soll verlernt werden?</h2>
+      <div class="move_active" id="mv_0">Move 1</div>
+      <div class="move_active" id="mv_1">Move 2</div>
+      <div class="move_active" id="mv_2">Move 3</div>
+      <div class="move_active" id="mv_3">Move 4</div>
+      <div class="modalCancelButton" id="btnCancelMoveLearn">Abbrechen</div>
     </div>
 
     <div class="modal repl-poke" id="modal_Replace_Pokemon">
-        <h2>Welches Pokemon soll ersetzt werden?</h2>
-            <div class="replace-pokecont" id="repl_pk_0"></div>
-            <div class="replace-pokecont" id="repl_pk_1"></div>
-            <div class="replace-pokecont" id="repl_pk_2"></div>
-            <div class="replace-pokecont" id="repl_pk_3"></div>
+      <h2>Welches Pokemon soll ersetzt werden?</h2>
+      <div class="replace-pokecont" id="repl_pk_0"></div>
+      <div class="replace-pokecont" id="repl_pk_1"></div>
+      <div class="replace-pokecont" id="repl_pk_2"></div>
+      <div class="replace-pokecont" id="repl_pk_3"></div>
+      <div class="modalCancelButton" id="btnCancelReplacePokemon">
+        Abbrechen
+      </div>
     </div>
 
     <div class="Listwrapper" id="catchPokeTag">
-        <div class="halfContainer top">
-            <h3>Mein Team</h3>
-            <div class="catchedPokemonContaier" id="teamPokemonContainer"></div>
-        </div>
-        <div class="halfContainer bottom">
-            <h3>Gefangene Pokemon</h3>
-            <div class="catchedPokemonContaier" id="catchedPokemonContaier">
-            </div>
-        </div>
+      <div class="halfContainer top">
+        <h3>Mein Team</h3>
+        <div class="catchedPokemonContaier" id="teamPokemonContainer"></div>
+      </div>
+      <div class="halfContainer bottom">
+        <h3>Gefangene Pokemon</h3>
+        <div class="catchedPokemonContaier" id="catchedPokemonContaier"></div>
+      </div>
     </div>
 
-
     <div class="shop" id="shopWindow">
-        <div class="detailCloseButton" id="btnCloseShop">X</div>
-        <div class="contentContainer">
-            <div class="money" id="lbl_Shop_Money">$ - 30</div>
-            <div class="miniwrapper-shop">
-                <div class="buttonPokeball" id="btn_Pokeball">1x -</div>
-                <div class="amountlabel" id="lbl_Amount_Pokeballs">1x</div>
-            </div>
-            <div class="buybutton" id="btn_Buy">Kaufen</div>
+      <div class="detailCloseButton" id="btnCloseShop">X</div>
+      <div class="contentContainer">
+        <div class="money" id="lbl_Shop_Money">$ - 30</div>
+        <div class="miniwrapper-shop">
+          <div class="buttonPokeball" id="btn_Pokeball">1x -</div>
+          <div class="amountlabel" id="lbl_Amount_Pokeballs">1x</div>
         </div>
+        <div class="buybutton" id="btn_Buy">Kaufen</div>
+      </div>
     </div>
 
     <script src="public/javascript/main.js"></script>
-</body>
-
+  </body>
 </html>

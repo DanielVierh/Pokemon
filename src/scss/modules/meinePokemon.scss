@@ -1,599 +1,1111 @@
 .hstack {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-
 .Listwrapper {
-    width: 100%;
-    height: 100vw;
+  width: 100%;
+  height: 100vw;
 }
 
 .resetGameButton {
-    position: absolute;
-    top:10px;
-    right: 10px;
-    width: 50px;
-    height: 20px;
-    background-color: red;
-    color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    box-shadow: inset 0 0 10px white;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 50px;
+  height: 20px;
+  background-color: red;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px white;
 }
-
 
 .halfContainer {
+  width: 100%;
+
+  border: 1px solid black;
+  color: white;
+  display: flex;
+  justify-content: start;
+  text-align: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  &.bottom {
+    background-color: rgb(20, 23, 20);
+    padding-bottom: 20px;
+  }
+
+  &.top {
+    background-color: rgb(13, 17, 19);
+    height: auto;
+  }
+
+  h3 {
+    z-index: 14;
+    color: white;
     width: 100%;
+  }
 
-    border: 1px solid black;
-    color: white;
-    display: flex;
-    justify-content: start;
-    text-align: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    &.bottom {
-        background-color: rgb(20, 23, 20);
-        padding-bottom: 20px;
-    }
-
-    &.top {
-        background-color: rgb(13, 17, 19);
-        height: auto;
-    }
-
-    h3{
-        z-index: 14;
-        color: white;
-        width: 100%;
-    }
-
-    .catchedPokemonContaier {
-        width: 100%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        overflow-y: scroll;
-        max-height: 40vh;
-
-        .pokemonContaier {
-            width: 140px;
-            height: 100px;
-            border-bottom: 3px solid black;
-            background-color: rgb(34, 34, 34);
-            position: relative;
-            margin: 15px 8px;
-            // padding: 10px;
-            border-radius: 10px;
-
-            &.isMember {
-                background-color: rgb(17, 50, 12);
-            }
-
-            p{
-                font-size: .8em;
-            }
-
-            &.tp {
-                width: 65px;
-
-                img {
-                    width: 70px;
-                    height: 70px;
-                    margin-top: 20px;
-                }
-            }
-
-            .addButton {
-                position: absolute;
-                top: 0px;
-                right: 0%;
-                width: 15px;
-                height: 15px;
-                border-radius: 50%;
-                padding: 5px;
-                background-color: green;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 1.3em;
-                box-shadow: inset 0 0 10px white;
-                cursor: pointer;
-            }
-
-            .deleteButton {
-                position: absolute;
-                top: 0px;
-                right: 0px;
-                width: 15px;
-                height: 15px;
-                border-radius: 50%;
-                padding: 5px;
-                background-color: red;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 1.3em;
-                box-shadow: inset 0 0 10px white;
-                cursor: pointer;
-            }
-
-            .movedownButton {
-                position: absolute;
-                bottom: 0px;
-                right: 0px;
-                width: 15px;
-                height: 15px;
-                border-radius: 50%;
-                padding: 5px;
-                background-color: transparent;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 1.3em;
-                box-shadow: inset 0 0 10px white;
-                color: white;
-                cursor: pointer;
-            }
-
-            img {
-                width: 80px;
-                height: 80px;
-                margin-top: 25px;
-            }
-
-            p {
-                margin-top: -5px;
-            }
-
-            .infobox {
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                margin-top: -10px;
-
-                p {
-                    background-color: black;
-                    padding: 4px;
-                    border-radius: 10px;
-                    margin: 5px;
-                    box-shadow: inset 0 0 10px white;
-                    font-size: .8em;
-                }
-            }
-        }
-
-    }
-
-}
-
-
-.label {
-    color: yellow;
-    text-align: center;
-}
-
-
-.healButton {
-    background-color: green;
-    color: white;
-    width: 150px;
-    height: 30px;
+  .catchedPokemonContaier {
+    width: 100%;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
-    align-items: center;
-    box-shadow: inset 0 0 10px white;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    max-height: 40vh;
+
+    .pokemonContaier {
+      width: 140px;
+      height: 100px;
+      border-bottom: 3px solid black;
+      background-color: rgb(34, 34, 34);
+      position: relative;
+      margin: 15px 8px;
+      // padding: 10px;
+      border-radius: 10px;
+
+      &.isMember {
+        background-color: rgb(17, 50, 12);
+      }
+
+      p {
+        font-size: 0.8em;
+      }
+
+      &.tp {
+        width: 65px;
+
+        img {
+          width: 70px;
+          height: 70px;
+          margin-top: 20px;
+        }
+      }
+
+      .addButton {
+        position: absolute;
+        top: 0px;
+        right: 0%;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        padding: 5px;
+        background-color: green;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.3em;
+        box-shadow: inset 0 0 10px white;
+        cursor: pointer;
+      }
+
+      .deleteButton {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        padding: 5px;
+        background-color: red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.3em;
+        box-shadow: inset 0 0 10px white;
+        cursor: pointer;
+      }
+
+      .movedownButton {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        padding: 5px;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.3em;
+        box-shadow: inset 0 0 10px white;
+        color: white;
+        cursor: pointer;
+      }
+
+      img {
+        width: 80px;
+        height: 80px;
+        margin-top: 25px;
+      }
+
+      p {
+        margin-top: -5px;
+      }
+
+      .infobox {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: -10px;
+
+        p {
+          background-color: black;
+          padding: 4px;
+          border-radius: 10px;
+          margin: 5px;
+          box-shadow: inset 0 0 10px white;
+          font-size: 0.8em;
+        }
+      }
+    }
+  }
+}
+
+.label {
+  color: yellow;
+  text-align: center;
+}
+
+.healButton {
+  background-color: green;
+  color: white;
+  width: 150px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 10px white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .shopButton {
-    background-color: blue;
-    color: white;
-    width: 150px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: inset 0 0 10px white;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    font-size: 14px;
+  background-color: blue;
+  color: white;
+  width: 150px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 10px white;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 14px;
 }
 
-
 .detailBtn {
-    position: absolute;
-    left: 40%;
-    top: 3%;
-    font-size: .7em;
-    height: 20px;
-    width: 20px;
-    border-radius: 10px;
-    background-color: blue;
-    color: yellow;
-    box-shadow: inset 0 0 5px white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  position: absolute;
+  left: 40%;
+  top: 3%;
+  font-size: 0.7em;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  background-color: blue;
+  color: yellow;
+  box-shadow: inset 0 0 5px white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .sellBtn {
-    position: absolute;
-    left: 5px;
-    top: 80%;
-    font-size: .7em;
-    width: 25px;
-    height: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    box-shadow: inset 0 0 5px yellow;
-    color: yellow;
-    cursor: pointer;
+  position: absolute;
+  left: 5px;
+  top: 80%;
+  font-size: 0.7em;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: inset 0 0 5px yellow;
+  color: yellow;
+  cursor: pointer;
 }
 
 .detailCard {
-    display: none;
+  display: none;
 
-    &.active {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 1000;
-        background-color: rgba(0, 0, 0, 0.455);
-        -webkit-backdrop-filter: blur(15px);
-        backdrop-filter: blur(15px);
+  &.active {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.455);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+  }
+
+  .catchDetails {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.279);
+    left: 5px;
+    top: 50px;
+    border-radius: 10px;
+
+    p {
+      margin: 0;
+      color: black;
+      background-color: transparent !important;
+      font-size: 0.8em;
+    }
+  }
+
+  .contentContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+
+    h2 {
+      width: 100%;
+      color: white;
+      text-align: center;
+      font-size: 2em;
+      margin: 0;
+    }
+
+    img {
+      width: 100%;
+      max-width: 170px;
+      height: auto;
+      background-color: rgba(255, 255, 255, 0.279);
+      border-radius: 15px;
+      // margin-top: -15px;
+    }
+
+    .statsContainer {
+      display: flex;
+      margin-top: 5px;
+      background-color: rgba(255, 255, 255, 0.279);
+      border-radius: 15px;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .move_button {
+      color: white;
+      background-color: rgb(52, 51, 51);
+      padding: 5px;
+      margin-right: 15px;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+
+      &.move_active {
+        background-color: green;
+      }
+    }
+
+    p {
+      color: white;
+      background-color: black;
+      padding: 5px;
+      margin-right: 15px;
+      text-align: center;
+      border-radius: 8px;
+    }
+  }
+
+  .detailCloseButton {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
+
+.modal {
+  display: none;
+
+  &.active {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    z-index: 1200;
+    color: white;
+    flex-direction: column;
+    text-align: center;
+    justify-content: start;
+  }
+
+  .move_active {
+    margin: 15px;
+    width: 90%;
+    box-shadow: inset 0 0 10px white;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.repl-poke {
+    .content {
+      background-color: rgb(33, 33, 33);
+      margin-bottom: 25px;
+    }
+    .replace-pokecont {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.shop {
+  display: none;
+
+  &.active {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.455);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+  }
+
+  .contentContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.861);
+
+    .money {
+      margin-top: 100px;
+      color: yellow;
+      font-size: 1.5em;
+    }
+
+    .miniwrapper-shop {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+
+      .buttonPokeball {
+        background-color: red;
+        color: white;
+        font-weight: bold;
+        margin-right: 15px;
+        width: 150px;
+        height: 40px;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .amountlabel {
+        background-color: gray;
+        padding: 10px;
+        font-weight: bold;
+      }
+    }
+
+    .buybutton {
+      background-color: blue;
+      color: white;
+      font-weight: bold;
+      margin-top: 105px;
+      padding: 10px;
+      border-radius: 15px;
+      cursor: pointer;
+    }
+  }
+
+  .detailCloseButton {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
+
+.gen_option_field {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  align-items: center;
+
+  h4 {
+    color: white;
+    margin-right: 20px;
+  }
+
+  .optionfield {
+    height: 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: inset 0 0 10px black;
+  }
+
+  .refreshbutton {
+    color: white;
+    background-color: blue;
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 15px;
+    box-shadow: inset 0 0 10px white;
+    font-size: 0.8em;
+  }
+}
+
+.todayPokemonListWindow {
+  display: none;
+
+  &.active {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.455);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+  }
+
+  .contentContainerForPokemon {
+    margin-top: 20px;
+    h2 {
+      color: white;
+      text-align: center;
+    }
+
+    .pokemonListCont {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      overflow-y: scroll;
+
+      .pokeBox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1em;
+        background-color: rgb(18, 153, 165);
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        padding: 6px;
+        margin: 4px;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: inset 0 0 50px white;
+
+        img {
+          width: 50px;
+          height: 50px;
+        }
+      }
+    }
+  }
+
+  .PokelistClosebutton {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1001;
+  }
+}
+
+/* ######################################################
+   Catched Pokemons Redesign
+###################################################### */
+.catchedPage {
+  min-height: 100dvh;
+  width: 100%;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(circle at 0% 0%, rgba(92, 120, 255, 0.25), transparent 30%),
+    radial-gradient(
+      circle at 100% 10%,
+      rgba(32, 183, 181, 0.2),
+      transparent 36%
+    ),
+    linear-gradient(180deg, #080d1f, #050915);
+  color: #eef3ff;
+}
+
+.catchedPage,
+.catchedPage * {
+  box-sizing: border-box;
+}
+
+.catchedPage .catchedTopbar {
+  margin: 12px auto 0;
+  width: min(1040px, calc(100% - 24px));
+  max-width: calc(100% - 24px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.catchedPage .label {
+  color: #f4f7ff;
+  text-align: left;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(17, 25, 52, 0.6);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.catchedPage #lbl_Money {
+  color: #ffe78a;
+}
+
+.catchedPage .catchedControls {
+  width: min(1040px, calc(100% - 24px));
+  max-width: calc(100% - 24px);
+  margin: 14px auto 8px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(15, 23, 46, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+}
+
+.catchedPage .gen_option_field {
+  margin: 0;
+  justify-content: flex-start;
+  gap: 10px;
+
+  h4 {
+    color: #dbe7ff;
+    margin: 0;
+  }
+
+  .optionfield {
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(6, 12, 28, 0.85);
+    color: #eaf1ff;
+    padding: 0 10px;
+  }
+
+  .refreshbutton {
+    margin-right: 0;
+    border-radius: 10px;
+    padding: 9px 14px;
+    background: linear-gradient(135deg, #4d76ff, #2d49bf);
+    box-shadow: 0 10px 20px rgba(18, 32, 96, 0.35);
+  }
+}
+
+.catchedPage .hstack {
+  margin-top: 12px;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.catchedPage .actionLegend {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.83rem;
+    color: #dce6ff;
+  }
+
+  strong {
+    color: #ffffff;
+  }
+}
+
+.catchedPage .healButton,
+.catchedPage .shopButton {
+  width: auto;
+  min-width: 160px;
+  height: 38px;
+  border-radius: 12px;
+  margin-bottom: 0;
+  padding: 0 16px;
+  font-weight: 700;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.catchedPage .healButton {
+  background: linear-gradient(135deg, #26b878, #1d8f5f);
+}
+
+.catchedPage .shopButton {
+  background: linear-gradient(135deg, #4d76ff, #2d49bf);
+}
+
+.catchedPage .resetGameButton {
+  top: 16px;
+  right: 16px;
+  width: 70px;
+  height: 34px;
+  padding: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff566b, #cc3349);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 12px 22px rgba(88, 20, 32, 0.35);
+  z-index: 12;
+}
+
+.catchedPage .Listwrapper {
+  width: min(1040px, calc(100% - 24px));
+  max-width: calc(100% - 24px);
+  height: auto;
+  margin: 10px auto 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.catchedPage .halfContainer {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  padding: 10px;
+  background: rgba(14, 22, 42, 0.75);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+
+  &.bottom,
+  &.top {
+    background: rgba(14, 22, 42, 0.75);
+  }
+
+  h3 {
+    margin: 4px 4px 10px;
+    text-align: left;
+    color: #e6eeff;
+    letter-spacing: 0.4px;
+  }
+
+  .catchedPokemonContaier {
+    max-height: min(48vh, 500px);
+    overflow-x: hidden;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 2px;
+    scrollbar-width: thin;
+
+    .pokemonContaier {
+      width: 150px;
+      height: 128px;
+      margin: 0;
+      padding-top: 6px;
+      padding-bottom: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      background: linear-gradient(
+        180deg,
+        rgba(33, 46, 84, 0.9),
+        rgba(18, 26, 50, 0.95)
+      );
+      border-radius: 14px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+
+      &.isMember {
+        background: linear-gradient(
+          180deg,
+          rgba(26, 87, 67, 0.92),
+          rgba(16, 57, 44, 0.95)
+        );
+      }
+
+      &.tp {
+        width: 72px;
+
+        img {
+          width: 70px;
+          height: 70px;
+          margin-top: 20px;
+        }
+      }
+
+      img {
+        width: 84px;
+        height: 84px;
+        margin-top: 18px;
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
+      }
+
+      p {
+        margin-top: -4px;
+        color: #f2f5ff;
+      }
+
+      .addButton,
+      .deleteButton,
+      .movedownButton {
+        width: 22px;
+        height: 22px;
+        border-radius: 8px;
+        padding: 3px;
+        font-size: 0.95em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition:
+          transform 0.18s ease,
+          filter 0.18s ease;
+
+        &:hover,
+        &:focus-visible {
+          transform: translateY(-1px) scale(1.04);
+          filter: brightness(1.1);
+          outline: none;
+        }
+      }
+
+      .addButton {
+        background-color: #1f9c67;
+      }
+
+      .deleteButton {
+        background-color: #d3475f;
+      }
+
+      .movedownButton {
+        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .infobox {
+        margin-top: -8px;
+
+        p {
+          background-color: rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+        }
+      }
+    }
+  }
+}
+
+.catchedPage .emptyState {
+  width: 100%;
+  text-align: center;
+  color: #cad8ff;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.catchedPage .detailCard.active,
+.catchedPage .shop.active,
+.catchedPage .todayPokemonListWindow.active,
+.catchedPage .modal.active {
+  background-color: rgba(2, 6, 18, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.catchedPage .detailCard {
+  &.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+  }
+
+  .contentContainer {
+    width: min(760px, calc(100% - 24px));
+    max-height: 92vh;
+    overflow-y: auto;
+    margin: 0;
+    border-radius: 18px;
+    padding: 16px 12px 18px;
+    background: rgba(10, 18, 38, 0.86);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.4);
+    gap: 10px;
+
+    h2 {
+      color: #f2f6ff;
+      position: sticky;
+      top: 0;
+      background: rgba(10, 18, 38, 0.94);
+      padding: 8px 0;
+      z-index: 2;
+    }
+
+    img {
+      background-color: rgba(255, 255, 255, 0.14);
+      max-width: 180px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 8px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .statsContainer {
+      background-color: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      width: 100%;
+      padding: 8px 6px;
+      gap: 6px;
+    }
+
+    p {
+      background-color: rgba(7, 12, 28, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      margin: 0;
+      min-width: 120px;
+    }
+
+    #moveList {
+      margin-top: 6px;
+
+      .move_button {
+        min-width: 130px;
+        margin: 0;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(20, 33, 67, 0.9);
+        color: #e9f0ff;
+        font-size: 0.9rem;
+        padding: 7px 10px;
+      }
+
+      .move_button.move_active {
+        background: linear-gradient(135deg, #1fa068, #187a50);
+        border-color: rgba(255, 255, 255, 0.25);
+        font-weight: 700;
+      }
+    }
+  }
+
+  .catchDetails {
+    position: static;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    padding: 8px;
+    margin-top: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+
+    p {
+      color: #ffffff;
+      min-width: 0;
+      font-size: 0.83rem;
+      line-height: 1.25;
+    }
+  }
+
+  .detailCloseButton {
+    position: fixed;
+    top: calc(env(safe-area-inset-top) + 8px);
+    right: calc(env(safe-area-inset-right) + 8px);
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: linear-gradient(135deg, #ff5d72, #d33e56);
+    z-index: 1400;
+  }
+}
+
+.catchedPage .todayPokemonListWindow {
+  .contentContainerForPokemon {
+    width: min(860px, calc(100% - 24px));
+    margin: 18px auto;
+    background: rgba(10, 18, 38, 0.86);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 18px;
+    padding: 14px;
+
+    .pokemonListCont {
+      max-height: 72vh;
+      gap: 8px;
+
+      .pokeBox {
+        border-radius: 10px;
+        background: linear-gradient(
+          180deg,
+          rgba(53, 153, 165, 0.95),
+          rgba(22, 104, 120, 0.95)
+        );
+        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+      }
+    }
+  }
+
+  .PokelistClosebutton {
+    top: 14px;
+    left: 14px;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: linear-gradient(135deg, #ff5d72, #d33e56);
+  }
+}
+
+.catchedPage .modal {
+  &.active {
+    align-items: center;
+    padding: 22px 12px;
+  }
+
+  h2 {
+    margin: 6px 0 16px;
+  }
+
+  .move_active {
+    width: min(520px, 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(18, 30, 62, 0.75);
+  }
+
+  .modalCancelButton {
+    width: min(520px, 100%);
+    margin-top: 8px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: linear-gradient(135deg, #ff5d72, #d33e56);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 860px) {
+  .catchedPage .catchedTopbar {
+    padding-right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .catchedPage .catchedControls {
+    padding: 12px;
+  }
+
+  .catchedPage .gen_option_field {
+    flex-wrap: wrap;
+  }
+
+  .catchedPage .hstack {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .catchedPage .healButton,
+  .catchedPage .shopButton {
+    width: 100%;
+  }
+
+  .catchedPage .halfContainer .catchedPokemonContaier {
+    justify-content: center;
+
+    .pokemonContaier {
+      width: calc(50% - 8px);
+      min-width: 145px;
+    }
+  }
+
+  .catchedPage .detailCard {
+    .contentContainer {
+      width: 100%;
+      max-height: calc(100vh - 28px);
+      border-radius: 14px;
+      padding: 14px 10px 14px;
+
+      img {
+        max-width: 145px;
+      }
+
+      p {
+        min-width: 106px;
+        font-size: 0.82rem;
+        padding: 5px;
+      }
+
+      #moveList .move_button {
+        min-width: 112px;
+        font-size: 0.82rem;
+      }
     }
 
     .catchDetails {
-        position: absolute;
-        background-color: rgba(255, 255, 255, 0.279);
-        left: 5px;
-        top: 50px;
-        border-radius: 10px;
-
-        p {
-            margin: 0;
-            color: black;
-            background-color: transparent !important;
-            font-size: 0.8em;
-
-        }
+      grid-template-columns: 1fr;
     }
-
-    .contentContainer {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        flex-direction: column;
-
-        h2{
-            width: 100%;
-            color: white;
-            text-align: center;
-            font-size: 2em;
-            margin: 0;
-        }
-
-        img{
-            width: 100%;
-            max-width: 170px;
-            height: auto;
-            background-color: rgba(255, 255, 255, 0.279);
-            border-radius: 15px;
-            // margin-top: -15px;
-        }
-
-        .statsContainer {
-            display: flex;
-            margin-top: 5px;
-            background-color: rgba(255, 255, 255, 0.279);
-            border-radius: 15px;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .move_button {
-            color: white;
-            background-color: rgb(52, 51, 51);
-            padding: 5px;
-            margin-right: 15px;
-            text-align: center;
-            border-radius: 8px;
-            cursor: pointer;
-
-            &.move_active {
-                background-color: green;
-            }
-        }
-
-        p{
-            color: white;
-            background-color: black;
-            padding: 5px;
-            margin-right: 15px;
-            text-align: center;
-            border-radius: 8px;
-        }
-    }
-
-
-
-    .detailCloseButton {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        background-color: red;
-        color: white;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
-}
-
-
-.modal {
-    display: none;
-
-
-    &.active {
-        display: flex;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: black;
-        z-index: 1200;
-        color: white;
-        flex-direction: column;
-        text-align: center;
-        justify-content: start;
-    }
-
-    .move_active {
-        margin: 15px;
-        width: 90%;
-        box-shadow: inset 0 0 10px white;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    &.repl-poke {
-        .content {
-            background-color: rgb(33, 33, 33);
-            margin-bottom: 25px;
-        }
-        .replace-pokecont {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    }
-}
-
-
-
-
-
-.shop {
-    display: none;
-
-    &.active {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 1000;
-        background-color: rgba(0, 0, 0, 0.455);
-        -webkit-backdrop-filter: blur(15px);
-        backdrop-filter: blur(15px);
-    }
-
-    .contentContainer {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        flex-direction: column;
-        background-color: rgba(0, 0, 0, 0.861);
-
-
-        .money {
-            margin-top: 100px;
-            color: yellow;
-            font-size: 1.5em;
-        }
-
-
-        .miniwrapper-shop {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
-
-            .buttonPokeball {
-                background-color: red;
-                color: white;
-                font-weight: bold;
-                margin-right: 15px;
-                width: 150px;
-                height: 40px;
-                border-radius: 15px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                cursor: pointer;
-            }
-
-            .amountlabel {
-                background-color: gray;
-                padding: 10px;
-                font-weight: bold;
-            }
-        }
-
-
-        .buybutton {
-            background-color: blue;
-            color: white;
-            font-weight: bold;
-            margin-top: 105px;
-            padding: 10px;
-            border-radius: 15px;
-            cursor: pointer;
-        }
-    }
-
-
-    .detailCloseButton {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        background-color: red;
-        color: white;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
-}
-
-
-
-.gen_option_field {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 20px auto;
-    align-items: center;
-
-    h4 {
-        color: white;
-        margin-right: 20px;
-    }
-
-    .optionfield {
-        height: 30px;
-        font-weight: bold;
-        border-radius: 5px;
-        box-shadow: inset 0 0 10px black;
-    }
-
-    .refreshbutton {
-        color: white;
-        background-color: blue;
-        border-radius: 10px;
-        padding: 10px;
-        margin-right: 15px;
-        box-shadow: inset 0 0 10px white;
-        font-size: .8em;
-    }
-}
-
-
-.todayPokemonListWindow {
-     display: none;
-
-    &.active {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 1000;
-        background-color: rgba(0, 0, 0, 0.455);
-        -webkit-backdrop-filter: blur(15px);
-        backdrop-filter: blur(15px);
-    }
-
-    .contentContainerForPokemon {
-        margin-top: 20px;
-        h2 {
-            color: white;
-            text-align: center;
-        }
-
-        .pokemonListCont {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-            overflow-y: scroll;
-
-            .pokeBox {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 1em;
-                background-color: rgb(18, 153, 165);
-                width: 50px;
-                height: 50px;
-                border-radius: 8px;
-                padding: 6px;
-                margin: 4px;
-                text-align: center;
-                font-weight: bold;
-                box-shadow: inset 0 0 50px white;
-    
-                img {
-                    width: 50px;
-                    height: 50px;
-                }
-            }
-        }
-
-
-
-
-    }
-
-    .PokelistClosebutton {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        background-color: red;
-        color: white;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 1001;
-    }
+  }
 }
