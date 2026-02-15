@@ -1,70 +1,117 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokedex</title>
-    <link rel="manifest" href="danielvierh.github.io/pokemon/manifest.json">
-    <link rel="stylesheet" href="public/css/main.css">
-</head>
+    <link rel="manifest" href="danielvierh.github.io/pokemon/manifest.json" />
+    <link rel="stylesheet" href="public/css/main.css" />
+  </head>
 
-<body>
+  <body class="pokedexPage">
     <div id="pokedexTag"></div>
 
     <div class="menueButton" id="btn_Menue">Menü</div>
     <div class="menueWindow" id="windowMenu">
-        <div class="closebutton" id="btnCloseMenue">X</div>
+      <div class="closebutton" id="btnCloseMenue">X</div>
 
-        <div class="menuCont">
-            <a href="catchedPokemons.html" class="munulink">Meine Pokemons</a>
-            <a href="pokedex.html" class="munulink">Pokedex</a>
-            <a href="map1.html" class="munulink">Zurück</a>
-        </div>
+      <div class="menuCont">
+        <a href="catchedPokemons.html" class="munulink">Meine Pokemons</a>
+        <a href="pokedex.html" class="munulink">Pokedex</a>
+        <a href="map1.html" class="munulink">Zurück</a>
+      </div>
 
-        <div class="pokeTeamContainer">
-            <div class="pokeRow">
-                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_0">
-                <div class="nameProgressCont">
-                    <h3 class="namefield" id="teamPokeName_0">-</h3>
-                    <progress class="teamPokeProgress" id="teamPokeProgress_0" max="100" value="0"></progress>
-                </div>
-                <div class="itemButton" id="teamPokeItem_0">Heilen</div>
-            </div>
-            <div class="pokeRow">
-                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_1">
-                <div class="nameProgressCont">
-                    <h3 class="namefield" id="teamPokeName_1">-</h3>
-                    <progress class="teamPokeProgress" id="teamPokeProgress_1" max="100" value="0"></progress>
-                </div>
-                <div class="itemButton" id="teamPokeItem_1">Heilen</div>
-            </div>
-            <div class="pokeRow">
-                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_2">
-                <div class="nameProgressCont">
-                    <h3 class="namefield" id="teamPokeName_2">-</h3>
-                    <progress class="teamPokeProgress" id="teamPokeProgress_2" max="100" value="0"></progress>
-                </div>
-                <div class="itemButton" id="teamPokeItem_2">Heilen</div>
-            </div>
-            <div class="pokeRow">
-                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_3">
-                <div class="nameProgressCont">
-                    <h3 class="namefield" id="teamPokeName_3">-</h3>
-                    <progress class="teamPokeProgress" id="teamPokeProgress_3" max="100" value="0"></progress>
-                </div>
-                <div class="itemButton" id="teamPokeItem_3">Heilen</div>
-            </div>
+      <div class="pokeTeamContainer">
+        <div class="pokeRow">
+          <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_0" />
+          <div class="nameProgressCont">
+            <h3 class="namefield" id="teamPokeName_0">-</h3>
+            <progress
+              class="teamPokeProgress"
+              id="teamPokeProgress_0"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
+          <div class="itemButton" id="teamPokeItem_0">Heilen</div>
         </div>
+        <div class="pokeRow">
+          <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_1" />
+          <div class="nameProgressCont">
+            <h3 class="namefield" id="teamPokeName_1">-</h3>
+            <progress
+              class="teamPokeProgress"
+              id="teamPokeProgress_1"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
+          <div class="itemButton" id="teamPokeItem_1">Heilen</div>
+        </div>
+        <div class="pokeRow">
+          <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_2" />
+          <div class="nameProgressCont">
+            <h3 class="namefield" id="teamPokeName_2">-</h3>
+            <progress
+              class="teamPokeProgress"
+              id="teamPokeProgress_2"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
+          <div class="itemButton" id="teamPokeItem_2">Heilen</div>
+        </div>
+        <div class="pokeRow">
+          <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_3" />
+          <div class="nameProgressCont">
+            <h3 class="namefield" id="teamPokeName_3">-</h3>
+            <progress
+              class="teamPokeProgress"
+              id="teamPokeProgress_3"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
+          <div class="itemButton" id="teamPokeItem_3">Heilen</div>
+        </div>
+      </div>
     </div>
 
-    <h1>Pokédex</h1>
-    <br>
-    <div class="wrapper" id="cards"></div>
+    <header class="pokedexHeader">
+      <div class="titleWrap">
+        <h1>Pokédex</h1>
+        <p class="subtitle">
+          Alle gesichteten Pokémon in einer modernen Übersicht
+        </p>
+      </div>
+      <div class="pokedexControls">
+        <input
+          id="pokedexSearch"
+          type="search"
+          placeholder="Suche Pokémon (Name oder Nr.)"
+        />
+        <select id="pokedexFilterType">
+          <option value="all">Alle Typen</option>
+          <option value="fire">Feuer</option>
+          <option value="water">Wasser</option>
+          <option value="grass">Pflanze</option>
+          <option value="electric">Elektrisch</option>
+          <option value="bug">Käfer</option>
+          <option value="rock">Gestein</option>
+          <option value="ground">Boden</option>
+          <option value="poison">Gift</option>
+        </select>
+      </div>
+    </header>
 
+    <main class="pokedexMain">
+      <div class="resultsBar" id="pokedexResultsBar">0 Treffer</div>
+      <div class="pokedexGrid wrapper" id="cards"></div>
+    </main>
+
+    <div id="pokedexModal" class="pokedexModal" aria-hidden="true"></div>
 
     <script src="public/javascript/main.js"></script>
-</body>
-
+  </body>
 </html>
