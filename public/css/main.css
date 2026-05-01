@@ -389,6 +389,27 @@ body {
   cursor: pointer;
 }
 
+.pvpButton {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5c518;
+  color: #1a1a2e;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.4), 0 0 8px rgba(245, 197, 24, 0.7);
+  padding: 0 10px;
+  height: 40px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: bold;
+  text-decoration: none;
+  z-index: 15;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
 .menueWindow {
   display: none;
 }

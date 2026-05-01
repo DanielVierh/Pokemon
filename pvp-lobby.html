@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PvP Lobby – Pokemon</title>
+    <link rel="stylesheet" href="public/css/main.css" />
+    <style>
+      .pvp-lobby-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        gap: 16px;
+        padding: 24px;
+        box-sizing: border-box;
+        background: #1a1a2e;
+        color: #eee;
+        font-family: sans-serif;
+      }
+      .pvp-lobby-wrapper h1 {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+        color: #f5c518;
+      }
+      .pvp-card {
+        background: #16213e;
+        border: 2px solid #0f3460;
+        border-radius: 12px;
+        padding: 24px;
+        width: 100%;
+        max-width: 360px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .pvp-card h2 {
+        margin: 0 0 4px;
+        font-size: 1.1rem;
+        color: #f5c518;
+      }
+      .pvp-input {
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid #0f3460;
+        background: #0f3460;
+        color: #eee;
+        font-size: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .pvp-input:focus {
+        outline: 2px solid #f5c518;
+      }
+      .pvp-btn {
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        background: #f5c518;
+        color: #1a1a2e;
+        transition: opacity 0.2s;
+      }
+      .pvp-btn:hover {
+        opacity: 0.85;
+      }
+      .pvp-btn:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      .pvp-btn-secondary {
+        background: #0f3460;
+        color: #eee;
+      }
+      .pvp-room-code {
+        font-size: 2.5rem;
+        font-weight: bold;
+        letter-spacing: 0.4rem;
+        color: #f5c518;
+        text-align: center;
+        background: #0f3460;
+        padding: 16px;
+        border-radius: 8px;
+      }
+      .pvp-status {
+        text-align: center;
+        color: #aaa;
+        font-size: 0.9rem;
+        min-height: 1.2em;
+      }
+      .pvp-error {
+        color: #ff6b6b;
+        text-align: center;
+        font-size: 0.9rem;
+        min-height: 1.2em;
+      }
+      .pvp-section {
+        display: none;
+      }
+      .pvp-section.active {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .pvp-divider {
+        text-align: center;
+        color: #555;
+        font-size: 0.8rem;
+      }
+      .pvp-back-link {
+        color: #aaa;
+        font-size: 0.85rem;
+        text-decoration: none;
+        margin-top: 8px;
+      }
+      .pvp-back-link:hover {
+        color: #f5c518;
+      }
+      #section-name {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      #section-choice,
+      #section-create,
+      #section-join,
+      #section-waiting {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="pvp-lobby-wrapper">
+      <h1>⚔️ PvP Kampf</h1>
+
+      <!-- Schritt 1: Name -->
+      <div class="pvp-card" id="section-name">
+        <h2>Dein Trainer-Name</h2>
+        <input
+          class="pvp-input"
+          id="inp-name"
+          type="text"
+          maxlength="20"
+          placeholder="Name eingeben…"
+          autocomplete="off"
+        />
+        <button class="pvp-btn" id="btn-name-confirm">Weiter</button>
+        <div class="pvp-error" id="err-name"></div>
+        <a class="pvp-back-link" href="map1.html">← Zurück zur Karte</a>
+      </div>
+
+      <!-- Schritt 2: Erstellen oder Beitreten -->
+      <div class="pvp-card" id="section-choice">
+        <h2 id="lbl-greeting">Hallo, <span id="lbl-trainer-name"></span>!</h2>
+        <button class="pvp-btn" id="btn-create">Raum erstellen</button>
+        <div class="pvp-divider">– oder –</div>
+        <button class="pvp-btn pvp-btn-secondary" id="btn-go-join">
+          Raum beitreten
+        </button>
+      </div>
+
+      <!-- Erstellt: Code anzeigen, warten -->
+      <div class="pvp-card" id="section-create">
+        <h2>Raum erstellt</h2>
+        <p style="margin: 0; color: #aaa; font-size: 0.9rem">
+          Teile diesen Code mit deinem Gegner:
+        </p>
+        <div class="pvp-room-code" id="lbl-room-code">––––</div>
+        <div class="pvp-status" id="status-create">Warte auf Gegner…</div>
+        <div class="pvp-error" id="err-create"></div>
+        <button class="pvp-btn pvp-btn-secondary" id="btn-cancel-create">
+          Abbrechen
+        </button>
+      </div>
+
+      <!-- Beitreten: Code eingeben -->
+      <div class="pvp-card" id="section-join">
+        <h2>Raum beitreten</h2>
+        <input
+          class="pvp-input"
+          id="inp-room-code"
+          type="text"
+          maxlength="4"
+          placeholder="4-stelliger Code (z.B. ABCD)"
+          autocomplete="off"
+          style="
+            text-transform: uppercase;
+            letter-spacing: 0.3rem;
+            text-align: center;
+          "
+        />
+        <button class="pvp-btn" id="btn-join">Beitreten</button>
+        <div class="pvp-error" id="err-join"></div>
+        <button class="pvp-btn pvp-btn-secondary" id="btn-back-join">
+          ← Zurück
+        </button>
+      </div>
+
+      <!-- Warten auf Kampfstart (nach join) -->
+      <div class="pvp-card" id="section-waiting">
+        <h2>Verbunden!</h2>
+        <div class="pvp-status" id="status-waiting">Warte auf Kampfstart…</div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="public/javascript/pvp-lobby.js"></script>
+  </body>
+</html>

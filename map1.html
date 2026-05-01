@@ -1,77 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokemon</title>
-    <link rel="stylesheet" href="public/css/main.css">
-</head>
+    <link rel="stylesheet" href="public/css/main.css" />
+  </head>
 
-<body style="display: flex; justify-content: center; align-items: start;" id="mapTag">
-
+  <body
+    style="display: flex; justify-content: center; align-items: start"
+    id="mapTag"
+  >
     <div class="menueButton" id="btn_Menue">Menü</div>
+    <a href="pvp-lobby.html" class="pvpButton" id="btn_PvP" title="PvP-Kampf"
+      >⚔️ PvP</a
+    >
     <div class="menueWindow" id="windowMenu">
-        <div class="closebutton" id="btnCloseMenue">X</div>
+      <div class="closebutton" id="btnCloseMenue">X</div>
 
-        <div class="menuCont">
-            <a href="catchedPokemons.html" class="munulink">Meine Pokemons</a>
-            <a href="pokedex.html" class="munulink">Pokedex</a>
-        </div>
+      <div class="menuCont">
+        <a href="catchedPokemons.html" class="munulink">Meine Pokemons</a>
+        <a href="pokedex.html" class="munulink">Pokedex</a>
+      </div>
 
-        <div class="pokeTeamContainer">
-            <div class="pokeRow">
-                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_0">
-                <div class="nameProgressCont">
-                    <h3 class="namefield" id="teamPokeName_0">-</h3>
-                    <progress class="teamPokeProgress" id="teamPokeProgress_0" max="100" value="0"></progress>
-                </div>
-            </div>
-            <div class="pokeRow">
-                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_1">
-                <div class="nameProgressCont">
-                    <h3 class="namefield" id="teamPokeName_1">-</h3>
-                    <progress class="teamPokeProgress" id="teamPokeProgress_1" max="100" value="0"></progress>
-                </div>
-            </div>
-            <div class="pokeRow">
-                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_2">
-                <div class="nameProgressCont">
-                    <h3 class="namefield" id="teamPokeName_2">-</h3>
-                    <progress class="teamPokeProgress" id="teamPokeProgress_2" max="100" value="0"></progress>
-                </div>
-            </div>
-            <div class="pokeRow">
-                <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_3">
-                <div class="nameProgressCont">
-                    <h3 class="namefield" id="teamPokeName_3">-</h3>
-                    <progress class="teamPokeProgress" id="teamPokeProgress_3" max="100" value="0"></progress>
-                </div>
-            </div>
+      <div class="pokeTeamContainer">
+        <div class="pokeRow">
+          <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_0" />
+          <div class="nameProgressCont">
+            <h3 class="namefield" id="teamPokeName_0">-</h3>
+            <progress
+              class="teamPokeProgress"
+              id="teamPokeProgress_0"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
         </div>
+        <div class="pokeRow">
+          <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_1" />
+          <div class="nameProgressCont">
+            <h3 class="namefield" id="teamPokeName_1">-</h3>
+            <progress
+              class="teamPokeProgress"
+              id="teamPokeProgress_1"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
+        </div>
+        <div class="pokeRow">
+          <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_2" />
+          <div class="nameProgressCont">
+            <h3 class="namefield" id="teamPokeName_2">-</h3>
+            <progress
+              class="teamPokeProgress"
+              id="teamPokeProgress_2"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
+        </div>
+        <div class="pokeRow">
+          <img src="assets/PBall.png" class="pokemonMiniCont" id="teamPoke_3" />
+          <div class="nameProgressCont">
+            <h3 class="namefield" id="teamPokeName_3">-</h3>
+            <progress
+              class="teamPokeProgress"
+              id="teamPokeProgress_3"
+              max="100"
+              value="0"
+            ></progress>
+          </div>
+        </div>
+      </div>
     </div>
 
-
-    <div style="display: inline-block; position: relative;">
-        <div class="battleInitForeground" id="bttleEffect"></div>
-        <canvas id="canvas" style="background-color: black; margin: 0 auto;"></canvas>
+    <div style="display: inline-block; position: relative">
+      <div class="battleInitForeground" id="bttleEffect"></div>
+      <canvas
+        id="canvas"
+        style="background-color: black; margin: 0 auto"
+      ></canvas>
     </div>
 
     <!-- <div class="gyroOutput" id="outp_log"></div> -->
 
     <div class="joystick">
-        <div class="joystickButton" id="up"></div>
-        <div class="leftrightdiv">
-            <div class="joystickButton" id="left"></div>
-            <div class="joystickButton" id="right"></div>
-        </div>
-        <div class="joystickButton" id="down"></div>
+      <div class="joystickButton" id="up"></div>
+      <div class="leftrightdiv">
+        <div class="joystickButton" id="left"></div>
+        <div class="joystickButton" id="right"></div>
+      </div>
+      <div class="joystickButton" id="down"></div>
     </div>
 
-
-
     <script src="public/javascript/main.js"></script>
-</body>
-
+  </body>
 </html>
