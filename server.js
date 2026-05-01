@@ -61,6 +61,20 @@ function getOpponent(room, role) {
   return role === "player1" ? room.player2 : room.player1;
 }
 
+function getOpenRooms() {
+  const result = [];
+  for (const room of rooms.values()) {
+    if (room.status === "waiting" && room.player2 === null) {
+      result.push({ code: room.code, host: room.player1.trainerName });
+    }
+  }
+  return result;
+}
+
+function broadcastOpenRooms() {
+  io.emit("open-rooms", { rooms: getOpenRooms() });
+}
+
 // ######################################################
 // Socket.io Events
 // ######################################################
@@ -115,6 +129,7 @@ io.on("connection", (socket) => {
     rooms.set(code, room);
     socket.join(code);
     socket.emit("room-created", { roomCode: code });
+    broadcastOpenRooms();
     console.log(`[room] Erstellt: ${code} von ${trainerName}`);
   });
 
@@ -158,6 +173,7 @@ io.on("connection", (socket) => {
     io.to(room.player1.socketId).emit("player-joined", {
       opponentName: room.player2.trainerName,
     });
+    broadcastOpenRooms();
 
     console.log(`[room] ${trainerName} ist Raum ${code} beigetreten`);
   });
@@ -261,6 +277,11 @@ io.on("connection", (socket) => {
     setTimeout(() => rooms.delete(room.code), 30000);
   });
 
+  // --- Offene Räume abrufen ---
+  socket.on("get-open-rooms", () => {
+    socket.emit("open-rooms", { rooms: getOpenRooms() });
+  });
+
   // --- Raum verlassen ---
   socket.on("leave-room", () => {
     handleDisconnect(socket);
@@ -285,6 +306,7 @@ function handleDisconnect(socket) {
   }
 
   rooms.delete(room.code);
+  broadcastOpenRooms();
   console.log(`[room] Raum ${room.code} gelöscht (Disconnect)`);
 }
 

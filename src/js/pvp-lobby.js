@@ -8,6 +8,8 @@
   const sectionCreate = document.getElementById("section-create");
   const sectionJoin = document.getElementById("section-join");
   const sectionWaiting = document.getElementById("section-waiting");
+  const pvpRoomList = document.getElementById("pvp-room-list");
+  const pvpRoomListEmpty = document.getElementById("pvp-room-list-empty");
 
   const inpName = document.getElementById("inp-name");
   const btnNameConfirm = document.getElementById("btn-name-confirm");
@@ -123,6 +125,11 @@
       errJoin.textContent = message;
     });
 
+    // ---- Offene Räume empfangen ----
+    socket.on("open-rooms", ({ rooms }) => {
+      renderRoomList(rooms);
+    });
+
     // ---- Gegner getrennt (während Lobby) ----
     socket.on("opponent-disconnected", () => {
       alert("Dein Gegner hat die Verbindung getrennt.");
@@ -133,6 +140,34 @@
   function sendTeamAndWait() {
     const team = getTeamFromLocalStorage();
     socket.emit("player-team", { team });
+  }
+
+  function renderRoomList(rooms) {
+    if (!pvpRoomList) return;
+    pvpRoomList.innerHTML = "";
+    // Eigenen Raum ausblenden (falls man gerade erstellt hat)
+    const visible = rooms.filter((r) => r.code !== roomCode);
+    if (visible.length === 0) {
+      pvpRoomListEmpty.style.display = "block";
+      pvpRoomList.style.display = "none";
+    } else {
+      pvpRoomListEmpty.style.display = "none";
+      pvpRoomList.style.display = "flex";
+      visible.forEach((r) => {
+        const entry = document.createElement("div");
+        entry.className = "pvp-room-entry";
+        entry.innerHTML = `
+          <span class="pvp-room-entry-name">🏆 ${r.host}</span>
+          <span class="pvp-room-entry-code">${r.code}</span>
+          <button class="pvp-room-entry-btn">Beitreten</button>
+        `;
+        entry.querySelector("button").addEventListener("click", () => {
+          errJoin.textContent = "";
+          socket.emit("join-room", { roomCode: r.code, trainerName });
+        });
+        pvpRoomList.appendChild(entry);
+      });
+    }
   }
 
   // ---- UI-Events ----
@@ -147,6 +182,7 @@
     trainerName = val.slice(0, 20);
     errName.textContent = "";
     lblTrainerName.textContent = trainerName;
+    localStorage.setItem("pvp_trainerName", trainerName);
     connectSocket();
     showSection("section-choice");
   });
@@ -168,6 +204,8 @@
     errJoin.textContent = "";
     inpRoomCode.value = "";
     showSection("section-join");
+    // Offene Räume sofort laden
+    socket.emit("get-open-rooms");
   });
 
   // Zurück zu Choice
@@ -196,6 +234,8 @@
     showSection("section-choice");
   });
 
-  // ---- Start: Name-Sektion anzeigen ----
+  // ---- Start: gespeicherten Namen vorab eintragen ----
+  const savedName = localStorage.getItem("pvp_trainerName");
+  if (savedName) inpName.value = savedName;
   showSection("section-name");
 })();
