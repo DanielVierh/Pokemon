@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     main: "./src/index.js",
     "pvp-lobby": "./src/js/pvp-lobby.js",
+    "pvp-battle": "./src/js/pvp-battle.js",
   },
   output: {
     clean: true,

@@ -26,6 +26,8 @@ app.use(express.static(path.join(__dirname)));
  * }>
  */
 const rooms = new Map();
+// Speichert laufende Disconnect-Timeouts: "code:role" → TimeoutHandle
+const reconnectTimers = new Map();
 
 function generateRoomCode() {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ"; // I und O weggelassen (Verwechslungsgefahr)
@@ -95,11 +97,24 @@ io.on("connection", (socket) => {
     if (room.player1 && room.player1.trainerName === trainerName) {
       room.player1.socketId = socket.id;
       socket.join(code);
+      // Laufenden Disconnect-Timer abbrechen (Spieler hat sich rechtzeitig zurückverbunden)
+      const timerKey = `${code}:player1`;
+      if (reconnectTimers.has(timerKey)) {
+        clearTimeout(reconnectTimers.get(timerKey));
+        reconnectTimers.delete(timerKey);
+        console.log(`[rejoin] Reconnect-Timer für ${timerKey} abgebrochen`);
+      }
       socket.emit("battle-ready", { myTurn: room.currentTurn === "player1" });
       console.log(`[rejoin] ${trainerName} (player1) in Raum ${code}`);
     } else if (room.player2 && room.player2.trainerName === trainerName) {
       room.player2.socketId = socket.id;
       socket.join(code);
+      const timerKey = `${code}:player2`;
+      if (reconnectTimers.has(timerKey)) {
+        clearTimeout(reconnectTimers.get(timerKey));
+        reconnectTimers.delete(timerKey);
+        console.log(`[rejoin] Reconnect-Timer für ${timerKey} abgebrochen`);
+      }
       socket.emit("battle-ready", { myTurn: room.currentTurn === "player2" });
       console.log(`[rejoin] ${trainerName} (player2) in Raum ${code}`);
     } else {
@@ -301,6 +316,28 @@ function handleDisconnect(socket) {
   const role = getPlayerRole(room, socket.id);
   const opponent = getOpponent(room, role);
 
+  // Während eines laufenden Kampfes: kurze Reconnect-Pause statt sofortigem Löschen
+  if (room.status === "battling") {
+    const timerKey = `${room.code}:${role}`;
+    if (reconnectTimers.has(timerKey)) return; // bereits laufender Timer
+
+    console.log(
+      `[disconnect] Battling-Raum ${room.code}: Reconnect-Fenster 15s für ${role}`,
+    );
+    const handle = setTimeout(() => {
+      reconnectTimers.delete(timerKey);
+      if (opponent && room.status !== "finished") {
+        io.to(opponent.socketId).emit("opponent-disconnected");
+      }
+      rooms.delete(room.code);
+      broadcastOpenRooms();
+      console.log(`[room] Raum ${room.code} gelöscht (Reconnect-Timeout)`);
+    }, 15000);
+    reconnectTimers.set(timerKey, handle);
+    return;
+  }
+
+  // Warte- oder fertige Räume: sofort löschen
   if (opponent && room.status !== "finished") {
     io.to(opponent.socketId).emit("opponent-disconnected");
   }

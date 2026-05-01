@@ -116,7 +116,7 @@
       sessionStorage.setItem("pvp_opponentName", opponentName);
       sessionStorage.setItem("pvp_opponentTeam", JSON.stringify(opponentTeam));
       sessionStorage.setItem("pvp_myTurn", myTurn ? "1" : "0");
-      window.location = `battle.html?pvp=true&room=${encodeURIComponent(roomCode)}`;
+      window.location = `pvp-battle.html`;
     });
 
     // ---- Fehler vom Server ----
