@@ -169,8 +169,9 @@
     );
 
     wildPokeImage.classList.add("getAttacked");
-    setTimeout(() => wildPokeImage.classList.remove("getAttacked"), 600);
+    setTimeout(() => wildPokeImage.classList.remove("getAttacked"), 500);
 
+    // HP-Balken direkt nach der Trefferanimation aktualisieren
     setTimeout(() => {
       renderOpponentHp();
 
@@ -185,7 +186,7 @@
         });
         showWaiting(`${opponentName} wählt Attacke…`);
       }
-    }, 1500);
+    }, 600);
   }
 
   function handleOpponentPokemonDefeated(moveName, damage) {
@@ -226,21 +227,25 @@
     );
 
     myPokeImage.classList.add("getAttacked");
-    setTimeout(() => myPokeImage.classList.remove("getAttacked"), 600);
+    setTimeout(() => myPokeImage.classList.remove("getAttacked"), 500);
 
     myHp[myCurrentIndex] = Math.max(0, remainingHp);
 
+    // HP-Balken direkt nach Trefferanimation
     setTimeout(() => {
       renderMyHp();
+    }, 600);
 
+    setTimeout(() => {
       if (myHp[myCurrentIndex] <= 0) {
         handleMyPokemonDefeated();
       } else {
+        hideWaiting();
         myTurn = true;
         showInfo("Du bist dran! Wähle eine Attacke.");
         showActions();
       }
-    }, 1500);
+    }, 1000);
   }
 
   function handleMyPokemonDefeated() {
@@ -444,7 +449,7 @@
   function showWaiting(text) {
     hideActions();
     if (pvpWaitText) pvpWaitText.textContent = text || "Warte…";
-    if (pvpWaitOverlay) pvpWaitOverlay.style.display = "flex";
+    if (pvpWaitOverlay) pvpWaitOverlay.style.display = "block";
   }
 
   function hideWaiting() {
