@@ -188,7 +188,7 @@ body {
   place-items: center;
   height: 50px;
   position: fixed;
-  bottom: 0%;
+  bottom: 15px;
   left: -4%;
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
@@ -227,7 +227,7 @@ body {
 #myPokemonProgress {
   position: fixed;
   left: 20px;
-  bottom: 50px;
+  bottom: 60px;
   // background-color: rgba(0, 0, 0, 0.6);
   border-radius: 8px;
   z-index: 11;
@@ -237,7 +237,7 @@ body {
 #myPokemonXPProgress {
   position: fixed;
   left: 20px;
-  bottom: 0px;
+  bottom: 15px;
   z-index: 11;
 }
 
@@ -256,7 +256,7 @@ body {
   padding: 10px;
   border-radius: 10px;
   position: fixed;
-  bottom: 0;
+  bottom: 10px;
   left: 0;
   right: 0;
 }
