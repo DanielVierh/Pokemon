@@ -110,6 +110,7 @@ const trainer_battleCounter = document.getElementById(
   "lbl_trainer_battle_counter",
 );
 const trainer_image = document.getElementById("trainer_img");
+const catched_symbol = document.getElementById("catched_symbol");
 
 //*ANCHOR - Save Object
 let save_Object = {
@@ -733,6 +734,7 @@ function createWildPokemon() {
         currentWildPokemon.name,
       )} | Lv. ${currentWildPokemon.level} | KP.${currentWildPokemon.hp}`;
       currentWildPokeHP = currentWildPokemon.hp;
+      recognize_catched_pokemon();
       console.log("Found Pokemon in FacedPokemons", currentWildPokemon);
       foundIdInFacedPokemonArray = true;
       break;
@@ -817,6 +819,7 @@ function fetchPokemon(id) {
         currentWildPokemon.name,
       )} | Lv. ${currentWildPokemon.level}| KP.${currentWildPokemon.hp}`;
       currentWildPokeHP = currentWildPokemon.hp;
+      recognize_catched_pokemon();
       showInfoBox(
         `Ein wildes ${makeFirstLetterBig(currentWildPokemon.name)} erscheint`,
       );
@@ -2756,4 +2759,21 @@ function pvpCleanup() {
   sessionStorage.removeItem("pvp_opponentName");
   sessionStorage.removeItem("pvp_opponentTeam");
   sessionStorage.removeItem("pvp_myTurn");
+}
+
+function recognize_catched_pokemon() {
+  //* array mit gefangenen pokemon loopen
+  const my_pokemons = save_Object.myCatchedPokemons;
+  let pokemon_already_catched = false;
+  for (let i = 0; i < my_pokemons.length; i++) {
+    if (currentWildPokemon.name === my_pokemons[i].name) {
+      pokemon_already_catched = true;
+      break;
+    }
+  }
+  if (pokemon_already_catched) {
+    catched_symbol.classList.add("active");
+  } else {
+    catched_symbol.classList.remove("active");
+  }
 }
