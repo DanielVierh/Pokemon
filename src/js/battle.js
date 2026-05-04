@@ -1374,10 +1374,8 @@ function catchPokemon() {
         save_Object.myCatchedPokemons.push(currentWildPokemon);
         save_SaveObj();
         setTimeout(() => {
-          showInfoBox(`${myStaticPokemon.name} erhält 20xp`);
-          //* window.location.reload();
           window.location.reload();
-        }, 1000);
+        }, 2200);
       } else {
         showInfoBox(
           `${makeFirstLetterBig(
@@ -1651,6 +1649,22 @@ function chooseNewPokemon(choosenPokemon) {
 // levelTest()
 //! ////////////////////////////////////////////////////////////////////////////////////////////////
 //*ANCHOR - Level up
+function animateXPBar(fromXP, toXP) {
+  const duration = 1000;
+  const steps = 50;
+  const stepTime = duration / steps;
+  const stepSize = (toXP - fromXP) / steps;
+  let step = 0;
+  const interval = setInterval(() => {
+    step++;
+    myPokemonXPProgress.value = Math.min(fromXP + stepSize * step, toXP);
+    if (step >= steps) {
+      myPokemonXPProgress.value = toXP;
+      clearInterval(interval);
+    }
+  }, stepTime);
+}
+
 function level_up() {
   const enemyLevel = currentWildPokemon.level;
   let currentLevel = myStaticPokemon.level;
@@ -1699,7 +1713,8 @@ function level_up() {
     } else {
       save_Object.myPokemonTeam[myCurrentPokemonIndex].xp = newXP;
       save_Object.myCatchedPokemons[pokemonIndex].xp = newXP;
-      myPokemonXPProgress.value = myStaticPokemon.xp;
+      myStaticPokemon.xp = newXP;
+      animateXPBar(oldXP, newXP);
       save_SaveObj();
       showInfoBox(
         `${makeFirstLetterBig(myStaticPokemon.name)} erhält ${calcXP} XP`,
