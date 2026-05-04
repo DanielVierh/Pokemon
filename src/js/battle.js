@@ -808,6 +808,19 @@ function fetchPokemon(id) {
         data.stats[0].base_stat,
       );
 
+      // Deutschen Namen nachladen
+      fetch(`https://pokeapi.co/api/v2/pokemon-species/${data.id}/`)
+        .then((res) => res.json())
+        .then((species) => {
+          const deEntry = species.names.find((n) => n.language.name === "de");
+          if (deEntry) {
+            currentWildPokemon.name = deEntry.name;
+            wildPokeName.innerHTML = `${deEntry.name} | Lv. ${currentWildPokemon.level}| KP.${currentWildPokemon.hp}`;
+            showInfoBox(`Ein wildes ${deEntry.name} erscheint`);
+          }
+        })
+        .catch(() => {}); // Fallback: englischer Name bleibt
+
       //ANCHOR -  Trainer Pokemon
       if (is_trainerBattle === true) {
         create_trainer_pokemon();
@@ -815,14 +828,9 @@ function fetchPokemon(id) {
       //* Wildes Pokemon rendern
       wildPokeImage.src = currentWildPokemon.spriteFront;
       wildPokeImage.style.opacity = "1";
-      wildPokeName.innerHTML = `${makeFirstLetterBig(
-        currentWildPokemon.name,
-      )} | Lv. ${currentWildPokemon.level}| KP.${currentWildPokemon.hp}`;
+      // Name + Infobox werden nach dem species-Request mit deutschem Namen gesetzt
       currentWildPokeHP = currentWildPokemon.hp;
       recognize_catched_pokemon();
-      showInfoBox(
-        `Ein wildes ${makeFirstLetterBig(currentWildPokemon.name)} erscheint`,
-      );
       // Pokemon auf dem Gerät abspeichern, um beim nächsten mal keinen erneuten Fetch Request auszulösen
       save_Object.allFacedPokemons.push(currentWildPokemon);
       save_SaveObj();
@@ -850,9 +858,12 @@ function fetchAttack(nameId) {
     .then((res) => res.json())
     .then((data) => {
       console.log("Move", data);
+      const germanName =
+        (data.names.find((n) => n.language.name === "de") || {}).name ||
+        data.name;
       pokeMove = new PokeMove(
         data.name,
-        data.names[4].name,
+        germanName,
         0,
         data.accuracy,
         data.power,
