@@ -141,7 +141,7 @@ if (mainButton1) {
 if (btnAttack0) {
   btnAttack0.addEventListener("click", () => {
     fightRate++;
-    const btnMoveName = btnAttack0.innerText;
+    const btnMoveName = btnAttack0.dataset.moveSlug || btnAttack0.innerText;
     attackAction(btnMoveName);
   });
 }
@@ -149,7 +149,7 @@ if (btnAttack0) {
 if (btnAttack1) {
   btnAttack1.addEventListener("click", () => {
     fightRate++;
-    const btnMoveName = btnAttack1.innerText;
+    const btnMoveName = btnAttack1.dataset.moveSlug || btnAttack1.innerText;
     attackAction(btnMoveName);
   });
 }
@@ -157,7 +157,7 @@ if (btnAttack1) {
 if (btnAttack2) {
   btnAttack2.addEventListener("click", () => {
     fightRate++;
-    const btnMoveName = btnAttack2.innerText;
+    const btnMoveName = btnAttack2.dataset.moveSlug || btnAttack2.innerText;
     attackAction(btnMoveName);
   });
 }
@@ -165,7 +165,7 @@ if (btnAttack2) {
 if (btnAttack3) {
   btnAttack3.addEventListener("click", () => {
     fightRate++;
-    const btnMoveName = btnAttack3.innerText;
+    const btnMoveName = btnAttack3.dataset.moveSlug || btnAttack3.innerText;
     attackAction(btnMoveName);
   });
 }
@@ -735,6 +735,20 @@ function createWildPokemon() {
       )} | Lv. ${currentWildPokemon.level} | KP.${currentWildPokemon.hp}`;
       currentWildPokeHP = currentWildPokemon.hp;
       recognize_catched_pokemon();
+      // Deutschen Namen auch für gecachte Pokemon nachladen
+      fetch(
+        `https://pokeapi.co/api/v2/pokemon-species/${currentWildPokemon.id}/`,
+      )
+        .then((res) => res.json())
+        .then((species) => {
+          const deEntry = species.names.find((n) => n.language.name === "de");
+          if (deEntry) {
+            currentWildPokemon.name = deEntry.name;
+            wildPokeName.innerHTML = `${deEntry.name} | Lv. ${currentWildPokemon.level} | KP.${currentWildPokemon.hp}`;
+            showInfoBox(`Ein wildes ${deEntry.name} erscheint`);
+          }
+        })
+        .catch(() => {});
       console.log("Found Pokemon in FacedPokemons", currentWildPokemon);
       foundIdInFacedPokemonArray = true;
       break;
@@ -818,8 +832,15 @@ function fetchPokemon(id) {
             wildPokeName.innerHTML = `${deEntry.name} | Lv. ${currentWildPokemon.level}| KP.${currentWildPokemon.hp}`;
             showInfoBox(`Ein wildes ${deEntry.name} erscheint`);
           }
+          // Jetzt speichern – mit deutschem Namen
+          save_Object.allFacedPokemons.push(currentWildPokemon);
+          save_SaveObj();
         })
-        .catch(() => {}); // Fallback: englischer Name bleibt
+        .catch(() => {
+          // Fallback: englischer Name, trotzdem speichern
+          save_Object.allFacedPokemons.push(currentWildPokemon);
+          save_SaveObj();
+        });
 
       //ANCHOR -  Trainer Pokemon
       if (is_trainerBattle === true) {
@@ -831,9 +852,6 @@ function fetchPokemon(id) {
       // Name + Infobox werden nach dem species-Request mit deutschem Namen gesetzt
       currentWildPokeHP = currentWildPokemon.hp;
       recognize_catched_pokemon();
-      // Pokemon auf dem Gerät abspeichern, um beim nächsten mal keinen erneuten Fetch Request auszulösen
-      save_Object.allFacedPokemons.push(currentWildPokemon);
-      save_SaveObj();
     })
     .catch((error) => {
       console.warn(error);
@@ -874,21 +892,38 @@ function fetchAttack(nameId) {
         data.meta.healing,
       );
 
-      //* In alle Attacken abspeichern
-      //* check if already available
-      let move_in_AllPomkemonMoves = false;
-      for (let mvI = 0; mvI < allPokemonMoves.length; mvI++) {
-        if (allPokemonMoves[mvI].name === pokeMove.name) {
-          move_in_AllPomkemonMoves = true;
-          break;
+      //* In alle Attacken abspeichern / aktualisieren
+      const existingMoveIdx = allMoves.findIndex(
+        (m) => m.name === pokeMove.name,
+      );
+      if (existingMoveIdx !== -1) {
+        // Eintrag mit deutschem Namen aktualisieren
+        allMoves[existingMoveIdx].germanName = pokeMove.germanName;
+        const pMoveIdx = save_Object.allPokemonMoves.findIndex(
+          (m) => m.name === pokeMove.name,
+        );
+        if (pMoveIdx !== -1) {
+          save_Object.allPokemonMoves[pMoveIdx].germanName =
+            pokeMove.germanName;
+        }
+      } else {
+        save_Object.allPokemonMoves.push(pokeMove);
+        allMoves.push(pokeMove);
+      }
+      save_SaveObj();
+
+      // Button-Beschriftung auf deutschen Namen aktualisieren
+      if (myStaticPokemon && myStaticPokemon.moves) {
+        for (let i = 0; i <= 3; i++) {
+          if (myStaticPokemon.moves[i] === pokeMove.name) {
+            const btn = document.getElementById(`btnAttack${i}`);
+            if (btn) {
+              btn.innerText = pokeMove.germanName || pokeMove.name;
+              btn.dataset.moveSlug = pokeMove.name;
+            }
+          }
         }
       }
-      console.log("move_in_AllPomkemonMoves", move_in_AllPomkemonMoves);
-      if (move_in_AllPomkemonMoves === false) {
-        save_Object.allPokemonMoves.push(pokeMove);
-      }
-      allMoves.push(pokeMove);
-      save_SaveObj();
     });
 }
 
@@ -1579,8 +1614,14 @@ function chooseNewPokemon(choosenPokemon) {
   document.getElementById("windowMenu").classList.remove("active");
   // Lade Moves
   for (let i = 0; i <= 3; i++) {
-    document.getElementById(`btnAttack${i}`).innerText =
-      myStaticPokemon.moves[i];
+    const moveSlug = myStaticPokemon.moves[i];
+    const cachedMove = allMoves.find((m) => m.name === moveSlug);
+    const btn = document.getElementById(`btnAttack${i}`);
+    btn.dataset.moveSlug = moveSlug;
+    btn.innerText = cachedMove?.germanName || moveSlug;
+    if (!cachedMove || !cachedMove.germanName) {
+      fetchAttack(moveSlug);
+    }
   }
 
   const img_name = choosenPokemon.spriteBack;
